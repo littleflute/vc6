@@ -1,79 +1,93 @@
 ~~~c++
-// File: BlPerson.h
-#include "BlFunction.h"
+// BlFunction.h
 
 
-#if !defined(BLF_H_BLPERSON_INCLUDED_)
-#define BLF_H_BLPERSON_INCLUDED_
+#if !defined(BLF_H_BLFUNCTION_INCLUDED_)
+#define BLF_H_BLFUNCTION_INCLUDED_
 
-class CBlPerson
+class CBlFunction
 {
 public:
-	CBlPerson::CBlPerson(): m_blFun(NULL),m_blFatory(NULL),x(0),y(0)
+	CBlFunction::CBlFunction()
 	{
-
 		strcpy(name,"unkown");
 	}
-	CBlPerson::CBlPerson(char *name): m_blFun(NULL),x(0),y(0)
+	void CBlFunction::setFactory( CBlFactory *f)
 	{
-
-		strcpy(this->name,name);
+		m_blFactory = f;
 	}
-	void CBlPerson::setName(char *name)
+    virtual	void CBlFunction::pl2Do(CDC *pDC,int nPersonX,int nPersonY,
+		                             int x,int y,int w,int h)
 	{
-		strcpy(this->name,name);
-	
+		pDC->TextOut(x,y,name);
 	}
-	void CBlPerson::setFactory( CBlFactory *f)
-	{
-		m_blFatory = f;
-	}
-	void CBlPerson::setFun(CBlFunction *f)
-	{
-		if(f) 
-		{
-			m_blFun = f;
-		}
-	}
-	char * CBlPerson::plGetName()
-	{
-		return name;
-	}
-	void CBlPerson::plMoveR(int nM,int w)
-	{
-		x += nM;
-		if (x > w) x = 0;
-	}
-	void CBlPerson::plCmd(CDC *pDC,int x,int y,int w,int h)
-	{
-		int &nX = this->x;
-		int &nY = this->y;
-		nX += 1;
-		if(nX>x+w) nX = 0;
-		pDC->TextOut(nX,nY,name);
-	}
-	void CBlPerson::pl2ShowFun(CDC *pDC,int x,int y,int w,int h)
-	{ 
-		if(m_blFun)
-		{
-			m_blFun->pl2Do(pDC,this->x,this->y,x,y,w,h);
-		} 
-	} 
 protected:
 	char		name[16];
-	char		birthday[16];
-	int			age;
-	int			x,y;
-#include "BlFunction.h"
-	CBlFunction		*m_blFun;
-	CBlFactory		*m_blFatory;
-private:
-	void CBlPerson::pvShowText(CDC *pDC,char *s,int x,int y)
+	CBlFactory	*m_blFactory;
+
+};
+
+class CBlFViewMng: public CBlFunction
+{
+public:	
+	CBlFViewMng::CBlFViewMng()
 	{
-		pDC->TextOut(x,y,s);
+		strcpy(name,"nameCBlFViewMng");
+	}
+	void CBlFViewMng::pl2Do(CDC *pDC,int nPersonX, int nPersonY,
+		                     int x,int y,int w,int h)
+	{
+		pvDrawFromMem(pDC,x,y,w,h); 
+	}
+private:
+	void pvDrawFromMem(CDC *pDC,int x1,int y1,int x2,int y2)
+	{
+		static int n = 0;
+		n++;
+
+		CRect rect(x1,y1,x2,y2); 
+		int w = rect.Width();
+		int h = rect.Height();
+		CDC dcMem;
+	    if(!dcMem.CreateCompatibleDC (pDC))
+		    return;
+	    CBitmap cBmp;
+		if(!cBmp.CreateCompatibleBitmap(pDC,w,h)) return; 
+	    dcMem.SelectObject (&cBmp); 
+
+		CBrush b(RGB(80,80,220));
+		CRect r(x1,y1,x2,y2);
+		dcMem.FillRect(&r,&b);
+
+		
+		dcMem.Rectangle(110,110,500,500);
+
+		CString str;
+		str.Format("draw times = %d",n);
+		dcMem.TextOut(111,100,str);  
+		
+		m_blFactory->plCmd(&dcMem,x1,y1,w,h);
+
+	    pDC->BitBlt (0,0,w,h,&dcMem,0,0,SRCCOPY);
+
 	}
 };
 
-#endif // !defined(BLF_H_BLPERSON_INCLUDED_)
+class CBlFunWork: public CBlFunction
+{
+public:	
+	CBlFunWork::CBlFunWork()
+	{
+		strcpy(name,"CBlFunWork");
+	}
+	void CBlFunWork::pl2Do(CDC *pDC,int nPersonX,int nPersonY,
+		                     int x,int y,int w,int h)
+	{ 
+		pDC->TextOut(nPersonX,nPersonY,"CBlFunWork::pl2Do test");
+	}
+private:
+	 
+};
 
+#endif // !defined(BLF_H_BLFUNCTION_INCLUDED_)
 ~~~
