@@ -1,5 +1,6 @@
-~~~c++
-// File: BlPerson.h
+~~~
+// File: BlPerson.h v0.0.2
+
 #include "BlFunction.h"
 
 
@@ -44,6 +45,11 @@ public:
 		x += nM;
 		if (x > w) x = 0;
 	}
+	void CBlPerson::plMoveD(int nM,int h)
+	{
+		y += nM;
+		if (y > h) y = 0;
+	}
 	void CBlPerson::plCmd(CDC *pDC,int x,int y,int w,int h)
 	{
 		int &nX = this->x;
@@ -75,4 +81,5 @@ private:
 };
 
 #endif // !defined(BLF_H_BLPERSON_INCLUDED_)
+
 ~~~
