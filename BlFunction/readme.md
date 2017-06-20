@@ -1,5 +1,5 @@
 ~~~c++
-// BlFunction.h
+// BlFunction.h v0.0.2
 
 
 #if !defined(BLF_H_BLFUNCTION_INCLUDED_)
@@ -89,5 +89,21 @@ private:
 	 
 };
 
+class CBlFunStudent: public CBlFunction
+{
+public:	
+	CBlFunStudent::CBlFunStudent(CBlFactory *f)
+	{
+		strcpy(name,"CBlFunWork");
+		m_blFactory = f;
+	}
+	void CBlFunStudent::pl2Do(CDC *pDC,int nPersonX,int nPersonY,
+		                     int x,int y,int w,int h)
+	{ 
+		pDC->TextOut(nPersonX,nPersonY,"CBlFunStudent::pl2Do test");
+	}
+private:
+	 
+};
 #endif // !defined(BLF_H_BLFUNCTION_INCLUDED_)
 ~~~
