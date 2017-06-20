@@ -1,5 +1,5 @@
-~~~C++
-// BlFactory.h
+~~~c++
+// BlFactory.h v0.0.2
 
 
 #if !defined(BLF_H_BLFACTORY_INCLUDED_)
@@ -13,24 +13,35 @@ public:
 	{
 		strcpy(name,"unkown");
 		pvRegistor("vm");
-		
 		pvRegistor("zh3");
+		pvRegistor("li4");
 
 		CBlPerson *pVM = pvGetPerson("vm");
 
 		static CBlFViewMng		f1;
 		f1.setFactory (this);
 		if(pVM) pVM->setFun (&f1);
-		
+	
 		pVM = pvGetPerson("zh3");
 		static CBlFunWork		w1;
 		w1.setFactory (this);
 		if(pVM) pVM->setFun (&w1);
+		
+		pVM = pvGetPerson("li4");
+		static CBlFunStudent s1(this);
+		if(pVM)
+		{
+			pVM->setFun (&s1);
+		}
 	}
 	void CBlFactory::plCmd(CDC *pDC,int x,int y,int w,int h)
 	{
 		CBlPerson *pVM = pvGetPerson("zh3");
 		pVM->plMoveR(2,w);
+		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h);
+
+		pVM = pvGetPerson("li4");
+		pVM->plMoveD(2,h);
 		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h);
 	}
     virtual	void CBlFactory::pl2Work(CDC *pDC,int x,int y,int w,int h)
