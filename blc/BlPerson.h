@@ -1,4 +1,4 @@
-// File: BlPerson.h v0.0.3
+// File: BlPerson.h v0.0.4
 
 #include "BlFunction.h"
 
@@ -28,11 +28,12 @@ public:
 	{
 		m_blFatory = f;
 	}
-	void CBlPerson::setFun(CBlFunction *f)
+	void CBlPerson::setFun(CBlFunction *f,int x,int y,int r,int d)
 	{
 		if(f) 
 		{
 			m_blFun = f;
+			f->plSetInfo(x,y,r,d);
 		}
 	}
 	char * CBlPerson::plGetName()
@@ -49,16 +50,22 @@ public:
 		y += nM;
 		if (y > h) y = 0;
 	}
-	void CBlPerson::plCmd(CDC *pDC,int x,int y,int w,int h)
-	{
-		int &nX = this->x;
-		int &nY = this->y;
-		nX += 1;
-		if(nX>x+w) nX = 0;
-		pDC->TextOut(nX,nY,name);
+
+    virtual	void CBlPerson::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
+	{   
+
+		if(m_blFun)
+		{
+			m_blFun->pl2WM(h,m,w,l);
+		}
 	}
-	void CBlPerson::pl2ShowFun(CDC *pDC,int x,int y,int w,int h)
+
+	void CBlPerson::pl2ShowFun(CDC *pDC,int x,int y,int w,int h,bool bShowMe)
 	{ 
+		if(bShowMe)
+		{
+			pvShowMe(pDC,x,y,w,h);
+		}
 		if(m_blFun)
 		{
 			m_blFun->pl2Do(pDC,this->x,this->y,x,y,w,h);
@@ -76,6 +83,16 @@ private:
 	void CBlPerson::pvShowText(CDC *pDC,char *s,int x,int y)
 	{
 		pDC->TextOut(x,y,s);
+	}
+	void pvShowMe(CDC *pDC,int x,int y,int w,int h)
+	{
+		int r	= 20;
+		int x1	= this->x - r;
+		int y1	= this->y - r;
+		int x2	= this->x + r;
+		int y2	= this->y + r;
+		pDC->Ellipse(x1,y1,x2,y2);
+		pvShowText(pDC,name,this->x,this->y);
 	}
 };
 

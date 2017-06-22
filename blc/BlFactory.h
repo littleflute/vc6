@@ -1,4 +1,4 @@
-// BlFactory.h v0.0.3
+// BlFactory.h v0.0.4
 
 
 #if !defined(BLF_H_BLFACTORY_INCLUDED_)
@@ -17,34 +17,58 @@ public:
 
 		CBlPerson *pVM = pvGetPerson("vm");
 
-		f1.setFactory (this);
-		if(pVM) pVM->setFun (&f1);
+		f1.plSetFactory (this);
+		if(pVM) pVM->setFun (&f1,100,200,50,10);
 	
 		pVM = pvGetPerson("zh3");
-		w1.setFactory (this);
-		if(pVM) pVM->setFun (&w1);
-		
-		pVM = pvGetPerson("li4");
-		s1.setFactory(this);
+		w1.plSetFactory (this);
 		if(pVM)
 		{
-			pVM->setFun (&s1);
+			pVM->plMoveR(300,800);
+			pVM->plMoveD(100,500);
+			pVM->setFun (&w1,450,80,60,12);
+		}
+		
+		pVM = pvGetPerson("li4");
+		s1.plSetFactory(this);
+		if(pVM)
+		{
+			pVM->plMoveR(350,500);
+			pVM->plMoveD(180,500);
+			pVM->setFun (&s1,55,60,70,13);
 		}
 	}
+ 
 	void CBlFactory::plCmd(CDC *pDC,int x,int y,int w,int h)
 	{
-		CBlPerson *pVM = pvGetPerson("zh3");
-		pVM->plMoveR(2,w);
-		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h);
+		CBlPerson *pVM = pvGetPerson("zh3");	
+		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h,true);
 
-		pVM = pvGetPerson("li4");
-		pVM->plMoveD(2,h);
-		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h);
+		pVM = pvGetPerson("li4");	
+		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h,true);
 	}
-    virtual	void CBlFactory::pl2Work(CDC *pDC,int x,int y,int w,int h)
+
+    virtual	void CBlFactory::pl_WM(HWND h,UINT m,WPARAM w,LPARAM l)
+	{ 
+		
+		switch(m)
+		{
+		case WM_LBUTTONDOWN: 
+		//	AfxMessageBox("xd");
+			break;
+		}
+
+		CBlPerson *pVM = pvGetPerson("li4");	
+		if(pVM)	pVM->pl2WM(h,m,w,l);
+
+		pVM = pvGetPerson("zh3");	
+		if(pVM)	pVM->pl2WM(h,m,w,l);
+	}
+
+    virtual	void CBlFactory::pl_Work(CDC *pDC,int x,int y,int w,int h)
 	{ 
 		CBlPerson *pVM = pvGetPerson("vm");
-		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h);
+		if(pVM)	pVM->pl2ShowFun(pDC,x,y,w,h,false);
 	}
 protected:
 	char			name[16];
