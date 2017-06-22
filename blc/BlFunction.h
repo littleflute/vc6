@@ -11,6 +11,131 @@
 #endif
 
 
+#define	MAXSIZE		1000
+class CBlFunStack 
+{
+public:
+	CBlFunStack ::CBlFunStack (){}
+	CBlFunStack ::~CBlFunStack (){}
+	void CBlFunStack::_plParse(CString &s)
+	{
+		int n = s.GetLength();
+		char *sz = s.GetBuffer(n);
+		char cWBegin = '"';
+		char cWEnd = '"';
+		bool b1 = false;
+		char w[100] = {0};
+		int nW = 0;
+		int nIdx = 0;
+		printf("n = %d\n",n);
+		
+
+		for(int i=0; i<n;i++)
+		{
+			if(false==b1)
+			{
+				if(sz[i]==cWBegin)
+				{
+					b1 = true;
+				//	printf("[ \n");
+				}
+				else
+				{
+				//	printf("pass \n");
+				}
+			}
+			else
+			{
+				if(sz[i]==cWEnd)
+				{
+					nIdx++;
+					if(1==nIdx%2)
+					{
+						cWBegin = ':';
+						cWEnd	= ',';
+					}
+					else
+					{
+						cWBegin = '"';
+						cWEnd	= '"';
+					}
+					
+				//	printf("] \n");
+					float f = -1.0;
+					sscanf(w,"%f",&f);
+					if(-1.0==f)
+					{
+						printf("nIdx = %d %s  \n",nIdx,w);
+					}
+					else
+					{
+						printf("nIdx = %d %s    f = %.2f \n",nIdx,w,f);
+					}
+					memset(w,0,100);
+					nW = 0;
+					b1 = false;
+
+				}
+				else
+				{
+					w[nW++] = sz[i];
+			//		printf("push %c \n",sz[i]);
+				}
+			}
+		}
+		
+		printf("parse: s= %s\n",sz);
+	}
+private:
+	int isempty() {
+		
+		if(top == -1)
+			return 1;
+		else
+			return 0;
+	}
+	
+	int isfull() {
+		
+		if(top == MAXSIZE)
+			return 1;
+		else
+			return 0;
+	}
+	
+	int peek() {
+		return stack[top];
+	}
+	
+	int pop() {
+		int data;
+		
+		if(!isempty()) {
+			data = stack[top];
+			top = top - 1;   
+			return data;
+		} else {
+			printf("Could not retrieve data, Stack is empty.\n");
+			return -1;
+		}
+	}
+	
+	void push(int data) {
+		
+		if(!isfull()) {
+			top = top + 1;   
+			stack[top] = data;
+		} else {
+			printf("Could not insert data, Stack is full.\n");
+		}
+	}
+protected:
+private:
+	char v[16]; 
+	int stack[MAXSIZE];     
+	int top;  
+	
+};
 
 
 class CBlFunction
@@ -237,6 +362,7 @@ public:
 	CBlFunWork::CBlFunWork()
 	{
 		strcpy(name,"CBlFunWork");
+		m_strHTML	= "";
 	}
     void CBlFunWork::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
 	{   
@@ -253,7 +379,8 @@ public:
 				BOOL b = d.plGetDataFromUrl(str); 
 				if(b) 
 				{
-					AfxMessageBox(d.plGetStrHtml());
+					m_strHTML = d.plGetStrHtml();
+					s._plParse(m_strHTML);
 				} 
 			} 
 			break;
@@ -265,17 +392,21 @@ public:
 		ptShowMe(pDC);
 
 
-		pDC->TextOut(nPersonX,nPersonY,"CBlFunWork::pl2Do test");
+		pDC->TextOut(nPersonX,nPersonY,m_strHTML.GetBuffer(m_strHTML.GetLength()));
 		
 		ptDrawBlock(pDC,nPersonX,nPersonY,this->x,this->y);
  
 	}
 private:
+	 char		v[16];
+	 CString	m_strHTML;
 	 
+	 CBlFunStack	s;
 };
 
 class CBlFunStudent: public CBlFunction
 {
+	
 public:	
 	CBlFunStudent::CBlFunStudent()
 	{
@@ -298,15 +429,12 @@ public:
 		case WM_TIMER:
 			if(2==w)
 			{
-				printf("222\n");
-				
 				CBlFunUrlData	d;
 				CString str  = "http://api.baidao.com/api/hq/npdata.do?ids=201";
 				BOOL b = d.plGetDataFromUrl(str); 
-				if(b)
+				if(b) 
 				{
-					CString s = d.plGetStrHtml();
-					printf("s = %s\n",s.GetBuffer(s.GetLength()));
+					m_strHTML = d.plGetStrHtml();					
 				}
 			}
 			break;
@@ -318,12 +446,13 @@ public:
 
 		ptShowMe(pDC);
 
-
-		pDC->TextOut(nPersonX,nPersonY,"CBlFunStudent::pl2Do test"); 
+		pDC->TextOut(this->x,this->y,m_strHTML.GetBuffer(m_strHTML.GetLength()));
+		
 		ptDrawBlock(pDC,nPersonX,nPersonY,this->x,this->y);
 	
 	}
 private:
+	 CString		m_strHTML;
 };
 
 //*
@@ -519,4 +648,5 @@ private:
 };
 
 //*/
+
 #endif // !defined(BLF_H_BLFUNCTION_INCLUDED_)
