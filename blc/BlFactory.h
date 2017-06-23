@@ -1,4 +1,4 @@
-// BlFactory.h v0.0.4
+// BlFactory.h v0.0.5
 
 
 #if !defined(BLF_H_BLFACTORY_INCLUDED_)
@@ -25,7 +25,7 @@ public:
 		if(pVM)
 		{
 			pVM->plMoveR(300,800);
-			pVM->plMoveD(100,500);
+			pVM->plMoveD(80,500);
 			pVM->setFun (&w1,450,80,60,12);
 		}
 		

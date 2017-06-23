@@ -1,4 +1,4 @@
-// BlFunction.h v0.0.4
+// BlFunction.h v0.0.5
 
 
 #if !defined(BLF_H_BLFUNCTION_INCLUDED_)
@@ -135,6 +135,134 @@ private:
 	int stack[MAXSIZE];     
 	int top;  
 	
+};
+
+class CBl 
+{
+public:
+	CBl ::CBl():d(20170622){
+		strcpy(v,"0.0.1");
+	}
+	CBl::~CBl(){}
+protected:
+	int		d;
+
+private:
+	char v[16];
+};
+
+class CBlKlines : public CBl 
+{
+	typedef  struct _ohlc
+	{
+		float	o,h,l,c;
+		int		ymd,hh,mm,ss;
+	} OHLC,*POHLC;
+
+public:
+	CBlKlines ::CBlKlines():nA(0),x(10),y(10),w(300),h(300)
+	{
+		strcpy(v,"0.0.1");
+		memset(&k,0,sizeof(OHLC));
+		k.c = 1250.00;
+		k.o = 1245.00;
+	}
+
+	CBlKlines::~CBlKlines(){}
+	void CBlKlines::plSetNewSellData(float f,int ymd,int hh,int mm,int ss)
+	{
+		if(k.mm != mm)
+		{
+			if(0!=k.ymd)
+			{	
+				memcpy(&kA[nA],&k,sizeof(OHLC));
+				nA++;
+			}
+			k.o = k.h = k.l = k.c = f;
+		}
+		else
+		{
+			k.c		= f;
+			if(f>k.h) k.h = f;
+			if(f<k.l) k.l = f;
+		}
+		k.ymd	= ymd;
+		k.hh	= hh;
+		k.mm	= mm;
+		k.ss	= ss;
+		
+	}
+	void CBlKlines::plSetXY(int x,int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	void CBlKlines::plShow(CDC *pDC)
+	{
+		pvDrawBkgnd(pDC);
+		OHLC k1;
+		k1.o = 1251.0;
+		k1.c = 1258.0;
+		k1.h = 1259.0;
+		k1.l = 1245.0;
+		pvDraw_1_K(pDC,x+350,y+10,k1);
+
+		pvDraw_1_K(pDC,x+10,y+10,k);
+		int x0 = 100;
+		for(int i = 0; i < nA; i++){
+			pvDraw_1_K(pDC,x0+x+i*15,y+i*50,kA[i]);
+		}
+	}
+protected:
+	OHLC	kA[1000],k;
+	int		nA;
+
+
+private:
+	char	v[16];
+	int		x,y,w,h;
+	void pvDrawBkgnd(CDC *pDC)
+	{
+		CRect r(x,y,x+w,y+h);
+
+		CBrush b(RGB(0,0,0));
+		pDC->FillRect(&r,&b);
+	}
+	void pvDraw_1_K(CDC *pDC,int x,int y,OHLC &k)
+	{
+		int oY = pvF2Y(k.o);
+		int cY = pvF2Y(k.c);
+		int hY = pvF2Y(k.h);
+		int lY = pvF2Y(k.l); 
+		CBrush rB(RGB(255,0,0));
+		CBrush gB(RGB(0,255,0));
+		CBrush *pB = &gB;
+		if(k.c>k.o)
+		{
+			pB = &rB;
+		}
+ 
+		{
+			if(oY==cY) cY++;
+			CRect rOC(x-5,oY,x+5,cY);
+			pDC->FillRect(&rOC,pB);
+		}
+		{
+			CRect rHL(x-1,hY,x+1,lY); 
+			pDC->FillRect(&rHL,pB);
+		}
+	}	
+	
+	int pvF2Y(float f)
+	{
+		int y1		= this->y;
+		int y2		= this->y + this->h;
+		float fMax	= 1260.0;
+		float fMin	= 1248.0;
+		
+		int i = y1 + (f-fMax)*(y2-y1)/(fMin-fMax);
+		return i;
+	}
 };
 
 
@@ -358,11 +486,65 @@ private:
 
 class CBlFunWork: public CBlFunction
 {
+	#include "BlThread.h"
+	class CMyThread: public CThread
+	{
+		#define NEARLYINFINITE       6000
+	public:
+		CMyThread():m_bRunning(true){
+			m_hDisplayOver = CreateEvent(NULL, FALSE , FALSE, NULL);
+		}
+		~CMyThread(){
+			CloseHandle(m_hDisplayOver);
+		}
+		void plRun(void *p)
+		{
+			m_bRunning = true;
+			pvCreate(pvMyFun,p);
+		}
+		void pl2Stop()
+		{
+			m_bRunning = false;
+			WaitForSingleObject(m_hDisplayOver, NEARLYINFINITE);
+		}
+
+		bool plIsRunning()
+		{
+			return m_bRunning;
+		}
+	private:
+		static DWORD WINAPI		CMyThread::pvMyFun(void *p1)
+		{
+			DWORD dwR = 0; 
+			CBlFunWork*  pTest = (CBlFunWork*) p1;
+		
+			static n=300;
+			static BYTE bt[300*300*3];
+			int i=0;
+			while(pTest->GetMyThread()->plIsRunning())
+			{ 
+				Sleep(1000);
+				static int n = 0;
+				n++;
+				pTest->SetStr(n);
+			} 
+			SetEvent(pTest->GetMyThread()->m_hDisplayOver); 
+			return dwR;
+		}
+	private:
+		bool			m_bRunning;
+		HANDLE			m_hDisplayOver; 
+		
+	};
+
+
+
 public:	
-	CBlFunWork::CBlFunWork()
+	CBlFunWork::CBlFunWork():b(false) 
 	{
 		strcpy(name,"CBlFunWork");
 		m_strHTML	= "";
+		m_myThread.plRun(this);
 	}
     void CBlFunWork::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
 	{   
@@ -374,17 +556,46 @@ public:
 			int r = ptPointInMe(i,j);
 			if(9==r)
 			{
-				CBlFunUrlData	d;
-				CString str  = "http://api.baidao.com/api/hq/npdata.do?ids=201";
-				BOOL b = d.plGetDataFromUrl(str); 
-				if(b) 
-				{
-					m_strHTML = d.plGetStrHtml();
-					s._plParse(m_strHTML);
-				} 
+				
+
+				
 			} 
 			break;
 		}
+	}
+	
+	CMyThread* CBlFunWork::GetMyThread()
+	{
+			return &m_myThread;
+	}
+	void CBlFunWork::SetStr(int i)
+	{
+		CBlFunUrlData	d;
+		CString str  = "http://api.baidao.com/api/hq/npdata.do?ids=201";
+		BOOL b = d.plGetDataFromUrl(str); 
+		if(b) 
+		{
+			CString &s = m_strHTML;
+			float f = d.plGetSell();
+			m_strHTML.Format("i=%d : sell: %.2f",i,f);
+
+			s += "    ";
+			CString strT = d.plGetTime();
+			s += strT;
+			s += "    ";
+			s += d.plGetValue(13);
+			
+			int ymd,hh,mm,ss;
+			sscanf(strT.GetBuffer(strT.GetLength()),"%d %d:%d:%d",&ymd,&hh,&mm,&ss);
+		
+			ks.plSetNewSellData(f,ymd,hh,mm,ss);
+			this->b = !this->b;
+		} 
+		else
+		{
+			AfxMessageBox("fail to open website.");
+		} 
+		
 	}
 	void CBlFunWork::pl2Do(CDC *pDC,int nPersonX,int nPersonY,
 		                     int x,int y,int w,int h)
@@ -395,13 +606,29 @@ public:
 		pDC->TextOut(nPersonX,nPersonY,m_strHTML.GetBuffer(m_strHTML.GetLength()));
 		
 		ptDrawBlock(pDC,nPersonX,nPersonY,this->x,this->y);
+
+		CRect r(this->x-10,this->y-10,this->x+10,this->y+10);
+		if(b)
+		{
+			CBrush br(RGB(255,0,233));
+			pDC->FillRect(&r,&br);
+		}
+		else
+		{
+			CBrush br(RGB(255,0,0));
+			pDC->FillRect(&r,&br);
+		}
+		ks.plSetXY(this->x-this->r,this->y + this->r);
+		ks.plShow(pDC);
  
 	}
 private:
-	 char		v[16];
-	 CString	m_strHTML;
-	 
-	 CBlFunStack	s;
+	char		v[16];
+	CString		m_strHTML;
+	bool		b;  
+	CMyThread	m_myThread;
+	
+	CBlKlines	ks;
 };
 
 class CBlFunStudent: public CBlFunction
@@ -429,13 +656,7 @@ public:
 		case WM_TIMER:
 			if(2==w)
 			{
-				CBlFunUrlData	d;
-				CString str  = "http://api.baidao.com/api/hq/npdata.do?ids=201";
-				BOOL b = d.plGetDataFromUrl(str); 
-				if(b) 
-				{
-					m_strHTML = d.plGetStrHtml();					
-				}
+				
 			}
 			break;
 		} 
@@ -472,6 +693,28 @@ public:
 			delete []m_lpszBufRawHtml;
 			m_lpszBufRawHtml = NULL;
 		}
+	}
+	float CBlFunUrlData::plGetSell()
+	{ 
+		float f = 0.0;
+		CString s = pvValue(11);
+		sscanf(s.GetBuffer(s.GetLength()),"%f",&f);
+		return f;
+	}
+
+	CString CBlFunUrlData::plGetTime()
+	{ 
+		CString s = pvValue(3);
+		s = s.Right(s.GetLength()-1);
+		s = s.Left(s.GetLength()-1);
+		return s;
+	}
+
+	CString CBlFunUrlData::plGetValue(int n)
+	{ 
+		CString s = "";
+		s = pvValue(n);
+		return s;
 	}
 
 	CString CBlFunUrlData::plGetStrHtml()
@@ -622,7 +865,84 @@ private:
 		m_lpszBufRawHtml=new char[dwSize+1];
 		memset(m_lpszBufRawHtml,0,dwSize+1);
 	}
-	
+	CString pvValue(int nNo)
+	{
+		CString strRet = "";
+		CString s = this->plGetStrHtml();
+		int n = s.GetLength();
+		char *sz = s.GetBuffer(n);
+		char cWBegin = '"';
+		char cWEnd = '"';
+		bool b1 = false;
+		char w[100] = {0};
+		int nW = 0;
+		int nIdx = 0;
+		printf("n = %d\n",n);
+		
+
+		for(int i=0; i<n;i++)
+		{
+			if(false==b1)
+			{
+				if(sz[i]==cWBegin)
+				{
+					b1 = true;
+				//	printf("[ \n");
+				}
+				else
+				{
+				//	printf("pass \n");
+				}
+			}
+			else
+			{
+				if(sz[i]==cWEnd)
+				{
+					nIdx++;
+					if(1==nIdx%2)
+					{
+						cWBegin = ':';
+						cWEnd	= ',';
+					}
+					else
+					{
+						cWBegin = '"';
+						cWEnd	= '"';
+					}
+					
+				//	printf("] \n");
+					float f = -1.0;
+					sscanf(w,"%f",&f);
+					if(-1.0==f)
+					{
+						printf("nIdx = %d %s  \n",nIdx,w);
+
+					}
+					else
+					{
+						printf("nIdx = %d %s    f = %.2f \n",nIdx,w,f);
+					}
+					if(nIdx/2== nNo) 
+					{
+						strRet = w;
+						return strRet;
+					}
+					memset(w,0,100);
+					nW = 0;
+					b1 = false;
+
+				}
+				else
+				{
+					w[nW++] = sz[i];
+			//		printf("push %c \n",sz[i]);
+				}
+			}
+		}
+		
+		printf("parse: s= %s\n",sz);
+		return strRet;
+	}
 	void pvParseURL(CString &strUrl)
 	{
 		if(strUrl.IsEmpty())
