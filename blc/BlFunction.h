@@ -140,12 +140,196 @@ private:
 class CBl 
 {
 public:
-	CBl ::CBl():d(20170622){
+	CBl ::CBl():date(20170622),
+				x(10),y(10),r(60),d(5),
+				xM(-1),yM(-1),
+				m_bLBtnDbClick(false),
+				m_bLBtnDown(false)
+	{
 		strcpy(v,"0.0.1");
 	}
 	CBl::~CBl(){}
 protected:
-	int		d;
+	int		date;
+	int		x,y,r,d;
+	int		xM,yM;
+
+	bool	m_bLBtnDbClick; 
+	bool	m_bLBtnDown;
+
+	void CBl::ptSetXY(int x,int y)
+	{ 
+		this->x = x;
+		this->y = y;
+	}
+	void CBl::ptMove(int dx,int dy)
+	{ 
+		x += dx;
+		y += dy;
+	}
+	void CBl::ptDrawCtrl(CDC *pDC)
+	{
+		if(m_bLBtnDown)
+		{
+			CRect rect(xM-d,yM-d,xM+d,yM+d);
+			CBrush b(RGB(255,0,0));
+			pDC->FillRect(&rect,&b);
+		}
+	}
+	void CBl::ptShowOutBorder(CDC *pDC)
+	{
+		CRect r(x-r,y-r,x+r,y+r);
+		CBrush b(RGB(0,86,0));
+		pDC->FillRect(&r,&b);
+	}
+	void CBl::ptShowInBorder(CDC *pDC)
+	{
+		CRect rect(x-r+d,y-r+d,x+r-d,y+r-d);
+		CBrush b(RGB(0,255,255));
+		pDC->FillRect(&rect,&b);
+  
+	}
+	void CBl::ptSetMouseXY(int x,int y)
+	{ 
+		xM = x;
+		yM = y;
+	}
+	void CBl::ptLBtnUp(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		m_bLBtnDown = false;
+	}
+	void CBl::ptLBtnDown(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+		int r = ptPointInMe(i,j);
+		switch(r)
+		{
+		case 1:
+			ptMove(-d,0);
+			break;
+		case 2:
+			ptMove(0,-d);
+			break;
+		case 3:
+			ptMove(d,0);
+			break;
+		case 4:
+			ptMove(0,d);
+			break;
+		case 5:
+			ptMove(-d,d);
+			break;
+		case 6:
+			ptMove(-d,-d);
+			break;
+		case 7:
+			ptMove(d,-d);
+			break;
+		case 8:
+			ptMove(d,d);
+			break;
+		case 9:
+			m_bLBtnDown = true;
+			ptSetMouseXY(i,j);
+
+			break;
+		}
+
+	}
+	
+	void CBl::ptLBtnDblClk(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+		int r = ptPointInMe(i,j);
+		if(9==r)
+		{
+			m_bLBtnDbClick = !m_bLBtnDbClick;
+		}
+	}
+	void CBl::ptMouseMove(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+		if(m_bLBtnDown)
+		{
+			ptMove(i-xM,j-yM);
+			ptSetMouseXY(i,j);
+		}
+	}
+	int ptPointInMe(int i,int j)
+	{
+		int nRet = 0;
+		
+		if( i>x-r	&& // 1 Left
+			i<x-r+d &&
+			j>y-r+d	&&
+			j<y+r-d)
+		{
+			nRet = 1;
+		}
+        else if( i>x-r+d	&& // 2 Up
+			i<x+r-d &&
+			j>y-r	&&
+			j<y-r+d)
+		{
+			nRet = 2;
+		}
+		else if( i>x+r-d && // 3 Right
+			i<x+r	&&
+			j>y-r+d &&
+			j<y+r-d)
+		{
+			nRet = 3;
+		}
+		else if( i>x-r+d && // 4 Down
+			i<x+r-d	&&
+			j>y+r-d &&
+			j<y+r)
+		{
+			nRet = 4;
+		}
+		else if( i>x-r	&& // 5 Left Down
+			i<x-r+d	&&
+			j>y+r-d &&
+			j<y+r)
+		{
+			nRet = 5;
+		}
+		else if( i>x-r	&& // 6 Left Up
+			i<x-r+d	&&
+			j>y-r   &&
+			j<y-r+d)
+		{
+			nRet = 6;
+		}
+		else if( i>x+r-d && // 7 Right Up 
+			i<x+r	&&
+			j>y-r	&&
+			j<y-r+d)
+		{
+			nRet = 7;
+		}
+		else if( i>x+r-d && // 8 Right Down
+			i<x+r	&&
+			j>y+r-d &&
+			j<y+r)
+		{
+			nRet = 8;
+		}
+		else if( i>x-r+d && // 9 Center
+			i<x+r-d	&&
+			j>y-r+d &&
+			j<y+r-d)
+		{ 
+			nRet = 9;
+		}
+
+		return nRet;
+	}
+	
 
 private:
 	char v[16];
@@ -153,29 +337,72 @@ private:
 
 class CBlKlines : public CBl 
 {
-	typedef  struct _ohlc
+	typedef  struct _kinf
 	{
-		float	o,h,l,c;
+		float	o,h,l,c,a;
 		int		ymd,hh,mm,ss;
-	} OHLC,*POHLC;
+	
+		int pvF2Y(float f,int yMin,int yMax,float fMin,float fMax)
+		{
+			int i = yMin + (f-fMax)*(yMax-yMin)/(fMin-fMax);
+			return i;
+		}
+		void draw(CDC *pDC,int x,int y,int r,int yMin,int yMax,float fMin,float fMax)
+		{
+			CBrush rB(RGB(255,0,0));
+			CBrush gB(RGB(0,255,0));
+			CBrush *pB = &gB;
+			if(c>o)
+			{
+				pB = &rB;
+			}
+			
+			{
+				CRect rOC(x-r,y-r,x+r,y+r);
+				pDC->FillRect(&rOC,pB);
+			}
+			 
+		}
+	} KINF,*PKINF;
 
 public:
-	CBlKlines ::CBlKlines():nA(0),x(10),y(10),w(300),h(300)
+	CBlKlines ::CBlKlines():nA(0)
+
 	{
 		strcpy(v,"0.0.1");
-		memset(&k,0,sizeof(OHLC));
+		memset(&k,0,sizeof(KINF));
 		k.c = 1250.00;
 		k.o = 1245.00;
 	}
 
 	CBlKlines::~CBlKlines(){}
+	void CBlKlines::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
+	{   
+		switch(m)
+		{
+		case WM_LBUTTONDOWN:
+			ptLBtnDown(h,m,w,l);
+			break;
+		case WM_LBUTTONUP:
+			ptLBtnUp(h,m,w,l);
+			break;
+		case WM_MOUSEMOVE:
+			pvMouseMove(h,m,w,l);
+			
+			break;
+		case WM_LBUTTONDBLCLK:
+			pvLBtnDblClk(h,m,w,l);
+			break;
+		}
+	}
+
 	void CBlKlines::plSetNewSellData(float f,int ymd,int hh,int mm,int ss)
 	{
 		if(k.mm != mm)
 		{
 			if(0!=k.ymd)
 			{	
-				memcpy(&kA[nA],&k,sizeof(OHLC));
+				memcpy(&kA[nA],&k,sizeof(KINF));
 				nA++;
 			}
 			k.o = k.h = k.l = k.c = f;
@@ -200,40 +427,78 @@ public:
 	void CBlKlines::plShow(CDC *pDC)
 	{
 		pvDrawBkgnd(pDC);
-		OHLC k1;
-		k1.o = 1251.0;
+		KINF k1;
+		k1.o = 1259.0;
 		k1.c = 1258.0;
 		k1.h = 1259.0;
 		k1.l = 1245.0;
-		pvDraw_1_K(pDC,x+350,y+10,k1);
+	//	pvDraw_1_K(pDC,x+350,y+10,k1);
+		k1.draw(pDC,x+350,y+10,5,y-r,y+4,1260.0,1245.0);
 
 		pvDraw_1_K(pDC,x+10,y+10,k);
 		int x0 = 100;
 		for(int i = 0; i < nA; i++){
 			pvDraw_1_K(pDC,x0+x+i*15,y+i*50,kA[i]);
 		}
+		if(m_bLBtnDbClick)
+		{
+			pDC->SetTextColor(RGB(255,0,0));
+			pDC->TextOut(xM,yM,"xy");
+
+			CPen p(0,2,RGB(255,0,0));
+			CPen* pOld = pDC->SelectObject(&p);
+
+			pDC->MoveTo(xM-100,yM);
+			pDC->LineTo(xM+100,yM);
+
+			pDC->SelectObject(pOld);
+
+			CRect r(xM-5,yM-5,xM+5,yM+5);
+			CBrush b(RGB(255,0,0));
+			pDC->FillRect(&r,&b);
+
+		}
+		ptDrawCtrl(pDC);
 	}
 protected:
-	OHLC	kA[1000],k;
+	KINF	kA[1000],k;
 	int		nA;
 
 
 private:
 	char	v[16];
-	int		x,y,w,h;
+
+	void CBlKlines::pvLBtnDblClk(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		ptLBtnDblClk(h,m,w,l);
+	}
+	void CBlKlines::pvMouseMove(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		ptMouseMove(h,m,w,l);
+	}
 	void pvDrawBkgnd(CDC *pDC)
 	{
-		CRect r(x,y,x+w,y+h);
+		ptShowOutBorder(pDC);
+		ptShowInBorder(pDC);
+
+		CRect r(x-r+10,y-r+10,x+r-10,y+r-10);
 
 		CBrush b(RGB(0,0,0));
 		pDC->FillRect(&r,&b);
 	}
-	void pvDraw_1_K(CDC *pDC,int x,int y,OHLC &k)
+	void pvDraw_1_K(CDC *pDC,int x,int y,KINF &k)
 	{
-		int oY = pvF2Y(k.o);
-		int cY = pvF2Y(k.c);
-		int hY = pvF2Y(k.h);
-		int lY = pvF2Y(k.l); 
+		
+			int y1		= y - r;
+			int y2		= y + r;
+			float fMax	= 1260.0;
+			float fMin	= 1248.0;
+			
+		int oY = k.pvF2Y(k.o,y1,y2,fMin,fMax);
+		int cY = k.pvF2Y(k.c,y1,y2,fMin,fMax);
+		int hY = k.pvF2Y(k.h,y1,y2,fMin,fMax);
+		int lY = k.pvF2Y(k.l,y1,y2,fMin,fMax); 
+
 		CBrush rB(RGB(255,0,0));
 		CBrush gB(RGB(0,255,0));
 		CBrush *pB = &gB;
@@ -253,23 +518,14 @@ private:
 		}
 	}	
 	
-	int pvF2Y(float f)
-	{
-		int y1		= this->y;
-		int y2		= this->y + this->h;
-		float fMax	= 1260.0;
-		float fMin	= 1248.0;
-		
-		int i = y1 + (f-fMax)*(y2-y1)/(fMin-fMax);
-		return i;
-	}
+	
 };
 
 
-class CBlFunction
+class CBlFunction : public CBl
 {
 public:
-	CBlFunction::CBlFunction():x(0),y(0),r(50),d(10),rB(5)
+	CBlFunction::CBlFunction():x(0),y(80),r(50),d(10),rB(5),xM(-1),yM(-1)
 	{
 		strcpy(name,"unkown");
 	}
@@ -306,7 +562,15 @@ protected:
 	CBlFactory	*m_blFactory;
 	int			x,y,r,d;
 	int			xB,yB,rB;
+	int			xM,yM;
 	
+	 void ptDrawMouseXY(CDC *pDC,int x,int y)
+	 {
+		 int dd = 5;
+		 CRect r(x-dd,y-dd,x+dd,y+dd);
+		 pDC->Ellipse(&r);
+	 }
+
 	 void ptDrawBlock(CDC *pDC,float x1,float y1,float x2,float y2)
 	 {
 		 rB++;
@@ -329,8 +593,6 @@ protected:
 			j>y-r+d	&&
 			j<y+r-d)
 		{
-			x -= d;
-
 			nRet = 1;
 		}
         else if( i>x-r+d	&& // 2 Up
@@ -338,8 +600,6 @@ protected:
 			j>y-r	&&
 			j<y-r+d)
 		{
-			y -= d;
-
 			nRet = 2;
 		}
 		else if( i>x+r-d && // 3 Right
@@ -347,8 +607,6 @@ protected:
 			j>y-r+d &&
 			j<y+r-d)
 		{
-			x += d;
-
 			nRet = 3;
 		}
 		else if( i>x-r+d && // 4 Down
@@ -356,8 +614,6 @@ protected:
 			j>y+r-d &&
 			j<y+r)
 		{
-			y += d;
-
 			nRet = 4;
 		}
 		else if( i>x-r	&& // 5 Left Down
@@ -365,40 +621,28 @@ protected:
 			j>y+r-d &&
 			j<y+r)
 		{
-			y += d;
-			x -= d;
-
-			nRet = 4;
+			nRet = 5;
 		}
 		else if( i>x-r	&& // 6 Left Up
 			i<x-r+d	&&
 			j>y-r   &&
 			j<y-r+d)
 		{
-			y -= d;
-			x -= d;
-
-			nRet = 4;
+			nRet = 6;
 		}
 		else if( i>x+r-d && // 7 Right Up 
 			i<x+r	&&
 			j>y-r	&&
 			j<y-r+d)
 		{
-			y -= d;
-			x += d;
-
-			nRet = 4;
+			nRet = 7;
 		}
 		else if( i>x+r-d && // 8 Right Down
 			i<x+r	&&
 			j>y+r-d &&
 			j<y+r)
 		{
-			y += d;
-			x += d;
-
-			nRet = 4;
+			nRet = 8;
 		}
 		else if( i>x-r+d && // 9 Center
 			i<x+r-d	&&
@@ -409,6 +653,22 @@ protected:
 		}
 
 		return nRet;
+	}
+	
+	void CBlFunction::ptMove(int dx,int dy)
+	{ 
+		x += dx;
+		y += dy;
+	}
+	void CBlFunction::ptSetMouseXY(int x,int y)
+	{ 
+		xM = x;
+		yM = y;
+	}
+	void CBlFunction::ptSetXY(int x,int y)
+	{ 
+		this->x = x;
+		this->y = y;
 	}
 	void CBlFunction::ptShowMe(CDC *pDC)
 	{ 
@@ -436,52 +696,6 @@ private:
 		 float f = (float)sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
 		 return f;
 	 }
-};
-
-class CBlFViewMng: public CBlFunction
-{
-public:	
-	CBlFViewMng::CBlFViewMng()
-	{
-		strcpy(name,"nameCBlFViewMng");
-	}
-	void CBlFViewMng::pl2Do(CDC *pDC,int nPersonX, int nPersonY,
-		                     int x,int y,int w,int h)
-	{
-		pvDrawFromMem(pDC,x,y,w,h); 
-	}
-private:
-	void pvDrawFromMem(CDC *pDC,int x1,int y1,int x2,int y2)
-	{
-		static int n = 0;
-		n++;
-
-		CRect rect(x1,y1,x2,y2); 
-		int w = rect.Width();
-		int h = rect.Height();
-		CDC dcMem;
-	    if(!dcMem.CreateCompatibleDC (pDC))
-		    return;
-	    CBitmap cBmp;
-		if(!cBmp.CreateCompatibleBitmap(pDC,w,h)) return; 
-	    dcMem.SelectObject (&cBmp); 
-
-		CBrush b(RGB(80,80,220));
-		CRect r(x1,y1,x2,y2);
-		dcMem.FillRect(&r,&b);
-
-		
-		dcMem.Rectangle(110,110,500,500);
-
-		CString str;
-		str.Format("draw times = %d",n);
-		dcMem.TextOut(111,100,str);  
-		
-		m_blFactory->plCmd(&dcMem,x1,y1,w,h);
-
-	    pDC->BitBlt (0,0,w,h,&dcMem,0,0,SRCCOPY);
-
-	}
 };
 
 class CBlFunWork: public CBlFunction
@@ -540,28 +754,29 @@ class CBlFunWork: public CBlFunction
 
 
 public:	
-	CBlFunWork::CBlFunWork():b(false) 
+	CBlFunWork::CBlFunWork():b(false),m_bLBtnDown(false)
 	{
 		strcpy(name,"CBlFunWork");
 		m_strHTML	= "";
 		m_myThread.plRun(this);
+		
+		ks.plSetXY(this->x,this->y + 4*this->r);
 	}
     void CBlFunWork::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
 	{   
 		switch(m)
 		{
-		case WM_LBUTTONDOWN:			
-			int i = (int)(short)LOWORD(l);
-			int j = (int)(short)HIWORD(l);
-			int r = ptPointInMe(i,j);
-			if(9==r)
-			{
-				
-
-				
-			} 
+		case WM_LBUTTONDOWN:
+			pvLBtnDown(h,m,w,l);
+			break;
+		case WM_LBUTTONUP:
+			pvLBtnUp(h,m,w,l);
+			break;
+		case WM_MOUSEMOVE:
+			pvMouseMove(h,m,w,l);
 			break;
 		}
+		ks.pl2WM(h,m,w,l);
 	}
 	
 	CMyThread* CBlFunWork::GetMyThread()
@@ -593,7 +808,7 @@ public:
 		} 
 		else
 		{
-			AfxMessageBox("fail to open website.");
+		//	AfxMessageBox("fail to open website.");
 		} 
 		
 	}
@@ -606,6 +821,7 @@ public:
 		pDC->TextOut(nPersonX,nPersonY,m_strHTML.GetBuffer(m_strHTML.GetLength()));
 		
 		ptDrawBlock(pDC,nPersonX,nPersonY,this->x,this->y);
+		ptDrawMouseXY(pDC,this->xM,this->yM);
 
 		CRect r(this->x-10,this->y-10,this->x+10,this->y+10);
 		if(b)
@@ -618,7 +834,6 @@ public:
 			CBrush br(RGB(255,0,0));
 			pDC->FillRect(&r,&br);
 		}
-		ks.plSetXY(this->x-this->r,this->y + this->r);
 		ks.plShow(pDC);
  
 	}
@@ -626,9 +841,80 @@ private:
 	char		v[16];
 	CString		m_strHTML;
 	bool		b;  
+	bool		m_bLBtnDown;
 	CMyThread	m_myThread;
 	
 	CBlKlines	ks;
+	void pvLBtnDown(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+		int r = ptPointInMe(i,j);
+		switch(r)
+		{
+		case 1:
+			ptMove(-d,0);
+			break;
+		case 2:
+			ptMove(0,-d);
+			break;
+		case 3:
+			ptMove(d,0);
+			break;
+		case 4:
+			ptMove(0,d);
+			break;
+		case 5:
+			ptMove(-d,d);
+			break;
+		case 6:
+			ptMove(-d,-d);
+			break;
+		case 7:
+			ptMove(d,-d);
+			break;
+		case 8:
+			ptMove(d,d);
+			break;
+		case 9:
+			ptSetXY(i,j);
+			m_bLBtnDown = true;
+			break;
+		}
+
+	}
+	void CBlFunWork::pvLBtnUp(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		m_bLBtnDown = false;
+	}
+	void CBlFunWork::pvMouseMove(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+		int r = ptPointInMe(i,j);
+		switch(r)
+		{
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+			ptSetMouseXY(i,j);
+			break;
+		default:
+			ptSetMouseXY(-1,-1);
+			break;
+		}
+
+		if(m_bLBtnDown)
+		{
+			ptSetXY(i,j);
+		}
+	}
 };
 
 class CBlFunStudent: public CBlFunction

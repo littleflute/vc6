@@ -6,29 +6,29 @@
 #if !defined(BLF_H_BLPERSON_INCLUDED_)
 #define BLF_H_BLPERSON_INCLUDED_
 
-class CBlPerson
+class CBlPerson: public CBl
 {
 public:
-	CBlPerson::CBlPerson(): m_blFun(NULL),m_blFatory(NULL),x(0),y(0)
+	CBlPerson::CBlPerson(): m_blFun(NULL),m_blFatory(NULL) 
 	{
 
 		strcpy(name,"unkown");
 	}
-	CBlPerson::CBlPerson(char *name): m_blFun(NULL),x(0),y(0)
+	CBlPerson::CBlPerson(char *name): m_blFun(NULL) 
 	{
 
 		strcpy(this->name,name);
 	}
-	void CBlPerson::setName(char *name)
+	void CBlPerson::plSetName(char *name)
 	{
 		strcpy(this->name,name);
 	
 	}
-	void CBlPerson::setFactory( CBlFactory *f)
+	void CBlPerson::plSetFactory( CBlFactory *f)
 	{
 		m_blFatory = f;
 	}
-	void CBlPerson::setFun(CBlFunction *f,int x,int y,int r,int d)
+	void CBlPerson::plSetFun(CBlFunction *f,int x,int y,int r,int d)
 	{
 		if(f) 
 		{
@@ -53,6 +53,7 @@ public:
 
     virtual	void CBlPerson::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
 	{   
+		pvWM(h,m,w,l);
 
 		if(m_blFun)
 		{
@@ -60,7 +61,7 @@ public:
 		}
 	}
 
-	void CBlPerson::pl2ShowFun(CDC *pDC,int x,int y,int w,int h,bool bShowMe)
+	void CBlPerson::pl2Show(CDC *pDC,int x,int y,int w,int h,bool bShowMe)
 	{ 
 		if(bShowMe)
 		{
@@ -75,17 +76,33 @@ protected:
 	char		name[16];
 	char		birthday[16];
 	int			age;
-	int			x,y;
+//	int			x,y;
 #include "BlFunction.h"
 	CBlFunction		*m_blFun;
 	CBlFactory		*m_blFatory;
 private:
+	void CBlPerson::pvWM(HWND h,UINT m,WPARAM w,LPARAM l)
+	{   
+		switch(m)
+		{
+		case WM_LBUTTONDOWN:
+			ptLBtnDown(h,m,w,l);
+			break;
+		case WM_LBUTTONUP:
+			ptLBtnUp(h,m,w,l);
+			break;
+		case WM_MOUSEMOVE:
+			ptMouseMove(h,m,w,l);
+			break;
+		} 
+	}
 	void CBlPerson::pvShowText(CDC *pDC,char *s,int x,int y)
 	{
 		pDC->TextOut(x,y,s);
 	}
 	void pvShowMe(CDC *pDC,int x,int y,int w,int h)
 	{
+		ptShowOutBorder(pDC);
 		int r	= 20;
 		int x1	= this->x - r;
 		int y1	= this->y - r;
