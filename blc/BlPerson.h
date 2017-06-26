@@ -1,4 +1,4 @@
-// File: BlPerson.h v0.0.5
+// File: BlPerson.h v0.0.6
 
 #include "BlFunction.h"
 

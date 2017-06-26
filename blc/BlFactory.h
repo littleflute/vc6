@@ -1,4 +1,4 @@
-// BlFactory.h v0.0.5
+// BlFactory.h v0.0.6
 
 
 #if !defined(BLF_H_BLFACTORY_INCLUDED_)
@@ -8,53 +8,42 @@ class CBlFactory
 {
 #include "BlFunction.h"
 
-	class CBlFViewMng: public CBlFunction
+	class CBlList: public CBl
 	{
 	public:	
-		CBlFViewMng::CBlFViewMng()
-		{
-			strcpy(name,"nameCBlFViewMng");
+		CBlList::CBlList()
+		{ 
 		}
-		CBlFViewMng::~CBlFViewMng()
+		CBlList::~CBlList()
 		{ 
 
 		}
-		void CBlFViewMng::pl2Do(CDC *pDC,int nPersonX, int nPersonY,
-			int x,int y,int w,int h)
+		void CBlList::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
+	{   
+		switch(m)
 		{
-			pvDrawFromMem(pDC,x,y,w,h); 
+		case WM_LBUTTONDOWN:
+			ptLBtnDown(h,m,w,l);
+			break;
+		case WM_LBUTTONUP:
+			ptLBtnUp(h,m,w,l);
+			break;
+		case WM_MOUSEMOVE:
+			ptMouseMove(h,m,w,l);
+			break;
+		} 
+	}
+		void CBlList::pl2Show(CDC *pDC,int x,int y,int w,int h)
+		{
+			pvDraw(pDC,x,y,w,h); 
 		}
 	private:
-		void pvDrawFromMem(CDC *pDC,int x1,int y1,int x2,int y2)
-		{
-			static int n = 0;
-			n++;
-			
-			CRect rect(x1,y1,x2,y2); 
-			int w = rect.Width();
-			int h = rect.Height();
-			CDC dcMem;
-			if(!dcMem.CreateCompatibleDC (pDC))
-				return;
-			CBitmap cBmp;
-			if(!cBmp.CreateCompatibleBitmap(pDC,w,h)) return; 
-			dcMem.SelectObject (&cBmp); 
-			
-			CBrush b(RGB(80,180,220));
-			CRect r(x1,y1,x2,y2);
-			dcMem.FillRect(&r,&b);
-			
-			
-			dcMem.Rectangle(110,110,500,500);
-			
-			CString str;
-			str.Format("draw times = %d",n);
-			dcMem.TextOut(111,100,str);  
-			
-			m_blFactory->plCmd(&dcMem,x1,y1,w,h);
-			
-			pDC->BitBlt (0,0,w,h,&dcMem,0,0,SRCCOPY);
-			
+		typedef struct _node{
+		}NODE,*PNODE;
+		PNODE	h;
+		void pvDraw(CDC *pDC,int x,int y,int w,int h)
+		{ 
+			ptShowInBorder(pDC);
 		} 
 		
 		
@@ -66,20 +55,7 @@ public:
 	CBlFactory::CBlFactory(): m_nAll(0)
 	{
 		strcpy(name,"unkown"); 
-
-		CBlPerson *pVM = pvGetPerson("vm");
-
-		f1.plSetFactory (this);
-		if(pVM) pVM->plSetFun (&f1,100,200,50,10);
-	 
-		pVM = pvGetPerson("li4");
-		s1.plSetFactory(this);
-		if(pVM)
-		{
-			pVM->plMoveR(350,500);
-			pVM->plMoveD(180,500);
-			pVM->plSetFun (&s1,55,60,70,13);
-		}
+  
 		 
 	}
 	CBlFactory::~CBlFactory()
@@ -90,9 +66,9 @@ public:
 	{
 		m_All[m_nAll].plSetName(name);
 		m_All[m_nAll].plSetFactory(this);
-		m_All[m_nAll].plMoveD(50*m_nAll,500);
-		m_nAll++;
+		m_All[m_nAll].plMoveD(130+50*m_nAll,500);
 		m_All[m_nAll].plSetFun (&w1,30*m_nAll,80,60,12);
+		m_nAll++;
 
 	}
 	void CBlFactory::plCmd(CDC *pDC,int x,int y,int w,int h)
@@ -116,6 +92,7 @@ public:
 		{
 			m_All[i].pl2WM(h,m,w,l);
 		}
+		m_ToolList.pl2WM(h,m,w,l);
 	}
 
     virtual	void CBlFactory::pl_Draw(CDC *pDC,int x,int y,int w,int h)
@@ -130,11 +107,16 @@ protected:
 	char			name[16];
 	CBlPerson		m_All[250]; 
 	int				m_nAll; 
+	CBlList			m_ToolList;
 private:
 	//
 	void pvDrawFactory(CDC *pDC,int x1,int y1,int x2,int y2)
 	{
 		pDC->TextOut(x1,y1,name);
+	}
+	void pvDrawTools(CDC *pDC,int x,int y,int w,int h)
+	{
+		m_ToolList.pl2Show(pDC,x,y,w,h);
 	}
 	void pvDrawAllPerson(CDC *pDC,int x1,int y1,int x2,int y2)
 	{
@@ -156,6 +138,7 @@ private:
 		dcMem.SelectObject (&cBmp); 
 		
 		pvDrawFactory(&dcMem,x1,y1,x2,y2);
+		pvDrawTools(&dcMem,x1,y1,w,h);
 		pvDrawAllPerson(&dcMem,x1,y1,x2,y2); 
 		
 		pDC->BitBlt (0,0,w,h,&dcMem,0,0,SRCCOPY);
@@ -174,7 +157,7 @@ private:
 		return pRet;
 	}
 	
-	CBlFViewMng		f1;
+//	CBlFViewMng		f1;
 	CBlFunWork		w1;
 	CBlFunStudent	s1;
 };

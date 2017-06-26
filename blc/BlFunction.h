@@ -1,4 +1,4 @@
-// BlFunction.h v0.0.5
+// BlFunction.h v0.0.6
 
 
 #if !defined(BLF_H_BLFUNCTION_INCLUDED_)
@@ -141,10 +141,11 @@ class CBl
 {
 public:
 	CBl ::CBl():date(20170622),
-				x(10),y(10),r(60),d(5),
+				x(10),y(10),r(60),d(10),
 				xM(-1),yM(-1),
 				m_bLBtnDbClick(false),
-				m_bLBtnDown(false)
+				m_bLBtnDown(false),
+				m_bCanMove(true)
 	{
 		strcpy(v,"0.0.1");
 	}
@@ -156,6 +157,7 @@ protected:
 
 	bool	m_bLBtnDbClick; 
 	bool	m_bLBtnDown;
+	bool	m_bCanMove;
 
 	void CBl::ptSetXY(int x,int y)
 	{ 
@@ -178,9 +180,23 @@ protected:
 	}
 	void CBl::ptShowOutBorder(CDC *pDC)
 	{
-		CRect r(x-r,y-r,x+r,y+r);
+		CRect rect(x-r,y-r,x+r,y+r);
 		CBrush b(RGB(0,86,0));
-		pDC->FillRect(&r,&b);
+		pDC->FillRect(&rect,&b);
+
+		if(m_bCanMove)
+		{
+			CRect r1(x-r,y-r,x-r+d,y-r+d);
+			CBrush b(RGB(0,86,250));
+			pDC->FillRect(&r1,&b);
+		}
+		else
+		{
+			CRect r1(x-r,y-r,x-r+d,y-r+d);
+			CBrush b(RGB(250,86,0));
+			pDC->FillRect(&r1,&b);
+		
+		}
 	}
 	void CBl::ptShowInBorder(CDC *pDC)
 	{
@@ -221,7 +237,7 @@ protected:
 			ptMove(-d,d);
 			break;
 		case 6:
-			ptMove(-d,-d);
+			m_bCanMove = !m_bCanMove;
 			break;
 		case 7:
 			ptMove(d,-d);
@@ -255,8 +271,11 @@ protected:
 		int j = (int)(short)HIWORD(l);
 		if(m_bLBtnDown)
 		{
-			ptMove(i-xM,j-yM);
-			ptSetMouseXY(i,j);
+			if(m_bCanMove)
+			{
+				ptMove(i-xM,j-yM);
+				ptSetMouseXY(i,j);
+			}
 		}
 	}
 	int ptPointInMe(int i,int j)
@@ -337,17 +356,75 @@ private:
 
 class CBlKlines : public CBl 
 {
-	typedef  struct _kinf
-	{
+	
+	typedef  struct _kselinf : public CBl 
+	{ 
+		CString s;
+		void setInf(int x,int y,int r)
+		{
+			this->x = x;
+			this->y = y;
+			this->r = r;
+		}
+		void showCross(CDC* pDC,int x,int y,int x0,int y0,int r)
+		{
+			if( x<x0-r || x>x0+r ||
+				y<y0-r || y>y0+r) return;
+			int i = ptPointInMe(x,y);
+			if(i>=1&&i<=9) return;
+
+			CPen p(0,0,RGB(255,0,0));
+			CPen* pOld = pDC->SelectObject(&p);
+			pDC->MoveTo(x0-r,y);
+			pDC->LineTo(x0+r,y);
+			pDC->MoveTo(x,y0-r);
+			pDC->LineTo(x,y0+r);
+			pDC->SelectObject(pOld);
+		}
+		void show(CDC* pDC)
+		{
+			ptShowOutBorder(pDC);
+			pDC->Rectangle(x-r+d,y-r+d,x+r-d,y+r-d);
+			pDC->TextOut(x,y,s);
+		}
+		void pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
+		{   
+			switch(m)
+			{
+			case WM_LBUTTONDOWN:
+				ptLBtnDown(h,m,w,l);
+				break;
+			case WM_LBUTTONUP:
+				ptLBtnUp(h,m,w,l);
+				break;
+			case WM_MOUSEMOVE:
+				ptMouseMove(h,m,w,l);
+				
+				break;
+			case WM_LBUTTONDBLCLK: 
+				break;
+			}
+		}
+	}KSELINF,*PKSELINF;
+
+	typedef  struct _kinf : public CBl 
+	{ 
 		float	o,h,l,c,a;
 		int		ymd,hh,mm,ss;
 	
-		int pvF2Y(float f,int yMin,int yMax,float fMin,float fMax)
+		void init(int x,int y,int r)
+		{
+			this->x = x;
+			this->y = y;
+			this->r = r;
+		}
+
+		int K2Y(float f,int yMin,int yMax,float fMin,float fMax)
 		{
 			int i = yMin + (f-fMax)*(yMax-yMin)/(fMin-fMax);
 			return i;
 		}
-		void draw(CDC *pDC,int x,int y,int r,int yMin,int yMax,float fMin,float fMax)
+		void draw(CDC *pDC,int x,int r,int yMin,int yMax,float fMin,float fMax)
 		{
 			CBrush rB(RGB(255,0,0));
 			CBrush gB(RGB(0,255,0));
@@ -358,21 +435,34 @@ class CBlKlines : public CBl
 			}
 			
 			{
-				CRect rOC(x-r,y-r,x+r,y+r);
+				int yO = K2Y(o,yMin,yMax,fMin,fMax);
+				int yC = K2Y(c,yMin,yMax,fMin,fMax);
+				yC = o==c?yC+1:yC;
+				CRect rOC(x-r,yO,x+r,yC);
 				pDC->FillRect(&rOC,pB);
+			}
+			
+			{
+				int yH = K2Y(h,yMin,yMax,fMin,fMax);
+				int yL = K2Y(l,yMin,yMax,fMin,fMax);
+				CRect rHL(x-r/4,yH,x+r/4,yL);
+				pDC->FillRect(&rHL,pB);
 			}
 			 
 		}
 	} KINF,*PKINF;
 
 public:
-	CBlKlines ::CBlKlines():nA(0)
+	CBlKlines ::CBlKlines():nA(0),fKmin(1254.0),fKmax(1258.0)
 
 	{
 		strcpy(v,"0.0.1");
 		memset(&k,0,sizeof(KINF));
 		k.c = 1250.00;
 		k.o = 1245.00;
+
+		r = 300;
+		m_kSel.setInf(x,y,50); 
 	}
 
 	CBlKlines::~CBlKlines(){}
@@ -381,7 +471,7 @@ public:
 		switch(m)
 		{
 		case WM_LBUTTONDOWN:
-			ptLBtnDown(h,m,w,l);
+			pvLBtnDown(h,m,w,l);
 			break;
 		case WM_LBUTTONUP:
 			ptLBtnUp(h,m,w,l);
@@ -394,6 +484,7 @@ public:
 			pvLBtnDblClk(h,m,w,l);
 			break;
 		}
+		m_kSel.pl2WM(h,m,w,l);
 	}
 
 	void CBlKlines::plSetNewSellData(float f,int ymd,int hh,int mm,int ss)
@@ -423,51 +514,60 @@ public:
 	{
 		this->x = x;
 		this->y = y;
+		m_kSel.setInf(this->x,this->y,50); 
+			
 	}
 	void CBlKlines::plShow(CDC *pDC)
 	{
 		pvDrawBkgnd(pDC);
-		KINF k1;
-		k1.o = 1259.0;
-		k1.c = 1258.0;
-		k1.h = 1259.0;
-		k1.l = 1245.0;
-	//	pvDraw_1_K(pDC,x+350,y+10,k1);
-		k1.draw(pDC,x+350,y+10,5,y-r,y+4,1260.0,1245.0);
+ 
+		int nX = x + r-d-d;
+		k.draw(pDC,nX,5,y-r,y+r,fKmin,fKmax);
+		
+		nX -= nA*d;
 
-		pvDraw_1_K(pDC,x+10,y+10,k);
-		int x0 = 100;
-		for(int i = 0; i < nA; i++){
-			pvDraw_1_K(pDC,x0+x+i*15,y+i*50,kA[i]);
+		for(int i = 0; i < nA; i++){ 
+			kA[i].draw(pDC,nX,5,y-r,y+r,fKmin,fKmax);
+			nX += d;
 		}
 		if(m_bLBtnDbClick)
 		{
-			pDC->SetTextColor(RGB(255,0,0));
-			pDC->TextOut(xM,yM,"xy");
-
-			CPen p(0,2,RGB(255,0,0));
-			CPen* pOld = pDC->SelectObject(&p);
-
-			pDC->MoveTo(xM-100,yM);
-			pDC->LineTo(xM+100,yM);
-
-			pDC->SelectObject(pOld);
-
-			CRect r(xM-5,yM-5,xM+5,yM+5);
-			CBrush b(RGB(255,0,0));
-			pDC->FillRect(&r,&b);
-
+			m_kSel.showCross(pDC,m_nMx,m_nMy,this->x,this->y,this->r);
+			CString sM;
+			sM.Format("xyM[%d,%d]-%.2f xy(%d,%d)",m_nMx,m_nMy,
+				pvY2K(m_nMy,y-r,y+r,fKmin,fKmax),
+				this->x,this->y);
+			m_kSel.s = sM;
+			m_kSel.show(pDC);
 		}
 		ptDrawCtrl(pDC);
 	}
 protected:
 	KINF	kA[1000],k;
+	KSELINF	m_kSel;
 	int		nA;
+	float	fKmin,fKmax;
+	int		m_nMx,m_nMy;
 
 
 private:
 	char	v[16];
 
+	
+	float pvY2K(float y,int yMin,int yMax,float kMin,float kMax)
+	{
+		float kR = kMin + (y-yMax)*(kMax-kMin)/(yMin-yMax);
+		return kR;
+	}
+
+	void CBlKlines::pvLBtnDown(HWND h,UINT m,WPARAM w,LPARAM l)
+	{
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+	 
+	 
+		ptLBtnDown(h,m,w,l);
+	}
 	void CBlKlines::pvLBtnDblClk(HWND h,UINT m,WPARAM w,LPARAM l)
 	{
 		ptLBtnDblClk(h,m,w,l);
@@ -475,6 +575,11 @@ private:
 	void CBlKlines::pvMouseMove(HWND h,UINT m,WPARAM w,LPARAM l)
 	{
 		ptMouseMove(h,m,w,l);
+		
+		int i = (int)(short)LOWORD(l);
+		int j = (int)(short)HIWORD(l);
+		m_nMx = i;
+		m_nMy = j;
 	}
 	void pvDrawBkgnd(CDC *pDC)
 	{
@@ -485,38 +590,7 @@ private:
 
 		CBrush b(RGB(0,0,0));
 		pDC->FillRect(&r,&b);
-	}
-	void pvDraw_1_K(CDC *pDC,int x,int y,KINF &k)
-	{
-		
-			int y1		= y - r;
-			int y2		= y + r;
-			float fMax	= 1260.0;
-			float fMin	= 1248.0;
-			
-		int oY = k.pvF2Y(k.o,y1,y2,fMin,fMax);
-		int cY = k.pvF2Y(k.c,y1,y2,fMin,fMax);
-		int hY = k.pvF2Y(k.h,y1,y2,fMin,fMax);
-		int lY = k.pvF2Y(k.l,y1,y2,fMin,fMax); 
-
-		CBrush rB(RGB(255,0,0));
-		CBrush gB(RGB(0,255,0));
-		CBrush *pB = &gB;
-		if(k.c>k.o)
-		{
-			pB = &rB;
-		}
- 
-		{
-			if(oY==cY) cY++;
-			CRect rOC(x-5,oY,x+5,cY);
-			pDC->FillRect(&rOC,pB);
-		}
-		{
-			CRect rHL(x-1,hY,x+1,lY); 
-			pDC->FillRect(&rHL,pB);
-		}
-	}	
+	} 
 	
 	
 };
@@ -760,7 +834,7 @@ public:
 		m_strHTML	= "";
 		m_myThread.plRun(this);
 		
-		ks.plSetXY(this->x,this->y + 4*this->r);
+		m_Ks.plSetXY(this->x,this->y + 4*this->r);
 	}
     void CBlFunWork::pl2WM(HWND h,UINT m,WPARAM w,LPARAM l)
 	{   
@@ -776,7 +850,7 @@ public:
 			pvMouseMove(h,m,w,l);
 			break;
 		}
-		ks.pl2WM(h,m,w,l);
+		m_Ks.pl2WM(h,m,w,l);
 	}
 	
 	CMyThread* CBlFunWork::GetMyThread()
@@ -803,7 +877,7 @@ public:
 			int ymd,hh,mm,ss;
 			sscanf(strT.GetBuffer(strT.GetLength()),"%d %d:%d:%d",&ymd,&hh,&mm,&ss);
 		
-			ks.plSetNewSellData(f,ymd,hh,mm,ss);
+			m_Ks.plSetNewSellData(f,ymd,hh,mm,ss);
 			this->b = !this->b;
 		} 
 		else
@@ -834,7 +908,7 @@ public:
 			CBrush br(RGB(255,0,0));
 			pDC->FillRect(&r,&br);
 		}
-		ks.plShow(pDC);
+		m_Ks.plShow(pDC);
  
 	}
 private:
@@ -844,7 +918,7 @@ private:
 	bool		m_bLBtnDown;
 	CMyThread	m_myThread;
 	
-	CBlKlines	ks;
+	CBlKlines	m_Ks;
 	void pvLBtnDown(HWND h,UINT m,WPARAM w,LPARAM l)
 	{
 		int i = (int)(short)LOWORD(l);
