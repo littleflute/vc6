@@ -1,4 +1,6 @@
-[v0.0.8](https://github.com/littleflute/vc6/edit/master/README.md)
+[v0.0.9](https://github.com/littleflute/vc6/edit/master/README.md)
+
+[blc](blc)
 
 [blog](https://littleflute.github.io/blog)
 
