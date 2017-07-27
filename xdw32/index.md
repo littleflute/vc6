@@ -1,3 +1,5 @@
+[v0.0.3](https://github.com/littleflute/vc6/edit/master/xdw32/index.md)
+
 ~~~c++
 // File: XdW32.cpp 
 // Littleflute's Windows32 App
