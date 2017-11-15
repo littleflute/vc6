@@ -1,3 +1,5 @@
+### WebPage.h
+
 ~~~c++
 // WebPage.h: interface for the CWebPage class.
 //
@@ -28,10 +30,16 @@ public:
 	CString ScanJScript(CString& strAText, CStringArray& args);
 
 	bool CallJScript(const CString strFunc,CComVariant* pVarResult = NULL);
-	bool CallJScript(const CString strFunc,const CString strArg1,CComVariant* pVarResult = NULL);
-	bool CallJScript(const CString strFunc,const CString strArg1,const CString strArg2,CComVariant* pVarResult = NULL);
-	bool CallJScript(const CString strFunc,const CString strArg1,const CString strArg2,const CString strArg3,CComVariant* pVarResult = NULL);
-	bool CallJScript(const CString strFunc,const CStringArray& paramArray,CComVariant* pVarResult = NULL);
+	bool CallJScript(const CString strFunc,const CString strArg1,
+			CComVariant* pVarResult = NULL);
+	bool CallJScript(const CString strFunc,const CString strArg1,
+			const CString strArg2,CComVariant* pVarResult = NULL);
+	bool CallJScript(const CString strFunc,const CString strArg1,
+			const CString strArg2,const CString strArg3,
+			CComVariant* pVarResult = NULL);
+	bool CallJScript(const CString strFunc,
+		const CStringArray& paramArray,
+		CComVariant* pVarResult = NULL);
 
 protected:
 
@@ -61,11 +69,15 @@ LPDISPATCH CWebPage::GetHtmlDocument() const
 	return m_spDoc;
 }
 
-CString GetNextToken(CString& strSrc, const CString strDelim,bool bTrim = false, bool bFindOneOf = true);
+CString GetNextToken(CString& strSrc, const CString strDelim,
+					 bool bTrim = false, 
+					 bool bFindOneOf = true);
 
 #endif // !defined(AFX_WEBPAGE_H__AEBD50B8_EE66_40AB_8B92_C4EECB9BCD22__INCLUDED_)
 
 ~~~
+
+### WebPage.cpp
 
 ~~~c++
 /////////////////////////////////////////////////////////////////
