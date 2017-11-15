@@ -67,7 +67,7 @@ CString GetNextToken(CString& strSrc, const CString strDelim,bool bTrim = false,
 
 ~~~
 
-~~c++
+~~~c++
 /////////////////////////////////////////////////////////////////
 //             By Eugene Khodakovsky                           //
 //                  April,2002                                 //
