@@ -199,14 +199,16 @@ bool CWebPage::CallJScript(const CString strFunc,CComVariant* pVarResult)
 	return CallJScript(strFunc,paramArray,pVarResult);
 }
 
-bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,CComVariant* pVarResult)
+bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,
+						   CComVariant* pVarResult)
 {
 	CStringArray paramArray;
 	paramArray.Add(strArg1);
 	return CallJScript(strFunc,paramArray,pVarResult);
 }
 
-bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,const CString strArg2,CComVariant* pVarResult)
+bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,
+						   const CString strArg2,CComVariant* pVarResult)
 {
 	CStringArray paramArray;
 	paramArray.Add(strArg1);
@@ -214,7 +216,9 @@ bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,const CSt
 	return CallJScript(strFunc,paramArray,pVarResult);
 }
 
-bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,const CString strArg2,const CString strArg3,CComVariant* pVarResult)
+bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,
+						   const CString strArg2,const CString strArg3,
+						   CComVariant* pVarResult)
 {
 	CStringArray paramArray;
 	paramArray.Add(strArg1);
@@ -223,7 +227,9 @@ bool CWebPage::CallJScript(const CString strFunc,const CString strArg1,const CSt
 	return CallJScript(strFunc,paramArray,pVarResult);
 }
 
-bool CWebPage::CallJScript(const CString strFunc, const CStringArray& paramArray,CComVariant* pVarResult)
+bool CWebPage::CallJScript(const CString strFunc,
+						   const CStringArray& paramArray,
+						   CComVariant* pVarResult)
 {
 	CComPtr<IDispatch> spScript;
 	if(!GetJScript(spScript))
@@ -262,7 +268,8 @@ bool CWebPage::CallJScript(const CString strFunc, const CStringArray& paramArray
 	UINT nArgErr = (UINT)-1;  // initialize to invalid arg
          
 	hr = spScript->Invoke(dispid,IID_NULL,0,
-							DISPATCH_METHOD,&dispparams,&vaResult,&excepInfo,&nArgErr);
+							DISPATCH_METHOD,&dispparams,&vaResult,
+							&excepInfo,&nArgErr);
 
 	delete [] dispparams.rgvarg;
 	if(FAILED(hr))
@@ -321,4 +328,7 @@ CString CWebPage::ScanJScript(CString& strAText, CStringArray& args)
 	return strFunc;
 }
 
+
+
 ~~~
+
