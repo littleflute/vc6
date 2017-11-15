@@ -1,3 +1,14 @@
+## Call JavaScript from Visual C++ [v0.0.2](https://github.com/littleflute/vc6/edit/master/code/1/readme.md)
+### Usage
+
+~~~c++
+
+	CWebPage		m_webPage;
+	CComPtr<IDispatch> spDisp = CHtmlView::GetHtmlDocument();
+	m_webPage.SetDocument(spDisp);
+	m_webPage.CallJScript("add","1","2");
+~~~
+
 ### WebPage.h
 
 ~~~c++
