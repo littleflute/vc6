@@ -240,7 +240,7 @@ bool CWebPage::CallJScript(const CString strFunc,
 	CComBSTR bstrMember(strFunc);
 	DISPID dispid = NULL;
 	HRESULT hr = spScript->GetIDsOfNames(IID_NULL,&bstrMember,1,
-											LOCALE_SYSTEM_DEFAULT,&dispid);
+					LOCALE_SYSTEM_DEFAULT,&dispid);
 	if(FAILED(hr))
 	{
 		ShowError(GetSystemErrorMessage(hr));
