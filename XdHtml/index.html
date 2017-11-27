@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>Document Title</TITLE>
+<script type="text/javascript" src="blclass.js"></script>
+</HEAD>
+<BODY>
+
+<!-- Insert HTML here -->
+
+<div id="Nav">
+v0.0.27
+<br>
+<a href="../index.html">[..]</a>
+<a href="file:///C:/Users/13699/xd/w3schools/howto/xdTest.html">xdTest</a>
+<a href="1.html">1.html</a>
+<a href="2.html">2.html</a>
+<a href="player.html">player.html</a>
+<a href="lyric.html">lyric.html</a>
+<a href="jquery/index.html">jquery</a>
+<a href="file:///C:/Users/13699/xd/index.html">xd</a>
+<a href="file:///C:/Users/13699/xd1/cchess/i.html">cchess-i.html</a>
+<a href="file:///C:/Users/13699/Downloads/vschess_1.2.0/vschess_1.2.0/demo.html">vschess_1.2.0</a>
+<br>
+<a href="https://littleflute.github.io/blog/docs/2017/04/13/">04/13: Move Div</a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/14/">04/14: Windows</a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/15/">04/15: Calender</a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/16/">04/16: </a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/19/">04/19: </a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/21/">04/21: littleflute </a>
+<a href="jsgraphics.html">jsgraphics </a>
+
+</div>
+
+<div id="xddbg"></div>
+<div id="idMedia"></div> 
+<script type="text/javascript" src="xd.js"></script>
+
+<script type="text/javascript" >
+function Welcome()
+{
+	alert("Welcome");
+}
+function add(a,b)
+{ 
+	var s = a + b;
+	alert(s);
+}
+var QueryString = function () 
+{ 
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i < vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]); 
+    } 
+	else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } 
+	else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+  return query_string;
+}();
+//QueryString.l
+
+
+function blClassTest(){								
+	var blo 	= new blClass;	
+	var m = blo.blDiv(document.body,"blpMainDiv","blpMainDiv","BlueViolet" );
+					 								 
+	function _uiDivMovable(id,x,y){							
+		var o = blo;								 
+		var idBody = id;							 
+		var idHead = id + "Header";		
+						 
+		var main = o.blDiv(document.body,idBody,"_"+id);			 
+		var style ="position: absolute;";
+		style +="background-color:gray;";	 	 
+		main.setAttribute("style", style);	
+			 
+		var title = o.blDiv(main,idHead,"========");			 
+		style ="padding: 10px;";			 
+		style +="background-color:red;";	 	
+		title.setAttribute("style", style);	
+					 
+		o.blMakeDivMovable(main);				 
+		main.style.left 	= x +"px";			 
+		main.style.top		= y +"px";	
+				 
+		 
+		return main;							 
+	}
+	function _test2(id,x,y,o2Show){	 							 
+		var o = blo;								 
+		var main = _uiDivMovable(id,x,y);					 
+		var mi1 = o.blDiv(main,id+"mi1",id+"mi1");				 
+		var mi1bOnOff 	= o.blBtn ( mi1,id+"mi1bOnOff",id+"mi1bOnOff"); 	 
+		mi1bOnOff.bOnOff = "+";							
+		mi1bOnOff.onclick = function (){  					  
+			//*								 
+			var mi2 = o.blDiv(main,id+"mi2",id+"mi2");			 
+			var oShow = o.blDiv(mi2,id+"oShow",id+"oShow");			 
+			if("+"==mi1bOnOff.bOnOff)					 
+			{								 
+					mi1bOnOff.style.backgroundColor = "red";	 
+					mi1bOnOff.bOnOff = "-";				 
+					oShow.style.display = "block";			 
+					o.blShowObj2Div(oShow,o2Show);			 
+			}								 
+			else								 
+			{								 
+					mi1bOnOff.style.backgroundColor = "green";	 
+					mi1bOnOff.bOnOff = "+";				 
+					oShow.style.display = "none";			 
+			}								
+			//*/								  
+		}				 
+		var mi3 = o.blDiv(main,id+"mi3",id+"mi3");	
+		o.blLink(mi3,id+"a0",QueryString.l,"ReadMe.txt?a=0","DarkGoldenRod");	
+		o.blLink(mi3,id+"a1","a1","ReadMe.txt?a=1","blue");	
+		o.blLink(mi3,id+"a2","a2","ReadMe.txt?a=2&x=9111&y=14111","BurlyWood");
+		o.blLink(mi3,id+"a3","a3","ReadMe.txt?a=3&x=200&y=170","red");	
+		o.blLink(mi3,id+"a4","click","ReadMe.txt?a=4&x=300&y=111","Chartreuse");						 
+	}										 
+	function _test1(){								
+		var t = blo.blTextarea(document.body,"t1","alert('xd');","Aquamarine");	 
+		t.style.backgroundColor = "green"; 
+
+		var b = blo.blBtn(document.body,"idBtnRun","run","green");		
+		b.onclick = function(){eval(t.value);}					
+	}									 
+	this.run = function(){								
+		_test1();		  					
+		_test2("blClass",400,100,blo);							 						
+	}	
+}							
+var blt = new blClassTest;								
+blt.run(); 	
+</script>
+
+</BODY>
+</HTML>

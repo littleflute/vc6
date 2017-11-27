@@ -1,0 +1,410 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 1\r\n"
+    "#pragma code_page(950)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\XdHtml.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.cht\\afxres.rc""          // Standard components\r\n"
+    "#include ""l.cht\\afxprint.rc""        // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "ôn∞∏(&F)"
+    BEGIN
+        MENUITEM "È_Ü¢–¬ôn(&N)\tCtrl+N",        ID_FILE_NEW
+        MENUITEM "È_Ü¢≈fôn(&O)...\tCtrl+O",     ID_FILE_OPEN
+        MENUITEM "É¶¥Êôn∞∏(&S)\tCtrl+S",        ID_FILE_SAVE
+        MENUITEM "¡Ì¥Ê–¬ôn(&A)...",             ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "¡–”°(&P)...\tCtrl+P",         ID_FILE_PRINT
+        MENUITEM "¡–”°‘O∂®(&R)...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "◊ÓΩ¸È_Ü¢ôn∞∏",                ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "ΩY ¯(&X)",                    ID_APP_EXIT
+    END
+    POPUP "æé›ã(&E)"
+    BEGIN
+        MENUITEM "èÕ‘≠(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "ºÙœ¬(&T)\tCtrl+X",            ID_EDIT_CUT
+        MENUITEM "—}—u(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "ŸN…œ(&P)\tCtrl+V",            ID_EDIT_PASTE
+    END
+    POPUP "ôz“ï(&V)"
+    BEGIN
+        MENUITEM "π§æﬂ¡–(&T)",                  ID_VIEW_TOOLBAR
+        MENUITEM "†ÓëB¡–(&S)",                  ID_VIEW_STATUS_BAR
+    END
+    POPUP "’f√˜(&H)"
+    BEGIN
+        MENUITEM "ÍPÏ∂ XdHtml(&A)...",          ID_APP_ABOUT
+    END
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Taiwan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+#pragma code_page(950)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\XdHtml.ico"
+IDR_XDHTMLTYPE          ICON    DISCARDABLE     "res\\XdHtmlDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+    BUTTON      ID_BUTTON_XD1
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "√ˆ©Û XdHtml"
+FONT 9, "∑s≤”©˙≈È"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "XdHtml Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2017",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "ΩT©w",IDOK,178,7,50,14,WS_GROUP
+    PUSHBUTTON      "Button1",IDC_BUTTON1,178,34,50,14
+    PUSHBUTTON      "Button2",IDC_BUTTON2,114,28,50,14
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040404B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "XdHtml MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "XdHtml\0"
+            VALUE "LegalCopyright", "Copyright (C) 2017\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "XdHtml.EXE\0"
+            VALUE "ProductName", "XdHtml Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x404, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "XdHtml\n\nXdHtml\n\n\nXdHtml.Document\nXdHtml Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "XdHtml"
+    AFX_IDS_IDLEMESSAGE     "¥N∫¸"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "≤£•Õ§@∑s§Â•Û\n∂}±“∑s¿…"
+    ID_FILE_OPEN            "∂}±“§@¬¬§Â•Û\n∂}±“¬¬¿…"
+    ID_FILE_CLOSE           "√ˆ≥¨•ÿ´e™∫§Â•Û\n√ˆ≥¨"
+    ID_FILE_SAVE            "¿x¶s•ÿ´e™∫§Â•Û\n¿x¶s¿…Æ◊"
+    ID_FILE_SAVE_AS         "•t•~•Œ§@∑s¶W∫Ÿ¿x¶s•ÿ´e™∫§Â•Û\n•t¶s∑s¿…"
+    ID_FILE_PAGE_SETUP      "ßÔ≈‹¶C¶LøÔ∂µ\n™©≠±≥]©w"
+    ID_FILE_PRINT_SETUP     "ßÔ≈‹¶L™Ìæ˜©M¶C¶LøÔ∂µ\n¶C¶L≥]©w"
+    ID_FILE_PRINT           "¶C¶L•ÿ´e™∫§Â•Û\n¶C¶L"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "≈„•‹µ{¶°™∫∏Í∞T°A ™©•ª§Œ™©≈v\n√ˆ©Û"
+    ID_APP_EXIT             "µ≤ßÙ¿≥•Œµ{¶°®√¥£•‹¿x¶s¿…Æ◊\nµ≤ßÙ"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE2       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE3       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE4       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE5       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE6       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE7       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE8       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE9       "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE10      "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE11      "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE12      "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE13      "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE14      "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE15      "∂}±“≥o≠”§Â•Û"
+    ID_FILE_MRU_FILE16      "∂}±“≥o≠”§Â•Û"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "§¡¥´®Ï§U§@≠”µ°ÆÊ\n§U§@≠”µ°ÆÊ"
+    ID_PREV_PANE            "§¡¥´®Ï§W§@≠”µ°ÆÊ\n§W§@≠”µ°ÆÊ"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "§¿≥Œ•ÿ´e™∫µ¯µ°\n§¿≥Œ"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "ßR∞£øÔ®˙§∫Æe\nßR∞£"
+    ID_EDIT_CLEAR_ALL       "•˛≥°ßR∞£\n•˛≥°ßR∞£"
+    ID_EDIT_COPY            "Ω∆ªsøÔ®˙§∫Æe®Ï∞≈∂K√Ø§§\nΩ∆ªs"
+    ID_EDIT_CUT             "∞≈§UøÔ®˙§∫Æe®Ï∞≈∂K√Ø§§\n∞≈§U"
+    ID_EDIT_FIND            "¥Mß‰´¸©w§Â¶r\n¥Mß‰"
+    ID_EDIT_PASTE           "¥°§J∞≈∂K√Ø§∫Æe\n∂K§W"
+    ID_EDIT_REPEAT          "≠´Ω∆´e§@∞ ß@\n≠´Ω∆"
+    ID_EDIT_REPLACE         "•H§£¶P§Â¶r®˙•N´¸©w§ß§Â¶r\n®˙•N"
+    ID_EDIT_SELECT_ALL      "øÔ®˙æ„Ωg§Â•Û\nøÔ®˙•˛≥°"
+    ID_EDIT_UNDO            "¥_≠Ï§W§@¶∏∞ ß@\n¥_≠Ï"
+    ID_EDIT_REDO            "≠´∞µ´e§@≠”¥_≠Ï™∫∞ ß@\n≠´∞µ"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "¡Ù¬√©Œ≈„•‹§u®„¶C\n§¡¥´§u®„¶C"
+    ID_VIEW_STATUS_BAR      "¡Ù¬√©Œ≈„•‹™¨∫A¶C\n§¡¥´™¨∫A¶C"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "ßÔ≈‹µ¯µ°§j§p"
+    AFX_IDS_SCMOVE          "ßÔ≈‹µ¯µ°¶Ï∏m"
+    AFX_IDS_SCMINIMIZE      "¡Y§pµ¯µ°®Ï§@πœ•‹"
+    AFX_IDS_SCMAXIMIZE      "©Ò§jµ¯µ°®Ï•˛ø√πı"
+    AFX_IDS_SCNEXTWINDOW    "§¡¥´®Ï§U§@≠”§Â•Ûµ¯µ°"
+    AFX_IDS_SCPREVWINDOW    "§¡¥´®Ï´e§@≠”§Â•Ûµ¯µ°"
+    AFX_IDS_SCCLOSE         "√ˆ≥¨§uß@§§µ¯µ°®√¥£•‹¿x¶s§Â•Û"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "¡Ÿ≠Ïµ¯µ°¶‹≠Ï®”§j§p"
+    AFX_IDS_SCTASKLIST      "•s•X°u§uß@¶C°v"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "√ˆ≥¨°uπwƒ˝¶C¶L°vº“¶°\n®˙Æ¯πwƒ˝"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_BUTTON_XD1           "xd1"
+END
+
+#endif    // Chinese (Taiwan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE 4, 1
+#pragma code_page(950)
+#endif //_WIN32
+#include "res\XdHtml.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.cht\afxres.rc"          // Standard components
+#include "l.cht\afxprint.rc"        // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

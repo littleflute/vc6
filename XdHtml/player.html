@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>Document Title</TITLE>
+<script type="text/javascript" src="blclass.js"></script>
+<script type="text/javascript">
+
+</script> 
+</HEAD>
+<BODY>
+<div id="Nav">
+v0.0.9<br>
+<a href="index.html">index.html</a>
+</div>
+ 
+<script>
+function _mediaClass (blo) 
+{					 
+	var o = blo;
+	this.v = "v0.7.6"; 
+	var timer = null;
+	clearInterval(timer);
+	var			n  = 0;
+	var			st = -1;
+	var			bS = [];
+	var			nSongNum = 0;
+	var			nPlayMode = 0;
+	
+    timer = setInterval(function()
+	{	
+		n++;
+		var v = document.getElementById("blrList"+"Div");  
+		if(v)
+		{
+			var Exobud = document.getElementById("MediaPlayer");  
+			var cp=Exobud.controls.currentPosition;			
+			var cps=Exobud.controls.currentPositionString;
+			var dur=Exobud.currentMedia.duration;
+			var durs=Exobud.currentMedia.durationString;
+			var s = new Date(); 
+			s += " st = " + st;
+			s += " nSongNum = " + nSongNum;
+			s += " bS.length = " + bS.length;
+			s += " PLAYTIME / "+cps + " | " + durs+"";
+			if(1==st && nPlayMode == 1)
+			{
+				var i = nSongNum;
+				i++;
+				if(i==bS.length) i = 1;
+				bS[i].click();
+			}
+			v.innerHTML = s;
+		}
+		            
+    },10);
+
+	var			_play = function(i){ 
+			var mp = document.getElementById("MediaPlayer");  
+			switch(i)
+			{
+			case 1:
+				mp.url = "file:///C:/Users/13699/xd/Mp3Player/blMp3Player-master/cd1/01.mp3";
+				nSongNum = 1;
+				break;
+			case 2:
+				mp.url = "file:///C:/Users/13699/xd/Mp3Player/blMp3Player-master/cd1/02.mp3";
+				nSongNum = 2;
+				break;
+			default: 
+				mp.url = "file:///C:/Users/13699/xd/Mp3Player/blMp3Player-master/cd1/01.mp3";
+				nSongNum = 1;
+				break;
+			} 
+			mp.controls.play();
+	};
+
+	this.blrToolBar = function(b,v)
+	{   
+		var bPlay = o.blBtn(v,b.id+"bPlay","bPlay","green");
+		bPlay.onclick = function()
+		{
+			var mp = document.getElementById("MediaPlayer");   
+			mp.controls.play();
+		}
+		var bStop = o.blBtn(v,b.id+"bStop","bStop","red");
+		bStop.onclick = function()
+		{
+			var mp = document.getElementById("MediaPlayer");   
+			mp.controls.Stop();
+		}
+		var bPause = o.blBtn(v,b.id+"bPause","bPause","blue");
+		bPause.onclick = function()
+		{
+			var mp = document.getElementById("MediaPlayer");   
+			mp.controls.Pause();
+		}
+		bS[1] = o.blBtn(v,b.id+"bS1","bS1","BurlyWood");
+		bS[1].onclick = function()
+		{   
+			_play(1); 
+		}
+		bS[2] = o.blBtn(v,b.id+"bS2","bS2","BurlyWood");
+		bS[2].onclick = function()
+		{
+			_play(2); 
+		}
+
+	}
+	this.blSetState = function(f)
+	{   
+	// 以下是状态值 (f) 的说明:
+	// 0(未定义) 1(已停止播放) 2(已暂停播放) 3(正在播放中) 4(向前搜索) 5(向后搜索)
+	// 6(缓冲处理中) 7(等待中) 8(已播放完毕) 9(转换曲目中) 10(就绪状态)
+		st = f;
+		if(8==f){ 
+			nPlayMode = 1;
+		}
+	}
+
+	
+	this.blrCreatePlayer = function(b,v)
+	{  
+		var divMP = o.blDiv(v,"mp1","xdxdxd","red"); 
+		playmedia(divMP,"file:///C:/Users/13699/xd/Mp3Player/blMp3Player-master/cd1/01.mp3"); 
+	}
+
+	function makeMPObj (strURL) {
+		var strHtml;
+	
+		strHtml ="<object id='MediaPlayer' width='400' height='64' classid='clsid:6bf52a52-394a-11d3-b153-00c04f79faa6'>";
+    	strHtml+="<param name='url' value=\""+ strURL +"\">";
+    	strHtml+="<param name='volume' value='100'>";
+    	strHtml+="<param name='loop' value='true'>";
+    	strHtml+="<param name='autoStart' value='0'>";
+        strHtml+="</object>";
+     
+		return strHtml;
+	}
+	function playmedia(oDivBoss,strURL) {  
+		oDivBoss.innerHTML = makeMPObj(strURL);
+	}
+	this.blrList = function(b,v)
+	{    
+	}  
+	this.blrNav = function(b,v)
+	{    
+	//	blLink = function (oBoss,id,html,href,bkClr);
+		o.blLink(v,v.id+"Link1","exobudpl.html",
+			"file:///C:/Users/13699/Downloads/MeMusic3.0/MeMusic3.0/Me%20Music%203.0/exobudpl.html",
+			"yellow");
+
+		o.blLink(v,v.id+"Link2","exobud.js",
+			"file:///C:/Users/13699/Downloads/MeMusic3.0/MeMusic3.0/Me%20Music%203.0/js/exobud.js",
+			"yellow");
+
+		o.blLink(v,v.id+"Link3","lrc.js",
+			"file:///C:/Users/13699/Downloads/MeMusic3.0/MeMusic3.0/Me%20Music%203.0/js/lrc.js",
+			"yellow");
+	}
+	
+	this.makeUI = function( )
+	{    
+		var mp = document.getElementById("blrCreatePlayer");  
+		mp.click(); 
+	}
+}
+function blPlayerClass () 
+{					
+	var blo 	= new blClass;	
+	var m		= new _mediaClass(blo);
+	this.v = "v0.0.4";
+	this.run = function()
+	{	 
+		blo.blShowObj2Div(document.body,m);	
+		m.makeUI();
+	}
+	this.blrUI = function()
+	{	
+		alert("ui");
+	}
+	this.evtPSChg = function (f){
+		m.blSetState(f);
+	};
+}
+var blp = new blPlayerClass;
+blp.run();
+</script>
+
+<script  for="MediaPlayer" event="playStateChange(ns)">blp.evtPSChg(ns);</script>
+</BODY>
+</HTML>

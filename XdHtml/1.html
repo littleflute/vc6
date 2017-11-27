@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>Document Title</TITLE>
+<style> 
+#myContainer {
+  width: 800px;
+  height: 400px;
+  position: absolute;//relative;
+  background: black;
+}  
+
+</style>
+
+<script type="text/javascript" src="blclass.js"></script>
+<SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
+</HEAD>
+<BODY>
+<div id="blPageV">v0.0.7</div>
+<div id="xddbg"></div>
+<div id="idMedia"></div> 
+<script type="text/javascript" src="xd.js"></script>
+
+</script>
+ 
+
+<div id ="myContainer">  
+<div id ="myLine" style="z-index:10;"></div>  
+</div>
+ 
+ <script>   
+function blkDiv(oBoss,id,html,x,y,w,h,color,p){
+    var r = document.getElementById(id);
+    if(!r){
+        r = document.createElement("div");
+        r.id = id;
+    	if(oBoss!=null) oBoss.appendChild(r);
+    }
+    var s = r.style;
+    s.border = "1px solid #3d3d3d";
+    s.position = p;//"absolute";
+    s.top	= y + "px";
+    s.left = x + "px";
+    s.width = w +"px";
+    s.height = h + "px";
+    s.backgroundColor = color;
+    s.display = "block";
+
+    r.innerHTML = html;  
+    return r;
+}
+
+var jgK = null;
+function jgKline1(contaniner,t,o,h,l,c) {     
+    
+	if(!jgK) jgK = new jsGraphics(contaniner);
+    var kID 	= t;
+    var x 		= xMin + t*xD;
+    var yH		= yMin + (yMax-yMin)/(hMin-hMax)*(h-hMax); 
+    var yL		= yMin + (yMax-yMin)/(hMin-hMax)*(l-hMax); 
+    var yO		= yMin + (yMax-yMin)/(hMin-hMax)*(o-hMax); 
+    var yC		= yMin + (yMax-yMin)/(hMin-hMax)*(c-hMax); 
+
+	jgK.setColor("red"); 
+   
+   var yOC 		= 0;
+   var HeighOC 	= 0;
+   var color	= "fff";
+   if(c>o) 
+   {
+   		HeighOC 	= yO -yC;
+        yOC 		= yC; 
+        color		= "red";
+   }
+   else
+   {
+   		HeighOC 	= yC -yO;
+        yOC 		= yO; 
+        color		= "green";
+   }
+	jgK.setColor(color); 
+	jgK.fillRect(x+2,yOC,xD-12,HeighOC);     
+	jgK.fillRect(x+7,yH,1,yL-yH); 
+
+	jgK.paint();
+}
+    var xMin	= 100;
+    var xD		= 24;
+    var yMin	= 0;
+    var yMax	= 400;
+    var hMin	= 1200;
+    var hMax	= 1400;
+ var jgLine		= null;
+function showMouse(x,y) { 
+ 	var c = document.getElementById("myContainer");  
+ 	var divLine = document.getElementById("myLine"); 
+	if(!jgLine) jgLine = new jsGraphics("myLine");
+
+	jgLine.clear();
+	jgLine.setColor("red");
+
+	jgLine.drawString("Text", x, y); 
+	jgLine.drawLine(0,y, 400, y); 
+	jgLine.paint();
+}
+function showCoords(e) {
+    e = e || window.event;
+    var x = e.clientX - this.offsetLeft;
+    var y = e.clientY - this.offsetTop; 
+    var kVal = hMax + (hMin-hMax)/(yMax-yMin)*(y-yMin); 
+    var coor =   "X coords: " + x + ", Y coords: " + y + ", kVal: " + kVal; 
+    document.getElementById("div_Msg").innerHTML = coor;
+    
+    showMouse(x,y);
+	
+    var c = document.getElementById("myContainer"); 
+    var div_xdTest = blkDiv(c,"div_xdTest","htmlXdTest",x,y,111,111,"red","absolute");
+}
+
+function clearCoords() {
+    document.getElementById("div_Msg").innerHTML = "";
+    showMouse(-11,-500);
+} 
+function initDrawing(contaniner) { 
+    var div_hMin = blkDiv(contaniner,"div_hMin",hMin,400,400-24,111,22,"red","absolute");
+    var div_hMax = blkDiv(contaniner,"div_hMax",hMax,400,0,111,22,"green","absolute");
+    var div_Msg = blkDiv(contaniner,"div_Msg","",400,122,311,22,"yellow","absolute");
+    var div_Move1 = blkDiv(contaniner,"div_Move1","move1_v0.0.8",0,0,155,155,"blue","absolute");
+    var m1a = blkDiv(div_Move1,"m1a","m1a",0,0,55,55,"red","absolute");
+	var nDown = 0;
+	div_Move1.onmousedown = function(){ 
+		return function(){
+			nDown = 1;
+			m1a.innerHTML = nDown;
+		}
+	}();
+	div_Move1.onmouseup = function(){ 
+		return function(){
+			nDown = 0;
+			m1a.innerHTML = nDown;
+		}
+	}();
+
+
+    contaniner.onmousemove = showCoords;
+    contaniner.onmouseout = clearCoords;
+    
+    function elementDrag(e) {
+        pos3 = e.clientX;
+        pos4 = e.clientY; 
+    }
+
+}  
+function myLoad() {   
+    var c = document.getElementById("myContainer"); 
+    initDrawing(c);
+
+	jgKline1("myContainer",1,1330,1380,1280,1324);
+	jgKline1("myContainer",2,1325,1370,1280,1304);
+	jgKline1("myContainer",3,1310,1370,1290,1314);
+	jgKline1("myContainer",4,1310,1355,1290,1311);
+
+}
+myLoad();
+ 
+  
+</script>
+</BODY>
+</HTML>
