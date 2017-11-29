@@ -17,63 +17,118 @@ var QueryString = function ()
   return query_string;
 }();
 
-var refreshTimes = 0;
-if(QueryString.r)
-{
-	refreshTimes = parseInt(QueryString.r) + 1;
-}
-else
-{
-	refreshTimes = 0;
-}
+function _xdClass(){
+	var _xdClassV = "v0.0.90";
+	var divWrap = document.getElementById("xddbg");
+	var refreshTimes = 0;
+	this.blrRunJS = function(btn,view){
+		var t = blo0.blTextarea(view,btn.id+"t1","alert('xd');","Aquamarine");	 
+		t.style.width = "100%";
+		t.style.height = "300px"; 
+
+		var b = blo0.blBtn(view,btn.id+"_BtnRun","run","green");		
+		b.onclick = function(){eval(t.value);}	
+		_on_off_bd(btn,view);
+	};
+	this.bll1 = "bll1";
+	this.blhClassName = "_xdClass";
+
+	function _on_off_bd(b,d){
+		if(b.innerHTML=="+"){
+			b.innerHTML = "-";
+			b.style.backgroundColor="green"; 
+		}
+		else{
+			b.innerHTML = "+";
+			b.style.backgroundColor="red"; 
+		}
+		if(d.style.display=="block"){
+			d.style.display="none"; 
+		}
+		else{
+			d.style.display="block";
+		}
+	} 
+	function _makeToolBar(blo,d) {
+		var id = d.id;
+		id += "_b1";
+		var b1 = blo.blBtn(d,id,"+","red");
+		b1.onclick = function(btn_){
+			var v = null;
+			return function(){
+				v = blo.blDiv(d,btn_.id+"_div_View","b1v","green");
+				blo.blShowObj2Div(v,xdobj);
+				_on_off_bd(btn_,v);
+			}
+		}(b1);
+	}
     
 
-//Media Build
-function makemedia (strURL) {
-	var strHtml;	
-	strHtml ="<object id='MediaPlayer' width='400' height='64' classid='clsid:6bf52a52-394a-11d3-b153-00c04f79faa6'>";
-    	strHtml+="<param name='url' value=\""+ strURL +"\">";
-    	strHtml+="<param name='volume' value='100'>";
-    	strHtml+="<param name='loop' value='true'>";
-    	strHtml+="<param name='autoStart' value='0'>";
-        strHtml+="</object>";        
-	return strHtml;
-}
-function playmedia(strID,strURL) {
-	strID.replace(" ","%20");
-	var objDiv=document.getElementById(strID); 
-		objDiv.innerHTML=makemedia(strURL);
-}
-var wrap = document.getElementById("xddbg");
-
-function xdDbgMsg(str)
-{
-	if(wrap){
-		var s = xddbg.innerHTML;
-		s += str;
-		s += "<br>";
-		wrap.innerHTML =s;
-	}
-}
-
-xdDbgMsg("xddbg: v0.0.21 refreshTimes="+refreshTimes); 
-playmedia("idMedia","file:///C:/Users/13699/xd1/Mp3Player/blMp3Player-master/cd1/01.mp3");
-if(blo0){
-	if(wrap)
-	{
-		var nav = blo0.blDiv(wrap,"xdNav","xdNav");
-		var l1 = blo0.blLink(nav,"l1","index.html","index.html?r="+refreshTimes,"Chartreuse");
-		var l2 = blo0.blLink(nav,"l2","jsgraphics.html","jsgraphics.html","purple");
-		var l3 = blo0.blLink(nav,"l3","1.html","1.html","white");
-		var a = nav.getElementsByTagName('a');
-		for(i in a)
+	function _init(){
+		if(QueryString.r)
 		{
-			a[i].onmouseover = function(){
-				this.style.backgroundColor = "yellow";
-			};
-			a[i].onmouseout = function(){
-				this.style.backgroundColor = "white";
-			};
+			refreshTimes = parseInt(QueryString.r) + 1;
+		}
+		else
+		{
+			refreshTimes = 0;
+		}
+		var pv = document.getElementById("idDivBlV");
+		var _blPageV = pv?pv.innerHTML:"v0.0.0";
+		var blInf = "page:" + _blPageV;
+		blInf += "  xd.js: " + _xdClassV + "  refreshTimes="+refreshTimes;
+		_xdDbgMsg(blInf); 
+		_makeWrapContent(blo0);
+		divWrap.style.border = "1px red solid";
+		divWrap.style.backgroundColor = "mediumseagreen";
+	}
+	function _xdDbgMsg(str)
+	{
+		if(divWrap){
+			var s = xddbg.innerHTML;
+			s += str;
+			s += "<br>";
+			divWrap.innerHTML =s;
 		}
 	}
+
+
+	function _makeWrapContent(blo0)
+	{
+		if(!blo0) return;
+
+		if(divWrap)
+		{
+			var nav = blo0.blDiv(divWrap,"xdNav","::");
+			var nav1 = blo0.blDiv(divWrap,"xdNav1","==","DarkCyan");
+			var l	= [];
+			var index = blo0.blLink(nav,"index","index.html","index.html?r="+refreshTimes,"DarkCyan");l.push(index);
+			var l1 = blo0.blLink(nav,"l1","1.html*","1.html","white");		l.push(l1);
+			var l2 = blo0.blLink(nav,"l2","2.html*","2.html","white");		l.push(l2);
+			var jsgraphics = blo0.blLink(nav,"jsgraphics","jsgraphics.html","jsgraphics.html","greenyellow");l.push(jsgraphics);
+			var kLines = blo0.blLink(nav,"kLines","kLines.html","kLines.html","skyblue"); l.push(kLines);
+			//"vc6ui.html"
+			var vc6ui = blo0.blLink(nav,"vc6ui","vc6ui.html","vc6ui.html","skyblue"); l.push(vc6ui);
+			var lyric = blo0.blLink(nav,"lyric","lyric.html","lyric.html","skyblue"); l.push(lyric);
+			var a = nav.getElementsByTagName('a');
+		 
+			for(i in l)
+			{ 
+				var m = a;
+				m[i].style.color = "white";
+				m[i].style.backgroundColor = "black";
+				m[i].onmouseover = function(){
+					this.style.backgroundColor = "ForestGreen";
+				};
+				m[i].onmouseout = function(){
+					this.style.backgroundColor = "black";
+				};
+			}
+			_makeToolBar(blo0,nav1);
+		}
+	}
+	_init();
 }
+var xdobj = new _xdClass; 
+
+ 

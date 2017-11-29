@@ -1,0 +1,93 @@
+ <!-- id_t1_html -->
+ <HTML><HEAD><TITLE>noName</TITLE> 
+<script src="blclass.js"  type="text/javascript" ></script>
+<SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
+</HEAD>
+<BODY>
+<div id="blPageV"></div>
+<div id="xddbg"></div>
+<div id="idMedia"></div> 
+<script type="text/javascript" src="xd.js"></script> 
+ <!-- -->
+  <!-- id_t2_html -->
+
+<script>   
+function add(a,b)
+{
+	var d = document.getElementById("blpageV");
+	
+	var		o	= new blClass;
+	var t = o.blTextarea(d,"tadd1","xd1","gold");
+	t.value = _blClass1;
+	var x = parseInt(a);
+	var y = parseInt(b);
+	var z = x + y;
+	var r = t.value;
+	return r;
+}
+function _blClass1(){
+	this.classV		= "v0.0.43";//xd_2d
+	this.className	= "_blClass1";  
+	this.blrTest1	= function(b,d){
+		alert(add(1,2));
+	};
+	this.blrTest	= function(b,d){
+		if(d.style.display=="block"){
+			d.style.display="none"; 
+		}
+		else{
+			d.style.display="block";
+		}
+		var o = _blo;
+		var d1 = o.blDiv(d,"blrTestd1","blrTestdv","gray");
+		var t = o.blTextarea(d,"t1","xd1","gold");
+		t.style.width = "100%";
+		t.style.height = "150px";
+		var a = _blClass1; 
+		t.value = a;
+		d1.innerHTML = t.value.length;
+	};
+
+	var		_blo	= new blClass;
+	var		_me		= this;
+
+	var		_thisPageInf		= function(id,this_){ 
+		var v = document.getElementById(id);
+		var html = "";
+		html	+= ":";
+		html	+= this_.classV;
+		html	+= ":    ";
+		html	+= window.location;
+		if(v) v.innerHTML = html;
+	};
+	var		_Go		= function(this_,o){
+		_thisPageInf("blPageV",this_);
+		var b1 = o.blBtn(xddbg,"b1",this_.className,"red");
+		var xd1 = o.blLink(xddbg,"xd1","save","?xd=save","Salmon");
+		var xd2 = o.blLink(xddbg,"xd2","open","?xd=open","Salmon");
+		var d1 = o.blDiv(xddbg,"d1","d1","greenyellow");
+		b1.onclick = function(this_){
+			var b	= false;
+			var d	= null;
+			return function(){
+				b	= !b;
+				d	= o.blDiv(xddbg,"idShow_me","_me","gray");
+				o.blShowObj2Div(d,this_);		 
+				d.style.display = !b?"none":"block";
+			}
+		}(_me);
+	};
+	_Go(this,_blo);
+}
+var blk = new _blClass1;
+
+</script>
+ <!--  -->
+  <!-- id_t3_html -->
+ 
+</BODY>
+</HTML>
+
+ <!--  -->
+ 
+ 

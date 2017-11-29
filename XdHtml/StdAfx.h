@@ -21,6 +21,37 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 #include <afxhtml.h>			// MFC HTML view support
 
+class CBlBase
+{
+public:
+	CBlBase():m_pContext(NULL),m_strV("v0.0.4"),m_strName("BlBase"){}
+	~CBlBase(){}
+	bool pl2ParseString(CString s){ 
+		if(-1 != s.Find("xd=Cancel")) {  	
+			AfxMessageBox("vc6: CBlBase: xd=Cancel");
+			return true;
+		} 	
+		if(-1 != s.Find("xd=xd3")) {  	
+			AfxMessageBox("vc6: CBlBase: xd=xd3");
+			return true;
+		} 	
+		if(-1 != s.Find("xd=get_win_app_v")) {  	
+			AfxMessageBox(m_strName + " : " + m_strV);
+			return true;
+		} 	
+		return false;
+	}
+	void plSetContext(void* p){m_pContext = p;}
+	void plSetWindowText(char *sz){
+		CWnd *pw = (CWnd*) m_pContext;
+		pw->SetWindowText(sz);
+	}
+	void	*	m_pContext;
+private:
+	CString		m_strV;
+	CString		m_strName;
+};
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

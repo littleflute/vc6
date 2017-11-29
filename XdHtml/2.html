@@ -9,8 +9,10 @@
 </HEAD>
 <BODY> 
 <script src="blclass.js"></script>
-<div id="Nav">v0.0.43<br><a href="index.html">index.html</a> <a href="2.html">refresh</a></div>
-
+<div id="Nav">v0.0.48<br>
+<div id="xddbg"></div>
+<div id="idMedia"></div> 
+<script type="text/javascript" src="xd.js"></script> 
 <div id = "sample1" style = "position:absolute;left:150px;top:150px;border:1px solid blue;">
 <table width=50 height=50 border="0" cellspacing="0" bgcolor="red"></table> 
 </div> 
@@ -21,7 +23,7 @@
 function xdMoveDivClass()
 {
 	var blo = new blClass;
-	blo.blMDiv(document.body,"MMMM","mmmm");
+	var m2 = blo.blMDiv(document.body,"MMMM","mmmm");
 	var dm = null;
 	var x1 = 0;
 	var y1 = 0;
@@ -53,20 +55,9 @@ function xdMoveDivClass()
 		s += '</div>'; 
 		return s;
 	}
-	this.blrLeft = function(b,v){ 
-		var l = v.parentNode.style.left;
-		l = parseInt(l);
-		l -= 10;
-		v.innerHTML = l;
-		v.parentNode.style.left = l + "px";
-	}
-	this.blrRight = function(b,v){ 
-		var l = v.parentNode.style.left;
-		l = parseInt(l);
-		l += 10;
-		v.innerHTML = l;
-		v.parentNode.style.left = l + "px";
-	}
+	this.blrM2Test = function(b,v){ 
+		blo.blDiv(m2,"m222","m2222");
+	} 
 	this.blrMove = function(b,v){ 
 		if(v.style.display=="block"){
 			v.style.display="none"; 
@@ -90,7 +81,7 @@ function xdMoveDivClass()
 		dm.onmousemove = function(){
 			var c = _getXY();
 			dm.innerHTML = "move:" + c.x + "," + c.y; 
-			if(x1==0) return false;
+			if(x1==0 && y1==0) return false;
 
 			var l = v.parentNode.style.left;
 

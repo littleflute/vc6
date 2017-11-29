@@ -1,47 +1,21 @@
 var QueryString = function () 
 {
-  // This function is anonymous, is executed immediately and 
-  // the return value is assigned to QueryString!
-
   var query_string = {};
-
   var query = window.location.search.substring(1);
-
   var vars = query.split("&");
-
   for (var i=0;i<vars.length;i++) {
-
     var pair = vars[i].split("=");
-
-        // If first entry with this name
-
     if (typeof query_string[pair[0]] === "undefined") {
-
       query_string[pair[0]] = decodeURIComponent(pair[1]);
-
-        // If second entry with this name
-
     } else if (typeof query_string[pair[0]] === "string") {
-
       var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
-
       query_string[pair[0]] = arr;
-
-        // If third or later entry with this name
-
     } else {
-
       query_string[pair[0]].push(decodeURIComponent(pair[1]));
-
     }
-
-  }
- 
+  } 
   return query_string;
-
-}();
-//QueryString.l
-
+}(); 
 
 function _blVMPlayer()
 {
@@ -77,18 +51,44 @@ var xdMin;
 			lrcTimer0 = setTimeout("_golrcoll("+s+")",xdMin*10);
   }
  
-lrcobj = new blLrcClass(lrcdata.innerHTML);
+blo0.blScript("id_script_lrcdata",QueryString.l);
+function loadLyricOK(){ 
+	var l = document.getElementById("lrcdata");
+	lrcobj = new blLrcClass(l.innerHTML,QueryString.t,QueryString.f);
+	lrcobj.blRun(lrcobj);
+}
 
-function blLrcClass(tt)
+function blLrcClass(tt,xt,f)
 {	
+	var _xdTestFile = f; 
 	var xdType = 4; //5 - html5; 4 - vc6; 3 - No Real Player;
-	if (QueryString.l==undefined) xdType = 3;
+	if (xt==undefined) xdType = 3;
 	
-	if (QueryString.l==5) xdType = 5;
-	if (QueryString.l==4) xdType = 4;
-	if (QueryString.l==3) xdType = 3;
+	if (xt==5) xdType = 5;
+	if (xt==4) xdType = 4;
+	if (xt==3) xdType = 3;
 	var o = new blClass;
 	var blVMP = new _blVMPlayer;
+	
+  var _CreateSongList = function(oBoss)
+  {	
+		var d = o.blDiv(oBoss,oBoss.id+"_div_SongList","SongList: v0.0.1","skyblue");
+		var s1 = o.blLink(d,d.id+"_link_s1","s1","?t=5&f=file:///C:/Users/13699/xd1/vc6/files/u0101.mp3","purple"); 
+  }
+
+  var _CreateUI = function(f)
+  {
+	var xdVer	= "v1.0.45";
+	var xdPlayerDiv = o.blDiv(document.body,"xdPlayerDiv","xdPlayerDiv");	 
+	var divMP = o.blDiv(xdPlayerDiv,"mp1","xdxdxd","red"); 
+	_InitPlayer(xdType,divMP,f); 
+	var xddbgDiv = o.blDiv(document.body,"xddbgLyric",xdVer,"gold");
+	var MyTimer = o.blDiv(document.body,"idMyTimer","idMyTimer");
+
+	var od = o.blDiv(document.body,"oShowDiv","","gold");
+	_CreateLyrBoard2(od);
+  }
+  
 	function _makeMPObj (strURL) {
 		var strHtml;	
 		strHtml ="<object id='idLyricMP' width='400' height='64' classid='clsid:6bf52a52-394a-11d3-b153-00c04f79faa6'>";
@@ -127,7 +127,6 @@ function blLrcClass(tt)
 			nMyTimer++;
 			s += nMyTimer;
 			var playerObj = document.getElementById("idLyricMP");
-			s += " QueryString.l = " + QueryString.l;
 			s += " blVMP.blrGetCP = " + blVMP.blrGetCP();
 			s += "idMovingLyr.style.top = " + idMovingLyr.style.top;
 			s += "<br>";
@@ -136,14 +135,12 @@ function blLrcClass(tt)
 		}
   }(this);
  
-
   var _CreateLyrBoard2 = function(oBoss)
   {	
-		var d2Title = o.blDiv(oBoss,"d2Title","d2Title: v0.0.2","blue");
+		var d2Title = o.blDiv(oBoss,"d2Title","d2Title: v0.0.3","skyblue");
 		var d2Body = o.blDiv(oBoss,"d2Body","d2Body: v0.0.13","DarkOrchid");
-		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x","DarkSeaGreen");
-
- 
+		_CreateSongList(d2Body);
+		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x","DarkSeaGreen"); 
 
 		var s = "";
 		s += '<div id="lrcollbox" style="overflow:hidden; height:260; width:460; background-color:#59a;">'; 
@@ -185,21 +182,7 @@ function blLrcClass(tt)
 		
 		d2BodyContend.innerHTML = s;
   } 
-  var _CreateUI = function()
-  {
-	var xdVer	= "v1.0.26";
-	var xdPlayerDiv = o.blDiv(document.body,"xdPlayerDiv","xdPlayerDiv");	 
-	var divMP = o.blDiv(xdPlayerDiv,"mp1","xdxdxd","red"); 
-	_InitPlayer(xdType,divMP,"file:///C:/Users/13699/xd/vc6/files/u0102.mp3"); 
-	var xddbgDiv = o.blDiv(document.body,"xddbgLyric",xdVer,"green");
-	var MyTimer = o.blDiv(document.body,"idMyTimer","idMyTimer");
-
-	var od = o.blDiv(document.body,"oShowDiv","showDiv");
-	//o.blShowObj2Div(od,lrcobj);	
-	_CreateLyrBoard2(od);
-  }
-  
-  _CreateUI();
+  _CreateUI(_xdTestFile);
 
   this.inr = [];
   this.min = [];
@@ -254,7 +237,6 @@ function blLrcClass(tt)
     var fall = idMovingLyr.getElementsByTagName("font");
     for(var wi=0; wi<fall.length; wi++)
       this.inr[ii].w[this.inr[ii].w.length] = fall[wi].offsetWidth;
-  //  this.inr[ii].n = "xddbg1a: " ;//idMovingLyr.innerText; //#xdm 1
   }
 
 
@@ -272,8 +254,7 @@ function blLrcClass(tt)
 	switch(xdType)
 	{
 	case 3: 
-		xdCP = blVMP.blrGetCP(); 
-		
+		xdCP = blVMP.blrGetCP(); 		
 		break;
 	case 4:
 		xdCP = xdMP.controls.currentPosition;  
@@ -383,5 +364,4 @@ function blLrcClass(tt)
 }//END: blLrcClass
 
 
-lrcobj.blRun(lrcobj);
 

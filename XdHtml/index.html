@@ -1,25 +1,15 @@
-<HTML>
-<HEAD>
-<META NAME="GENERATOR" Content="Microsoft Developer Studio">
-<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
-<TITLE>Document Title</TITLE>
-<script type="text/javascript" src="blclass.js"></script>
-</HEAD>
-<BODY>
+<HTML><HEAD><META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>Document Title</TITLE><script type="text/javascript" src="blclass.js"></script></HEAD><BODY>
 
-<!-- Insert HTML here -->
-
-<div id="Nav">
-v0.0.27
-<br>
+<div id="blPageNav">
 <a href="../index.html">[..]</a>
-<a href="file:///C:/Users/13699/xd/w3schools/howto/xdTest.html">xdTest</a>
-<a href="1.html">1.html</a>
-<a href="2.html">2.html</a>
+<a href="?xd=get_win_app_v">get_win_app_v</a>
+<a href="file:///C:/Users/13699/BeautifulLover/index.html">BeautifulLover</a> 
+<a href="2.html">2.html*</a>
 <a href="player.html">player.html</a>
 <a href="lyric.html">lyric.html</a>
 <a href="jquery/index.html">jquery</a>
-<a href="file:///C:/Users/13699/xd/index.html">xd</a>
+<a href="file:///C:/Users/13699/xd/index.html?xd=Cancel">xd</a>
 <a href="file:///C:/Users/13699/xd1/cchess/i.html">cchess-i.html</a>
 <a href="file:///C:/Users/13699/Downloads/vschess_1.2.0/vschess_1.2.0/demo.html">vschess_1.2.0</a>
 <br>
@@ -29,47 +19,11 @@ v0.0.27
 <a href="https://littleflute.github.io/blog/docs/2017/04/16/">04/16: </a>-
 <a href="https://littleflute.github.io/blog/docs/2017/04/19/">04/19: </a>-
 <a href="https://littleflute.github.io/blog/docs/2017/04/21/">04/21: littleflute </a>
-<a href="jsgraphics.html">jsgraphics </a>
-
 </div>
-
-<div id="xddbg"></div>
-<div id="idMedia"></div> 
-<script type="text/javascript" src="xd.js"></script>
-
+<div id = "idDivBlV" style="display:none;">v0.0.44</div>
+<div id="xddbg"></div><div id="idMedia"></div> 
+<script src="xd.js" type="text/javascript" ></script>
 <script type="text/javascript" >
-function Welcome()
-{
-	alert("Welcome");
-}
-function add(a,b)
-{ 
-	var s = a + b;
-	alert(s);
-}
-var QueryString = function () 
-{ 
-  var query_string = {};
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i=0;i < vars.length;i++) {
-    var pair = vars[i].split("=");
-    if (typeof query_string[pair[0]] === "undefined") {
-      query_string[pair[0]] = decodeURIComponent(pair[1]); 
-    } 
-	else if (typeof query_string[pair[0]] === "string") {
-      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
-      query_string[pair[0]] = arr;
-    } 
-	else {
-      query_string[pair[0]].push(decodeURIComponent(pair[1]));
-    }
-  } 
-  return query_string;
-}();
-//QueryString.l
-
-
 function blClassTest(){								
 	var blo 	= new blClass;	
 	var m = blo.blDiv(document.body,"blpMainDiv","blpMainDiv","BlueViolet" );
@@ -127,21 +81,10 @@ function blClassTest(){
 		o.blLink(mi3,id+"a2","a2","ReadMe.txt?a=2&x=9111&y=14111","BurlyWood");
 		o.blLink(mi3,id+"a3","a3","ReadMe.txt?a=3&x=200&y=170","red");	
 		o.blLink(mi3,id+"a4","click","ReadMe.txt?a=4&x=300&y=111","Chartreuse");						 
-	}										 
-	function _test1(){								
-		var t = blo.blTextarea(document.body,"t1","alert('xd');","Aquamarine");	 
-		t.style.backgroundColor = "green"; 
-
-		var b = blo.blBtn(document.body,"idBtnRun","run","green");		
-		b.onclick = function(){eval(t.value);}					
-	}									 
-	this.run = function(){								
-		_test1();		  					
-		_test2("blClass",400,100,blo);							 						
-	}	
+	}				 		  					
+		_test2("blClass",400,100,blo);
 }							
-var blt = new blClassTest;								
-blt.run(); 	
+var blt = new blClassTest;	 
 </script>
 
 </BODY>

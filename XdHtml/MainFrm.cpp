@@ -19,9 +19,12 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	//{{AFX_MSG_MAP(CMainFrame)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
 	ON_WM_CREATE()
+	ON_WM_SIZE()
+	ON_WM_ACTIVATE()
+	ON_WM_SHOWWINDOW()
+	ON_WM_TIMER()
+	ON_WM_DESTROY()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -39,7 +42,8 @@ static UINT indicators[] =
 CMainFrame::CMainFrame()
 {
 	// TODO: add member initialization code here
-	
+	m_nTimerNum = 0;
+	m_blSon.plSetContext(this);
 }
 
 CMainFrame::~CMainFrame()
@@ -50,7 +54,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	
+	/*
 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
 		| CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
 		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
@@ -58,7 +62,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("Failed to create toolbar\n");
 		return -1;      // fail to create
 	}
-
+*/
 	if (!m_wndStatusBar.Create(this) ||
 		!m_wndStatusBar.SetIndicators(indicators,
 		  sizeof(indicators)/sizeof(UINT)))
@@ -69,12 +73,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// TODO: Delete these three lines if you don't want the toolbar to
 	//  be dockable
-	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
+//	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
-	DockControlBar(&m_wndToolBar);
+//	DockControlBar(&m_wndToolBar);
 	
 	pvSetHotKey();
 
+//	this->SetTimer(1,100,NULL);
 	return 0;
 }
 
@@ -114,9 +119,14 @@ LRESULT CMainFrame::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	pvHotKey(message,wParam,lParam);
+	switch(message)
+	{
+	case WM_LBUTTONDOWN:
+		break;
+	}
 	return CFrameWnd::DefWindowProc(message, wParam, lParam);
 }
-
+#include "XdHtmlView.h"
 void CMainFrame::pvHotKey(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if(WM_HOTKEY!=message) return;
@@ -124,11 +134,19 @@ void CMainFrame::pvHotKey(UINT message, WPARAM wParam, LPARAM lParam)
 	s.Format(" %d w = %d",LOWORD(lParam),wParam);
 	switch(wParam)
 	{
-	case 1:		
-		AfxMessageBox("a");
+	case 1:	
+		{ 
+			CString s;
+			GetWindowText(s);
+			AfxMessageBox("a:" + s);
+		}
 		break;
 	case 2:		
 		AfxMessageBox("b");
+		break; 
+	case 48:		 
+		CXdHtmlView *pv = (CXdHtmlView *) this->GetActiveView();
+		pv->BlHome();
 		break;
 	}
 
@@ -152,5 +170,66 @@ void CMainFrame::pvSetHotKey()
         0x42))  //0x42 is 'b'
     { 
     } 
+	if (RegisterHotKey(
+        m_hWnd,
+        48,
+        MOD_CONTROL,//MOD_ALT,
+        0x48))  //0x48 is 'h'
+    { 
+    } 
 
+
+}
+
+void CMainFrame::ActivateFrame(int nCmdShow) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	
+	CFrameWnd::ActivateFrame(nCmdShow);
+}
+
+void CMainFrame::OnSize(UINT nType, int cx, int cy) 
+{
+	CFrameWnd::OnSize(nType, cx, cy);
+	
+	// TODO: Add your message handler code here
+	
+	SetWindowText("xd title 1");
+}
+
+void CMainFrame::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized) 
+{
+	CFrameWnd::OnActivate(nState, pWndOther, bMinimized);
+	
+	// TODO: Add your message handler code here
+	
+	SetWindowText("xd title: OnActivate");
+}
+
+void CMainFrame::OnShowWindow(BOOL bShow, UINT nStatus) 
+{
+	CFrameWnd::OnShowWindow(bShow, nStatus);
+	
+	// TODO: Add your message handler code here
+	
+	SetWindowText("xd title: OnShowWindow");
+}
+
+void CMainFrame::OnTimer(UINT nIDEvent) 
+{
+	// TODO: Add your message handler code here and/or call default
+	m_nTimerNum++;
+	char sz[256];
+	sprintf(sz,"blson test: %d",m_nTimerNum);
+	m_blSon.plSetWindowText(sz); 
+
+	CFrameWnd::OnTimer(nIDEvent);
+}
+
+void CMainFrame::OnDestroy() 
+{
+	CFrameWnd::OnDestroy();
+	
+	// TODO: Add your message handler code here
+	this->KillTimer(1);
 }

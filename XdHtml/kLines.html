@@ -1,0 +1,226 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Developer Studio">
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>blKlines</TITLE> 
+<script type="text/javascript" src="blclass.js"></script>
+<SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
+</HEAD>
+<BODY>
+<div id="blPageV"></div>
+<div id="xddbg"></div>
+<div id="idMedia"></div> 
+<script type="text/javascript" src="xd.js"></script> 
+ 
+<script>   
+function _blKinesClass(){
+	this.classV		= "v0.0.72";//xd_2do
+	this.className	= "_blKinesClass";
+	this.blrYear	= function(b,d){ 
+		_LoadData("id_years",430,10,800,400); 
+	}
+	this.blrMonth	= function(b,d){
+		_LoadData("id_Months",330,110,800,400); 
+	}
+	this.blrDay	= function(b,d){
+		_LoadData("id_Days",230,210,800,400); 
+	}
+	var v = document.getElementById("blPageV");
+	if(v) v.innerHTML = this.classV;
+	var		xddbg	= document.getElementById("xddbg");
+	var		blo		= new blClass;
+	var		_me		= this;
+ 
+	
+	function _LoadData(id,x,y,w,h) {    
+		_initDrawing(id,x,y,w,h); 
+		var jg = new jsGraphics(id);
+		_jgKline1(jg,1,1330,1380,1280,1324);
+		_jgKline1(jg,2,1325,1370,1280,1304);
+		_jgKline1(jg,3,1310,1370,1290,1314);
+		_jgKline1(jg,4,1310,1355,1290,1311);
+	} 
+	function _getXY(){
+			
+			var scrlY =document.body.scrollTop;
+			var scrlX =document.body.scrollLeft;
+			var r = {};
+			r.x=event.clientX+scrlX;
+			r.y=event.clientY+scrlY; 
+			return r;
+	}
+	function blkDiv(oBoss,id,html,x,y,w,h,color,p){
+		var r = document.getElementById(id);
+		if(!r){
+			r = document.createElement("div");
+			r.id = id;
+			if(oBoss!=null) oBoss.appendChild(r);
+		}
+		var s = r.style;
+		s.border = "1px solid #3d3d3d";
+		s.position = p;//"absolute";
+		s.top	= y + "px";
+		s.left = x + "px";
+		s.width = w +"px";
+		s.height = h + "px";
+		s.backgroundColor = color;
+		s.display = "block";
+		
+		r.innerHTML = html;  
+		r.jg		= null;
+		return r;
+	}
+	
+    var xMin	= 100;
+    var xD		= 24;
+    var yMin	= 0;
+    var yMax	= 400;
+    var hMin	= 1200;
+    var hMax	= 1400; 
+	function showMouse(c,x,y) {  
+		var id = c.id + "_mouseLine";
+		var xdLine = document.getElementById(id);
+		if(!xdLine){
+			blkDiv(c,id,"",0,0,0,0,"blue","absolute");
+		} 
+		if(null == c.jg)  c.jg = new jsGraphics(id);
+		var txt = id + "_" + c.style.top + "_" + c.style.zIndex; 
+		var jgLine = c.jg;
+		jgLine.clear();
+		jgLine.setColor("red");
+		jgLine.drawString(txt, x, y); 
+		jgLine.drawLine(0,y, 400, y); 
+		jgLine.paint();
+	}
+	function showCoords(e) {
+		e = e || window.event;
+		var x = e.clientX - this.offsetLeft;
+		var y = e.clientY - this.offsetTop; 
+		var kVal = hMax + (hMin-hMax)/(yMax-yMin)*(y-yMin); 
+		var coor =   "X coords: " + x + ", Y coords: " + y + ", kVal: " + kVal; 
+		this.div_Msg.innerHTML = coor;
+		 
+		showMouse(this,x,y);	 
+	}
+	
+	function clearCoords() {
+		this.div_Msg.innerHTML = "";
+		 
+		showMouse(this,-11,-500);
+	} 
+	function _jgKline1(jgK,t,o,h,l,c) {     
+		
+		var kID 	= t;
+		var x 		= xMin + t*xD;
+		var yH		= yMin + (yMax-yMin)/(hMin-hMax)*(h-hMax); 
+		var yL		= yMin + (yMax-yMin)/(hMin-hMax)*(l-hMax); 
+		var yO		= yMin + (yMax-yMin)/(hMin-hMax)*(o-hMax); 
+		var yC		= yMin + (yMax-yMin)/(hMin-hMax)*(c-hMax); 
+		
+		jgK.setColor("red"); 
+		
+		var yOC 		= 0;
+		var HeighOC 	= 0;
+		var color	= "fff";
+		if(c>o) 
+		{
+			HeighOC 	= yO -yC;
+			yOC 		= yC; 
+			color		= "red";
+		}
+		else
+		{
+			HeighOC 	= yC -yO;
+			yOC 		= yO; 
+			color		= "green";
+		}
+		jgK.setColor(color); 
+		jgK.fillRect(x+2,yOC,xD-12,HeighOC);     
+		jgK.fillRect(x+7,yH,1,yL-yH); 
+		
+		jgK.paint();
+	}
+	function _initDrawing(id,x,y,w,h) {   
+		var _id = id;
+		var c = blkDiv(document.body,_id,"js",x,y,w,h,"skyblue","absolute");
+		c.style.zIndex = 1;
+		c.onclick = function(){
+			var i	= parseInt(c.style.zIndex);
+			c.style.zIndex = i+1; 
+		};
+		_id		= id + "_div_hMin";
+		var div_hMin = blkDiv(c,_id,hMin,400,400-24,111,22,"red","absolute");
+		_id		= id + "div_hMax";
+		var div_hMax = blkDiv(c,_id,hMax,400,0,111,22,"green","absolute");
+		_id		= id + "div_Msg";
+		c.div_Msg = blkDiv(c,_id,"",400,122,311,22,"yellow","absolute");
+		_id		= id + "div_Move1";
+		var div_Move1 = blkDiv(c,_id,"move1_v0.0.8",0,0,155,45,"blue","absolute");
+		div_Move1.style.cursor = "move";
+		_id		= id + "m1a";
+		var m1a = blkDiv(div_Move1,_id,"m1a",0,0,118,33,"red","absolute");
+		 
+		var x1 = 0;
+		var y1 = 0;
+		var l1 = 0;
+		var t1 = 0; 
+		div_Move1.onmousedown = function(){ 
+			return function(){ 
+				l1 = parseInt(div_Move1.parentNode.style.left);
+				t1 = parseInt(div_Move1.parentNode.style.top);
+
+				var c = _getXY();
+				m1a.innerHTML = "down:" + c.x + "," + c.y;
+				x1 = c.x;
+				y1 = c.y; 
+				div_Move1.parentNode.onmousemove = null;
+				return false;
+			}
+		}();
+		div_Move1.onmousemove = function(){
+			var c = _getXY();
+			m1a.innerHTML = "move:" + c.x + "," + c.y; 
+			if(x1==0 &&y1==0) return false;
+ 
+			div_Move1.parentNode.style.left = l1 + c.x -x1 + "px"; 
+			div_Move1.parentNode.style.top = t1 + c.y -y1 + "px";
+			 
+			return false;
+		};
+		div_Move1.onmouseup = function(){ 
+			return function(){ 
+				x1 = 0;
+				y1 = 0;  
+				div_Move1.parentNode.onmousemove = showCoords;
+			}
+		}();
+		div_Move1.onmouseout = function(){ 
+			x1 = 0;
+			y1 = 0;  
+		}; 
+		
+		c.onmousemove = showCoords;
+		c.onmouseout = clearCoords; 
+	}  
+	var		_Go		= function(){
+		var b1 = blo.blBtn(xddbg,"b1","b1","red");
+		var d1 = blo.blDiv(xddbg,"d1","d1","greenyellow");
+		b1.onclick = function(this_){
+			var b	= false;
+			var d	= null;
+			return function(){
+				b	= !b;
+				d	= blo.blDiv(xddbg,"idShow_me","_me","gray");
+				blo.blShowObj2Div(d,this_);		 
+				d.style.display = !b?"none":"block";
+			}
+		}(_me);
+	};
+	_Go();
+}
+
+var blk = new _blKinesClass;
+
+</script>
+</BODY>
+</HTML>

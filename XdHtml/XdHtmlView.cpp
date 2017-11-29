@@ -109,7 +109,18 @@ void CXdHtmlView::OnBeforeNavigate2(LPCTSTR lpszURL,
 {
 	// TODO: Add your specialized code here and/or call the base class
 	CString s = lpszURL; 
-
+	CBlBase blb;
+	* pbCancel = blb.pl2ParseString(s);
+ 
+	if(-1 != s.Find("xd=xd2")) {  	 
+		xd_plv_create_xd2_html();
+		* pbCancel = true;
+	} 		 
+		 
+	if(-1 != s.Find("xd=save")) {  	 
+		xd_plvCallJSFun();
+		* pbCancel = true;
+	} 
 	if(-1 != s.Find("a=0")) {  			
 		CString sURL = "file:///C:/Users/13699/xd/baidu/VC6_EN/VC6_EN/VC6EN/MyProjects/XdHtml/index.html?";
 		CString s;
@@ -192,4 +203,55 @@ void CXdHtmlView::OnButtonXd1()
 	IHTMLDocument2 *pHtmlDoc = NULL;
 	IHTMLElement *pDiv = NULL;
  
+}
+
+void CXdHtmlView::xd_plvCallJSFun()
+{
+	CComVariant	r;
+	CWebPage		m_webPage;
+	CComPtr<IDispatch> spDisp = CHtmlView::GetHtmlDocument();
+	m_webPage.SetDocument(spDisp);
+	m_webPage.CallJScript("add","11","22",&r);
+	CString s; 
+	WCHAR a[1341*2];
+	::memset(a,0,sizeof(a));
+	::memcpy(a,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
+	s = a; 
+	 
+	CStdioFile file;
+	if (!file.Open("xd1.html", CFile::modeWrite|CFile::modeCreate))
+	{
+			::AfxMessageBox(_T("文件打开失败。"));
+			return;
+	}	
+	file.WriteString(s);
+				
+}
+void CXdHtmlView::xd_plv_create_xd2_html()
+{
+	CComVariant	r;
+	CWebPage		m_webPage;
+	CComPtr<IDispatch> spDisp = CHtmlView::GetHtmlDocument();
+	m_webPage.SetDocument(spDisp);
+	m_webPage.CallJScript("create_xd2_html","11","22",&r);
+	CString s; 
+	WCHAR a[2512*2];
+	::memset(a,0,sizeof(a));
+	::memcpy(a,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
+	s = a; 
+	 
+	CStdioFile file;
+	if (!file.Open("xd2.html", CFile::modeWrite|CFile::modeCreate))
+	{
+			::AfxMessageBox(_T("文件打开失败。"));
+			return;
+	}	
+	file.WriteString(s);
+	::AfxMessageBox(_T("xd_plv_create_xd2_html ok!!!"));
+				
+}
+
+void CXdHtmlView::BlHome()
+{
+	OnInitialUpdate();
 }

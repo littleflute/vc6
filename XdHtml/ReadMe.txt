@@ -1,6 +1,11 @@
 XdHtml
 
- 
+--20017/11/29 1:54 bjt--hyl--
+class CBlHTML
+
+--20017/11/28 13:39 bjt--hyl--
+ //	m_wndToolBar
+
 --20017/11/14 2:34 bjt--hyl--
 //Sell
 var sx = "x=11111";
