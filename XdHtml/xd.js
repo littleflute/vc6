@@ -15,10 +15,10 @@ var QueryString = function ()
     }
   } 
   return query_string;
-}();
+}(); 
 
 function _xdClass(){
-	var _xdClassV = "v0.0.90";
+	var _xdClassV = "v0.0.96";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	this.blrRunJS = function(btn,view){
@@ -33,22 +33,6 @@ function _xdClass(){
 	this.bll1 = "bll1";
 	this.blhClassName = "_xdClass";
 
-	function _on_off_bd(b,d){
-		if(b.innerHTML=="+"){
-			b.innerHTML = "-";
-			b.style.backgroundColor="green"; 
-		}
-		else{
-			b.innerHTML = "+";
-			b.style.backgroundColor="red"; 
-		}
-		if(d.style.display=="block"){
-			d.style.display="none"; 
-		}
-		else{
-			d.style.display="block";
-		}
-	} 
 	function _makeToolBar(blo,d) {
 		var id = d.id;
 		id += "_b1";
@@ -93,6 +77,7 @@ function _xdClass(){
 	}
 
 
+			
 	function _makeWrapContent(blo0)
 	{
 		if(!blo0) return;
@@ -102,26 +87,40 @@ function _xdClass(){
 			var nav = blo0.blDiv(divWrap,"xdNav","::");
 			var nav1 = blo0.blDiv(divWrap,"xdNav1","==","DarkCyan");
 			var l	= [];
-			var index = blo0.blLink(nav,"index","index.html","index.html?r="+refreshTimes,"DarkCyan");l.push(index);
-			var l1 = blo0.blLink(nav,"l1","1.html*","1.html","white");		l.push(l1);
-			var l2 = blo0.blLink(nav,"l2","2.html*","2.html","white");		l.push(l2);
-			var jsgraphics = blo0.blLink(nav,"jsgraphics","jsgraphics.html","jsgraphics.html","greenyellow");l.push(jsgraphics);
-			var kLines = blo0.blLink(nav,"kLines","kLines.html","kLines.html","skyblue"); l.push(kLines);
+			var index = blo0.blLink(nav,"index.html","index.html","index.html?r="+refreshTimes,"DarkCyan");l.push(index);
+			var l1 = blo0.blLink(nav,"1.html","1.html*","1.html","white");		l.push(l1);
+			var l2 = blo0.blLink(nav,"2.html","2.html*","2.html","white");		l.push(l2);
+			var jsgraphics = blo0.blLink(nav,"jsgraphics.html","jsgraphics.html","jsgraphics.html","greenyellow");l.push(jsgraphics);
+			var kLines = blo0.blLink(nav,"kLines.html","kLines.html","kLines.html","skyblue"); l.push(kLines);
 			//"vc6ui.html"
-			var vc6ui = blo0.blLink(nav,"vc6ui","vc6ui.html","vc6ui.html","skyblue"); l.push(vc6ui);
-			var lyric = blo0.blLink(nav,"lyric","lyric.html","lyric.html","skyblue"); l.push(lyric);
+			var vc6ui = blo0.blLink(nav,"vc6ui.html","vc6ui.html","vc6ui.html","skyblue"); l.push(vc6ui);
+			var lyric = blo0.blLink(nav,"lyric.html","lyric.html","lyric.html","skyblue"); l.push(lyric);
+			var song = blo0.blLink(nav,"song.html","song.html","song.html","skyblue"); l.push(song);
 			var a = nav.getElementsByTagName('a');
-		 
+			var _title = document.title;
 			for(i in l)
 			{ 
 				var m = a;
 				m[i].style.color = "white";
-				m[i].style.backgroundColor = "black";
+				m[i].style.backgroundColor = _title==m[i].id?"red":"black"; 
 				m[i].onmouseover = function(){
-					this.style.backgroundColor = "ForestGreen";
+					if(_title==this.id){
+						this.style.backgroundColor = "red";
+					} 
+					else {
+						this.style.backgroundColor = "ForestGreen";
+					}
 				};
-				m[i].onmouseout = function(){
-					this.style.backgroundColor = "black";
+				m[i].onmouseout = function(){ 
+					if(_title==this.id){
+						this.style.backgroundColor = "red";
+					} 
+					else {
+						this.style.backgroundColor = "black";
+					}
+				}; 
+				m[i].onclick = function(){   
+					this.href += "?c=" + this.id;
 				};
 			}
 			_makeToolBar(blo0,nav1);

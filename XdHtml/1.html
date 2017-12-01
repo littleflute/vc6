@@ -1,212 +1,114 @@
-<HTML><HEAD><TITLE>noName</TITLE> 
+<HTML><HEAD><TITLE>1.html</TITLE> 
 <script src="blclass.js"  type="text/javascript" ></script>
 <SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
-</HEAD>
-<BODY>
-<div id="blPageV"></div>
-<div id="xddbg"></div>
-<div id="idMedia"></div> 
+</HEAD><BODY><div id = "idDivBlV" style="display:none;">v0.0.6</div>
+<div id="blPageV"></div><div id="xddbg"></div>
 <script type="text/javascript" src="xd.js"></script> 
-
- <textarea id="id_t1_html" style="display:none">
- <!-- id_t1_html -->
- <HTML><HEAD><TITLE>noName</TITLE> 
-<script src="blclass.js"  type="text/javascript" ></script>
-<SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
-</HEAD>
-<BODY>
-<div id="blPageV"></div>
-<div id="xddbg"></div>
-<div id="idMedia"></div> 
-<script type="text/javascript" src="xd.js"></script> 
- <!-- -->
- </textarea>
-
- <textarea id="id_t2_html" style="display:none">
- <!-- id_t2_html -->
-
-<script>   
-function add(a,b)
+<script>
+function _blSongClass()
 {
-	var d = document.getElementById("blpageV");
-	
-	var		o	= new blClass;
-	var t = o.blTextarea(d,"tadd1","xd1","gold");
-	t.value = _blClass1;
-	var x = parseInt(a);
-	var y = parseInt(b);
-	var z = x + y;
-	var r = t.value;
-	return r;
-}
-function _blClass1(){
-	this.classV		= "v0.0.43";//xd_2d
-	this.className	= "_blClass1";  
-	this.blrTest1	= function(b,d){
-		alert(add(1,2));
-	};
-	this.blrTest	= function(b,d){
-		if(d.style.display=="block"){
-			d.style.display="none"; 
-		}
-		else{
-			d.style.display="block";
-		}
-		var o = _blo;
-		var d1 = o.blDiv(d,"blrTestd1","blrTestdv","gray");
-		var t = o.blTextarea(d,"t1","xd1","gold");
-		t.style.width = "100%";
-		t.style.height = "150px";
-		var a = _blClass1; 
-		t.value = a;
-		d1.innerHTML = t.value.length;
-	};
+	var className	= "_blSongClass";
+	var classV		= "v0.0.37";
+	var	_sv			= null; 
+	var	_stxt		= null; 
+	var _sjg		= null;
 
-	var		_blo	= new blClass;
-	var		_me		= this;
+	_init();
 
-	var		_thisPageInf		= function(id,this_){ 
-		var v = document.getElementById(id);
+	function _init(){
+		var w = _createSongWrap();
+		_createSongToolBar(w);
+		_createSongView(w);
+	}
+	this.blrNew		= function(b,d){
+		d.innerHTML = "new...";
+		
+		_on_off_div(b,d);				
+	};
+	this.blrTest		= function(b,d){
+		alert(_stxt.value);			
+	};
+	this.bll1		= "songView";
+
+	function _svTimerFun(){
 		var html = "";
-		html	+= ":";
-		html	+= this_.classV;
-		html	+= ":    ";
-		html	+= window.location;
-		if(v) v.innerHTML = html;
-	};
-	var		_Go		= function(this_,o){
-		_thisPageInf("blPageV",this_);
-		var b1 = o.blBtn(xddbg,"b1",this_.className,"red");
-		var xd1 = o.blLink(xddbg,"xd1","save","?xd=save","Salmon");
-		var xd2 = o.blLink(xddbg,"xd2","open","?xd=open","Salmon");
-		var d1 = o.blDiv(xddbg,"d1","d1","greenyellow");
-		b1.onclick = function(this_){
-			var b	= false;
-			var d	= null;
-			return function(){
-				b	= !b;
-				d	= o.blDiv(xddbg,"idShow_me","_me","gray");
-				o.blShowObj2Div(d,this_);		 
-				d.style.display = !b?"none":"block";
+		if(_sv) html = _sv.innerHTML;
+		var n = 0;
+		return function(){ 
+			var s = html;
+			s += " n=" + n;
+			if(_stxt) s += _stxt.value; 
+			 n++;
+			if(_sjg){ 
+				_sjg.clear();
+				_sjg.setColor("red");
+				_sjg.drawString(s, 111, 232); 
+				_sjg.drawLine(0,1, 400, 333); 
+				_sjg.paint();
 			}
-		}(_me);
-	};
-	_Go(this,_blo);
-}
-var blk = new _blClass1;
-
-</script>
- <!--  -->
- </textarea>
-
- <textarea id="id_t3_html" style="display:none">
- <!-- id_t3_html -->
- 
-</BODY>
-</HTML>
-
- <!--  -->
- 
- </textarea>
-
-<script>  
-function create_xd2_html(a,b)
-{
-	var t1 = document.getElementById("id_t1_html");
-	var t2 = document.getElementById("id_t2_html");
-	var t3 = document.getElementById("id_t3_html"); 
-	var r = t1.value;
-	r += t2.value;
-	r += t3.value;
-	return r;
-} 
-function add(a,b)
-{
-	var d = document.getElementById("blpageV");
-	
-	var		o	= new blClass;
-	var t = o.blTextarea(d,"tadd1","xd1","gold");
-	t.value = _blClass1;
-	var x = parseInt(a);
-	var y = parseInt(b);
-	var z = x + y;
-	var r = t.value;
-	return r;
-}
-function _blClass1(){
-	this.classV		= "v0.0.54";//xd_2d
-	this.className	= "_blClass1";  
-	function _on_off(d){
-		if(d.style.display=="block"){
-			d.style.display="none"; 
 		}
-		else{
-			d.style.display="block";
-		}
-	};
-	function _fun_2_taValue_2_div(f,d){
-		var o = _blo;
-		var d1 = o.blDiv(d,d.id+"_d1","blrTestdv","gray");
-		var t = o.blTextarea(d,d.id+"_t","xd1","gold");
-		t.style.width = "100%";
-		t.style.height = "150px";
-		var a = f; 
-		t.value = a;
-		d1.innerHTML = t.value.length;
-	};
-	this.blrXd3	= function(b,d){
-		var b = document.getElementById("xd3");
-		b.click();
-	};
+	}
+	function _createSongView(w){
+		_sv	= blo0.blDiv(w,w.id+"_createSongView","_createSongView","PeachPuff"); 
+		_sv.style.position = "absolute";
+		_sjg = new jsGraphics(_sv.id);
 
-	this.blrcreate_xd2_html	= function(b,d){
-		_on_off(d);
-		var txt = create_xd2_html(1,2);
-		_fun_2_taValue_2_div(txt,d);
-	};
-	this.blrTest	= function(b,d){
-		_on_off(d);
-		_fun_2_taValue_2_div(_blClass1,d);
-	};
-
-	var		_blo	= new blClass;
-	var		_me		= this;
-
-	var		_thisPageInf		= function(id,this_){ 
-		var v = document.getElementById(id);
-		var html = "";
-		html	+= ":";
-		html	+= this_.classV;
-		html	+= ":    ";
-		html	+= window.location;
-		if(v) v.innerHTML = html;
-	};
-	var		_Go		= function(this_,o){
-		_thisPageInf("blPageV",this_);
-		var b1 = o.blBtn(xddbg,"b1",this_.className,"red");
-		var xd1 = o.blLink(xddbg,"xd1","save","?xd=save","Salmon");
-		var xd2 = o.blLink(xddbg,"xd2","xd2","?xd=xd2","skyblue");
-		var xd3 = o.blLink(xddbg,"xd3","xd3","?xd=xd3","green");
-		xd3.onclick = function(){
-			alert("1.html: xd3");
-			return true;
-		};
-		var d1 = o.blDiv(xddbg,"d1","d1","greenyellow");
-		b1.onclick = function(this_){
-			var b	= false;
-			var d	= null;
+		setInterval(_svTimerFun(),100);
+	}
+	function _create_btn_edit(oBoss){
+		var w = 100;
+		var h = 100;
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_edit","e","red");	b1.bOnOff = true;
+		b1.onclick = function(d,btn_){
+			var v = null;
 			return function(){
-				b	= !b;
-				d	= o.blDiv(xddbg,"idShow_me","_me","gray");
-				o.blShowObj2Div(d,this_);		 
-				d.style.display = !b?"none":"block";
-			}
-		}(_me);
-	};
-	_Go(this,_blo);
-}
-var blk = new _blClass1;
+				v = blo0.blDiv(d,btn_.id+"_div_View","edit:","green"); 
+				_stxt = blo0.blTextarea(v,btn_.id+"t1","alert('xd');","Aquamarine");	 
+				_stxt.style.width = w + "%";
+				_stxt.style.height = h + "px"; 
+				_on_off_bd_1(btn_,v);
 
-</script>
+				var b0	= blo0.blBtn(v,v.id+"_b0","h=100px","gray"); 
+				b0.onclick = function(){
+					h = 100; 
+				_stxt.style.height = h + "px"; 
+				}
+				
+				var b1	= blo0.blBtn(v,v.id+"_b1","h+10px","gray"); 
+				b1.onclick = function(){
+					h += 10; 
+				_stxt.style.height = h + "px"; 
+				}
+				var b2	= blo0.blBtn(v,v.id+"_b2","h-10px","gray"); 
+				b2.onclick = function(){
+					h -= 10; 
+				_stxt.style.height = h + "px"; 
+				}
+			}
+		}(oBoss,b1);
+	}
+	function _create_b1(oBoss){
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_b1","blso","red");	b1.bOnOff = true;
+		b1.onclick = function(d,btn_){
+			var v = null;
+			return function(){
+				v = blo0.blDiv(d,btn_.id+"_div_View","b1v","green");
+				blo0.blShowObj2Div(v,blso);
+				_on_off_bd_1(btn_,v);
+			}
+		}(oBoss,b1);
+	}
+	function _createSongToolBar(w){
+		var t	= blo0.blDiv(w,w.id+"_createSongToolBar",className,"MediumPurple");
+		_create_b1(t);
+		_create_btn_edit(t);
+	}
+	function _createSongWrap(){
+		var w = blo0.blDiv(document.body,"id_div_Song_Wrap",classV,"LightPink");
+		return w;
+	}
+}
+var blso = new _blSongClass;
+</script> 
 </BODY>
 </HTML>

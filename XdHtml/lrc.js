@@ -39,7 +39,7 @@ function _blVMPlayer()
 var lrcTimer0;
 var lrcTimer1;
 var xdMin;
-  function _golrcolor(t)
+function _golrcolor(t)
   { 
     if(t<=10)
       lrcTimer1 = setTimeout("_golrcolor("+t+")",xdMin*10);
@@ -51,7 +51,64 @@ var xdMin;
 			lrcTimer0 = setTimeout("_golrcoll("+s+")",xdMin*10);
   }
  
-blo0.blScript("id_script_lrcdata",QueryString.l);
+ function _showList(o,d,type,a,jj){
+			for(i in a){
+				var id = d.id + "_link_song_" + i;
+				var url = "?t=";
+				url += type;
+				url += "&f=";
+				url += a[i].f;
+				url += "&l=";
+				url += a[i].l;
+				if(jj) url += "&j="+jj;
+				var ii = parseInt(i);
+				ii++;
+				var txt = "s_" + ii;
+				o.blLink(d,id,txt,url,5==type?"yellowgreen":"gold");
+			}
+		}
+var ls = null;
+var htm5List = null;
+var vc6List = null;
+function loadListOK(){  
+		_showList(blo0,htm5List,5,ls,QueryString.j);
+		_showList(blo0,vc6List,4,ls,QueryString.j);
+}
+  var _CreateSongList = function(o,oBoss,j)//xdug 1049
+  {	 
+		htm5List = o.blDiv(oBoss,oBoss.id+"htm5List","[HTML5]:: ","skyblue"); 
+		vc6List = o.blDiv(oBoss,oBoss.id+"vc6List","[VC6  ]:: ","gray"); 
+		if(j){ 
+			o.blScript(oBoss.id + "_script_lrc_list",j);
+		}
+		else{
+			ls = [		
+					{
+                    "f": "file:///C:/Users/13699/xd1/vc6/files/u0101.mp3",
+                    "l": "file:///C:/Users/13699/xd/js/lrc/01_lrc.js" 
+					},	
+					{
+                    "f": "file:///C:/Users/13699/xd1/vc6/files/u0102.mp3",
+                    "l": "file:///C:/Users/13699/xd/js/lrc/02_lrc.js" 
+					},
+					{
+                    "f": "file:///C:/Users/13699/xd1/vc6/files/u0201.mp3",
+                    "l": "file:///C:/Users/13699/xd/js/lrc/03_lrc.js" 
+					},
+					{
+                    "f": "file:///C:/Users/13699/xd1/vc6/files/u0202.mp3",
+                    "l": "file:///C:/Users/13699/xd/js/lrc/04_lrc.js" 
+					}, 
+				];
+			
+			_showList(o,htm5List,5,ls);
+			_showList(o,vc6List,4,ls);
+		} 		
+  }
+var xdPlayerDiv = blo0.blDiv(document.body,"xdPlayerDiv","");
+_CreateSongList(blo0,xdPlayerDiv,QueryString.j);
+var myLrc = QueryString.l;
+if(myLrc) blo0.blScript("id_script_lrcdata",myLrc);
 function loadLyricOK(){ 
 	var l = document.getElementById("lrcdata");
 	lrcobj = new blLrcClass(l.innerHTML,QueryString.t,QueryString.f);
@@ -60,6 +117,17 @@ function loadLyricOK(){
 
 function blLrcClass(tt,xt,f)
 {	
+	var xdVer	= "v1.1.3";
+	var _currentTime = 0;
+
+
+	this.blrMakeStamp = function(b,d){//xdug 1048
+		d.innerHTML = xdVer;
+		_on_off_div(b,d);
+	};
+	
+	this.bll1 = "bll1--------";
+ 
 	var _xdTestFile = f; 
 	var xdType = 4; //5 - html5; 4 - vc6; 3 - No Real Player;
 	if (xt==undefined) xdType = 3;
@@ -70,24 +138,6 @@ function blLrcClass(tt,xt,f)
 	var o = new blClass;
 	var blVMP = new _blVMPlayer;
 	
-  var _CreateSongList = function(oBoss)
-  {	
-		var d = o.blDiv(oBoss,oBoss.id+"_div_SongList","SongList: v0.0.1","skyblue");
-		var s1 = o.blLink(d,d.id+"_link_s1","s1","?t=5&f=file:///C:/Users/13699/xd1/vc6/files/u0101.mp3","purple"); 
-  }
-
-  var _CreateUI = function(f)
-  {
-	var xdVer	= "v1.0.45";
-	var xdPlayerDiv = o.blDiv(document.body,"xdPlayerDiv","xdPlayerDiv");	 
-	var divMP = o.blDiv(xdPlayerDiv,"mp1","xdxdxd","red"); 
-	_InitPlayer(xdType,divMP,f); 
-	var xddbgDiv = o.blDiv(document.body,"xddbgLyric",xdVer,"gold");
-	var MyTimer = o.blDiv(document.body,"idMyTimer","idMyTimer");
-
-	var od = o.blDiv(document.body,"oShowDiv","","gold");
-	_CreateLyrBoard2(od);
-  }
   
 	function _makeMPObj (strURL) {
 		var strHtml;	
@@ -123,7 +173,10 @@ function blLrcClass(tt,xt,f)
   {
 		return function(){ 
 			var d = document.getElementById("idMyTimer");
-			var s = "";//d.innerHTML;
+			var s = " ";//d.innerHTML;
+			s += "_currentTime=";
+			s += _currentTime;
+			s += " nMyTimer= ";
 			nMyTimer++;
 			s += nMyTimer;
 			var playerObj = document.getElementById("idLyricMP");
@@ -135,11 +188,36 @@ function blLrcClass(tt,xt,f)
 		}
   }(this);
  
-  var _CreateLyrBoard2 = function(oBoss)
+  var _CreateToolBar = function(oBoss)
   {	
-		var d2Title = o.blDiv(oBoss,"d2Title","d2Title: v0.0.3","skyblue");
-		var d2Body = o.blDiv(oBoss,"d2Body","d2Body: v0.0.13","DarkOrchid");
-		_CreateSongList(d2Body);
+		var d = o.blDiv(oBoss,oBoss.id+"_div_ToolBar","_div_ToolBar: v0.0.7","white");
+		var b1 = o.blBtn(d,d.id+"_btn_b1","+","red"); 
+		b1.onclick = function(btn_){
+			var v = null;
+			return function(){
+				v = o.blDiv(d,btn_.id+"_div_View","b1v","green");
+				o.blShowObj2Div(v,lrcobj);
+				_on_off_bd(btn_,v);
+			}
+		}(b1);
+  }
+
+  var _CreateUI = function(f)
+  { 
+	var divMP = o.blDiv(xdPlayerDiv,"mp1","xdxdxd","red"); 
+	_InitPlayer(xdType,divMP,f); 
+	var xddbgDiv = o.blDiv(document.body,"xddbgLyric",xdVer,"gold");
+	var MyTimer = o.blDiv(document.body,"idMyTimer","idMyTimer");
+
+	var od = o.blDiv(document.body,"oShowDiv","","gold");
+	_CreateLyrBoard2(od);
+  }
+  var _CreateLyrBoard2 = function(oBoss)
+  {	 
+		var d2Body = o.blDiv(oBoss,"d2Body","","DarkOrchid");
+		var d1 = o.blDiv(oBoss,oBoss.id+"_div_song_right_now",QueryString.f,"lightblue"); 
+		
+		_CreateToolBar(d2Body);
 		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x","DarkSeaGreen"); 
 
 		var s = "";
@@ -263,6 +341,7 @@ function blLrcClass(tt,xt,f)
 		xdCP = xdMP.currentTime;  
 		break;
 	} 
+	_currentTime = xdCP;
 
     if(xdCP<this.dts || xdCP>=this.dte)
     {	
@@ -362,6 +441,5 @@ function blLrcClass(tt,xt,f)
 		}
   }(this); 
 }//END: blLrcClass
-
 
 

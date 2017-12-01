@@ -1,0 +1,414 @@
+<HTML><HEAD><TITLE>song.html</TITLE> 
+<script src="blclass.js"  type="text/javascript" ></script>
+<SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
+</HEAD><BODY><div id = "idDivBlV" style="display:none;">v0.0.5</div>
+<div id="blPageV"></div><div id="xddbg"></div>
+<script type="text/javascript" src="xd.js"></script> 
+<script>
+function _blSongClass()
+{
+	var className	= "_blSongClass";
+	var classV		= "v0.0.45";
+	var	_sv			= null; 
+	var	_stxt		= null; 
+	var _sjg		= null;
+
+	_init();
+
+	function _draw_music_c(jg,c,x0,y0){
+		var x = x0;
+		var y = y0;
+		if(c){
+			var c_ = "";
+			switch(c)
+			{
+			case "g":				c_ = 5;		break;
+			case "f":				c_ = 4;		break;
+			case "e":				c_ = 3;		break;
+			case "d":				c_ = 2;		break;
+			case "c":				c_ = 1;		break;
+			case "b":				c_ = 7;		break;
+			case "a":				c_ = 6;		break;
+			}
+			jg.drawString(c_,x,y); 
+			y += 20;
+		} 
+		var r = {};
+		r.x = x;
+		r.y = y;
+		return r;
+	}
+	function _draw_music_d(jg,n,x0,y0){
+		var x = x0;
+		var y = y0;
+		if(n.d){
+			var dx = 10;
+			var dy = 3;
+			var x1 = x;
+			var x2 = x+dx;  
+			switch(n.d)
+			{
+			case "16b":
+				x2 += dx;
+				jg.drawLine(x1,y,x2,y);
+				y += dy;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "16e":
+				x1 -= dx;
+				jg.drawLine(x1,y,x2,y);
+				y += dy;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "16=":
+				x1 -= dx;
+				x2 += dx;
+				jg.drawLine(x1,y,x2,y);
+				y += dy;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "16-":
+				x1 -= dx;
+				x2 += dx;
+				jg.drawLine(x1,y,x2,y);
+				x1 += dx;
+				y += dy;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "16": 
+				jg.drawLine(x1,y,x2,y);
+				y += dy;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "8":
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "8b":
+				x2 += dx;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			case "8e":
+				x1 -= dx;
+				jg.drawLine(x1,y,x2,y); 
+				break;
+			} 
+		}  
+		var r = {};
+		r.x = x;
+		r.y = y;
+		return r;
+	}
+	function _draw_music_t(jg,n,x0,y0,x,y){
+		var x_ = x;
+		var y_ = y; 
+		
+		if(n.t){ 
+			switch(n.t)
+			{
+			case "-1":
+				if(n.d=="8"||n.d=="8b"||n.d=="8e")			y_ += 3;
+				else if(n.d=="16"||n.d=="16b"||n.d=="16e")	y_ += 2*3; 
+
+				x_ = x0 + 3;
+				jg.fillEllipse(x_,y_,2,2); 
+				break;
+			case "1": 
+				y_ = y0 - 3;
+				x_ = x0 + 3;
+				jg.fillEllipse(x_,y_,2,2); 
+				break;
+			} 
+		}  
+		var r = {};
+		r.x = x_;
+		r.y = y_;
+		return r;
+	}
+	function _draw_note_as_music(jg,n,nn,x0,y0){
+		var v = "v25";
+		var x = x0;
+		var y = y0;
+		jg.setColor("DarkRed");	 
+		var r = _draw_music_c(jg,n.c,x,y);
+		x = r.x;
+		y = r.y; 
+		var r = _draw_music_d(jg,n,x,y);
+		x = r.x;
+		y = r.y;
+		var r = _draw_music_t(jg,n,x0,y0,x,y);
+		x = r.x;
+		y = r.y;
+	}
+	function _draw_note(jg,n,nn,x0,y0){
+		var v = "v7";
+		var x = x0;
+		var y = y0;
+		jg.setColor("BlueViolet");	
+		jg.drawRect(x, y,25,20); 	
+		jg.drawString(v,x,y); 
+		y += 25; 	
+		jg.drawRect(x, y,25,20); 	
+		jg.drawString(nn,x,y); 
+		y += 25; 
+		if(n.c){
+			jg.drawString(n.c,x,y); 
+			y += 20;
+		} 
+		if(n.t){
+			jg.drawString(n.t,x,y); 
+			y += 20;
+		} 
+		if(n.t){
+			jg.drawString(n.d,x,y); 
+			y += 20;
+		}
+		if(n.p){
+			jg.drawString(n.p,x,y); 
+			y += 20;
+		}
+		else{
+			jg.drawString('-',x,y); 
+			y += 20;
+		}
+		 _draw_note_as_music(jg,n,nn,x,y);
+	}
+	function _parse_1_note(jg,n,nn,x0,y0){
+		var v = "v15";
+		var _x = x0;
+		var _y = y0;
+		jg.setColor("green");	
+		jg.drawRect(_x, _y,22,20); 	
+		jg.drawString(v,_x,_y); 
+		_y += 20; 
+		if(n){
+			_draw_note(jg,n,nn,_x,_y);  
+		}
+		else
+		{
+			jg.drawString("-null note-",x,y);
+		}
+		var r = {};
+		r.x = x0 + 30;
+		r.y = y0;
+		return r;
+	}
+	function _parse_1_bar(jg,b,bn,x0,y0){
+		var v = bn + "_v22";
+		var x = x0;
+		var y = y0;
+		jg.setColor("red");	
+		jg.drawRect(x, y,60,20); 	
+		jg.drawString(v,x,y);  
+		y += 40;
+		if(b){
+			for(i in b){
+				var r = _parse_1_note(jg,b[i],i,x,y);
+				x = r.x;
+				y = r.y;
+			}			
+		}
+		else
+		{
+			jg.drawString("-null bar-",x,y);
+		}
+		jg.setColor("Indigo");	
+		jg.drawRect(x0, y0,x-x0,y-y0); 	
+		var r = {};
+		r.x = x+5;
+		r.y = y0;
+		return r;
+	}
+	function _parse_1_line(jg,l,x0,y0){
+		var v = "line_v0.0.11";
+		var x = x0+50;
+		var y = y0 + 20;
+		jg.setColor("lightblue");	
+		jg.drawRect(x, y,100,20); 	
+		jg.drawString(v,x,y); 
+		x += 100;
+		if(l){
+			for(i in l){
+					var r = _parse_1_bar(jg,l[i],i,x,y);
+					x = r.x;
+					y = r.y;
+			}
+		}
+		else
+		{
+			jg.drawString("-null line-",x,y);
+		}
+	}
+	function _parseSong(ta,jg){
+		var v = "v0.0.7";
+		jg.setColor("blue");
+		jg.drawString(v, 11, 15); 
+		var o = null;
+		if(ta){
+			eval(ta.value);
+			jg.setColor("brown");		
+			jg.drawRect(o.x, o.y,o.w,o.h); 	
+			jg.drawString(o.name, 333, 111); 
+			_parse_1_line(jg,o.line1,o.x,o.y);
+		}
+	}
+	function _init(){
+		var w = _createSongWrap();
+		_createSongToolBar(w);
+		_createSongView(w);
+	}
+	this.blrNew		= function(b,d){
+		d.innerHTML = "new...";
+		
+		_on_off_div(b,d);				
+	};
+	this.blrTest		= function(b,d){
+		alert(_stxt.value);			
+	};
+	this.bll1		= "songView";
+
+	function _svTimerFun(){
+		var html = "";
+		if(_sv) html = _sv.innerHTML;
+		var n = 0;
+		return function(){ 
+			var s = html;
+			s += " n=" + n; 
+			 n++;
+			if(_sjg){ 
+				_sjg.clear();
+				_sjg.setColor("red");
+				_sjg.drawString(s, 11, 55);  
+				_parseSong(_stxt,_sjg);
+				_sjg.paint();
+			}
+		}
+	}
+	function _createSongView(w){
+		_sv	= blo0.blDiv(w,w.id+"_createSongView","_createSongView","PeachPuff"); 
+		_sv.style.position = "absolute";
+		_sjg = new jsGraphics(_sv.id);
+
+		setInterval(_svTimerFun(),100);
+	}
+	function _create_btn_edit(oBoss){
+		var w = 100;
+		var h = 100;
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_edit","e","red");	b1.bOnOff = true;
+		b1.onclick = function(d,btn_){
+			var v = null;
+			return function(){
+				v = blo0.blDiv(d,btn_.id+"_div_View","edit:","green"); 
+				_stxt = blo0.blTextarea(v,"id_ta_4_song_edit","var o = {name:'yestoday',x:0,y:0,w:100,h:100};","Aquamarine");	 
+				_stxt.style.width = w + "%";
+				_stxt.style.height = h + "px"; 
+				_on_off_bd_1(btn_,v);
+
+				var b100	= blo0.blBtn(v,v.id+"_b100","h=100px","gray"); 
+				b100.onclick = function(){
+					h = 100; 
+				_stxt.style.height = h + "px"; 
+				}
+				var b200	= blo0.blBtn(v,v.id+"_b200","h=200px","gray"); 
+				b200.onclick = function(){
+					h = 200; 
+				_stxt.style.height = h + "px"; 
+				}
+				
+				var b1	= blo0.blBtn(v,v.id+"_b1","h+10px","gray"); 
+				b1.onclick = function(){
+					h += 10; 
+				_stxt.style.height = h + "px"; 
+				}
+				var b2	= blo0.blBtn(v,v.id+"_b2","h-10px","gray"); 
+				b2.onclick = function(){
+					h -= 10; 
+				_stxt.style.height = h + "px"; 
+				}
+				var sample1	= blo0.blBtn(v,v.id+"sample1","sample1","gold"); 
+				sample1.onclick = function(){
+					var t = document.getElementById("id_ta_sample1");
+					if(t){
+						_stxt.value = t.value;
+					}
+					else{
+						blo0.blScript("id_script_song_sample1","file:///C:/Users/13699/xd/js/songs/1.js" ); 
+					}
+				}
+				var sample2	= blo0.blBtn(v,v.id+"sample2","sample2","gold"); 
+				sample2.onclick = function(){
+					var t = document.getElementById("id_ta_sample2");
+					if(t){
+						_stxt.value = t.value;
+					}
+					else{
+						blo0.blScript("id_script_song_sample2","file:///C:/Users/13699/xd/js/songs/2.js" ); 
+					}
+				}
+				var sample3	= blo0.blBtn(v,v.id+"sample3","sample3","gold"); 
+				sample3.onclick = function(){
+					var t = document.getElementById("id_ta_sample3");
+					if(t){
+						_stxt.value = t.value;
+					}
+					else{
+						blo0.blScript("id_script_song_sample3","file:///C:/Users/13699/xd/js/songs/3.js" ); 
+					}
+				}
+				var sample4	= blo0.blBtn(v,v.id+"sample4","sample4","gold"); 
+				sample4.onclick = function(){
+					var t = document.getElementById("id_ta_sample4");
+					if(t){
+						_stxt.value = t.value;
+					}
+					else{
+						blo0.blScript("id_script_song_sample4","file:///C:/Users/13699/xd/js/songs/4.js" ); 
+					}
+				}
+				var sample5	= blo0.blBtn(v,v.id+"sample5","sample5","gold"); 
+				sample5.onclick = function(){
+					var t = document.getElementById("id_ta_sample5");
+					if(t){
+						_stxt.value = t.value;
+					}
+					else{
+						blo0.blScript("id_script_song_sample5","file:///C:/Users/13699/xd/js/songs/5.js" ); 
+					}
+				}
+				var sample6	= blo0.blBtn(v,v.id+"sample6","sample6","gold"); 
+				sample6.onclick = function(){
+					var t = document.getElementById("id_ta_sample6");
+					if(t){
+						_stxt.value = t.value;
+					}
+					else{
+						blo0.blScript("id_script_song_sample6","file:///C:/Users/13699/xd/js/songs/6.js" ); 
+					}
+				}
+			}
+		}(oBoss,b1);
+	}
+	function _create_b1(oBoss){
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_b1","blso","red");	b1.bOnOff = true;
+		b1.onclick = function(d,btn_){
+			var v = null;
+			return function(){
+				v = blo0.blDiv(d,btn_.id+"_div_View","b1v","green");
+				blo0.blShowObj2Div(v,blso);
+				_on_off_bd_1(btn_,v);
+			}
+		}(oBoss,b1);
+	}
+	function _createSongToolBar(w){
+		var t	= blo0.blDiv(w,w.id+"_createSongToolBar",className,"MediumPurple");
+		_create_b1(t);
+		_create_btn_edit(t);
+	}
+	function _createSongWrap(){
+		var w = blo0.blDiv(document.body,"id_div_Song_Wrap",classV,"LightPink");
+		return w;
+	}
+}
+var blso = new _blSongClass;
+</script> 
+</BODY>
+</HTML>
