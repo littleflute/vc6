@@ -1,19 +1,57 @@
 <HTML><HEAD><TITLE>song.html</TITLE> 
 <script src="blclass.js"  type="text/javascript" ></script>
 <SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
-</HEAD><BODY><div id = "idDivBlV" style="display:none;">v0.0.6</div>
+</HEAD><BODY><div id = "idDivBlV" style="display:none;">v0.0.5</div>
 <div id="blPageV"></div><div id="xddbg"></div>
 <script type="text/javascript" src="xd.js"></script> 
 <script>
 function _blSongClass()
 {
+	this.blrShowMusic		= function(b,d){
+		var o = _mo;
+		if(o){
+			var html = o.x;
+			html += "£º";
+			html += d.id;
+
+			d.innerHTML = html;
+			var d1 = blo0.blDiv(d,"id_show_2","show2","gray");
+			d1.style.position = "absolute";
+			d1.height = "500px";
+			for(var i = 0; i< 155;i++)
+			{
+				var d2 = blo0.blDiv(d,"id_show_2" +i,"show2" +i,"gray");
+			}
+			var jg = new jsGraphics(d1.id);
+			if(jg){ 
+				jg.clear();
+				jg.setColor("red");
+				jg.drawString("sss2", 11, 55);   
+				_parse_1_line(jg,o.line1,o.x,o.y);
+				jg.paint();
+			}
+		}
+		
+		_on_off_div(b,d);				
+	};
+	this.blrTest		= function(b,d){
+		 
+	};
+	this.bll1		= "songView";
+
 	var className	= "_blSongClass";
-	var classV		= "v0.0.46";
+	var classV		= "v0.0.65"; //songdbg 
 	var	_sv			= null; 
 	var	_stxt		= null; 
 	var _sjg		= null;
+	var _mo			= null;
+	_init("id_div_show_1");
 
-	_init();
+	function _init(id){
+		var w = _createSongWrap(id);
+		_createSongToolBar(w);
+		_createSongView(w);
+	}
 
 	function _draw_music_c(jg,c,x0,y0){
 		var x = x0;
@@ -250,23 +288,9 @@ function _blSongClass()
 			jg.drawString(o.name, 333, 111); 
 			_parse_1_line(jg,o.line1,o.x,o.y);
 		}
+		return o;
 	}
-	function _init(){
-		var w = _createSongWrap();
-		_createSongToolBar(w);
-		_createSongView(w);
-	}
-	this.blrNew		= function(b,d){
-		d.innerHTML = "new...";
-		
-		_on_off_div(b,d);				
-	};
-	this.blrTest		= function(b,d){
-		alert(_stxt.value);			
-	};
-	this.bll1		= "songView";
-
-	function _svTimerFun(){
+	function _svTimerFun(jg){
 		var html = "";
 		if(_sv) html = _sv.innerHTML;
 		var n = 0;
@@ -274,12 +298,12 @@ function _blSongClass()
 			var s = html;
 			s += " n=" + n; 
 			 n++;
-			if(_sjg){ 
-				_sjg.clear();
-				_sjg.setColor("red");
-				_sjg.drawString(s, 11, 55);  
-				_parseSong(_stxt,_sjg);
-				_sjg.paint();
+			if(jg){ 
+				jg.clear();
+				jg.setColor("red");
+				jg.drawString(s, 11, 55);  
+				_mo = _parseSong(_stxt,jg);
+				jg.paint();
 			}
 		}
 	}
@@ -288,12 +312,12 @@ function _blSongClass()
 		_sv.style.position = "absolute";
 		_sjg = new jsGraphics(_sv.id);
 
-		setInterval(_svTimerFun(),100);
+		setInterval(_svTimerFun(_sjg),100);
 	}
 	function _create_btn_edit(oBoss){
 		var w = 100;
 		var h = 100;
-		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_edit","e","red");	b1.bOnOff = true;
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_edit","e2","red");	b1.bOnOff = true;
 		b1.onclick = function(d,btn_){
 			var v = null;
 			return function(){
@@ -301,6 +325,7 @@ function _blSongClass()
 				_stxt = blo0.blTextarea(v,"id_ta_4_song_edit","var o = {name:'yestoday',x:0,y:0,w:100,h:100};","Aquamarine");	 
 				_stxt.style.width = w + "%";
 				_stxt.style.height = h + "px"; 
+			 
 				_on_off_bd_1(btn_,v);
 
 				var b100	= blo0.blBtn(v,v.id+"_b100","h=100px","gray"); 
@@ -398,13 +423,25 @@ function _blSongClass()
 			}
 		}(oBoss,b1);
 	}
+	function _create_btn_2_show_music_obj(oBoss){
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_2_show_music_obj","mo","red");	b1.bOnOff = true;
+		b1.onclick = function(d,btn_){
+			var v = null;
+			return function(){
+				v = blo0.blDiv(d,btn_.id+"_div_View","b1v","green");
+				blo0.blShowObj2Div_all(v,_mo,0);////songdbg 0048
+				_on_off_bd_1(btn_,v);
+			}
+		}(oBoss,b1);
+	}
 	function _createSongToolBar(w){
 		var t	= blo0.blDiv(w,w.id+"_createSongToolBar",className,"MediumPurple");
 		_create_b1(t);
 		_create_btn_edit(t);
+		_create_btn_2_show_music_obj(t);
 	}
-	function _createSongWrap(){
-		var w = blo0.blDiv(document.body,"id_div_Song_Wrap",classV,"LightPink");
+	function _createSongWrap(id){
+		var w = blo0.blDiv(document.body,id,classV,"LightPink");
 		return w;
 	}
 }

@@ -54,7 +54,7 @@
 	}
 function blClass ()
 { 
-    this.v = "xdvc6: 1.0.37";
+    this.v = "xdvc6: 1.0.41";//blclassdbg
 
     this.blrTest = function ()
     {        
@@ -119,7 +119,63 @@ function blClass ()
 		};  
         return r;
     }
+    _blShowObj2Div_all = function (oBoss,obj,l) //blclassdbg 1039
+    {	  
+        oBoss.innerHTML = "";
+        for(i in obj)
+		{
+			var bOK = i.charAt(0)=="b"&&i.charAt(1)=="l"&&i.charAt(2)=="r"; 
+			if(!bOK) continue;
+
+			  var b = document.createElement("button");
+			  b.id = b.innerHTML = i;
+			  var color = "gray";
+			  if(1==l) color = "blue";
+			  else if( 2==l) color = "pink";
+			  else if( 3==l) color = "red";
+
+			  b.style.backgroundColor = color;
+			  if(i.charAt(0)=="b"&&i.charAt(1)=="l") b.style.backgroundColor = "yellow";
+			  oBoss.appendChild(b);
+			  var d = document.createElement("div");
+			  if("object" == typeof obj[i])
+			  {
+					_blShowObj2Div_all(d,obj[i],l+1);
+			  }
+			  else{
+				d.innerHTML = obj[i];
+			  }
+			  d.style.border = "blue 1px solid";
+			  d.style.backgroundColor = "green";
+			  d.style.color = "yellow";
+			  oBoss.appendChild(d);
+
+			  
+			  if(bOK){
+				b.style.backgroundColor = "red";
+				d.innerHTML = ""; 
+				d.id = b.id + "Div";
+				b.onclick = function(i_,b_,v_,o_){
+					return function(){
+						var go = obj[i_];
+						if (typeof go == "function") {
+			    			go(b_,v_,o_);
+						}
+					} 
+				}(i,b,d,obj);
+			  }
+		}		 
+	}
+    this.blShowObj2Div_all = function (oBoss,obj,l) //blclassdbg 1039
+    {	 
+        _blShowObj2Div_all(oBoss,obj,l);	 
+	}
     this.blShowObj2Div = function (oDivBoss,obj)
+    {	 
+		_blShowObj2Div(oDivBoss,obj);
+		 
+	}
+    _blShowObj2Div = function (oDivBoss,obj)
     {        
         var oBoss = oDivBoss;
         if(!oBoss) {
