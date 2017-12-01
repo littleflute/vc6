@@ -40,7 +40,7 @@ function _blSongClass()
 	this.bll1		= "songView";
 
 	var className	= "_blSongClass";
-	var classV		= "v0.0.65"; //songdbg 
+	var classV		= "v0.0.66"; //songdbg 
 	var	_sv			= null; 
 	var	_stxt		= null; 
 	var _sjg		= null;
@@ -69,7 +69,23 @@ function _blSongClass()
 			case "a":				c_ = 6;		break;
 			}
 			jg.drawString(c_,x,y); 
-			y += 20;
+			y += 15;
+		} 
+		var r = {};
+		r.x = x;
+		r.y = y;
+		return r;
+	}
+	function _draw_music_lrc(jg,n,x0,y0){
+		var x = x0;
+		var y = y0;
+		if(n.l1){
+			y += 25;
+			jg.drawString(n.l1,x,y); 
+		} 
+		if(n.l2){
+			y += 15;
+			jg.drawString(n.l2,x,y); 
 		} 
 		var r = {};
 		r.x = x;
@@ -81,7 +97,7 @@ function _blSongClass()
 		var y = y0;
 		if(n.d){
 			var dx = 10;
-			var dy = 3;
+			var dy = 2;
 			var x1 = x;
 			var x2 = x+dx;  
 			switch(n.d)
@@ -174,6 +190,9 @@ function _blSongClass()
 		x = r.x;
 		y = r.y;
 		var r = _draw_music_t(jg,n,x0,y0,x,y);
+		x = r.x;
+		y = r.y;
+		var r = _draw_music_lrc(jg,n,x0,y0,x,y);
 		x = r.x;
 		y = r.y;
 	}
@@ -349,7 +368,7 @@ function _blSongClass()
 					h -= 10; 
 				_stxt.style.height = h + "px"; 
 				}
-				var sample1	= blo0.blBtn(v,v.id+"sample1","sample1","gold"); 
+				var sample1	= blo0.blBtn(v,v.id+"sample1","sample1","skyblue"); 
 				sample1.onclick = function(){
 					var t = document.getElementById("id_ta_sample1");
 					if(t){
@@ -359,7 +378,7 @@ function _blSongClass()
 						blo0.blScript("id_script_song_sample1","https://littleflute.github.io/xd/js/songs/1.js" ); 
 					}
 				}
-				var sample2	= blo0.blBtn(v,v.id+"sample2","sample2","gold"); 
+				var sample2	= blo0.blBtn(v,v.id+"sample2","sample2(5.js)","skyblue"); 
 				sample2.onclick = function(){
 					var t = document.getElementById("id_ta_sample2");
 					if(t){
@@ -369,14 +388,14 @@ function _blSongClass()
 						blo0.blScript("id_script_song_sample2","https://littleflute.github.io/xd/js/songs/5.js" ); 
 					}
 				}
-				var sample3	= blo0.blBtn(v,v.id+"sample3","sample3","gold"); 
+				var sample3	= blo0.blBtn(v,v.id+"sample3","sample3(6.js)","skyblue"); 
 				sample3.onclick = function(){
 					var t = document.getElementById("id_ta_sample3");
 					if(t){
 						_stxt.value = t.value;
 					}
 					else{
-						blo0.blScript("id_script_song_sample3","file:///C:/Users/13699/xd/js/songs/3.js" ); 
+						blo0.blScript("id_script_song_sample3","https://littleflute.github.io/xd/js/songs/6.js" ); 
 					}
 				}
 				var sample4	= blo0.blBtn(v,v.id+"sample4","sample4","gold"); 
