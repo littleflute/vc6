@@ -117,7 +117,7 @@ function loadLyricOK(){
 
 function blLrcClass(tt,xt,f)
 {	
-	var xdVer	= "v1.1.3";
+	var xdVer	= "v1.1.4";
 	var _currentTime = 0;
 
 
@@ -216,6 +216,7 @@ function blLrcClass(tt,xt,f)
   {	 
 		var d2Body = o.blDiv(oBoss,"d2Body","","DarkOrchid");
 		var d1 = o.blDiv(oBoss,oBoss.id+"_div_song_right_now",QueryString.f,"lightblue"); 
+		var d2 = o.blDiv(oBoss,oBoss.id+"_div_lrc_right_now",QueryString.l,"skyblue"); 
 		
 		_CreateToolBar(d2Body);
 		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x","DarkSeaGreen"); 

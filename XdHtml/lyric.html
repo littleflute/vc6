@@ -5,12 +5,76 @@
 <TITLE>lyric.html</TITLE>
 <script type="text/javascript" src="blclass.js"></script>
 </HEAD><BODY>
-<div id = "idDivBlV" style="display:none;">v0.0.38</div>
+<div id = "idDivBlV" style="display:none;">v0.0.62</div>
 <div id="xddbg"></div><div id="idMedia"></div> 
 <script src="xd.js" type="text/javascript" ></script>
 <div id="Nav"> 
 ref:<br>
-<a href="?j=file:///C:/Users/13699/xd/js/list/s_lrc_1.js">s1_lrc_1.js</a>
+<a id = "myHref" href="?j=" style="display:none;" onclick = "xdff(this)">s1_lrc_1.js</a>
+<select id="myList" onchange="ChangeMyList()"> 
+  <option value="">-- myList --</option> 
+  <option value="s_lrc_1">s_lrc_1</option> 
+  <option value="s_lrc_2">s_lrc_2</option> 
+  <option value="s_lrc_3">s_lrc_3</option> 
+</select> 
+
+<select id="carmodel"></select> 
+<script>
+function xdff(this_)
+{  
+}
+var carsAndModels = {};
+carsAndModels['s_lrc_1'] = ['V70', 'XC60', 'XC90'];
+carsAndModels['s_lrc_2'] = ['Golf', 'Polo', 'Scirocco', 'Touareg'];
+carsAndModels['s_lrc_3'] = ['M6', 'X5', 'Z3'];
+
+//var listPath = "?j=file:///C:/Users/13699/xd/js/list/";
+var listPath = "?j=https://littleflute.github.io/xd/js/list/";
+var myHref	= document.getElementById("myHref");
+var mList = document.getElementById("myList");
+
+mList.selectedIndex = "" + getListIndex(parseJ()); 
+function parseJ() {
+	var s = QueryString.j;
+	if(!s) return "";
+	var n1 = s.indexOf("/s_lrc_")+1;
+	var n2 = s.indexOf(".js");
+	var r = s.slice(n1,n2);
+
+	return r;
+}
+function getListIndex(value) {
+	var n = -1;
+	var s = "s_lrc_";
+	
+	for(var i = 1; i <=100; i++)
+	{
+		var ss = s + i;
+		if(value.indexOf(ss)!=-1) {n = i;break;}
+	}
+	return n;
+}
+function ChangeMyList() {
+    var modelList = document.getElementById("carmodel");
+    var selList = mList.options[mList.selectedIndex].value;
+	 
+	var href = listPath + selList + ".js";
+	myHref.href		= href;	
+	myHref.click();
+
+    while (modelList.options.length) {
+        modelList.remove(0);
+    }
+    var cars = carsAndModels[selList];
+    if (cars) {
+        var i;
+        for (i = 0; i < cars.length; i++) {
+            var car = new Option(cars[i], i);
+            modelList.options.add(car);
+        }
+    }
+} 
+</script>
 <br>
 <a href="file:///C:/Users/13699/xd1/baidu/mp3/bible1-master/bible1-master/NIV%20Live%20A%20Bible%20Experience/OldTestament/cd10/index.html">
 OldTestament cd10</a>

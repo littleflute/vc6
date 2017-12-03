@@ -18,16 +18,24 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV = "v0.0.96";
+	var _xdClassV = "v0.0.102";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	this.blrRunJS = function(btn,view){
-		var t = blo0.blTextarea(view,btn.id+"t1","alert('xd');","Aquamarine");	 
+		var t = blo0.blTextarea(view,"id_ta_xd_RunJS","alert('xd');","Aquamarine");	 
 		t.style.width = "100%";
 		t.style.height = "300px"; 
 
 		var b = blo0.blBtn(view,btn.id+"_BtnRun","run","green");		
 		b.onclick = function(){eval(t.value);}	
+
+		var btnPlx1 = blo0.blBtn(view,btn.id+"btnPlx1","btnPlx1","lightblue");		
+		btnPlx1.onclick = function(){ 
+			//blo0.blScript("id_script_xd_Plx1","https://littleflute.github.io/xd/js/plx/xdPlx1.js" ); 
+			blo0.blScript("id_script_xd_Plx1","file:///C:/Users/13699/xd/js/plx/xdPlx1.js" ); 
+		}	
+
+
 		_on_off_bd(btn,view);
 	};
 	this.bll1 = "bll1";
