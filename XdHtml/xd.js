@@ -18,25 +18,100 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV	= "v0.0.123";
+	var _xdClassV	= "v0.0.156";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
-	this.blrRunJS = function(btn,view){
-		var t = blo0.blTextarea(view,"id_ta_xd_RunJS","alert('xd');","Aquamarine");	 
+	var _setObj = null;
+	this.blrSet = function(blrSetB,blrSetV){ 
+		blrSetV.innerHTML = "Colors";
+		function _addBtn(b,v,color){
+			var btn = blo0.blBtn(v,v.id+color,color,color);	
+			btn.style.color = "white";	
+			btn.onclick = function(){   
+				document.body.style.backgroundColor = color;
+			}	
+		}
+		function _xdSetClass(){
+			this.blrPink = function(b,v){
+				v.innerHTML = "Pink Colors";
+				_addBtn(b,v,"Pink");
+				_addBtn(b,v,"LightPink");
+				_addBtn(b,v,"HotPink");
+				_addBtn(b,v,"DeepPink");
+				_addBtn(b,v,"PaleVioletRed");
+				_addBtn(b,v,"MediumVioletRed");
+				_on_off_bd(b,v);
+			};
+			this.blrLavender = function(b,v){
+				v.innerHTML = "Lavende Colors";
+				_addBtn(b,v,"Lavender");
+				_addBtn(b,v,"Thistle");
+				_addBtn(b,v,"Plum");
+				_addBtn(b,v,"Orchid");
+				_addBtn(b,v,"Violet");
+				_addBtn(b,v,"Fuchsia");
+				_addBtn(b,v,"Magenta");
+				_addBtn(b,v,"MediumOrchid");
+				_addBtn(b,v,"DarkOrchid");
+				_addBtn(b,v,"DarkViolet");
+				_addBtn(b,v,"BlueViolet");
+				_addBtn(b,v,"DarkMagenta");
+				_addBtn(b,v,"Purple");
+				_addBtn(b,v,"MediumPurple");
+				_addBtn(b,v,"MediumSlateBlue");
+				_addBtn(b,v,"SlateBlue");
+				_addBtn(b,v,"DarkSlateBlue");
+				_addBtn(b,v,"RebeccaPurple");
+				_addBtn(b,v,"Indigo");
+				_on_off_bd(b,v);
+			};
+			this.blrRed = function(b,v){
+				v.innerHTML = "Red Colors";
+				_addBtn(b,v,"LightSalmon");
+				_addBtn(b,v,"Salmon");
+				_addBtn(b,v,"DarkSalmon");
+				_addBtn(b,v,"LightCoral");
+				_addBtn(b,v,"IndianRed");
+				_addBtn(b,v,"Crimson");
+				_addBtn(b,v,"Red");
+				_addBtn(b,v,"FireBrick");
+				_addBtn(b,v,"DarkRed");
+				_on_off_bd(b,v);
+			};
+			this.blrOrange = function(b,v){
+				v.innerHTML = "Orange Colors";
+				_addBtn(b,v,"Orange");
+				_addBtn(b,v,"DarkOrange");
+				_addBtn(b,v,"Coral");
+				_addBtn(b,v,"Tomato");
+				_addBtn(b,v,"OrangeRed");
+				_addBtn(b,v,"Crimson");
+				_addBtn(b,v,"Red");
+				_addBtn(b,v,"FireBrick");
+				_addBtn(b,v,"DarkRed");
+				_on_off_bd(b,v);
+			};
+		}
+		if(!_setObj) _setObj = new _xdSetClass;
+		_makeToolBar2ShowObj(blo0,blrSetV,_setObj);
+		 
+		_on_off_bd(blrSetB,blrSetV);
+	}
+	this.bll2 = "---";
+	this.blrRunJS = function(blrRunJSB,blrRunJSV){
+		var t = blo0.blTextarea(blrRunJSV,"id_ta_xd_RunJS","alert('xd');","Aquamarine");	 
 		t.style.width = "100%";
 		t.style.height = "300px"; 
 
-		var b = blo0.blBtn(view,btn.id+"_BtnRun","run","green");		
+		var b = blo0.blBtn(blrRunJSV,blrRunJSB.id+"_BtnRun","run","green");		
 		b.onclick = function(){eval(t.value);}	
 
-		var btnPlx1 = blo0.blBtn(view,btn.id+"btnPlx1","btnPlx1","lightblue");		
+		var btnPlx1 = blo0.blBtn(blrRunJSV,blrRunJSB.id+"btnPlx1","btnPlx1","lightblue");		
 		btnPlx1.onclick = function(){ 
 			//blo0.blScript("id_script_xd_Plx1","https://littleflute.github.io/xd/js/plx/xdPlx1.js" ); 
 			blo0.blScript("id_script_xd_Plx1","file:///C:/Users/13699/xd/js/plx/xdPlx1.js" ); 
 		}	
-
-
-		_on_off_bd(btn,view);
+		_on_off_bd(blrRunJSB,blrRunJSV);
 	};
 	this.bll1 = "bll1";
 	this.blhClassName = "_xdClass";
@@ -57,7 +132,7 @@ function _xdClass(){
 	}
     
 
-	function _makeToolBar(blo,d) {
+	function _makeToolBar2ShowObj(blo,d,o2Show) {
 		var id = d.id;
 		id += "_b1";
 		var b1 = blo.blBtn(d,id,"+","red");
@@ -65,14 +140,14 @@ function _xdClass(){
 			var v = null;
 			return function(){
 				v = blo.blDiv(d,btn_.id+"_div_View","b1v","green");
-				blo.blShowObj2Div(v,xdobj);
+				blo.blShowObj2Div(v,o2Show);
 				_on_off_bd(btn_,v);
 			}
 		}(b1);
 	}
     
 
-	function _init(){
+	function _init(this_){
 		if(QueryString.r)
 		{
 			refreshTimes = parseInt(QueryString.r) + 1;
@@ -86,7 +161,7 @@ function _xdClass(){
 		var blInf = "page:" + _blPageV;
 		blInf += "  xd.js: " + _xdClassV + "  refreshTimes="+refreshTimes;
 		_xdDbgMsg(blInf); 
-		_makeWrapContent(blo0);
+		_makeWrapContent(blo0,this_);
 		divWrap.style.border = "1px red solid";
 		divWrap.style.backgroundColor = "mediumseagreen";
 	}
@@ -200,7 +275,7 @@ function _xdClass(){
 				};
 			}
 	}	
-	function _makeWrapContent(blo0)
+	function _makeWrapContent(blo0,this_)
 	{
 		if(!blo0) return;
 
@@ -208,10 +283,10 @@ function _xdClass(){
 		{ 
 			_create_nav_4_online(blo0.blDiv(divWrap,"_create_nav_4_online","online::","green")); 
 			_create_nav_4_pc(blo0.blDiv(divWrap,"_create_nav_4_pc","pc::","gold")); 
-			_makeToolBar(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"));
+			_makeToolBar2ShowObj(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"),this_);
 		}
 	}
-	_init();
+	_init(this);
 }
 var xdobj = new _xdClass; 
 
