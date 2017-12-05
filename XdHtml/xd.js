@@ -18,7 +18,7 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV	= "v0.0.118";
+	var _xdClassV	= "v0.0.123";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	this.blrRunJS = function(btn,view){
@@ -147,7 +147,7 @@ function _xdClass(){
 					}
 				}; 
 				m[i].onclick = function(){   
-					this.href += "?c=" + this.id;
+			//		this.href += "?c=" + this.id;
 				};
 			}
 	}
@@ -165,6 +165,9 @@ function _xdClass(){
 
 			var url = "https://littleflute.github.io/cchess/";
 			var cchess = blo0.blLink(nav,"cchess","cchess",url,"DarkCyan");l.push(cchess);
+
+			var url = "https://littleflute.github.io/vc6/";
+			var vc6 = blo0.blLink(nav,"vc6","vc6",url,"DarkCyan");l.push(vc6);
 
 			var url = "https://littleflute.github.io/bible/";
 			var bible = blo0.blLink(nav,"bible","bible",url,"DarkCyan");l.push(bible);
@@ -193,7 +196,7 @@ function _xdClass(){
 					}
 				}; 
 				m[i].onclick = function(){   
-					this.href += "?c=" + this.id;
+				//	this.href += "?c=" + this.id;
 				};
 			}
 	}	
