@@ -2,7 +2,7 @@
 <script src="../blclass.js"  type="text/javascript" ></script> 
 </HEAD><BODY>
 <div id="pageLevel" style="display:none">1</div>
-<div id = "idDivBlV" style="display:none;">v0.1.12</div>
+<div id = "idDivBlV" style="display:none;">v0.1.24</div>
 <div id="blPageV"></div><div id="xddbg"></div>
 <script type="text/javascript" src="../xd.js"></script> 
 <script>
@@ -66,7 +66,8 @@ function _ajaxWorkClass()
 		btn2_Save.click();
 	}
 }
-var pageIdx = 10000;
+var pageMax	= 5;
+var pageIdx = 1;
 var w = new _ajaxWorkClass;
 var href = "http://www.xqbase.com/xqbase/?gameid=";
 var toolBar = blo0.blDiv(document.body,"id_toolBar","toolBar","BlueViolet");
@@ -75,8 +76,9 @@ var btn2_Save = blo0.blBtn(toolBar,"btn2_Save","btn2_Save","skyblue");
 var btn3_Next = blo0.blBtn(toolBar,"btn3_Next",pageIdx,"gray");
 var v = blo0.blDiv(document.body,"id_v","v","yellowgreen");
 var l = blo0.blLink(v,"id_l","save","?xd=save","red"); l.style.display = "none";
-var divMsg = blo0.blDiv(v,"divMsg","divMsg","gray");
-var divChess = blo0.blDiv(v,"divChess","divChess","skyblue");
+_createMyNav(v);
+var BaseNav = blo0.blDiv(v,"BaseNav","BaseNav","gray");
+_createBaseNav(BaseNav); 
 btn1_Ajx.onclick = function(){
 	var ajxHref = href + pageIdx;
 	blo0.blAjx(w,ajxHref);
@@ -86,10 +88,30 @@ btn2_Save.onclick = function(){
 }
 
 btn3_Next.onclick = function(){
-    if(pageIdx>12141) return;
+    if(pageIdx>pageMax) return;
 	pageIdx++;
 	btn3_Next.innerHTML = pageIdx;
 	btn1_Ajx.click();
+}
+ function _createMyNav(d){
+
+	var url = "xqbase/index.html";
+	var index = blo0.blLink(d,d.id+"index","index",url,"skyblue");  
+	var url = "xqbase/getFromXQBASE.html";
+	var getFromXQBASE = blo0.blLink(d,d.id+"getFromXQBASE","getFromXQBASE",url,"red");  
+ 
+}
+ function _createBaseNav(d){
+	var i = 1;
+	for (var i = 1;i<5;i++)
+	{
+		var color	= i%2==0?"red":"skyblue";
+		var url		= "xqbase/" + i + ".html";
+		var txt		= "gameid:" + i;
+		var id		= "id_link_game_" + i;
+		var l = blo0.blLink(d,id,txt,url,color);    
+	}
+ 
 }
 </script> 
 </BODY>
