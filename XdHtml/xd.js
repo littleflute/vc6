@@ -18,7 +18,7 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV	= "v0.0.156";
+	var _xdClassV	= "v0.0.159";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	var _setObj = null;
@@ -107,10 +107,20 @@ function _xdClass(){
 		b.onclick = function(){eval(t.value);}	
 
 		var btnPlx1 = blo0.blBtn(blrRunJSV,blrRunJSB.id+"btnPlx1","btnPlx1","lightblue");		
-		btnPlx1.onclick = function(){ 
-			//blo0.blScript("id_script_xd_Plx1","https://littleflute.github.io/xd/js/plx/xdPlx1.js" ); 
-			blo0.blScript("id_script_xd_Plx1","file:///C:/Users/13699/xd/js/plx/xdPlx1.js" ); 
-		}	
+		btnPlx1.onclick = function(src_){ 
+			var src = src_;
+			return function(){
+				blo0.blScript("id_script_xd_Plx1",src);
+			}			 
+		}("file:///C:/Users/13699/xd/js/plx/xdPlx1.js");
+
+		var btnPlxOnline1 = blo0.blBtn(blrRunJSV,blrRunJSB.id+"btnPlxOnline1","btnPlxOnline1","skyblue");		
+		btnPlxOnline1.onclick = function(src_){ 
+			var src = src_;
+			return function(){
+				blo0.blScript("id_script_xd_Plx1",src);
+			}			 
+		}("https://littleflute.github.io/xd/js/plx/xdPlx1.js");
 		_on_off_bd(blrRunJSB,blrRunJSV);
 	};
 	this.bll1 = "bll1";
