@@ -1,118 +1,93 @@
-<HTML><HEAD><TITLE>cchess/index.html</TITLE> 
-<script src="../blclass.js"  type="text/javascript" ></script> 
-</HEAD><BODY>
-<div id="pageLevel" style="display:none">1</div>
-<div id = "idDivBlV" style="display:none;">v0.1.24</div>
-<div id="blPageV"></div><div id="xddbg"></div>
-<script type="text/javascript" src="../xd.js"></script> 
-<script>
-function get_file_name(a,b){
-	var r = "";
-	var p = "C:\\Users\\13699\\xd1\\baidu\\VC6_EN\\VC6_EN\\VC6EN\\MyProjects\\XdHtml\\cchess\\";
-	r = p + pageIdx + ".html";
-	return r;
-}
-
-function create_page(titleTxt,bodyHTML){
-	var r = "";
-	r = blo0.blCreatePage("xdtest1",divChess.innerHTML);
-	return r;
-}
-
-function show_msg(msgTxt1,msgTxt2){  
-	divMsg.innerHTML = msgTxt1;  
-	btn3_Next.click();
-}
-
-
-function _ajaxWorkClass()
-{
-	var _getGameId = function(oBoss,txt){
-		var r = "";
-		var a = txt.split("gameid%3D");
-		var b = a[1].split("&am");
-		var r = b[0];
-		var d = blo0.blDiv(oBoss,oBoss.id+"_getGameId","_getGameId","gray");
-		d.innerHTML = r;
-	};
-	var _getChinesPu = function(oBoss,txt){
-		var r = "";
-		var a = txt.split("<pre>");
-		var b = a[1].split("</pre>");
-		var r = b[0];
-		var d = blo0.blDiv(oBoss,oBoss.id+"_getChinesPu","d1","skyblue");
-		d.innerHTML = r;
-	};
-	var _getBoard = function(oBoss,txt){
-		var r = "";
-		var a = txt.split('<td background="/images/headerbg.gif">');
-		var b = a[1].split("<br><br>");
-		var t1 = "/pub/flashxq.swf";
-		var t2 = "http://www.xqbase.com/pub/flashxq.swf";
-		var t3 = "https://littleflute.github.io/cchess/ref/http/www.xqbase.com/pub/flashxq.swf";
-		var r = b[0].replace(t1,t3); 
-
-		var d = blo0.blDiv(oBoss,oBoss.id+"_getBoard","d1","lightblue");
-		d.innerHTML = r;
-	};
-	var _myJob = function(txt){
-		_getGameId(divChess,txt);
-		_getBoard(divChess,txt);
-		_getChinesPu(divChess,txt);
-	};
-	this._2do = function(txt)
-	{
-		_myJob(txt);
-		btn2_Save.click();
-	}
-}
-var pageMax	= 5;
-var pageIdx = 1;
-var w = new _ajaxWorkClass;
-var href = "http://www.xqbase.com/xqbase/?gameid=";
-var toolBar = blo0.blDiv(document.body,"id_toolBar","toolBar","BlueViolet");
-var btn1_Ajx = blo0.blBtn(toolBar,"btn1_Ajx","btn1_Ajx","gold");
-var btn2_Save = blo0.blBtn(toolBar,"btn2_Save","btn2_Save","skyblue");
-var btn3_Next = blo0.blBtn(toolBar,"btn3_Next",pageIdx,"gray");
-var v = blo0.blDiv(document.body,"id_v","v","yellowgreen");
-var l = blo0.blLink(v,"id_l","save","?xd=save","red"); l.style.display = "none";
-_createMyNav(v);
-var BaseNav = blo0.blDiv(v,"BaseNav","BaseNav","gray");
-_createBaseNav(BaseNav); 
-btn1_Ajx.onclick = function(){
-	var ajxHref = href + pageIdx;
-	blo0.blAjx(w,ajxHref);
-}
-btn2_Save.onclick = function(){
-	l.click();
-}
-
-btn3_Next.onclick = function(){
-    if(pageIdx>pageMax) return;
-	pageIdx++;
-	btn3_Next.innerHTML = pageIdx;
-	btn1_Ajx.click();
-}
- function _createMyNav(d){
-
-	var url = "xqbase/index.html";
-	var index = blo0.blLink(d,d.id+"index","index",url,"skyblue");  
-	var url = "xqbase/getFromXQBASE.html";
-	var getFromXQBASE = blo0.blLink(d,d.id+"getFromXQBASE","getFromXQBASE",url,"red");  
+<HTML><HEAD><META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<TITLE>index.html</TITLE><script type="text/javascript" src="blclass.js"></script></HEAD><BODY>
+<div id="pageLevel" style="display:none">0</div>
+<div id="blPageNav">
+<a href="../index.html">[..]</a>
+<a href="?xd=get_win_app_v">get_win_app_v</a>
+<a href="file:///C:/Users/13699/BeautifulLover/index.html">BeautifulLover</a> 
+<a href="https://littleflute.github.io/cchess/play/nopc1.html">nopc1</a> 
+<a href="https://littleflute.github.io/cchess/play/nopc2.html">nopc2</a> 
+<a href="player.html">player.html</a>
+<a href="https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_topnav">tryhow_js_topnav</a>
+<a href="jquery/index.html">jquery</a>
+<a href="file:///C:/Users/13699/xd/index.html?xd=Cancel">xd</a>
+<a href="file:///C:/Users/13699/xd1/cchess/i.html">cchess-i.html</a>
+<a href="file:///C:/Users/13699/Downloads/vschess_1.2.0/vschess_1.2.0/demo.html">vschess_1.2.0</a>
+<br>
+<a href="https://littleflute.github.io/blog/docs/2017/04/13/">04/13: Move Div</a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/14/">04/14: Windows</a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/15/">04/15: Calender</a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/16/">04/16: </a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/19/">04/19: </a>-
+<a href="https://littleflute.github.io/blog/docs/2017/04/21/">04/21: littleflute </a>
+</div>
+<div id = "idDivBlV" style="display:none;">v0.0.54</div>
+<div id="xddbg"></div><div id="idMedia"></div> 
+<script src="xd.js" type="text/javascript" ></script>
+<script type="text/javascript" >
  
-}
- function _createBaseNav(d){
-	var i = 1;
-	for (var i = 1;i<5;i++)
-	{
-		var color	= i%2==0?"red":"skyblue";
-		var url		= "xqbase/" + i + ".html";
-		var txt		= "gameid:" + i;
-		var id		= "id_link_game_" + i;
-		var l = blo0.blLink(d,id,txt,url,color);    
+function blClassTest(){								
+	var blo 	= new blClass;	
+	var m = blo.blDiv(document.body,"blpMainDiv","blpMainDiv","BlueViolet" );
+					 								 
+	function _uiDivMovable(id,x,y){							
+		var o = blo;								 
+		var idBody = id;							 
+		var idHead = id + "Header";		
+						 
+		var main = o.blDiv(document.body,idBody,"_"+id);			 
+		var style ="position: absolute;";
+		style +="background-color:gray;";	 	 
+		main.setAttribute("style", style);	
+			 
+		var title = o.blDiv(main,idHead,"========");			 
+		style ="padding: 10px;";			 
+		style +="background-color:red;";	 	
+		title.setAttribute("style", style);	
+					 
+		o.blMakeDivMovable(main);				 
+		main.style.left 	= x +"px";			 
+		main.style.top		= y +"px";	
+				 
+		 
+		return main;							 
 	}
- 
-}
-</script> 
+	function _test2(id,x,y,o2Show){	 							 
+		var o = blo;								 
+		var main = _uiDivMovable(id,x,y);					 
+		var mi1 = o.blDiv(main,id+"mi1",id+"mi1");				 
+		var mi1bOnOff 	= o.blBtn ( mi1,id+"mi1bOnOff",id+"mi1bOnOff"); 	 
+		mi1bOnOff.bOnOff = "+";							
+		mi1bOnOff.onclick = function (){  					  
+			//*								 
+			var mi2 = o.blDiv(main,id+"mi2",id+"mi2");			 
+			var oShow = o.blDiv(mi2,id+"oShow",id+"oShow");			 
+			if("+"==mi1bOnOff.bOnOff)					 
+			{								 
+					mi1bOnOff.style.backgroundColor = "red";	 
+					mi1bOnOff.bOnOff = "-";				 
+					oShow.style.display = "block";			 
+					o.blShowObj2Div(oShow,o2Show);			 
+			}								 
+			else								 
+			{								 
+					mi1bOnOff.style.backgroundColor = "green";	 
+					mi1bOnOff.bOnOff = "+";				 
+					oShow.style.display = "none";			 
+			}								
+			//*/								  
+		}				 
+		var mi3 = o.blDiv(main,id+"mi3",id+"mi3");	
+		o.blLink(mi3,id+"a0",QueryString.l,"ReadMe.txt?a=0","DarkGoldenRod");	
+		o.blLink(mi3,id+"a1","a1","ReadMe.txt?a=1","blue");	
+		o.blLink(mi3,id+"a2","a2","ReadMe.txt?a=2&x=9111&y=14111","BurlyWood");
+		o.blLink(mi3,id+"a3","a3","ReadMe.txt?a=3&x=200&y=170","red");	
+		o.blLink(mi3,id+"a4","click","ReadMe.txt?a=4&x=300&y=111","Chartreuse");						 
+	}				 		  					
+		_test2("blClass",400,100,blo);
+}							
+var blt = new blClassTest;	 
+</script>
+
 </BODY>
 </HTML>
