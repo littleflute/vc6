@@ -241,7 +241,7 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
-	void xd_plvCallJSFun();
+	void xd_plv_save();
 	void xd_plv_create_xd2_html();
 	int m_nTimer;
 };

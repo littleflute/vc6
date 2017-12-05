@@ -60,6 +60,17 @@ function blClass ()
     {        
 		alert("blrTest");
 	}
+    this.blCreatePage = function (titleTxt,bodyHtml){
+		var r = "";
+		r	+= "<HTML><HEAD><TITLE>";
+		r	+= titleTxt;
+		r	+= "</TITLE></HEAD>";
+		r	+= "<body>";
+		r	+= bodyHtml;
+		r	+= "</body></HTML>";
+
+		return r;
+	};
     this.blMDiv = function (oBoss,id,html,bkClr){
 		var x1 = 0;
 		var y1 = 0;

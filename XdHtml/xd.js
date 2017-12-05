@@ -18,7 +18,7 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV = "v0.0.102";
+	var _xdClassV	= "v0.0.118";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	this.blrRunJS = function(btn,view){
@@ -40,6 +40,22 @@ function _xdClass(){
 	};
 	this.bll1 = "bll1";
 	this.blhClassName = "_xdClass";
+
+	function _getParentPath() {
+		var d = document.getElementById("pageLevel");
+		if(!d) return;
+		var pageLevel = d.innerHTML;
+
+		var r = "";
+		var i = 0;
+		while(i<pageLevel)
+		{
+			i++;
+			r += "../";
+		}
+		return r;
+	}
+    
 
 	function _makeToolBar(blo,d) {
 		var id = d.id;
@@ -84,26 +100,29 @@ function _xdClass(){
 		}
 	}
 
-
-			
-	function _makeWrapContent(blo0)
+	
+	function _create_nav_4_pc(nav)
 	{
-		if(!blo0) return;
-
-		if(divWrap)
-		{
-			var nav = blo0.blDiv(divWrap,"xdNav","::");
-			var nav1 = blo0.blDiv(divWrap,"xdNav1","==","DarkCyan");
+		var _parentPath	= _getParentPath();
 			var l	= [];
-			var index = blo0.blLink(nav,"index.html","index.html","index.html?r="+refreshTimes,"DarkCyan");l.push(index);
-			var l1 = blo0.blLink(nav,"1.html","1.html*","1.html","white");		l.push(l1);
-			var l2 = blo0.blLink(nav,"2.html","2.html*","2.html","white");		l.push(l2);
-			var jsgraphics = blo0.blLink(nav,"jsgraphics.html","jsgraphics.html","jsgraphics.html","greenyellow");l.push(jsgraphics);
-			var kLines = blo0.blLink(nav,"kLines.html","kLines.html","kLines.html","skyblue"); l.push(kLines);
-			//"vc6ui.html"
-			var vc6ui = blo0.blLink(nav,"vc6ui.html","vc6ui.html","vc6ui.html","skyblue"); l.push(vc6ui);
-			var lyric = blo0.blLink(nav,"lyric.html","lyric.html","lyric.html","skyblue"); l.push(lyric);
-			var song = blo0.blLink(nav,"song.html","song.html","song.html","skyblue"); l.push(song);
+			var url = _parentPath + "index.html?r="+refreshTimes;
+			var index = blo0.blLink(nav,"index.html","index.html",url,"DarkCyan");l.push(index);
+			var url = _parentPath + "1.html";
+			var l1 = blo0.blLink(nav,"1.html","1.html*",url,"white");		l.push(l1);
+			var url = _parentPath + "2.html";
+			var l2 = blo0.blLink(nav,"2.html","2.html*",url,"white");		l.push(l2);
+			var url = _parentPath + "jsgraphics.html";
+			var jsgraphics = blo0.blLink(nav,"jsgraphics.html","jsgraphics.html",url,"greenyellow");l.push(jsgraphics);
+			var url = _parentPath + "kLines.html";
+			var kLines = blo0.blLink(nav,"kLines.html","kLines.html",url,"skyblue"); l.push(kLines);		
+			var url = _parentPath + "vc6ui.html";
+			var vc6ui = blo0.blLink(nav,"vc6ui.html","vc6ui.html",url,"skyblue"); l.push(vc6ui);			
+			var url = _parentPath + "lyric.html";
+			var lyric = blo0.blLink(nav,"lyric.html","lyric.html",url,"skyblue"); l.push(lyric);			
+			var url = _parentPath + "song.html";
+			var song = blo0.blLink(nav,"song.html","song.html",url,"skyblue"); l.push(song);
+			var url = _parentPath + "cchess/index.html";
+			var cchess = blo0.blLink(nav,"cchess/index.html","cchess.html",url,"skyblue"); l.push(cchess);
 			var a = nav.getElementsByTagName('a');
 			var _title = document.title;
 			for(i in l)
@@ -131,7 +150,62 @@ function _xdClass(){
 					this.href += "?c=" + this.id;
 				};
 			}
-			_makeToolBar(blo0,nav1);
+	}
+		
+	
+	function _create_nav_4_online(nav)
+	{
+		var _parentPath	= _getParentPath();
+			var l	= [];
+			var url = "https://littleflute.github.io/xd/";
+			var xd = blo0.blLink(nav,"xd","xd",url,"DarkCyan");l.push(xd);
+
+			var url = "https://littleflute.github.io/blog/";
+			var blog = blo0.blLink(nav,"blog","blog",url,"DarkCyan");l.push(blog);
+
+			var url = "https://littleflute.github.io/cchess/";
+			var cchess = blo0.blLink(nav,"cchess","cchess",url,"DarkCyan");l.push(cchess);
+
+			var url = "https://littleflute.github.io/bible/";
+			var bible = blo0.blLink(nav,"bible","bible",url,"DarkCyan");l.push(bible);
+
+			var a = nav.getElementsByTagName('a');
+			var _title = document.title;
+			for(i in l)
+			{ 
+				var m = a;
+				m[i].style.color = "white";
+				m[i].style.backgroundColor = _title==m[i].id?"red":"black"; 
+				m[i].onmouseover = function(){
+					if(_title==this.id){
+						this.style.backgroundColor = "red";
+					} 
+					else {
+						this.style.backgroundColor = "skyblue";
+					}
+				};
+				m[i].onmouseout = function(){ 
+					if(_title==this.id){
+						this.style.backgroundColor = "red";
+					} 
+					else {
+						this.style.backgroundColor = "black";
+					}
+				}; 
+				m[i].onclick = function(){   
+					this.href += "?c=" + this.id;
+				};
+			}
+	}	
+	function _makeWrapContent(blo0)
+	{
+		if(!blo0) return;
+
+		if(divWrap)
+		{ 
+			_create_nav_4_online(blo0.blDiv(divWrap,"_create_nav_4_online","online::","green")); 
+			_create_nav_4_pc(blo0.blDiv(divWrap,"_create_nav_4_pc","pc::","gold")); 
+			_makeToolBar(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"));
 		}
 	}
 	_init();

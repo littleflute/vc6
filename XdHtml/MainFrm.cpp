@@ -155,26 +155,14 @@ void CMainFrame::pvHotKey(UINT message, WPARAM wParam, LPARAM lParam)
 
 void CMainFrame::pvSetHotKey()
 {
-	if (RegisterHotKey(
-        m_hWnd,
-        1,
-        MOD_CONTROL,//MOD_ALT,
-        0x41))  //0x41 is 'a'
+//	if (RegisterHotKey(        m_hWnd,        1,        MOD_CONTROL,  0x41))  //0x41 is 'a'
     { 
     } 
 
-	if (RegisterHotKey(
-        m_hWnd,
-        2,
-        MOD_CONTROL,//MOD_ALT,
-        0x42))  //0x42 is 'b'
+	if (RegisterHotKey( m_hWnd,        2,        MOD_CONTROL,       0x42))  //0x42 is 'b'
     { 
     } 
-	if (RegisterHotKey(
-        m_hWnd,
-        48,
-        MOD_CONTROL,//MOD_ALT,
-        0x48))  //0x48 is 'h'
+	if (RegisterHotKey(        m_hWnd,        48,        MOD_CONTROL,        0x48))  //0x48 is 'h'
     { 
     } 
 

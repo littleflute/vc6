@@ -1,114 +1,96 @@
 <HTML><HEAD><TITLE>1.html</TITLE> 
 <script src="blclass.js"  type="text/javascript" ></script>
 <SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
-</HEAD><BODY><div id = "idDivBlV" style="display:none;">v0.0.6</div>
+</HEAD><BODY><div id="pageLevel" style="display:none">0</div>
+<div id = "idDivBlV" style="display:none;">v0.1.8</div>
 <div id="blPageV"></div><div id="xddbg"></div>
 <script type="text/javascript" src="xd.js"></script> 
 <script>
-function _blSongClass()
+function get_file_name(a,b){
+	var r = "";
+	var p = "C:\\Users\\13699\\xd1\\baidu\\VC6_EN\\VC6_EN\\VC6EN\\MyProjects\\XdHtml\\cchess\\";
+	r = p + pageIdx + ".html";
+	return r;
+}
+
+function create_page(titleTxt,bodyHTML){
+	var r = "";
+	r = blo0.blCreatePage("xdtest1",divChess.innerHTML);
+	return r;
+}
+
+function show_msg(msgTxt1,msgTxt2){  
+	divMsg.innerHTML = msgTxt1;  
+	btn3_Next.click();
+}
+
+
+function _ajaxWorkClass()
 {
-	var className	= "_blSongClass";
-	var classV		= "v0.0.37";
-	var	_sv			= null; 
-	var	_stxt		= null; 
-	var _sjg		= null;
-
-	_init();
-
-	function _init(){
-		var w = _createSongWrap();
-		_createSongToolBar(w);
-		_createSongView(w);
-	}
-	this.blrNew		= function(b,d){
-		d.innerHTML = "new...";
-		
-		_on_off_div(b,d);				
+	var _getGameId = function(oBoss,txt){
+		var r = "";
+		var a = txt.split("gameid%3D");
+		var b = a[1].split("&am");
+		var r = b[0];
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getGameId","_getGameId","gray");
+		d.innerHTML = r;
 	};
-	this.blrTest		= function(b,d){
-		alert(_stxt.value);			
+	var _getChinesPu = function(oBoss,txt){
+		var r = "";
+		var a = txt.split("<pre>");
+		var b = a[1].split("</pre>");
+		var r = b[0];
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getChinesPu","d1","skyblue");
+		d.innerHTML = r;
 	};
-	this.bll1		= "songView";
+	var _getBoard = function(oBoss,txt){
+		var r = "";
+		var a = txt.split('<td background="/images/headerbg.gif">');
+		var b = a[1].split("<br><br>");
+		var t1 = "/pub/flashxq.swf";
+		var t2 = "http://www.xqbase.com/pub/flashxq.swf";
+		var t3 = "https://littleflute.github.io/cchess/ref/http/www.xqbase.com/pub/flashxq.swf";
+		var r = b[0].replace(t1,t3); 
 
-	function _svTimerFun(){
-		var html = "";
-		if(_sv) html = _sv.innerHTML;
-		var n = 0;
-		return function(){ 
-			var s = html;
-			s += " n=" + n;
-			if(_stxt) s += _stxt.value; 
-			 n++;
-			if(_sjg){ 
-				_sjg.clear();
-				_sjg.setColor("red");
-				_sjg.drawString(s, 111, 232); 
-				_sjg.drawLine(0,1, 400, 333); 
-				_sjg.paint();
-			}
-		}
-	}
-	function _createSongView(w){
-		_sv	= blo0.blDiv(w,w.id+"_createSongView","_createSongView","PeachPuff"); 
-		_sv.style.position = "absolute";
-		_sjg = new jsGraphics(_sv.id);
-
-		setInterval(_svTimerFun(),100);
-	}
-	function _create_btn_edit(oBoss){
-		var w = 100;
-		var h = 100;
-		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_edit","e","red");	b1.bOnOff = true;
-		b1.onclick = function(d,btn_){
-			var v = null;
-			return function(){
-				v = blo0.blDiv(d,btn_.id+"_div_View","edit:","green"); 
-				_stxt = blo0.blTextarea(v,btn_.id+"t1","alert('xd');","Aquamarine");	 
-				_stxt.style.width = w + "%";
-				_stxt.style.height = h + "px"; 
-				_on_off_bd_1(btn_,v);
-
-				var b0	= blo0.blBtn(v,v.id+"_b0","h=100px","gray"); 
-				b0.onclick = function(){
-					h = 100; 
-				_stxt.style.height = h + "px"; 
-				}
-				
-				var b1	= blo0.blBtn(v,v.id+"_b1","h+10px","gray"); 
-				b1.onclick = function(){
-					h += 10; 
-				_stxt.style.height = h + "px"; 
-				}
-				var b2	= blo0.blBtn(v,v.id+"_b2","h-10px","gray"); 
-				b2.onclick = function(){
-					h -= 10; 
-				_stxt.style.height = h + "px"; 
-				}
-			}
-		}(oBoss,b1);
-	}
-	function _create_b1(oBoss){
-		var b1	= blo0.blBtn(oBoss,oBoss.id+"_b1","blso","red");	b1.bOnOff = true;
-		b1.onclick = function(d,btn_){
-			var v = null;
-			return function(){
-				v = blo0.blDiv(d,btn_.id+"_div_View","b1v","green");
-				blo0.blShowObj2Div(v,blso);
-				_on_off_bd_1(btn_,v);
-			}
-		}(oBoss,b1);
-	}
-	function _createSongToolBar(w){
-		var t	= blo0.blDiv(w,w.id+"_createSongToolBar",className,"MediumPurple");
-		_create_b1(t);
-		_create_btn_edit(t);
-	}
-	function _createSongWrap(){
-		var w = blo0.blDiv(document.body,"id_div_Song_Wrap",classV,"LightPink");
-		return w;
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getBoard","d1","lightblue");
+		d.innerHTML = r;
+	};
+	var _myJob = function(txt){
+		_getGameId(divChess,txt);
+		_getBoard(divChess,txt);
+		_getChinesPu(divChess,txt);
+	};
+	this._2do = function(txt)
+	{
+		_myJob(txt);
+		btn2_Save.click();
 	}
 }
-var blso = new _blSongClass;
+var pageIdx = 10000;
+var w = new _ajaxWorkClass;
+var href = "http://www.xqbase.com/xqbase/?gameid=";
+var toolBar = blo0.blDiv(document.body,"id_toolBar","toolBar","BlueViolet");
+var btn1_Ajx = blo0.blBtn(toolBar,"btn1_Ajx","btn1_Ajx","gold");
+var btn2_Save = blo0.blBtn(toolBar,"btn2_Save","btn2_Save","skyblue");
+var btn3_Next = blo0.blBtn(toolBar,"btn3_Next",pageIdx,"gray");
+var v = blo0.blDiv(document.body,"id_v","v","yellowgreen");
+var l = blo0.blLink(v,"id_l","save","?xd=save","red"); l.style.display = "none";
+var divMsg = blo0.blDiv(v,"divMsg","divMsg","gray");
+var divChess = blo0.blDiv(v,"divChess","divChess","skyblue");
+btn1_Ajx.onclick = function(){
+	var ajxHref = href + pageIdx;
+	blo0.blAjx(w,ajxHref);
+}
+btn2_Save.onclick = function(){
+	l.click();
+}
+
+btn3_Next.onclick = function(){
+    if(pageIdx>12141) return;
+	pageIdx++;
+	btn3_Next.innerHTML = pageIdx;
+	btn1_Ajx.click();
+}
 </script> 
 </BODY>
 </HTML>
