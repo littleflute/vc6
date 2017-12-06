@@ -18,7 +18,7 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV	= "v0.1.1";
+	var _xdClassV	= "v0.1.2";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	
@@ -94,9 +94,9 @@ function _xdClass(){
 				_on_off_bd(btn_,v);
 			}
 		}(b1);
-		var _load_plx_btn = function(oBoss,plxName,src){
-			var idBtn	= oBoss.id + plxName + "btn";
-			var b		=  blo.blBtn(oBoss,idBtn,plxName,"red");
+		var _load_plx_btn = function(isOnLine,oBoss,plxName,src, color ){
+			var idBtn	= oBoss.id + plxName + "btn" + isOnLine;
+			var b		=  blo.blBtn(oBoss,idBtn,plxName,color);
 			b.onclick = function(btn_){
 				var v = null;
 				var n = 0; 
@@ -115,8 +115,10 @@ function _xdClass(){
 			}(b);
 		};
  
-		_load_plx_btn(d,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js"); 
-		_load_plx_btn(d,"_xdPlxSet","file:///C:/Users/13699/xd/js/plx/xdPlxSet.js"); 
+		_load_plx_btn(0,d,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js","brown"); 
+		_load_plx_btn(0,d,"_xdPlxSet","file:///C:/Users/13699/xd/js/plx/xdPlxSet.js","brown"); 
+		_load_plx_btn(1,d,"_xdPlxSpiter","https://littleflute.github.io/xd/js/plx/xdPlxSpiter.js","lightblue"); 
+		_load_plx_btn(1,d,"_xdPlxSet","https://littleflute.github.io/xd/js/plx/xdPlxSet.js","lightblue"); 
 	}
     
 	function _init(this_){
