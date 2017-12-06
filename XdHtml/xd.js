@@ -18,85 +18,10 @@ var QueryString = function ()
 }(); 
 
 function _xdClass(){
-	var _xdClassV	= "v0.0.159";
+	var _xdClassV	= "v0.1.1";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
-	var _setObj = null;
-	this.blrSet = function(blrSetB,blrSetV){ 
-		blrSetV.innerHTML = "Colors";
-		function _addBtn(b,v,color){
-			var btn = blo0.blBtn(v,v.id+color,color,color);	
-			btn.style.color = "white";	
-			btn.onclick = function(){   
-				document.body.style.backgroundColor = color;
-			}	
-		}
-		function _xdSetClass(){
-			this.blrPink = function(b,v){
-				v.innerHTML = "Pink Colors";
-				_addBtn(b,v,"Pink");
-				_addBtn(b,v,"LightPink");
-				_addBtn(b,v,"HotPink");
-				_addBtn(b,v,"DeepPink");
-				_addBtn(b,v,"PaleVioletRed");
-				_addBtn(b,v,"MediumVioletRed");
-				_on_off_bd(b,v);
-			};
-			this.blrLavender = function(b,v){
-				v.innerHTML = "Lavende Colors";
-				_addBtn(b,v,"Lavender");
-				_addBtn(b,v,"Thistle");
-				_addBtn(b,v,"Plum");
-				_addBtn(b,v,"Orchid");
-				_addBtn(b,v,"Violet");
-				_addBtn(b,v,"Fuchsia");
-				_addBtn(b,v,"Magenta");
-				_addBtn(b,v,"MediumOrchid");
-				_addBtn(b,v,"DarkOrchid");
-				_addBtn(b,v,"DarkViolet");
-				_addBtn(b,v,"BlueViolet");
-				_addBtn(b,v,"DarkMagenta");
-				_addBtn(b,v,"Purple");
-				_addBtn(b,v,"MediumPurple");
-				_addBtn(b,v,"MediumSlateBlue");
-				_addBtn(b,v,"SlateBlue");
-				_addBtn(b,v,"DarkSlateBlue");
-				_addBtn(b,v,"RebeccaPurple");
-				_addBtn(b,v,"Indigo");
-				_on_off_bd(b,v);
-			};
-			this.blrRed = function(b,v){
-				v.innerHTML = "Red Colors";
-				_addBtn(b,v,"LightSalmon");
-				_addBtn(b,v,"Salmon");
-				_addBtn(b,v,"DarkSalmon");
-				_addBtn(b,v,"LightCoral");
-				_addBtn(b,v,"IndianRed");
-				_addBtn(b,v,"Crimson");
-				_addBtn(b,v,"Red");
-				_addBtn(b,v,"FireBrick");
-				_addBtn(b,v,"DarkRed");
-				_on_off_bd(b,v);
-			};
-			this.blrOrange = function(b,v){
-				v.innerHTML = "Orange Colors";
-				_addBtn(b,v,"Orange");
-				_addBtn(b,v,"DarkOrange");
-				_addBtn(b,v,"Coral");
-				_addBtn(b,v,"Tomato");
-				_addBtn(b,v,"OrangeRed");
-				_addBtn(b,v,"Crimson");
-				_addBtn(b,v,"Red");
-				_addBtn(b,v,"FireBrick");
-				_addBtn(b,v,"DarkRed");
-				_on_off_bd(b,v);
-			};
-		}
-		if(!_setObj) _setObj = new _xdSetClass;
-		_makeToolBar2ShowObj(blo0,blrSetV,_setObj);
-		 
-		_on_off_bd(blrSetB,blrSetV);
-	}
+	
 	this.bll2 = "---";
 	this.blrRunJS = function(blrRunJSB,blrRunJSV){
 		var t = blo0.blTextarea(blrRunJSV,"id_ta_xd_RunJS","alert('xd');","Aquamarine");	 
@@ -157,6 +82,43 @@ function _xdClass(){
 	}
     
 
+	function _xd_tool_bar(blo,d,o2Show) {
+		var id = "";
+		id = d.id + "_b1";
+		var b1 = blo.blBtn(d,id,"+","red");
+		b1.onclick = function(btn_){
+			var v = null;
+			return function(){
+				v = blo.blDiv(d,btn_.id+"_div_View","b1v","green");
+				blo.blShowObj2Div(v,o2Show);
+				_on_off_bd(btn_,v);
+			}
+		}(b1);
+		var _load_plx_btn = function(oBoss,plxName,src){
+			var idBtn	= oBoss.id + plxName + "btn";
+			var b		=  blo.blBtn(oBoss,idBtn,plxName,"red");
+			b.onclick = function(btn_){
+				var v = null;
+				var n = 0; 
+				return function(){
+					n++; 
+					var idWrap	= oBoss.id + plxName + "wrap";
+					v = blo.blDiv(oBoss,idWrap,"","green");  
+					var srcHTML = "<a target='_blank' href=" + src + " style='color:white;'>" + plxName + "-source</a>";
+					var ds	= blo.blDiv(v,oBoss.id + plxName + "src",srcHTML,"gray");
+
+					var id		= "id_div_" + plxName;
+					var dPlx = blo.blDiv(v,id,plxName + ":" + n,"gray"); 
+					blo0.blScript("id_script_" + plxName,src);
+					_on_off_div(btn_,v);
+				}
+			}(b);
+		};
+ 
+		_load_plx_btn(d,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js"); 
+		_load_plx_btn(d,"_xdPlxSet","file:///C:/Users/13699/xd/js/plx/xdPlxSet.js"); 
+	}
+    
 	function _init(this_){
 		if(QueryString.r)
 		{
@@ -293,7 +255,7 @@ function _xdClass(){
 		{ 
 			_create_nav_4_online(blo0.blDiv(divWrap,"_create_nav_4_online","online::","green")); 
 			_create_nav_4_pc(blo0.blDiv(divWrap,"_create_nav_4_pc","pc::","gold")); 
-			_makeToolBar2ShowObj(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"),this_);
+			_xd_tool_bar(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"),this_);
 		}
 	}
 	_init(this);
