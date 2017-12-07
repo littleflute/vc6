@@ -1,22 +1,4 @@
-var QueryString = function () 
-{
-  var query_string = {};
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i=0;i<vars.length;i++) {
-    var pair = vars[i].split("=");
-    if (typeof query_string[pair[0]] === "undefined") {
-      query_string[pair[0]] = decodeURIComponent(pair[1]);
-    } else if (typeof query_string[pair[0]] === "string") {
-      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
-      query_string[pair[0]] = arr;
-    } else {
-      query_string[pair[0]].push(decodeURIComponent(pair[1]));
-    }
-  } 
-  return query_string;
-}(); 
-
+ 
 function _blVMPlayer()
 {
 	var nTime = 0; 
@@ -117,12 +99,28 @@ function loadLyricOK(){
 
 function blLrcClass(tt,xt,f)
 {	
-	var xdVer	= "v1.1.4";
+	var xdVer	= "v1.1.17";
 	var _currentTime = 0;
 
 
-	this.blrMakeStamp = function(b,d){//xdug 1048
+	this.blrMakeStamp = function(b,d){ 
 		d.innerHTML = xdVer;
+		var ta = blo0.blTextarea(d,d.id+"ta","v",blColor[11]);
+		ta.style.width = "100%";
+		ta.style.height = "50px";
+		var v = blo0.blDiv(d,d.id+"v","v",blColor[1]);
+		var b1 = blo0.blBtn(d,d.id+"b1","b1",blColor[8]);
+		b1.onclick = function(v_){
+			var n = 0;
+			return function(){
+				n++;
+				var l = document.getElementById("lrcdata");
+				if(1){
+					v_.innerHTML = n + "£º" + _currentTime + "";
+					ta.value = l.innerHTML;
+				}
+			}
+		}(v);
 		_on_off_div(b,d);
 	};
 	
@@ -215,11 +213,16 @@ function blLrcClass(tt,xt,f)
   var _CreateLyrBoard2 = function(oBoss)
   {	 
 		var d2Body = o.blDiv(oBoss,"d2Body","","DarkOrchid");
-		var d1 = o.blDiv(oBoss,oBoss.id+"_div_song_right_now",QueryString.f,"lightblue"); 
-		var d2 = o.blDiv(oBoss,oBoss.id+"_div_lrc_right_now",QueryString.l,"skyblue"); 
-		
 		_CreateToolBar(d2Body);
-		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x","DarkSeaGreen"); 
+		var d1 = o.blDiv(oBoss,oBoss.id+"_div_song_right_now",QueryString.f,blColor[2]); 
+		var url = QueryString.l;
+		var d2 = o.blDiv(oBoss,oBoss.id+"_div_lrc_right_now",url,blColor[4]); 
+		var lrcLink = blo0.blLink(oBoss,oBoss.id+"lrcLink","lrc_src",url,blColor[5]);
+		var url = QueryString.j;
+		var d3 = o.blDiv(oBoss,oBoss.id+"_div_list_right_now",url,blColor[6]); 
+		var listLink = blo0.blLink(oBoss,oBoss.id+"listLink","list_src",url,blColor[8]);
+		
+		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x",blColor[12]); 
 
 		var s = "";
 		s += '<div id="lrcollbox" style="overflow:hidden; height:260; width:460; background-color:#59a;">'; 

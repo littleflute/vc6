@@ -1,26 +1,8 @@
-
-
-var QueryString = function () 
-{
-  var query_string = {};
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i=0;i<vars.length;i++) {
-    var pair = vars[i].split("=");
-    if (typeof query_string[pair[0]] === "undefined") {
-      query_string[pair[0]] = decodeURIComponent(pair[1]);
-    } else if (typeof query_string[pair[0]] === "string") {
-      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
-      query_string[pair[0]] = arr;
-    } else {
-      query_string[pair[0]].push(decodeURIComponent(pair[1]));
-    }
-  } 
-  return query_string;
-}(); 
+ //  blo0.blLink(nav,"../../../../../../../xd/js/plx/xdPlxSpiter.js","cchess.html",url,"skyblue"); 
+ //  blo0.blLink(nav,"../../../../../../../xd/js/plx/xdPlxSong.js","cchess.html",url,"skyblue");  
 
 function _xdClass(){
-	var _xdClassV	= "v0.1.2";
+	var _xdClassV	= "v0.1.3";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	
@@ -116,7 +98,6 @@ function _xdClass(){
 				}
 			}(b);
 		};
- //  blo0.blLink(nav,"../../../../../../../xd/js/plx/xdPlxSong.js","cchess.html",url,"skyblue"); l.push(cchess);
 		_load_plx_btn(0,d,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js","brown"); 
 		_load_plx_btn(0,d,"_xdPlxSet","file:///C:/Users/13699/xd/js/plx/xdPlxSet.js","brown"); 
 		_load_plx_btn(0,d,"_xdPlxSong","file:///C:/Users/13699/xd/js/plx/xdPlxSong.js","brown"); 

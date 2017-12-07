@@ -3,6 +3,26 @@
 // 2017/11/3 23:55am bjt
 
 
+
+var QueryString = function () 
+{
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+  return query_string;
+}(); 
+
 var blColor	= ["red","tomato","gold","black","green","blue","lightblue","yellow","brown","pink","gray","white","mediumpurple",
 	"cyan"];
 var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
@@ -169,7 +189,7 @@ function xdMoveDivClass(idDiv)
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.51";//blclassdbg
+    this.v = "xdvc6: 1.0.52";//blclassdbg
 
     this.blrTest = function (b,d)
     {        

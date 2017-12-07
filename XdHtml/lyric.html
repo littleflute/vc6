@@ -6,12 +6,12 @@
 <script type="text/javascript" src="blclass.js"></script>
 </HEAD><BODY>
 <div id="pageLevel" style="display:none">0</div>
-<div id = "idDivBlV" style="display:none;">v0.0.63</div>
+<div id = "idDivBlV" style="display:none;">v0.0.72</div>
 <div id="xddbg"></div><div id="idMedia"></div> 
 <script src="xd.js" type="text/javascript" ></script>
 <div id="Nav"> 
 ref:<br>
-<a id = "myHref" href="?j=" style="display:none;" onclick = "xdff(this)">s1_lrc_1.js</a>
+<a id = "myHref" href="?j=" style="display:none;" ">s1_lrc_1.js</a>
 <select id="myList" onchange="ChangeMyList()"> 
   <option value="">-- myList --</option> 
   <option value="s_lrc_1">s_lrc_1</option> 
@@ -21,16 +21,14 @@ ref:<br>
 
 <select id="carmodel"></select> 
 <script>
-function xdff(this_)
-{  
-}
+
 var carsAndModels = {};
 carsAndModels['s_lrc_1'] = ['V70', 'XC60', 'XC90'];
 carsAndModels['s_lrc_2'] = ['Golf', 'Polo', 'Scirocco', 'Touareg'];
 carsAndModels['s_lrc_3'] = ['M6', 'X5', 'Z3'];
 
-//var listPath = "?j=file:///C:/Users/13699/xd/js/list/";
-var listPath = "?j=https://littleflute.github.io/xd/js/list/";
+var listPath = "?j=file:///C:/Users/13699/xd/js/list/";
+//var listPath = "?j=https://littleflute.github.io/xd/js/list/";
 var myHref	= document.getElementById("myHref");
 var mList = document.getElementById("myList");
 
