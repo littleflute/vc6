@@ -3,7 +3,7 @@
 <SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
 </HEAD><BODY>
 <div id="pageLevel" style="display:none">0</div>
-<div id = "idDivBlV" style="display:none;">v0.0.6</div>
+<div id = "idDivBlV" style="display:none;">v0.0.7</div>
 <div id="blPageV"></div><div id="xddbg"></div>
 <script type="text/javascript" src="xd.js"></script> 
 <script>
@@ -36,23 +36,22 @@ function _blSongClass()
 		
 		_on_off_div(b,d);				
 	};
-	this.blrTest		= function(b,d){
-		 
-	};
+
 	this.bll1		= "songView";
 
 	var className	= "_blSongClass";
-	var classV		= "v0.0.66"; //songdbg 
+	var classV		= "v0.0.68"; //songdbg 
 	var	_sv			= null; 
 	var	_stxt		= null; 
 	var _sjg		= null;
 	var _mo			= null;
+	var _wrap		= null;
 	_init("id_div_show_1");
 
 	function _init(id){
-		var w = _createSongWrap(id);
-		_createSongToolBar(w);
-		_createSongView(w);
+		_wrap = _createSongWrap(id);
+		_createSongToolBar(_wrap);
+		_createSongView(_wrap);
 	}
 
 	function _draw_music_c(jg,c,x0,y0){
@@ -69,6 +68,7 @@ function _blSongClass()
 			case "c":				c_ = 1;		break;
 			case "b":				c_ = 7;		break;
 			case "a":				c_ = 6;		break;
+			case "0":				c_ = 0;		break;
 			}
 			jg.drawString(c_,x,y); 
 			y += 15;
@@ -278,7 +278,7 @@ function _blSongClass()
 		return r;
 	}
 	function _parse_1_line(jg,l,x0,y0){
-		var v = "line_v0.0.11";
+		var v = "line_v0.1.1";
 		var x = x0+50;
 		var y = y0 + 20;
 		jg.setColor("lightblue");	
@@ -296,18 +296,40 @@ function _blSongClass()
 		{
 			jg.drawString("-null line-",x,y);
 		}
+		var r = {};
+		r.x = x0;
+		r.y = y0 + 100;
+		return r;
+	}
+	function _draw_1_line(l,x0,y0,n){
+			var x = x0;
+			var y = y0;
+			var d = blo0.blDiv(_wrap,_wrap.id + "d" + n,"d","brown");
+			for(var i = 0; i< 155;i++)
+			{
+				var d2 = blo0.blDiv(d,"id_show_di2" +i,"show2" +i,"gray");
+			}
+			var da = blo0.blDiv(d,d.id + "da","da","gold");
+			da.innerHTML = "ad";
+			var dw = blo0.blDiv(da,da.id + "dw","dw","blue");
+			dw.style.position = "absolute";
+			var j1 = new jsGraphics(dw.id);
+					j1.clear(); 	 
+					j1.setColor("green");
+					j1.drawString("j1: ************", x, y);  
+					
+					var r = _parse_1_line(j1,l,x,y); 
+					j1.paint();
 	}
 	function _parseSong(ta,jg){
-		var v = "v0.0.7";
+		var v = "v0.0.11";
 		jg.setColor("blue");
 		jg.drawString(v, 11, 15); 
 		var o = null;
 		if(ta){
 			eval(ta.value);
-			jg.setColor("brown");		
-			jg.drawRect(o.x, o.y,o.w,o.h); 	
-			jg.drawString(o.name, 333, 111); 
-			_parse_1_line(jg,o.line1,o.x,o.y);
+			_draw_1_line(o.line1,110,20,1); 
+			_draw_1_line(o.line2,110,20,2); 
 		}
 		return o;
 	}
@@ -319,13 +341,7 @@ function _blSongClass()
 			var s = html;
 			s += " n=" + n; 
 			 n++;
-			if(jg){ 
-				jg.clear();
-				jg.setColor("red");
-				jg.drawString(s, 11, 55);  
-				_mo = _parseSong(_stxt,jg);
-				jg.paint();
-			}
+			
 		}
 	}
 	function _createSongView(w){
@@ -444,6 +460,22 @@ function _blSongClass()
 			}
 		}(oBoss,b1);
 	}
+	function _create_btn_draw_music(oBoss){
+		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_draw_music","draw","brown");	b1.bOnOff = true;
+		b1.onclick = function(d,btn_){
+			var v = null;
+			return function(){ 
+				var jg = _sjg;
+				if(jg){ 
+					jg.clear();
+					jg.setColor("red");
+					jg.drawString(new Date, 11, 55);  
+					_mo = _parseSong(_stxt,jg);
+					jg.paint();
+			}
+			}
+		}(oBoss,b1);
+	}
 	function _create_btn_2_show_music_obj(oBoss){
 		var b1	= blo0.blBtn(oBoss,oBoss.id+"_create_btn_2_show_music_obj","mo","red");	b1.bOnOff = true;
 		b1.onclick = function(d,btn_){
@@ -459,6 +491,7 @@ function _blSongClass()
 		var t	= blo0.blDiv(w,w.id+"_createSongToolBar",className,"MediumPurple");
 		_create_b1(t);
 		_create_btn_edit(t);
+		_create_btn_draw_music(t);
 		_create_btn_2_show_music_obj(t);
 	}
 	function _createSongWrap(id){

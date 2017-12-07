@@ -1,3 +1,5 @@
+
+
 var QueryString = function () 
 {
   var query_string = {};
@@ -114,9 +116,10 @@ function _xdClass(){
 				}
 			}(b);
 		};
- 
+ //  blo0.blLink(nav,"../../../../../../../xd/js/plx/xdPlxSong.js","cchess.html",url,"skyblue"); l.push(cchess);
 		_load_plx_btn(0,d,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js","brown"); 
 		_load_plx_btn(0,d,"_xdPlxSet","file:///C:/Users/13699/xd/js/plx/xdPlxSet.js","brown"); 
+		_load_plx_btn(0,d,"_xdPlxSong","file:///C:/Users/13699/xd/js/plx/xdPlxSong.js","brown"); 
 		_load_plx_btn(1,d,"_xdPlxSpiter","https://littleflute.github.io/xd/js/plx/xdPlxSpiter.js","lightblue"); 
 		_load_plx_btn(1,d,"_xdPlxSet","https://littleflute.github.io/xd/js/plx/xdPlxSet.js","lightblue"); 
 	}
@@ -172,6 +175,8 @@ function _xdClass(){
 			var song = blo0.blLink(nav,"song.html","song.html",url,"skyblue"); l.push(song);
 			var url = _parentPath + "cchess/index.html";
 			var cchess = blo0.blLink(nav,"cchess/index.html","cchess.html",url,"skyblue"); l.push(cchess);
+			
+			
 			var a = nav.getElementsByTagName('a');
 			var _title = document.title;
 			for(i in l)
