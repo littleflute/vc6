@@ -2,14 +2,10 @@
 <HEAD>
 <META NAME="GENERATOR" Content="Microsoft Developer Studio">
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
-<TITLE>2.html</TITLE>
-<style>
-</style>
-
-</HEAD>
+<TITLE>2.html</TITLE></HEAD>
 <BODY> <div id="pageLevel" style="display:none">0</div>
 <script src="blclass.js"></script>
-<div id="Nav">v0.0.49<br>
+<div id="Nav">v0.0.52<br>
 <div id="xddbg"></div>
 <div id="idMedia"></div> 
 <script type="text/javascript" src="xd.js"></script> 
@@ -17,119 +13,33 @@
 <table width=50 height=50 border="0" cellspacing="0" bgcolor="red"></table> 
 </div> 
 
-<div id = "sample2"  style = "position:absolute;left:550px;top:150px;width:150px;height:150px; border:1px solid red;background-color:blue;">sample2</div> 
-
 <script>  
-function xdMoveDivClass()
+function CXdMainFrame()
 {
+	this.v	= "v0.0.1";
+	this.blrhCreateWindow	= function(oOwner,title,color){
+		var divRet	= blo.blDiv(_divUI,"id_div_CXdMainFrame_createWindow_" + title,title,color);
+		if(oOwner.blhInitUI) oOwner.blhInitUI(divRet);
+		return divRet;
+	};
+
 	var blo = new blClass;
-	var m2 = blo.blMDiv(document.body,"MMMM","mmmm");
-	var dm = null;
-	var x1 = 0;
-	var y1 = 0;
-	var _v = "xdMoveDivClass: v0.0.25";
-	this.x = 0;
-	this.y = 0;
-	this.w = 0;
-	this.h = 0;
-	this.c = "blue";
-	this.d = null;
-	function _getXY(){
-			
-			var scrlY =document.body.scrollTop;
-			var scrlX =document.body.scrollLeft;
-			var r = {};
-			r.x=event.clientX+scrlX;
-			r.y=event.clientY+scrlY; 
-			return r;
-	}
-	function _blRect (txt,x,y,w,h,color){
-		var s = '<div style="position:absolute;left:'+x+';top:'+y+';';
-		s += 'width:' + w + ';';
-		s += 'height:' + h + ';';
-		s += 'background-color:' + color + ';';
-		s += '">';
-		s += txt;
-		s += '[';
-		s += x + "," + y + "]";
-		s += '</div>'; 
-		return s;
-	}
-	this.blrM2Test = function(b,v){ 
-		blo.blDiv(m2,"m222","m2222");
-	} 
-	this.blrMove = function(b,v){ 
-		if(v.style.display=="block"){
-			v.style.display="none"; 
-		}
-		else{
-			v.style.display="block";
-		}
-		var l = v.parentNode.style.left;
-		l = parseInt(l); 
-		v.innerHTML = l; 
-		dm = blo.blDiv(v,"blMoveMark","moveMark");
-		dm.style.cursor = "move";
-
-		dm.onmousedown = function(){
-			var c = _getXY();
-			dm.innerHTML = "down:" + c.x + "," + c.y;
-			x1 = c.x;
-			y1 = c.y;
-			return false;
-		};
-		dm.onmousemove = function(){
-			var c = _getXY();
-			dm.innerHTML = "move:" + c.x + "," + c.y; 
-			if(x1==0 && y1==0) return false;
-
-			var l = v.parentNode.style.left;
-
-			l = parseInt(l);
-			v.parentNode.style.left = l + c.x -x1 + "px";
-			var t = v.parentNode.style.top;
-			t = parseInt(t);
-			v.parentNode.style.top = t + c.y -y1 + "px";
-			x1 = c.x;
-			y1 = c.y;
-			return false;
-		};
-		dm.onmouseup = function(){
-			var c = _getXY();
-			dm.innerHTML = "up:" + c.x + "," + c.y; 
-			x1 = 0;
-			y1 = 0; 
-		}; 
-		dm.onmouseout = function(){
-			var c = _getXY();
-			dm.innerHTML = "out:" + c.x + "," + c.y; 
-			x1 = 0;
-			y1 = 0; 
-		}; 
-	}
-	this.blShow = function(){ 
-		this.d.innerHTML = _v + _blRect(_v,this.x,this.y,this.w,this.h,this.c);
-	}
+	var _divUI = null;
+	_divUI = blo.blDiv(document.body,"id_div_CXdMainFrame_ui","CXdAPP " + this.v,"green");
+	_divUI.style.width = 550 + "px";
 }
-function xdClass()
+function CXdAPP()
 {
-	var blo = new blClass;
-	this.v = "v0.0.32";
+	var _xdMF = new CXdMainFrame;
+	this.v = "v0.0.41";
 	var ww = 350;
 	var hh = 350;
-	var uiMain = null;
-	var dMove = new xdMoveDivClass;
+	var dMove = new xdMoveDivClass("id_div_4_xdMoveDivClass");
 	//<!--
 	this.run = function()
 	{
-		uiMain = blo.blDiv(document.body,"xd1","xd1 " + this.v,"green");
-		uiMain.style.width = 50 + "px";
-		var b1 = blo.blBtn(uiMain,"b1","b1 " + this.v,"lightblue");
-		b1.onclick= function(){
-			var d = document.getElementById("sample2");
-			blo.blShowObj2Div(d,dMove);
-		};
-		dMove.d = blo.blDiv(uiMain,"dMove","dMove " + this.v,"lightblue");	 
+		_xdMF.blrhCreateWindow(blo0,"blClass_UI","skyblue");	 
+		dMove.d = _xdMF.blrhCreateWindow(dMove,"xdMoveDivClass_UI","lightblue");	 
 		dMove.d.onmousedown = function(){ 			
 			dMove.d.bCanMoving = true;
 		}
@@ -146,7 +56,7 @@ function xdClass()
 		dMove.y = y;
 		dMove.w = w;
 		dMove.h = h;
-		dMove.blShow();
+		dMove.blhShow();
 	}
 
 	//<!--
@@ -192,23 +102,8 @@ function xdClass()
 	//-->
 
 }
-var xdo = new xdClass;
-xdo.run();
- 
-/*
-document.onmousemove = function(){ 
-	xdo.blrMouseMove();
-	return false;
-}
-
-document.onmousedown = function(){ 
-	xdo.blrMouseDown(); 
-}
-
-document.onmouseup = function(){ 
-	xdo.blrMouseUp(); 
-}
-*/
+var gApp = new CXdAPP;
+gApp.run(); 
 
 </script>
 </BODY>
