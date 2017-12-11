@@ -2,11 +2,14 @@
  //  blo0.blLink(nav,"../../../../../../../xd/js/plx/xdPlxSong.js","cchess.html",url,"skyblue");  
 
 function _xdClass(){
-	var _xdClassV	= "v0.1.3";
+	var _xdClassV	= "v0.1.5";
 	var divWrap = document.getElementById("xddbg");
 	var refreshTimes = 0;
 	
 	this.bll2 = "---";
+	this.blrMyLinks = function(b,d){
+		
+	}
 	this.blrRunJS = function(blrRunJSB,blrRunJSV){
 		var t = blo0.blTextarea(blrRunJSV,"id_ta_xd_RunJS","alert('xd');","Aquamarine");	 
 		t.style.width = "100%";
@@ -119,7 +122,7 @@ function _xdClass(){
 		var blInf = "page:" + _blPageV;
 		blInf += "  xd.js: " + _xdClassV + "  refreshTimes="+refreshTimes;
 		_xdDbgMsg(blInf); 
-		_makeWrapContent(blo0,this_);
+		_makeWrapContent(this_);
 		divWrap.style.border = "1px red solid";
 		divWrap.style.backgroundColor = "mediumseagreen";
 	}
@@ -154,6 +157,8 @@ function _xdClass(){
 			var lyric = blo0.blLink(nav,"lyric.html","lyric.html",url,"skyblue"); l.push(lyric);			
 			var url = _parentPath + "song.html";
 			var song = blo0.blLink(nav,"song.html","song.html",url,"skyblue"); l.push(song);
+			var url = _parentPath + "player.html";
+			var player = blo0.blLink(nav,"player.html","player.html",url,"skyblue"); l.push(player);
 			var url = _parentPath + "cchess/index.html";
 			var cchess = blo0.blLink(nav,"cchess/index.html","cchess.html",url,"skyblue"); l.push(cchess);
 			
@@ -235,15 +240,13 @@ function _xdClass(){
 				};
 			}
 	}	
-	function _makeWrapContent(blo0,this_)
+	function _makeWrapContent(this_)
 	{
-		if(!blo0) return;
-
 		if(divWrap)
 		{ 
+			_xd_tool_bar(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"),this_);
 			_create_nav_4_online(blo0.blDiv(divWrap,"_create_nav_4_online","online::","green")); 
 			_create_nav_4_pc(blo0.blDiv(divWrap,"_create_nav_4_pc","pc::","gold")); 
-			_xd_tool_bar(blo0,blo0.blDiv(divWrap,"xdNav1","==","DarkCyan"),this_);
 		}
 	}
 	_init(this);

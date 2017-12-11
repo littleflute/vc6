@@ -118,7 +118,7 @@ void CXdHtmlView::OnBeforeNavigate2(LPCTSTR lpszURL,
 	} 		 
 		 
 	if(-1 != s.Find("xd=save")) {  	 
-		xd_plvCallJSFun();
+		xd_plv_save();
 		* pbCancel = true;
 	} 
 	if(-1 != s.Find("a=0")) {  			
@@ -205,26 +205,56 @@ void CXdHtmlView::OnButtonXd1()
  
 }
 
-void CXdHtmlView::xd_plvCallJSFun()
-{
+void CXdHtmlView::xd_plv_save()
+{ 
+	CString strFileName = "";
+	CString strFileTxt	= "";
 	CComVariant	r;
 	CWebPage		m_webPage;
 	CComPtr<IDispatch> spDisp = CHtmlView::GetHtmlDocument();
 	m_webPage.SetDocument(spDisp);
-	m_webPage.CallJScript("add","11","22",&r);
+
+	//1. 
+	if(!m_webPage.CallJScript("get_file_name","1","2",&r)) {
+		AfxMessageBox("XXXX: [get_file_name] something is wrong!!!! ");
+		return;
+	}
+
+	
 	CString s; 
-	WCHAR a[1341*2];
+	WCHAR a[5555*2];
 	::memset(a,0,sizeof(a));
 	::memcpy(a,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
 	s = a; 
-	 
+	strFileName = s; 
+
+	//2. 
+	if(!m_webPage.CallJScript("create_page","titleByVC6","BodyByVC6",&r)) {
+		AfxMessageBox("XXXX: [create_page] something is wrong!!!! ");
+		return;
+	}
+	
+	s = ""; 
+	::memset(a,0,sizeof(a));
+	::memcpy(a,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
+	s = a; 
+	strFileTxt	= s;
+	  
+
 	CStdioFile file;
-	if (!file.Open("xd1.html", CFile::modeWrite|CFile::modeCreate))
+	if (!file.Open(strFileName, CFile::modeWrite|CFile::modeCreate))
 	{
-			::AfxMessageBox(_T("文件打开失败。"));
+		CString strError = strFileName + _T(" 文件打开失败。");
+			::AfxMessageBox(strError);
 			return;
 	}	
 	file.WriteString(s);
+
+	//3.
+	CString strOK = strFileName + _T(" 文件 save ok。");
+	m_webPage.CallJScript("show_msg",strOK.GetBuffer(strOK.GetLength()),"BodyByVC6",&r); 
+	  
+
 				
 }
 void CXdHtmlView::xd_plv_create_xd2_html()

@@ -1,109 +1,31 @@
-<HTML>
-<HEAD>
-<META NAME="GENERATOR" Content="Microsoft Developer Studio">
-<META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
+<HTML><HEAD><META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
 <TITLE>2.html</TITLE></HEAD>
 <BODY> <div id="pageLevel" style="display:none">0</div>
 <script src="blclass.js"></script>
-<div id="Nav">v0.0.52<br>
-<div id="xddbg"></div>
-<div id="idMedia"></div> 
-<script type="text/javascript" src="xd.js"></script> 
-<div id = "sample1" style = "position:absolute;left:150px;top:150px;border:1px solid blue;">
-<table width=50 height=50 border="0" cellspacing="0" bgcolor="red"></table> 
-</div> 
+<div id="Nav">v0.0.54<br>
+<div id="xddbg"></div> 
+<script type="text/javascript" src="xd.js"></script>  
 
 <script>  
 function CXdMainFrame()
 {
-	this.v	= "v0.0.1";
-	this.blrhCreateWindow	= function(oOwner,title,color){
-		var divRet	= blo.blDiv(_divUI,"id_div_CXdMainFrame_createWindow_" + title,title,color);
+	this.v	= "v0.0.14";
+	var _blrhCreateWindow	= function(oOwner,title,color){
+		var divRet	= blo0.blDiv(_divUI,"id_div_CXdMainFrame_createWindow_" + title,title,color);
 		if(oOwner.blhInitUI) oOwner.blhInitUI(divRet);
 		return divRet;
 	};
-
-	var blo = new blClass;
+ 
 	var _divUI = null;
-	_divUI = blo.blDiv(document.body,"id_div_CXdMainFrame_ui","CXdAPP " + this.v,"green");
+	_divUI = blo0.blDiv(document.body,"id_div_CXdMainFrame_ui","CXdMainFrame " + this.v,"green");
 	_divUI.style.width = 550 + "px";
+	_blrhCreateWindow(blo0,"blClass_UI","gold");	   
 }
 function CXdAPP()
 {
-	var _xdMF = new CXdMainFrame;
-	this.v = "v0.0.41";
-	var ww = 350;
-	var hh = 350;
-	var dMove = new xdMoveDivClass("id_div_4_xdMoveDivClass");
-	//<!--
-	this.run = function()
-	{
-		_xdMF.blrhCreateWindow(blo0,"blClass_UI","skyblue");	 
-		dMove.d = _xdMF.blrhCreateWindow(dMove,"xdMoveDivClass_UI","lightblue");	 
-		dMove.d.onmousedown = function(){ 			
-			dMove.d.bCanMoving = true;
-		}
-		dMove.d.onmouseup = function(){
-			dMove.d.bCanMoving = false;
-		}
-	}
-	//-->
-
-	var _color = "green"; 
-	var _blrD1 = function(x,y,w,h)
-	{
-		dMove.x = x;
-		dMove.y = y;
-		dMove.w = w;
-		dMove.h = h;
-		dMove.blhShow();
-	}
-
-	//<!--
-	this.blrMouseMove = function(){ 
-		if(dMove.c != "red") return;
-
-		var scrlY =document.body.scrollTop;
-		var scrlX =document.body.scrollLeft;
-		var x=event.clientX+scrlX;
-		var y=event.clientY+scrlY; 
-
-		dMove.x = x;
-		dMove.y = y;
-		_blrD1(x,y,ww,hh);
-	}
-	//-->
-	
-	//<!--
-	this.blrMouseDown = function(){
-		var scrlY =document.body.scrollTop;
-		var scrlX =document.body.scrollLeft;
-		var x=event.clientX+scrlX;
-		var y=event.clientY+scrlY;  
-		dMove.x = x;
-		dMove.y = y;
-		dMove.c = "red";
-		_blrD1(x,y,ww,hh);
-	}
-	//-->
-	//<!--
-	this.blrMouseUp = function(){
-		
-		var scrlY =document.body.scrollTop;
-		var scrlX =document.body.scrollLeft;
-		var x=event.clientX+scrlX;
-		var y=event.clientY+scrlY; 
-		dMove.x = x;
-		dMove.y = y;
-		dMove.c = "green"; 
-
-		_blrD1(x,y,ww,hh);
-	}
-	//-->
-
+	var _xdMF = new CXdMainFrame;   
 }
-var gApp = new CXdAPP;
-gApp.run(); 
+var gApp = new CXdAPP; 
 
 </script>
 </BODY>

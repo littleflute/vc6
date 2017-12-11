@@ -30,20 +30,26 @@ function _NoteClass(oParent,noteNum,ta_) {
 
 function _BarClass(oParent,barNum,ta_) { 
 	ta_.value = "_BarClass " + barNum;
-	var v			= "v0.0.1";
+	var v			= "v0.0.2";
 	var _note		= [];
 	var _btnAddNote	= null; 
 	this.n			= barNum; 
 	this.oParent	= oParent;
 
 	var _barToolBar	= blo0.blDiv(oParent.div4Child,oParent.div4Child.id + "_barToolBar" + this.n,"",_grey[2]); 
- 	this.handle		= blo0.blBtn(_barToolBar,_barToolBar.id + "handle" + this.n, "bar: " + this.n,_grey[7]); 
-	var _NotesV		= blo0.blDiv(oParent.div4Child,oParent.div4Child.id + "_NotesV" + this.n,"_Notes: ",_grey[2]); 
+ 	var barHandle		= blo0.blBtn(_barToolBar,_barToolBar.id + "handle" + this.n, "bar: " + this.n,_grey[7]); 
+	var _NotesV		= blo0.blDiv(oParent.div4Child,oParent.div4Child.id + "_NotesV" + this.n,"",_grey[2]); 
+	_NotesV.style.display = "block";
     this.div4Child  = _NotesV;
  	var	btnAddNote	= blo0.blBtn(_barToolBar,_barToolBar.id + "_Add_Note" + this.n, "+",_grey[5]); 
 	btnAddNote.onclick = function(this_){ var n = 0;
 			return function(){n++;_note.push(new _NoteClass(this_,n,ta_));}
 		}(this);
+ 
+	barHandle.onclick = function(b,d){ 
+			return function(){ _on_off_div(b,d);}
+		}(barHandle,_NotesV);
+	
 }//_BarClass
 
 function _lineClass(oBoss,lineNum,ta_) { 
@@ -51,33 +57,41 @@ function _lineClass(oBoss,lineNum,ta_) {
 	var v			= "v0.0.1";
 	var _bar		= [];
 	var _btnAddBar	= null; 
-
+	this.blrShowBars = function(b,d){
+		blo0.blShowObj2Div(d,_bar);
+		_on_off_div(b,d);
+	}
 
 	this.n			= lineNum;
-	this.mainView	= blo0.blDiv(oBoss,oBoss.id + "_line_mainView" + this.n, "line: " + this.n,_color[4]);
-	this.toolBar	= blo0.blDiv(this.mainView,this.mainView.id + "_tb","line_toolBar",_color[8]);
-	var _barsV		= blo0.blDiv(this.mainView,this.mainView.id + "_barsV","_barsV",_grey[0]);
+	var mainView	= blo0.blDiv(oBoss,oBoss.id + "_line_mainView" + this.n, "",_color[4]);
+	var toolBar	= blo0.blDiv(mainView,mainView.id + "_tb","",_color[8]);
+	var _barsV		= blo0.blDiv(mainView,mainView.id + "_barsV","",_grey[0]);
 	_barsV.style.display = "block";
 	this.div4Child	= _barsV;
  
-	_btnAddBar = blo0.blBtn( this.toolBar, this.toolBar.id + "_btnAddBar", "+" , _grey[0]);	
+	_btnAddBar = blo0.blBtn( toolBar, toolBar.id + "_btnAddBar", "+" , _grey[0]);	
 	_btnAddBar.onclick = function(this_){ var n = 0;
 			return function(){n++;_bar.push(new _BarClass(this_,n,ta_));}
 		}(this);
 
-	var btnBarsOnOff = blo0.blBtn( this.toolBar, this.toolBar.id + "btnBarsOnOff", "OnOff" , _color[1]);	
-	btnBarsOnOff.onclick = function(b,d){ var n = 0;
-			return function(){n++; _on_off_div(b,d);}
-		}(btnBarsOnOff,_barsV);
+	var lineHandle = blo0.blBtn( toolBar, toolBar.id + "lineHandle", "line "+this.n , _color[1]);	
+	lineHandle.onclick = function(b,d){ 
+			return function(){  _on_off_div(b,d);}
+		}(lineHandle,_barsV);
 	
 }//_lineClass
 
 function _myClass() { 
-	var _mainDiv	= blo0.blDiv(document.body,"id_div_main","mainDiv","gray");
-	var _linesV		= blo0.blDiv(document.body,"id_div_linesV","_linesV",_color[6]); _linesV.style.display = "block";
-	var _ta			= _create_TA(_linesV); 
-	var _l			= [];
-	var _btnAddLine	= null;
+	var _mainDiv		= blo0.blDiv(document.body,"id_div_main","mainDiv","gray");
+	var _linesV			= blo0.blDiv(document.body,"id_div_linesV","_linesV",_color[6]); _linesV.style.display = "block";
+	var _ta				= _create_TA(_linesV); 
+	var _l				= [];
+	var _btnAddLine		= null;
+	var _me				= this;
+	var _divShowPage	= null;
+	var _divShowPage2	= null;
+	var _jg				= null;
+	var _jg2			= null;
 
 	function _create_TA(oBoss){
 		var dt1	= blo0.blDiv( oBoss ,oBoss.id + " _create_TA		1 ", "--", _grey[1]);
@@ -113,19 +127,72 @@ function _myClass() {
 		btnLinesOnOff.onclick = function(b,d){ var n = 0;
 			return function(){n++; _on_off_div(b,d);}
 		}(btnLinesOnOff,_linesV);
+
+		var btnShowPage = blo0.blBtn( tb2, tb2.id + "btnShowPage", "ShowPage" , _color[1]);	 
+		btnShowPage.onclick = function(this_){ 
+			_divShowPage	= blo0.blMDiv(document.body,"id_div_ShowPage","ShowPage",550,50,200,200,blColor[4]);
+			_divShowPage.style.display = "none";
+			var divDrawing	= blo0.blDiv(_divShowPage,_divShowPage.id + "divDrawing","divShowMe",blColor[6]);
+			_jg				= new jsGraphics(_divShowPage.id + "divDrawing");
+			var divShowMe	= blo0.blDiv(_divShowPage,_divShowPage.id + "ShowMe","divShowMe",blColor[6]);
+			blo0.blShowObj2Div(divShowMe,this_);
+			return function(){ 
+				_on_off_div(btnShowPage,_divShowPage);
+			}
+		}(_me);
+		var btnShowPage2 = blo0.blBtn( tb2, tb2.id + "btnShowPage2", "btnShowPage2" , _color[1]);	 
+		btnShowPage2.onclick = function(this_){ 
+			_divShowPage2	= blo0.blHandle(document.body,"id_div_ShowPage2",50,50,120,50,blColor[7]);
+			_divShowPage2.style.display = "none";
+			var divDrawing	= blo0.blDiv(_divShowPage2,_divShowPage2.id + "divDrawing","",blColor[6]);
+			_jg2				= new jsGraphics(_divShowPage2.id + "divDrawing");
+			var d	= blo0.blDiv(_divShowPage2,_divShowPage2.id + "d","divShowMe",blColor[8]);
+			d.style.width	= "300px";
+			d.style.height	= "300px";
+			 
+			return function(){ 
+				_on_off_div(btnShowPage2,_divShowPage2);
+			}
+		}(_me);
  
 	};
 	var _createMyUI 	= function(this_ ){  
 			_tb		= _create_toolBar (_mainDiv);  
 	};
-	this.run = function(){
+	this.blhRun = function(){
 		_createMyUI(this);
 	};
 
+	this.blrTest = function(){
+		_jg.clear();
+		_jg.setColor(blColor[11]);
+		_jg.fillRect(110, 120, 30, 60);
+		_jg.drawRect(1,1,550,550);
+		_jg.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
+		_jg.paint();
+		_jg2.clear();
+		_jg2.setColor(blColor[11]);
+		_jg2.fillRect(110, 120, 30, 60);
+		_jg2.drawRect(1,1,550,550);
+		_jg2.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
+		_jg2.paint();
+	};
+	this.blrShowLines = function(b,d){
+		blo0.blShowObj2Div(d,_l);
+		_on_off_div(b,d);
+	};
+	this.blrShowJG = function(b,d){
+		blo0.blShowObj2Div(d,_jg);
+		_on_off_div(b,d);
+	};
+	_l.blrTest = function(b,d){
+		blo0.blShowObj2Div(d,_l[0]);
+		_on_off_div(b,d);
+	}
 }//_myClass 
 function _run() { 
 	var c = new _myClass;
-	c.run(c); 
+	c.blhRun(c); 
 };  
 _run();
 

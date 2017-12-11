@@ -1,14 +1,13 @@
  <!-- id_t1_html -->
- <HTML><HEAD><TITLE>noName</TITLE> 
+ <HTML><HEAD><TITLE>xd2.html
+ </TITLE> 
 <script src="blclass.js"  type="text/javascript" ></script>
 <SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
 </HEAD>
-<BODY>
-<div id="blPageV"></div>
+<BODY><div id="blPageV"></div>
 <div id="xddbg"></div>
-<div id="idMedia"></div> 
 <script type="text/javascript" src="xd.js"></script> 
- <!-- -->
+ <!-- ===id_t1_html=== -->
   <!-- id_t2_html -->
 
 <script>   
@@ -26,7 +25,7 @@ function add(a,b)
 	return r;
 }
 function _blClass1(){
-	this.classV		= "v0.0.43";//xd_2d
+	this.classV		= "v0.0.44";//xd_2d
 	this.className	= "_blClass1";  
 	this.blrTest1	= function(b,d){
 		alert(add(1,2));
@@ -53,12 +52,13 @@ function _blClass1(){
 
 	var		_thisPageInf		= function(id,this_){ 
 		var v = document.getElementById(id);
-		var html = "";
+		var html = "blPageV";
 		html	+= ":";
 		html	+= this_.classV;
 		html	+= ":    ";
 		html	+= window.location;
 		if(v) v.innerHTML = html;
+		v.style.backgroundColor = blGrey[5];
 	};
 	var		_Go		= function(this_,o){
 		_thisPageInf("blPageV",this_);
@@ -82,12 +82,15 @@ function _blClass1(){
 var blk = new _blClass1;
 
 </script>
- <!--  -->
+ <!-- ===id_t2_html=== -->
   <!-- id_t3_html -->
- 
+ <script>
+document.write("xdtest v0.0.3 <br>");
+var d = new Date;
+document.write(d);
+ </script> 
 </BODY>
 </HTML>
 
- <!--  -->
- 
+ <!-- ===id_t3_html=== -->
  

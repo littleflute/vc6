@@ -2,8 +2,6 @@
 // by littleflute
 // 2017/11/3 23:55am bjt
 
-
-
 var QueryString = function () 
 {
   var query_string = {};
@@ -28,6 +26,7 @@ var blColor	= ["red","tomato","gold","black","green","blue","lightblue","yellow"
 var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 			   "DimGray","Gray","LightSlateGray","SlateGray","DarkSlateGray","black"];
 
+	var _blMove = function(o,x,y){o.style.left = x;o.style.top = y;};
 	function _on_off_div(b,d){//v1037	 xdvc6	
 		if(d.style.display=="block"){
 			d.style.display="none"; 
@@ -79,128 +78,28 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 			r.y=event.clientY+scrlY; 
 			return r;
 	}
-function xdMoveDivClass(idDiv)
-{	
-	var _id			= idDiv;
-	var divShowMe	= blo0.blMDiv(document.body,_id,"divShowMe: xdMoveDivClass",350,150,500,200,blColor[1]);
-	var m2			= blo0.blMDiv(document.body,"MMMM","mmmm",50,350,200,200,blColor[4]);
-	var dm = null;
-	var x1 = 0;
-	var y1 = 0;
-	var _v = "xdMoveDivClass: v0.0.27";
-	
-	this.bll0		= "-xdMoveDivClass-";
-	this.blrMove = _moveDivHandleFun;
-	this.blrM2Test = function(b,v){ 
-		blo0.blDiv(m2,"m222","m2222");
-	} 
-	this.bll1		= "-----";
-	
-	this.blhShow = function(){ 
-		this.d.innerHTML = _v + _blRect(_v,this.x,this.y,this.w,this.h,this.c);
-	}
 
-	this.x = 0;
-	this.y = 0;
-	this.w = 0;
-	this.h = 0;
-	this.c = "blue";
-	this.d = null;
-	function _getXY(){			
-			var scrlY =document.body.scrollTop;
-			var scrlX =document.body.scrollLeft;
-			var r = {};
-			r.x=event.clientX+scrlX;
-			r.y=event.clientY+scrlY; 
-			return r;
-	}
-	function _blRect (txt,x,y,w,h,color){
-		var s = '<div style="position:absolute;left:'+x+';top:'+y+';';
-		s += 'width:' + w + ';';
-		s += 'height:' + h + ';';
-		s += 'background-color:' + color + ';';
-		s += '">';
-		s += txt;
-		s += '[';
-		s += x + "," + y + "]";
-		s += '</div>'; 
-		return s;
-	}
-	this.blhInitUI		= function(divUI){
-		var dUI = blo0.blDiv(divUI,divUI.id + "_initUI_xdMoveDivClass" + _v,_v,"green");
-		var b1 = blo0.blBtn(dUI,dUI.id + "b1","[xdMoveDivClass]",blColor[8]);
-		b1.onclick= function(this_){
-			return function(){
-				var d = document.getElementById(_id);
-				blo0.blShowObj2Div(d,this_);
-			}
-		}(this);
-	};
-	function _moveDivHandleFun(b,v){ 
-		if(v.style.display=="block"){
-			v.style.display="none"; 
-		}
-		else{
-			v.style.display="block";
-		}
-		var l = v.parentNode.style.left;
-		l = parseInt(l); 
-		v.innerHTML = l; 
-		dm = blo0.blDiv(v,"blMoveMark","moveMark");
-		dm.style.cursor = "move";
-
-		dm.onmousedown = function(){
-			var c = _getXY();
-			dm.innerHTML = "down:" + c.x + "," + c.y;
-			x1 = c.x;
-			y1 = c.y;
-			return false;
-		};
-		dm.onmousemove = function(){
-			var c = _getXY();
-			dm.innerHTML = "move:" + c.x + "," + c.y; 
-			if(x1==0 && y1==0) return false;
-
-			var l = v.parentNode.style.left;
-
-			l = parseInt(l);
-			v.parentNode.style.left = l + c.x -x1 + "px";
-			var t = v.parentNode.style.top;
-			t = parseInt(t);
-			v.parentNode.style.top = t + c.y -y1 + "px";
-			x1 = c.x;
-			y1 = c.y;
-			return false;
-		};
-		dm.onmouseup = function(){
-			var c = _getXY();
-			dm.innerHTML = "up:" + c.x + "," + c.y; 
-			x1 = 0;
-			y1 = 0; 
-		}; 
-		dm.onmouseout = function(){
-			var c = _getXY();
-			dm.innerHTML = "out:" + c.x + "," + c.y; 
-			x1 = 0;
-			y1 = 0; 
-		}; 
-	}
-}//xdMoveDivClass
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.52";//blclassdbg
+    this.v = "xdvc6: 1.0.61";//blclassdbg
 
     this.blrTest = function (b,d)
     {        
 		 d.parentElement.parentElement.style.display = "none";
 	}
+    this.blrMax = function (b,d)
+    {        
+		 d.parentElement.parentElement.style.left = 0+"px";
+		 d.parentElement.parentElement.style.top = 0+"px";
+		 d.parentElement.parentElement.style.width = "100%";
+	}
 	this.blhInitUI		= function(divUI){	
 		var divMove		= blo0.blMDiv(document.body,_id,"divShowMe_divMove_blClass",550,150,500,200,blColor[8]);
 		var divShowMe	= blo0.blDiv(divMove,divMove.id + "ShowMe","divShowMe",blColor[6]);
-		var dUI = blo0.blDiv(divUI,divUI.id + "_initUI_blClass" + this.v,this.v,"green");
-		var b1 = blo0.blBtn(dUI,dUI.id + "b1","[blClass]",blColor[8]);
-		b1.onclick= function(this_){
+		var dUI			= blo0.blDiv(divUI,divUI.id + "_initUI_blClass" + this.v,this.v,"green");
+		var b1			= blo0.blBtn(dUI,dUI.id + "b1","[blClass]",blColor[8]);
+		b1.onclick		= function(this_){
 			return function(){ 
 				blo0.blShowObj2Div(divShowMe,this_);
 				divMove.style.display = "block";
@@ -218,10 +117,66 @@ function blClass ()
 
 		return r;
 	};
+    this.blHandle = function (oBoss,id,x,y,w,h,bkClr){
+		var x1 = 0;
+		var y1 = 0; 
+        var r = document.getElementById(id);
+        if(!r){
+            r = document.createElement("div");
+            r.id = id;
+    	    r.innerHTML = ""; 
+            r.style.backgroundColor=bkClr?bkClr:"gold";
+			r.style.position = "absolute";
+			r.style.left		= x+"px";
+			r.style.top			= y+"px";
+			r.style.width		= w+"px";
+			r.style.height		= h+"px";
+			r.style.cursor		= "default";
+    	    if(oBoss!=null)oBoss.appendChild(r);
+		}	
+		var divMoveHandle	= this.blDiv(r,id+"divMoveHandle","",bkClr);
+		divMoveHandle.style.cursor		= "move"; 
+		
+		divMoveHandle.style.width		= "100%"; 
+		divMoveHandle.style.height		= "100%"; 
+		var dm = r;
+		divMoveHandle.onmousedown = function(){
+			var c = _getXY(); 
+			x1 = c.x;
+			y1 = c.y;
+			return false;
+		};
+		divMoveHandle.onmousemove = function(){
+			var c = _getXY(); 
+			if(x1==0 &&y1==0) return false;
+
+			var l = dm.style.left;
+			l = parseInt(l);
+			dm.style.left = l + c.x -x1 + "px";
+
+			var t = dm.style.top;
+			t = parseInt(t);
+			dm.style.top = t + c.y -y1 + "px";
+			
+			x1 = c.x;
+			y1 = c.y;
+			return false;
+		};
+		divMoveHandle.onmouseup = function(){
+			var c = _getXY(); 
+			x1 = 0;
+			y1 = 0; 
+		}; 
+		divMoveHandle.onmouseout = function(){
+			var c = _getXY(); 
+			x1 = 0;
+			y1 = 0; 
+		};  
+        return r;
+    }
     this.blMDiv = function (oBoss,id,html,x,y,w,h,bkClr){
 		var x1 = 0;
-		var y1 = 0;
-		var t	= this.blDiv(oBoss,id+"_blClass_blMDiv",html,bkClr?bkClr:"gold");
+		var y1 = 0; 
         var r = document.getElementById(id);
         if(!r){
             r = document.createElement("div");
@@ -234,20 +189,20 @@ function blClass ()
 			r.style.width		= w+"px";
 			r.style.height		= h+"px";
 			r.style.cursor		= "default";
-    	    if(t!=null)t.appendChild(r);
+    	    if(oBoss!=null)oBoss.appendChild(r);
 		}	
-		var mbody	= this.blDiv(r,id+"mbody","mbody","skyblue");
-		mbody.style.cursor		= "move";
-		var main	= this.blDiv(r,id+"main","main","green");
+		var divMoveHandle	= this.blDiv(r,id+"divMoveHandle","divMoveHandle","skyblue");
+		divMoveHandle.style.cursor		= "move";
+		var main	= this.blDiv(r,id+"main","main","blue");
 		var dm = r;
-		mbody.onmousedown = function(){
+		divMoveHandle.onmousedown = function(){
 			var c = _getXY();
 			main.innerHTML = "down:" + c.x + "," + c.y;
 			x1 = c.x;
 			y1 = c.y;
 			return false;
 		};
-		mbody.onmousemove = function(){
+		divMoveHandle.onmousemove = function(){
 			var c = _getXY();
 			main.innerHTML = "move:" + c.x + "," + c.y; 
 			if(x1==0 &&y1==0) return false;
@@ -264,13 +219,13 @@ function blClass ()
 			y1 = c.y;
 			return false;
 		};
-		mbody.onmouseup = function(){
+		divMoveHandle.onmouseup = function(){
 			var c = _getXY();
 			main.innerHTML = "up:" + c.x + "," + c.y; 
 			x1 = 0;
 			y1 = 0; 
 		}; 
-		mbody.onmouseout = function(){
+		divMoveHandle.onmouseout = function(){
 			var c = _getXY();
 			main.innerHTML = "out:" + c.x + "," + c.y; 
 			x1 = 0;
