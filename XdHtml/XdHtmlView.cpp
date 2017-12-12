@@ -220,7 +220,6 @@ void CXdHtmlView::xd_plv_save()
 		return;
 	}
 
-	
 	CString s; 
 	WCHAR a[5555*2];
 	::memset(a,0,sizeof(a));
@@ -228,18 +227,35 @@ void CXdHtmlView::xd_plv_save()
 	s = a; 
 	strFileName = s; 
 
+	//1a. 
+	if(!m_webPage.CallJScript("get_file_length","1","2",&r)) {
+		AfxMessageBox("XXXX: [get_file_length] something is wrong!!!! ");
+		return;
+	}
+	CString sLength; 
+	WCHAR rLength[1111*2];
+	::memset(rLength,0,sizeof(rLength));
+	::memcpy(rLength,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
+	sLength = rLength; 
+	int nLength = 0;
+	sscanf(sLength.GetBuffer(sLength.GetLength()),"%d",&nLength);
+
+
+	
+	
 	//2. 
+
 	if(!m_webPage.CallJScript("create_page","titleByVC6","BodyByVC6",&r)) {
 		AfxMessageBox("XXXX: [create_page] something is wrong!!!! ");
 		return;
 	}
 	
+	WCHAR *pWC = new WCHAR [nLength];
 	s = ""; 
-	::memset(a,0,sizeof(a));
-	::memcpy(a,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
-	s = a; 
-	strFileTxt	= s;
-	  
+	::memset(pWC,0,sizeof(pWC));
+	::memcpy(pWC,r.bstrVal,::SysStringByteLen(r.bstrVal)); 
+	s = pWC; 
+	strFileTxt	= s; 
 
 	CStdioFile file;
 	if (!file.Open(strFileName, CFile::modeWrite|CFile::modeCreate))
@@ -248,13 +264,13 @@ void CXdHtmlView::xd_plv_save()
 			::AfxMessageBox(strError);
 			return;
 	}	
-	file.WriteString(s);
+	file.WriteString(strFileTxt);
 
 	//3.
 	CString strOK = strFileName + _T(" ÎÄ¼þ save ok¡£");
 	m_webPage.CallJScript("show_msg",strOK.GetBuffer(strOK.GetLength()),"BodyByVC6",&r); 
 	  
-
+	delete []pWC;
 				
 }
 void CXdHtmlView::xd_plv_create_xd2_html()
