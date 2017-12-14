@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>   <title>index.html</title> 
+<style>
+html,body,dl,dt,dd,ul,li,h1,h2,P,a,img {margin:0;padding:0;border:none;list-style:none;}
+body {font: 12px;color:#333;background:#001111 repeat-y center 0;}
+a {color:#666;text-decoration: none;}
+a:hover {color:#C60;text-decoration: underline;}
+
+.head {width:960px; overflow:hidden; margin:auto;}
+.menu {width:960px;padding:6px 0 5px 0;background:#183 no-repeat 0 0; margin:auto; display:table;}
+.menu ul {padding-left:5px;}
+.menu ul li {font-size:13px;font-weight:bold;float:left;position: relative;margin-right:3px;}
+.menu ul li a {color:#FFF;display:block;padding: 7px 12px 5px 12px;} 
+.menu ul li a:hover {color:#C30;background-color:#FFF;text-decoration: none;}
+.menu ul li ul {position: absolute;visibility: hidden;border-top:#DDD 1px solid;padding:0;}
+.menu ul li ul li {font-size:12px;clear:both;margin:0;background:#F7FFE8;}
+.menu ul li ul li a {width: 120px;text-indent:20px;color: navy;padding:4px 0 0 0;font-weight:normal;border:#DDD 1px solid;border-top:none;background:url("jt1.gif") no-repeat 5px 4px;}
+.menu ul li ul li a:hover {color:#C30;background:#FC0 no-repeat 5px 4px;}
+.menu ul li ul li ul {margin-top:-20px;}
+#btfMenue{ 
+    background:#00a;
+}
+.mainfoldericon{border:1px green solid;}
+.subfoldericon{border:1px blue solid;}
+</style>
+<script src = "../blclass.js"></script>
+</head>
+<body>     
+<div class="menu">
+  <ul id=treemenu1> 
+    <li><a href="../index.html">[..]</a></li>
+    <li><a href="index.html">plx</a></li>
+      <ul>
+        <li><a href="design.js">design.js</a></li> 
+	  </ul>
+  </ul> 
+ </div>
+ 
+</body>
+</html>
+<script type="text/javascript">
+
+function _blOnLoad()
+{
+	buildsubmenus_horizontal();
+ 
+}
+var menuids=["treemenu1"] 
+function buildsubmenus_horizontal()
+{
+				for (var i=0; i<menuids.length; i++)
+				{
+						var ultags=document.getElementById(menuids[i]).getElementsByTagName("ul")
+						for (var t=0; t<ultags.length; t++)
+						{
+								if (ultags[t].parentNode.parentNode.id==menuids[i])
+								{
+										ultags[t].style.top=ultags[t].parentNode.offsetHeight+"px"
+										ultags[t].parentNode.getElementsByTagName("a")[0].className="mainfoldericon"
+								}
+								else
+								{
+										ultags[t].style.left=ultags[t-1].getElementsByTagName("a")[0].offsetWidth+"px"
+										ultags[t].parentNode.getElementsByTagName("a")[0].className="subfoldericon"
+								}
+								ultags[t].parentNode.onmouseover=function()
+								{
+										this.getElementsByTagName("ul")[0].style.visibility="visible"
+								}
+								ultags[t].parentNode.onmouseout=function()
+								{
+										this.getElementsByTagName("ul")[0].style.visibility="hidden"
+								}
+						}
+				}
+	  }
+		if (window.addEventListener)
+		{
+				window.addEventListener("load", _blOnLoad, false)
+		}
+		else if (window.attachEvent)
+		{
+				window.attachEvent("onload", _blOnLoad)
+		}
+</script>
