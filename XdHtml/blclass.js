@@ -194,7 +194,7 @@ function blClass ()
 		}	
 		var divMoveHandle	= this.blDiv(r,id+"divMoveHandle","divMoveHandle","skyblue");
 		divMoveHandle.style.cursor		= "move";
-		var main	= this.blDiv(r,id+"main","main","blue");
+		var main	= this.blDiv(r,id+"main","main","lightblue");
 		var dm = r;
 		divMoveHandle.onmousedown = function(){
 			var c = _getXY();
