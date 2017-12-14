@@ -3,13 +3,208 @@
 <SCRIPT src="jsgraphics.js" type=text/javascript></SCRIPT>
 </HEAD><BODY>
 <div id="pageLevel" style="display:none">0</div>
-<div id = "idDivBlV" style="display:none;">v0.0.13</div>
+<div id = "idDivBlV" style="display:none;">v0.0.15</div>
 <div id="blPageV"></div><div id="xddbg"></div>
 <script type="text/javascript" src="xd.js"></script> 
 <script>
+function _blJianPuClass(){
+	var v				= "v0.0.44";
+	var divRunToolBar	= null;
+	var divShowHandle	= null;
+	var _jg				= null;
+	var _lines			= [];
+
+	var _drawAllJianPu	= function(){
+		var x0 = 200;
+		var y0 = 50; 
+		return function(){
+				_jg.clear();
+				_jg.setColor(blColor[5]);   
+				_jg.drawString(new Date,55,10);
+				_drawLines(_lines,x0,y0);
+				_jg.paint();
+		}
+			 		
+	}();
+	var _drawLines	= function(ls,x,y){ 
+			var _x = x;
+			var _y = y;
+			var dy = 20;
+			var dx = 50;
+			var s = "lines num = " + ls.length;
+			_jg.drawString(s,_x,_y); 
+			for(i in ls){
+				var sl = "line: " + i;
+				_y += dy*2;
+				_jg.setColor(blColor[1]);  
+				_jg.fillRect(_x,_y,dx,dy); 
+				_jg.setColor(blColor[3]);
+				_jg.drawString(sl,_x,_y);
+				_drawBars(ls[i].bars,_x,_y);
+			}			 		
+	};
+	var _drawBars	= function(bs,x,y){ 
+			var _x = x;
+			var _y = y;
+			var dy = 20;
+			var dx = 50;
+			var s = "bars num = " + bs.length;
+			_x += dx;
+			_jg.drawString(s,_x,_y); 
+			for(i in bs){
+				var sb = "bar: " + i;
+				_x += dx*2;
+				_jg.setColor(blColor[2]);  
+				_jg.fillRect(_x,_y,dx,dy); 
+				_jg.setColor(blColor[4]);
+				_jg.drawString(sb,_x,_y);
+				var r = _drawNotes(bs[i].notes,_x,_y);
+				_x = r.x;
+				_y = r.y;
+			}			 		
+	};
+	var _drawNotes	= function(ns,x,y){ 
+			var _x = x;
+			var _y = y;
+			var dy = 20;
+			var dx = 20;
+			var s = "ns=" + ns.length;
+			_x += dx*2;
+			_jg.drawString(s,_x,_y); 
+			for(i in ns){
+				var sb = "n" + i;
+				_x += dx*2;
+				_jg.setColor(blColor[4]);  
+				_jg.fillRect(_x,_y,dx,dy); 
+				_jg.setColor(blColor[6]);
+				_jg.drawString(sb,_x,_y);
+			}	
+			var r = {};
+			r.x = _x;
+			r.y = _y;
+			return r;		 		
+	};
+	var _addBtn			= function(d,txt,f){
+			var r = blo0.blBtn(d,d.id + "divRunToolBar" + txt,txt,blGrey[0]);
+			if(f) r.onclick = f;
+			return r;		
+	};
+	var _addLine			= function(d,txt){
+			var v = blo0.blDiv(d,d.id + "_addLine" + txt,"",blGrey[1]);
+			var btnLineHandle = _addBtn(v,txt);btnLineHandle.style.backgroundColor = blGrey[2];
+			v.btnHandle = btnLineHandle;
+			btnLineHandle.onclick = function(this_){
+				var _selLine = null;
+				return function(){
+					_selLine = this_.parentNode;
+					for(var i = 0; i<_lines.length; i++)
+					{
+						_lines[i].style.backgroundColor				= _selLine == _lines[i]?blGrey[5]:blGrey[1];
+						_lines[i].btnHandle.style.backgroundColor	=  _selLine == _lines[i]?blGrey[5]:blGrey[1];
+					}
+				}
+			}(btnLineHandle);
+			var b = _addBtn(v,"addBar");b.style.backgroundColor = blGrey[3];
+			b.onclick = function(v_){
+				var barIdx	= 0;
+				var _bars	= [];
+				v_.bars = _bars;
+				var _selBar = null;
+				var divShowBar = blo0.blDiv(v_,v_.id+"ShowBar","",blGrey[6]);
+				divShowBar.curBar = null;
+				var btnBarName = _addBtn(divShowBar,"btnBarName");btnBarName.style.backgroundColor = blGrey[3];
+				var btnaddNote = _addBtn(divShowBar,"addNote");btnaddNote.style.backgroundColor = blGrey[3];
+				btnaddNote.onclick = function(){
+					if(divShowBar.curBar==null) return;
+					var s = divShowBar.curBar.innerHTML + "note:" + divShowBar.curBar.notes.length;
+					var b = _addBtn(divShowBar,s);
+					b.style.backgroundColor = blGrey[3];
+					divShowBar.curBar.notes.push(b);					
+				};
+				divShowBar._2Show = function(_bar){
+					divShowBar.curBar = _bar;
+					btnBarName.innerHTML = _bar.innerHTML;
+				};
+				return function(){
+					barIdx++;
+					var newBar = _addBtn(v_,"bar"+barIdx);
+					newBar.notes = [];
+					newBar.idx = barIdx;
+					_bars.push(newBar);
+					newBar.onclick = function(this_){
+						return function(){
+							_selBar = this_;
+							for(var i=0; i<_bars.length; i++)
+							{
+								_bars[i].style.backgroundColor = _selBar == _bars[i]?blGrey[5]:blGrey[1];
+								if(_selBar == _bars[i])
+								{
+									for(k in _bars[i].notes)
+									{
+										_bars[i].notes[k].style.backgroundColor = "brown";
+									}
+								}
+								else{
+									for(k in _bars[i].notes)
+									{
+										_bars[i].notes[k].style.backgroundColor = "gray";
+									}
+								}
+							}
+							divShowBar._2Show(this_);
+						}
+					}(newBar);
+				}
+			}(v);
+			return v;
+	};
+	this.blrRun = function(b,d){ 
+		if(divRunToolBar==null) 
+		{
+			divRunToolBar = blo0.blDiv(d,d.id + "divRunToolBar","::"+v,blGrey[4]);
+			var btnNewLine = _addBtn(divRunToolBar,"addLine",function(){
+				var _n = 0;
+				return function()
+				{
+					var fName = "line"+_n;
+					var newLine = _addLine(divRunToolBar, fName);
+					_lines.push(newLine);
+					_n++;
+				}}()); 
+			btnNewLine.style.backgroundColor = blGrey[6];
+
+		}
+		_on_off_div(b,d);
+	};
+	this.bll1 = "---";
+	this.blrShow = function(b,d){ 
+		if(divShowHandle==null) 
+		{ 
+			divShowHandle = blo0.blHandle(d, d.id + "divShowHandle",150,450,120,50,blColor[2]);
+			var tb	= blo0.blDiv(divShowHandle,divShowHandle.id + "tb","tb",blColor[4]);
+			var b1	= blo0.blBtn(tb,tb.id+"b1","b1","red");
+			b1.onclick = function(){
+					if(!_jg) return;
+					_drawAllJianPu();
+			};
+			var divDrawing	= blo0.blDiv(divShowHandle,divShowHandle.id + "divDrawing","",blColor[6]);
+			if(_jg==null) _jg	= new jsGraphics(divShowHandle.id + "divDrawing");
+
+		}
+		_on_off_div(b,d);
+	};
+}
+
 function _blSongClass()
 {
-	var _jg = null;
+	var className		= "_blSongClass";
+	var classV			= "v0.0.84"; //songdbg 
+	var	_sv				= null; 
+	var	_stxt			= null; 
+	var _sjg			= null; 
+	var _wrap			= null;
+	var _jg				= null;
+	var btnSongClass	= null;
 	this.blrShowMusic		= function(b,d){ 
 		var v = blo0.blHandle(d, d.id + "_div_movingDraw",150,350,120,50,blColor[4]);
 		var tb	= blo0.blDiv(v,v.id + "tb","tb",blColor[4]);
@@ -23,27 +218,37 @@ function _blSongClass()
 					_jg.drawPolyline(new Array(50, 10, 120), new Array(10, 50, 70));
 					_parseSong(_stxt,_jg);
 					_jg.paint();
-
 		};
 		var divDrawing	= blo0.blDiv(v,v.id + "divDrawing","",blColor[6]);
 		if(_jg==null) _jg	= new jsGraphics(v.id + "divDrawing");
 				
 		_on_off_div(b,d);				
 	};
+	this.bll1		= "---";
+	var	_jianpuObj	= null;
+	this.blrJianPuClass		= function(b,d){ 
+		if(_jianpuObj==null){
+			_jianpuObj = new _blJianPuClass;
+			blo0.blShowObj2Div(d,_jianpuObj);
+			var b = document.getElementById("blrRun");
+			b.click();
+		}
+		_on_off_div(b,d);			
+	}
 
-	this.bll1		= "songView";
+	this.bll2		= "---";
+	this.blhInit		= function(){ 
+		btnSongClass.click();	
+		var b = document.getElementById("blrJianPuClass");  
+		b.click();
+		b.style.backgroundColor = "green";
+	}
 
-	var className	= "_blSongClass";
-	var classV		= "v0.0.72"; //songdbg 
-	var	_sv			= null; 
-	var	_stxt		= null; 
-	var _sjg		= null; 
-	var _wrap		= null;
 	_init("id_div_show_1");
 
 	function _init(id){
 		_wrap = _createSongWrap(id);
-		_createSongToolBar(_wrap); 
+		_createSongToolBar(_wrap);  
 	}
 
 	function _draw_music_c(jg,c,x0,y0){
@@ -403,8 +608,8 @@ function _blSongClass()
 		}(oBoss,b1);
 	}
 	function _create_b1(oBoss){
-		var b1	= blo0.blBtn(oBoss,oBoss.id+"_b1","blso","red");	b1.bOnOff = true;
-		b1.onclick = function(d,btn_){
+		btnSongClass	= blo0.blBtn(oBoss,oBoss.id+"_b1","blSongClass","red");	btnSongClass.bOnOff = true;
+		btnSongClass.onclick = function(d,btn_){
 			var v = null;
 			return function(){
 				if(v==null){
@@ -413,7 +618,7 @@ function _blSongClass()
 				}
 				_on_off_bd_1(btn_,v);
 			}
-		}(oBoss,b1);
+		}(oBoss,btnSongClass);
 	}  
 	 
 	function _createSongToolBar(w){
@@ -426,7 +631,7 @@ function _blSongClass()
 		return w;
 	}
 }
-var blso = new _blSongClass;
+var blso = new _blSongClass; blso.blhInit();
 </script> 
 </BODY>
 </HTML>

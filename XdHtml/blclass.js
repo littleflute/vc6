@@ -2,6 +2,7 @@
 // by littleflute
 // 2017/11/3 23:55am bjt
 
+function bl$(id){	return document.getElementById(id); }
 var QueryString = function () 
 {
   var query_string = {};
