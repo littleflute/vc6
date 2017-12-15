@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.81"; 
+	var _v	= "v0.0.83"; 
 	var _view		= null;
 	var _loadFunList = function(d){
 		var ld = blo0.blDiv(d,"id_div_function_list","ld",blGrey[5]);
@@ -65,16 +65,7 @@ function _blDesignClass(){
 
 		_on_off_div(b,d);
 	};
-	this.bll7 = "-7--";
-	this.blrRef4	= function(b,d){
-		var t = blo0.blTextarea(d, d.id + "ta" , "https://littleflute.github.io/blog/docs/2017/05/05/" , blGrey[2]);
-		t.style.width = "98%"; 
-		var d2 = blo0.blBtn(d,d.id+"_d2","makeLink","gray");
-		d2.onclick = function(){
-			var l = blo0.blLink(d,d.id+"_link","link",t.value,"Salmon");
-		};
-		_on_off_div(b,d);
-	};
+
 	this.bll6 = "-6--";
 	this.blrRef3	= function(b,d){
 		var t = blo0.blTextarea(d, d.id + "ta" , "https://littleflute.github.io/blog/docs/2017/04/27/" , blGrey[2]);
@@ -108,6 +99,8 @@ function _blDesignClass(){
 	this.bll3b = "-3b--";
 	this.blrLog	= function(b,d){
 		var s = "";
+		s += "2. 2017/12/16 1:39bjt_ update f1.js from ";
+		s += "<a href='https://littleflute.github.io/blog/docs/2017/05/05/' style='color:blue;'>ref(blrRef4)</a><br>";
 		s += "1. 2017/12/15 13:36bjt_ load function list from ";
 		s += "<a href='plx/design/fnList.js' style='color:blue;'>fnList.js</a><br>";
 
@@ -150,7 +143,7 @@ function _blDesignClass(){
 	{
 		if(_view == null)
 		{
-			_view = blo0.blMDiv(document.body,"id_div_plx__blDesignClass","_blDesignClass:" + _v,550,50,400,200,blColor[4]);
+			_view = blo0.blMDiv(document.body,"id_div_plx__blDesignClass","_blDesignClass:" + _v,150,50,400,200,blColor[4]);
 			var d = blo0.blDiv(_view,_view.id+"_showMyObj","showMyObj",blGrey[0]);
 			blo0.blShowObj2Div(d,this);
 			bl$("blrAboutMe").click();
