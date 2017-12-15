@@ -1,18 +1,64 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.33"; 
+	var _v	= "v0.0.68"; 
 	var _view		= null;
 	this.blrNewClass	= function(b,d){
 		var t = blo0.blTextarea(d, d.id + "ta" , "alert(1);" , blGrey[2]);
 		t.style.width = "98%";
-		var d1 = blo0.blBtn(d,d.id+"_d1","run","gray");
-		d1.onclick = function(){
-			eval(t.value);
-		};
-		var d2 = blo0.blBtn(d,d.id+"_d2","makeLink","gray");
-		d2.onclick = function(){
-			var l = blo0.blLink(d,d.id+"_link","link",t.value,"Salmon");
-		};
+		t.style.height = "200px";
+		var _btnShow = blo0.blBtn(d,d.id+"_btnShow","show","gray");
+		_btnShow.onclick = function(_div){
+			var myView = null;
+			var oNew   = {};
+			oNew.v = "v0.0.3";
+			return function()
+			{
+				if(myView == null)
+				{
+					var btn = [];
+					var btnSel = null;
+					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,750,50,400,200,blColor[4]);
+					var _btnSet = blo0.blBtn(_div,_div.id+"_btnSet","SetFun",blGrey[2]);
+					_btnSet.onclick = function(){
+						var s = "oNew.blrFun" + btnSel.n + "=" + t.value;
+						eval(s);	
+						//t.value = s;	
+						//eval(t.value);			
+					}
+					var _btnNewFun = blo0.blBtn(_div,_div.id+"_btnNewFun","newFun","gray");
+					_btnNewFun.onclick = function(){
+						var sf	= "";
+						var n	= 0;
+						var f = function(b,d){
+						    d.innerHTML = d.id;		
+						};
+						return function(){
+							n++;
+							sf = "oNew.blrFun" + n + " = " + f;
+							eval (sf);
+							var b = blo0.blBtn(_div,_div.id+"_btn"+n,"f"+n,"gray");
+							b.n = n;
+							btn.push(b);
+							b.onclick = function(btn_,n_){
+								return function(){
+									t.value = eval("oNew.blrFun"+n_);
+									btnSel = btn_;
+									btnSel
+									for(var i = 0; i < btn.length; i++)
+									{
+										btn[i].style.backgroundColor = btnSel==btn[i]?blGrey[1]:blGrey[5];
+									}	
+								}
+							}(b,n);
+							_btnShow.click();
+						}
+					}();
+				}
+				var div2ShowObj = blo0.blDiv(myView,myView.id+"_showMyObj","showMyObj",blGrey[0]);
+				blo0.blShowObj2Div(div2ShowObj,oNew); 
+			}
+		}(d);
+
 		_on_off_div(b,d);
 	};
 	this.bll7 = "-7--";
