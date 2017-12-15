@@ -1,9 +1,14 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.68"; 
+	var _v	= "v0.0.81"; 
 	var _view		= null;
+	var _loadFunList = function(d){
+		var ld = blo0.blDiv(d,"id_div_function_list","ld",blGrey[5]);
+		blo0.blScript("id_script_function_list","plx/design/fnList.js");
+	}
 	this.blrNewClass	= function(b,d){
-		var t = blo0.blTextarea(d, d.id + "ta" , "alert(1);" , blGrey[2]);
+		_loadFunList(d);
+		var t = blo0.blTextarea(d, "id_ta_4_NewClass" , "alert(1);" , blGrey[2]);
 		t.style.width = "98%";
 		t.style.height = "200px";
 		var _btnShow = blo0.blBtn(d,d.id+"_btnShow","show","gray");
@@ -20,10 +25,9 @@ function _blDesignClass(){
 					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,750,50,400,200,blColor[4]);
 					var _btnSet = blo0.blBtn(_div,_div.id+"_btnSet","SetFun",blGrey[2]);
 					_btnSet.onclick = function(){
+						if(btnSel==null) return;
 						var s = "oNew.blrFun" + btnSel.n + "=" + t.value;
-						eval(s);	
-						//t.value = s;	
-						//eval(t.value);			
+						eval(s);	 		
 					}
 					var _btnNewFun = blo0.blBtn(_div,_div.id+"_btnNewFun","newFun","gray");
 					_btnNewFun.onclick = function(){
@@ -99,6 +103,15 @@ function _blDesignClass(){
 		d2.onclick = function(){
 			var l = blo0.blLink(d,d.id+"_link","link",t.value,"Salmon");
 		};
+		_on_off_div(b,d);
+	};
+	this.bll3b = "-3b--";
+	this.blrLog	= function(b,d){
+		var s = "";
+		s += "1. 2017/12/15 13:36bjt_ load function list from ";
+		s += "<a href='plx/design/fnList.js' style='color:blue;'>fnList.js</a><br>";
+
+		d.innerHTML = s;
 		_on_off_div(b,d);
 	};
 	this.bll3a = "-3a--";
