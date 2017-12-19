@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.83"; 
+	var _v	= "v0.0.86"; 
 	var _view		= null;
 	var _loadFunList = function(d){
 		var ld = blo0.blDiv(d,"id_div_function_list","ld",blGrey[5]);
@@ -22,7 +22,7 @@ function _blDesignClass(){
 				{
 					var btn = [];
 					var btnSel = null;
-					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,750,50,400,200,blColor[4]);
+					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,750,50,400,200,"skyblue");//blColor[4]);
 					var _btnSet = blo0.blBtn(_div,_div.id+"_btnSet","SetFun",blGrey[2]);
 					_btnSet.onclick = function(){
 						if(btnSel==null) return;
