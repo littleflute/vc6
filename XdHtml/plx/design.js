@@ -1,10 +1,16 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.86"; 
-	var _view		= null;
+	var _v	= "v0.0.93"; 
+	var _view		= null; 
+
 	var _loadFunList = function(d){
 		var ld = blo0.blDiv(d,"id_div_function_list","ld",blGrey[5]);
-		blo0.blScript("id_script_function_list","plx/design/fnList.js");
+		if(!this.blFunListPath){
+			blo0.blScript("id_script_function_list","plx/design/fnList.js");
+		}
+		else{
+			blo0.blScript("id_script_function_list",this.blFunListPath + "plx/design/fnList.js");
+		}
 	}
 	this.blrNewClass	= function(b,d){
 		_loadFunList(d);
@@ -107,16 +113,7 @@ function _blDesignClass(){
 		d.innerHTML = s;
 		_on_off_div(b,d);
 	};
-	this.bll3a = "-3a--";
-	this.blrUpdate	= function(b,d){
-		var t = blo0.blTextarea(d, d.id + "ta" , "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design.js" , blGrey[2]);
-		t.style.width = "98%"; 
-		var d2 = blo0.blBtn(d,d.id+"_d2","makeLink","gray");
-		d2.onclick = function(){
-			var l = blo0.blLink(d,d.id+"_link","link",t.value,"Salmon");
-		};
-		_on_off_div(b,d);
-	};
+	
 	this.bll3 = "-3--";
 	this.blr2DoList	= function(b,d){
 		var s = "";
@@ -133,6 +130,10 @@ function _blDesignClass(){
 		s += "3. source: <a href='plx/design.js' style='color:blue;'>design.js</a>.<br>";
 		s += "4. <a href='http://www.beautifullover.org'style='color:lightblue;'>www.beautifullover.org</a>.<br>";
 		d.innerHTML = s;
+		var designUpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design.js";
+		var designLink = blo0.blLink(d,d.id+"designupdateHref","design.js update",designUpdateHref,"blue");
+		var fnListUpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/fnList.js";
+		var fnListUpdateLink = blo0.blLink(d,d.id+"fnListUpdateHref","design.js update",fnListUpdateHref,"Salmon");
 		_on_off_div(b,d); 
 	}; 
 	this.bll2 = "---";
