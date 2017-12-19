@@ -9,7 +9,7 @@ var ls = [
 ];
 var ld = bl$("id_div_function_list");
 if(ld){
-	ld.innerHTML = "v0.0.17 ";
+	ld.innerHTML = "v0.0.18 ";
 	var lv = blo0.blDiv(ld,ld.id+"_lv_","lv",blGrey[5]);
 	for(i in ls){
 		var b = blo0.blBtn(ld,ld.id+"_btn_"+i,"f"+i,blGrey[0]);
@@ -22,10 +22,14 @@ if(ld){
 					eval(s);
 				}
 				else{
-					var s = "plx/design/f" + n_ + ".js";
-					if(this.blFunListPath){
-						s =  this.blFunListPath + s;
-					} 
+					var s = ""; 
+					if(!this.blFunListPath){
+						s = "plx/design/f" + n_ + ".js";
+					}
+					else{
+						s = this.blFunListPath + "plx/design/f" + n_ + ".js";
+					}
+
 					lv.innerHTML = s;
 
 					blo0.blScript(idScript,s);
