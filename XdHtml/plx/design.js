@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.96"; 
+	var _v	= "v0.0.97"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -127,7 +127,7 @@ function _blDesignClass(){
 		var s = "";
 		s += "1. blPlx: _blDesignClass.<br>";
 		s += "2. by littleflute 2017/12/14 13:46 bjt.<br>";
-		s += "3. source: <a href='plx/design.js' style='color:blue;'>design.js</a>.<br>";
+		s += "3. source: <a href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design.js' style='color:blue;'>design.js</a>.<br>";
 		s += "4. <a href='http://www.beautifullover.org'style='color:lightblue;'>www.beautifullover.org</a>.<br>";
 		d.innerHTML = s;
 		var designUpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design.js";
