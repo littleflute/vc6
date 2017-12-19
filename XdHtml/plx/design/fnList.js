@@ -9,7 +9,7 @@ var ls = [
 ];
 var ld = bl$("id_div_function_list");
 if(ld){
-	ld.innerHTML = "v0.0.11 ";
+	ld.innerHTML = "v0.0.16 ";
 	for(i in ls){
 		var b = blo0.blBtn(ld,ld.id+"_btn_"+i,"f"+i,blGrey[0]);
 		b.onclick = function(n_){
@@ -21,7 +21,12 @@ if(ld){
 					eval(s);
 				}
 				else{
-					blo0.blScript(idScript,"plx/design/f" + n_ + ".js");
+					var s = "plx/design/f" + n_ + ".js";
+					if(this.blFunListPath){
+						s =  this.blFunListPath + s;
+					} 
+
+					blo0.blScript(idScript,s);
 				}
 			}
 		}(i);
