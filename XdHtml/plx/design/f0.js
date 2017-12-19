@@ -1,6 +1,6 @@
 var f0 = function(b,d){
   //f0.js * xau update data
-  var _v			= "v0.0.36";
+  var _v			= "v0.0.38";
   var url			= "http://api.baidao.com/api/hq/npdata.do?ids=201"; 
  
 
@@ -31,8 +31,10 @@ var f0 = function(b,d){
 	  s += "<br>xau update data<br>";
 	  s += url; 
       d.innerHTML = s;
+	  var LastSrcHref = "https://littleflute.github.io/vc6/XdHtml/plx/design/f0.js";
+	  var l = blo0.blLink(d,d.id+"LastSrcHref","LastSrcHref",LastSrcHref,"blue");
 	  var UpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/f0.js";
-	  var l = blo0.blLink(d,d.id+"_link","UpdateHref",UpdateHref,"Salmon");
+	  var l = blo0.blLink(d,d.id+"UpdateHref","UpdateHref",UpdateHref,"Salmon");
 	  _on_off_div(b,d);
     };
   }
