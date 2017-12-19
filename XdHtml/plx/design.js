@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.95"; 
+	var _v	= "v0.0.96"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -133,7 +133,7 @@ function _blDesignClass(){
 		var designUpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design.js";
 		var designLink = blo0.blLink(d,d.id+"designupdateHref","design.js update",designUpdateHref,"blue");
 		var fnListUpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/fnList.js";
-		var fnListUpdateLink = blo0.blLink(d,d.id+"fnListUpdateHref","design.js update",fnListUpdateHref,"Salmon");
+		var fnListUpdateLink = blo0.blLink(d,d.id+"fnListUpdateHref","fnList.js update",fnListUpdateHref,"Salmon");
 		_on_off_div(b,d); 
 	}; 
 	this.bll2 = "---";
