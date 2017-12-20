@@ -1,0 +1,600 @@
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb_2312-80" />
+    <title>xd cchess III</title>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/blclass.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/book.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/position.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/search.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/board.js"></script>
+    <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/cchess.js"></script>
+   
+  </head>
+  <body>
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.1.2</div>  
+
+    <script type="text/javascript"><!--
+"use strict"; 
+var STARTUP_FEN = [
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "r1bakab2/9/1cn1c1n2/p1p1p1p1p/7r1/2P6/P3P1P1P/1CN1B1N1C/9/R1BAKA1R1 b",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/R1BAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/9/1C5C1/9/RN2K2NR w", 
+];
+  
+//*
+var xm		= document.getElementById("xdMainDiv"); 
+ 
+xm.blObj	= new blClass;
+xm.run		= function(v){
+	var v_run = v;
+	var bOnOff = this.blObj.blBtn ( this,"bOnOff","On/Off"); 
+	var bTest1 = this.blObj.blBtn ( this,"bTest1","bTest1"); 
+	var bMoveDiv = this.blObj.blBtn ( this,"bMoveDiv","bMoveDiv"); 
+	var htmlTitle = 'xd cchess <a target = "_blank" href="https://github.com/littleflute/cchess0/edit/master/cchess/iii.html">'+v_run+'</a>'; 
+    htmlTitle += ' <a target="_blank" href="https://littleflute.github.io/cchess0/cchess/iii.html">+me</a>';
+    htmlTitle += ' <a target="_blank" href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default">w3Dev</a>';
+    htmlTitle += ' <a href="..">[..]</a>';
+    htmlTitle += ' <a target="_blank"  href="https://github.com/littleflute/cchess0/issues/5">issue</a>';
+    htmlTitle += ' <a target="_blank"  href="https://littleflute.github.io/cchess0/blclass.js">see_blclass.js</a>';
+    //
+    
+    
+	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
+	dTitle.style="text-align:center;font-size:28px;font-family:黑体";
+	bOnOff.onclick = function ()
+	{  
+		new Audio("sounds/click.wav").play();
+		this.style.backgroundColor = this.style.backgroundColor=="red"?"green":"red";		
+		if(this.style.backgroundColor=="red"){ d.style.display = "none";dTitle.style.display = "none";}
+		else {d.style.display = "block";dTitle.style.display = "block";}
+	}
+	bTest1.onclick = function (this_)
+	{   
+		return function(){
+        	var o = this_.blObj;
+            var oBoss = document.getElementById("mi1");
+            if(oBoss)  o.blShowObj2Div(oBoss,xdObjBoard);	
+        };
+	}(this);
+    bMoveDiv.onclick = function(this_)
+    { 
+		return function(){
+        	var o = this_.blObj;
+            var main = o.blDiv ( document.body,"moveDivTest","moveDivTest");
+            var style ="position: absolute;";
+			style += "z-index: 9;";
+			style += "background-color: #f1f1f1;";
+			style += "text-align: center;";
+			style += "border: 1px solid #d3d3d3;";
+			style += "left: 400px";
+			style += "top: 140px";
+            main.style =style;
+			var title = o.blDiv(main,"moveDivTestHeader","header");
+			style ="padding: 10px;";
+			style += "z-index: 10;";
+			style += "cursor: move;";
+			style += "text-align: center;";
+			style += "border: 1px solid #fff;";
+			style += "background-color: #2196F3;";
+			title.style =style;
+			var mi0 = o.blDiv(main,"mi0","mi0");
+			var ClickMsg = o.blDiv(mi0,"ClickMsg","ClickMsg");
+			var goMsg = o.blDiv(mi0,"goMsg","goMsg");
+            var goText = o.blTextField(mi0,"goText","a0a1");
+			var btnGo = o.blBtn(mi0,"btnGo","Go","green");
+			btnGo.onclick = function(){  
+                var s = goText.value; 
+                var getY = function(c)
+    			{
+                	if(c=='a') return 0;
+                    if(c=='b') return 1;
+                    if(c=='c') return 2;
+                    if(c=='d') return 3;
+                    if(c=='e') return 4;
+                    if(c=='f') return 5;
+                    if(c=='g') return 6;
+                    if(c=='h') return 7;
+                    if(c=='i') return 8;
+                }
+                var x = [195,179,163,147,131,115,99,83,67,51];
+    			var go = function(c1,c2,c3,c4){ 
+        			var g1 = x[c2]+getY(c1); 
+        			var g2 = x[c4]+getY(c3); 
+                    var g1 = board.flipped(g1);
+                    var g2 = board.flipped(g2); 
+            		board.imgSquares[g1].onmousedown(); 
+            		board.imgSquares[g2].onmousedown(); 
+    			} 
+                go(s[0],s[1],s[2],s[3]);                  
+			}
+			var mi1 = o.blDiv(main,"mi1","mi1");
+			var mi2 = o.blDiv(main,"mi2","mi2");
+			var btn1 = o.blBtn(mi2,"Hu_PC","Hu_PC","gray");
+			btn1.onclick = function(){ 
+                 board.computer = 1; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn4.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+			}
+			var btn2 = o.blBtn(mi2,"PC_Hu","PC_Hu","gray");
+			btn2.onclick = function(){  
+                 board.computer = 0; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn4.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+			}
+			var btn3 = o.blBtn(mi2,"Hr_Hb","Hr_Hb","gray");
+			btn3.onclick = function(){   
+                 board.computer = -1; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn4.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+			}
+    		o.blMakeDivMovable(main);
+    
+			var btn4 = o.blBtn(mi2,"Hb_Hr","Hb_Hr","gray");
+			btn4.onclick = function(){   
+                 board.computer = -2; 
+				 board.restart(STARTUP_FEN[0]);
+                 this.style.backgroundColor="#f1a";
+                 btn1.style.backgroundColor="green";
+                 btn2.style.backgroundColor="green";
+                 btn3.style.backgroundColor="green";
+  				 ml.options.length = 1;
+                 ml.selectedIndex = 0;
+
+			}
+    		o.blMakeDivMovable(main);
+            var myMoveList = o.blSelect(mi0,"ml",10);
+            main.style.left = "310px";
+            main.style.top = "100px"; 
+        };
+    }(this);
+    
+ 	BOARD_WIDTH 	= BOARD_WIDTH/2;
+ 	BOARD_HEIGHT 	= BOARD_HEIGHT/2;
+ 	SQUARE_SIZE	= SQUARE_SIZE/2;
+    THINKING_LEFT = (BOARD_WIDTH - THINKING_SIZE) >> 1;
+ THINKING_TOP = (BOARD_HEIGHT - THINKING_SIZE) >> 1;
+
+	var d = this.blObj.blDiv ( this,"xddbgDiv","xddbgDiv");
+	d.v	= "xd1_v0.3.7"; 
+    var myBoard = this.blObj.blDiv(this,"container",""); 
+    bMoveDiv.onclick();
+} 
+xm.run("v1.2.0");
+    
+//*/
+ //*
+var xdObjBoard 	= new Board(container, "", "https://littleflute.github.io/cchess0/cchess/sounds/");
+var board = xdObjBoard;
+
+board.setSearch(16);
+board.millis = 1000;
+board.computer = -1;
+
+
+board.onAddMove = function() {
+  var counter = (board.pos.mvList.length >> 1);
+  var space = (counter > 99 ? "    " : "   ");
+  counter = (counter > 9 ? "" : " ") + counter + ".";
+  var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
+  var value = "" + board.mvLast; 
+  var mlSel	= document.getElementById("ml");
+  if(!mlSel) return;
+  var createOption = function (text, value, ie8) {
+    var opt = document.createElement("option");
+    opt.selected = true;
+    opt.value = value;
+    if (ie8) {
+      opt.text = text;
+    } else {
+      opt.innerHTML = text.replace(/ /g, "&nbsp;");
+    }
+    return opt;
+  }
+
+  try {
+    ml.add(createOption(text, value, false));
+  } catch (e) {
+    ml.add(createOption(text, value, true));
+  }
+  ml.scrollTop = ml.scrollHeight;
+
+};
+board.clickSquare = function (sq_) {
+//xddbg:
+	function myA_I (c){ 
+                	if(c==3) return "a";
+                    if(c==4) return "b";
+                    if(c==5) return "c";
+                    if(c==6) return "d";
+                    if(c==7) return "e";
+                    if(c==8) return "f";
+                    if(c==9) return "g";
+                    if(c==10) return "h";
+                    if(c==11) return "i";
+                  }
+	function my0_9 (c){ 
+                	if(c==3) return 9;
+                    if(c==4) return 8;
+                    if(c==5) return 7;
+                    if(c==6) return 6;
+                    if(c==7) return 5;
+                    if(c==8) return 4;
+                    if(c==9) return 3;
+                    if(c==10) return 2;
+                    if(c==11) return 1;
+                    if(c==12) return 0;
+                  }
+  	var sq = this.flipped(sq_);
+    var s = "sq_:" + sq_;
+    s += "sq:" + sq;
+    s += "xy:" + myA_I(sq & 15);
+    s +=  my0_9(sq >> 4);
+    
+	ClickMsg.innerHTML = s;
+    
+    
+  if (this.busy || this.result != RESULT_UNKNOWN) {
+    return;
+  }
+  var pc = this.pos.squares[sq];
+  if ((pc & SIDE_TAG(this.pos.sdPlayer)) != 0) {
+    this.playSound("click");
+    if (this.mvLast != 0) {
+      this.drawSquare(SRC(this.mvLast), false);
+      this.drawSquare(DST(this.mvLast), false);
+    }
+    if (this.sqSelected) {
+      this.drawSquare(this.sqSelected, false);
+    }
+    this.drawSquare(sq, true);
+    this.sqSelected = sq;
+  } else if (this.sqSelected > 0) {
+    this.addMove(MOVE(this.sqSelected, sq), false);
+  }
+}
+
+board.xdtest1 = function(div,sq) {
+//	div.innerHTML = sq;
+ 	div.style.backgroundColor = "yellow";
+   var div1 = document.createElement("div");
+   div1.id = "div1_"+sq;
+    div1.innerHTML = "";
+    div.appendChild(div1);
+    var div2 = document.createElement("div");
+     div2.id = "div2_"+sq;
+    div2.innerHTML = "";
+    div.appendChild(div2); 
+    
+    
+    var y0 = 23;
+    var dy = 3;
+    var dx = 2;
+    if(84==sq||90==sq||170==sq||164==sq
+    	||101==sq||103==sq||105==sq
+    	||149==sq||151==sq||153==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 10 + "px"; 
+    	div4.style.top  = 2 + "px";  
+    	div4.innerHTML = "╬";
+    	div.appendChild(div4);
+    }  
+    if(99==sq||147==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 12 + "px"; 
+    	div4.style.top  = 2 + "px";  
+    	div4.innerHTML = "］";
+    	div.appendChild(div4);
+    } 
+    if(107==sq||155==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 4 + "px"; 
+    	div4.style.top  = 2 + "px";  
+    	div4.innerHTML = "［";
+    	div.appendChild(div4);
+    } 
+    if(54==sq||71==sq||166==sq||183==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 15 + "px"; 
+    	div4.style.top  = 6 + "px";  
+    	div4.innerHTML = " ╲";
+    	div.appendChild(div4);
+    }
+    if(56==sq||71==sq||168==sq||183==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 7 + "px"; 
+    	div4.style.top  = 6 + "px";  
+    	div4.innerHTML = " ╱";
+    	div.appendChild(div4);
+    }
+    if(86==sq||71==sq||183==sq||198==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 16 + "px"; 
+    	div4.style.top  = -6 + "px";  
+    	div4.innerHTML = " ╱";
+    	div.appendChild(div4);
+    }
+    if(71==sq||88==sq||183==sq||200==sq){
+    	var div4 = document.createElement("div");
+   		div4.id = "div4_"+sq;
+    	div4.style.position = "absolute";
+    	div4.style.left = 2 + "px"; 
+    	div4.style.top  = -9 + "px";  
+    	div4.innerHTML = " ╲";
+    	div.appendChild(div4);
+    } 
+    if(195==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = SQUARE_SIZE/2 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy + y0 + "px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE  +  y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(203==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = 0 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +  y0 + "px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE  +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(51==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = SQUARE_SIZE/2 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(68<=sq&&sq<=74||
+    	84<=sq&&sq<=90||
+    	100<=sq&&sq<=106||
+    	148<=sq&&sq<=154||
+    	164<=sq&&sq<=170||
+    	180<=sq&&sq<=186){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(52<=sq&&sq<=58||
+      	132<=sq&&sq<=138){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(196<=sq&&sq<=202||
+    	116<=sq&&sq<=122){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top =  -SQUARE_SIZE +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(59==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = "0px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE/2 + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(179==sq||163==sq||147==sq||131==sq||115==sq||
+    	99==sq||83==sq||67==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left = SQUARE_SIZE/2 + "px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE +    y0 +"px"; 
+  		div2.style.border = "1px red solid";
+    }
+    if(75==sq||91==sq||107==sq||123==sq||139==sq||
+    	155==sq||171==sq||187==sq){
+    	div1.style.position = "relative";
+    	div1.style.width = SQUARE_SIZE/2 + "px";
+    	div1.style.left =  0+"px";  
+    	div1.style.top = -SQUARE_SIZE/2 + dy +   y0 +"px"; 
+  		div1.style.border = "1px red solid";
+        
+    	div2.style.position = "relative";
+    	div2.style.width =  "0px";
+    	div2.style.height = SQUARE_SIZE + "px";
+    	div2.style.left = SQUARE_SIZE/2 + "px";  
+    	div2.style.top = -SQUARE_SIZE +   y0 + "px"; 
+  		div2.style.border = "1px red solid";
+    }
+    div1.style.border = "1px blue solid";
+    div2.style.border = "1px blue solid";
+  	div2.style.backgroundColor = "red"; 
+    div2.innerHTML = "";
+   	var div3 = document.createElement("div");
+   	div3.id = "div3_"+sq;
+    div3.innerHTML = sq;
+    div.appendChild(div3);
+    div3.style.position = "absolute";
+    div3.style.left = 6 + "px"; 
+    div3.style.top  = 0 + "px";  
+    div3.style.border = "1px red solid"; 
+}
+board.xdtest2 = function(sq, selected) {
+  var div = this.divSquares[this.flipped(sq)]; 
+  var s = PIECE_NAME[this.pos.squares[sq]];
+  var bkColor = "gray";
+  if(s=="rr"){s="车";bkColor = "red";} 
+  if(s=="ra"){s="仕";bkColor = "red";} 
+  if(s=="rk"){s="帅";bkColor = "red";} 
+  if(s=="rb"){s="相";bkColor = "red";} 
+  if(s=="rn"){s="马";bkColor = "red";} 
+  if(s=="rc"){s="炮";bkColor = "red";} 
+  if(s=="rp"){s="兵";bkColor = "red";} 
+  if(s=="br"){s="车";bkColor = "green";} 
+  if(s=="ba"){s="士";bkColor = "green";} 
+  if(s=="bk"){s="将";bkColor = "green";} 
+  if(s=="bb"){s="象";bkColor = "green";} 
+  if(s=="bn"){s="马";bkColor = "green";} 
+  if(s=="bc"){s="炮";bkColor = "green";} 
+  if(s=="bp"){s="卒";bkColor = "green";} 
+  s = (s=="oo"?"":s); 
+  var div3ID = "div3_"+this.flipped(sq);
+  var d3 = document.getElementById(div3ID);
+  d3.innerHTML = s; 
+  d3.style.color = "black";
+  d3.style.backgroundColor = bkColor; 
+  if(selected) 
+  {
+  	d3.style.border = "2px blue solid";
+    
+  	d3.style.color = "yellow";
+    if(""==d3.innerHTML) d3.innerHTML = "☆"; 
+  }
+  else  
+  { 
+  	d3.style.border = "2px gray solid";
+    
+  	d3.style.color = "white";
+  }
+  if(""==d3.innerHTML) d3.style.border = "0px red solid";
+  d3.style.borderRadius = "198px 198px 198px 198px";
+    
+}
+board.drawSquare = function(sq, selected) {
+  var img = this.imgSquares[this.flipped(sq)];
+  img.src = this.images + PIECE_NAME[this.pos.squares[sq]] + ".gif";
+  img.style.backgroundImage = selected ? "url(" + this.images + "oos29.png)" : "";
+  board.xdtest2(sq,selected); 
+}
+
+board.flipped = function(sq) {
+  return (this.computer == -2 ||this.computer == 0 )? SQUARE_FLIP(sq) : sq; 
+}
+//*
+//divSquares 
+board.divSquares = [];
+ var this_ = board;
+  for (var sq = 0; sq < 256; sq ++) {
+    if (!IN_BOARD(sq)) {
+      this_.divSquares.push(null);
+      continue;
+    }
+    var div = document.createElement("div");
+    div.id = "div_"+sq;
+    div.xdNum = sq;
+    var style = div.style;
+    style.position = "absolute";
+    style.left = SQ_X(sq);
+    style.top = SQ_Y(sq);
+    style.width = SQUARE_SIZE;
+    style.height = SQUARE_SIZE;
+    style.cursor = "default";
+    style.color = "blue";    
+    
+    style.zIndex = 1;
+    div.innerHTML = "";
+    board.xdtest1(div,sq);
+    div.onmousedown = function(sq_) {
+      return function() {
+        this_.clickSquare(sq_);
+       // alert(sq_);
+      }
+    } (sq);
+    container.appendChild(div);
+    this_.divSquares.push(div);
+  }
+//END: divSquares 
+
+//  */
+
+ 
+var c		= document.getElementById("container"); 
+c.style.background = "url('https://littleflute.github.io/cchess0/cchess/images/board1_2.jpg')";
+
+ var btn_Hb_Hr = document.getElementById("Hb_Hr");     
+ btn_Hb_Hr.click();
+    --></script>
+  </body>
+</html>
