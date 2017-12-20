@@ -1,7 +1,7 @@
 
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb_2312-80" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>xd cchess III</title>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/blclass.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/book.js"></script>
@@ -12,7 +12,7 @@
    
   </head>
   <body>
-    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.1.2</div>  
+    <div id = "xdMainDiv" style="border:1px green solid;">xdMainDiv_V0.1.3</div>  
 
     <script type="text/javascript"><!--
 "use strict"; 
@@ -44,7 +44,7 @@ xm.run		= function(v){
     
     
 	var dTitle = this.blObj.blDiv ( this,"dTitle",htmlTitle);
-	dTitle.style="text-align:center;font-size:28px;font-family:ºÚÌå";
+	dTitle.style="text-align:center;font-size:28px;font-family:ÂºÃšÃŒÃ¥";
 	bOnOff.onclick = function ()
 	{  
 		new Audio("sounds/click.wav").play();
@@ -296,7 +296,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 10 + "px"; 
     	div4.style.top  = 2 + "px";  
-    	div4.innerHTML = "¨p";
+    	div4.innerHTML = "Â¨p";
     	div.appendChild(div4);
     }  
     if(99==sq||147==sq){
@@ -305,7 +305,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 12 + "px"; 
     	div4.style.top  = 2 + "px";  
-    	div4.innerHTML = "£Ý";
+    	div4.innerHTML = "Â£Ã";
     	div.appendChild(div4);
     } 
     if(107==sq||155==sq){
@@ -314,7 +314,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 4 + "px"; 
     	div4.style.top  = 2 + "px";  
-    	div4.innerHTML = "£Û";
+    	div4.innerHTML = "Â£Ã›";
     	div.appendChild(div4);
     } 
     if(54==sq||71==sq||166==sq||183==sq){
@@ -323,7 +323,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 15 + "px"; 
     	div4.style.top  = 6 + "px";  
-    	div4.innerHTML = " ¨v";
+    	div4.innerHTML = " Â¨v";
     	div.appendChild(div4);
     }
     if(56==sq||71==sq||168==sq||183==sq){
@@ -332,7 +332,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 7 + "px"; 
     	div4.style.top  = 6 + "px";  
-    	div4.innerHTML = " ¨u";
+    	div4.innerHTML = " Â¨u";
     	div.appendChild(div4);
     }
     if(86==sq||71==sq||183==sq||198==sq){
@@ -341,7 +341,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 16 + "px"; 
     	div4.style.top  = -6 + "px";  
-    	div4.innerHTML = " ¨u";
+    	div4.innerHTML = " Â¨u";
     	div.appendChild(div4);
     }
     if(71==sq||88==sq||183==sq||200==sq){
@@ -350,7 +350,7 @@ board.xdtest1 = function(div,sq) {
     	div4.style.position = "absolute";
     	div4.style.left = 2 + "px"; 
     	div4.style.top  = -9 + "px";  
-    	div4.innerHTML = " ¨v";
+    	div4.innerHTML = " Â¨v";
     	div.appendChild(div4);
     } 
     if(195==sq){
@@ -505,20 +505,20 @@ board.xdtest2 = function(sq, selected) {
   var div = this.divSquares[this.flipped(sq)]; 
   var s = PIECE_NAME[this.pos.squares[sq]];
   var bkColor = "gray";
-  if(s=="rr"){s="³µ";bkColor = "red";} 
-  if(s=="ra"){s="ÊË";bkColor = "red";} 
-  if(s=="rk"){s="Ë§";bkColor = "red";} 
-  if(s=="rb"){s="Ïà";bkColor = "red";} 
-  if(s=="rn"){s="Âí";bkColor = "red";} 
-  if(s=="rc"){s="ÅÚ";bkColor = "red";} 
-  if(s=="rp"){s="±ø";bkColor = "red";} 
-  if(s=="br"){s="³µ";bkColor = "green";} 
-  if(s=="ba"){s="Ê¿";bkColor = "green";} 
-  if(s=="bk"){s="½«";bkColor = "green";} 
-  if(s=="bb"){s="Ïó";bkColor = "green";} 
-  if(s=="bn"){s="Âí";bkColor = "green";} 
-  if(s=="bc"){s="ÅÚ";bkColor = "green";} 
-  if(s=="bp"){s="×ä";bkColor = "green";} 
+  if(s=="rr"){s="Â³Âµ";bkColor = "red";} 
+  if(s=="ra"){s="ÃŠÃ‹";bkColor = "red";} 
+  if(s=="rk"){s="Ã‹Â§";bkColor = "red";} 
+  if(s=="rb"){s="ÃÃ ";bkColor = "red";} 
+  if(s=="rn"){s="Ã‚Ã­";bkColor = "red";} 
+  if(s=="rc"){s="Ã…Ãš";bkColor = "red";} 
+  if(s=="rp"){s="Â±Ã¸";bkColor = "red";} 
+  if(s=="br"){s="Â³Âµ";bkColor = "green";} 
+  if(s=="ba"){s="ÃŠÂ¿";bkColor = "green";} 
+  if(s=="bk"){s="Â½Â«";bkColor = "green";} 
+  if(s=="bb"){s="ÃÃ³";bkColor = "green";} 
+  if(s=="bn"){s="Ã‚Ã­";bkColor = "green";} 
+  if(s=="bc"){s="Ã…Ãš";bkColor = "green";} 
+  if(s=="bp"){s="Ã—Ã¤";bkColor = "green";} 
   s = (s=="oo"?"":s); 
   var div3ID = "div3_"+this.flipped(sq);
   var d3 = document.getElementById(div3ID);
@@ -530,7 +530,7 @@ board.xdtest2 = function(sq, selected) {
   	d3.style.border = "2px blue solid";
     
   	d3.style.color = "yellow";
-    if(""==d3.innerHTML) d3.innerHTML = "¡î"; 
+    if(""==d3.innerHTML) d3.innerHTML = "Â¡Ã®"; 
   }
   else  
   { 
