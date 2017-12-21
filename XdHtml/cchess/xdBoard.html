@@ -13,7 +13,7 @@
   </head>
  <body>
     <div id = "xdMainDiv" style="border:1px green solid;">
-	<a href="?xd=0">V0.0.51</a>
+	<a href="?xd=0">V0.0.62</a>
 	<a href="../index.html">[..]</a>
 	<a href="./index.html">[chess]</a>
 	<a target = "_blank" href="https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/xdBoard.html">github*</a>
@@ -143,7 +143,7 @@ function moveList_change() {
   board.flushBoard();
 }
 function _CtrlClass(){
-	var v = "v0.0.41";
+	var v = "v0.0.55";
 	var _myMsgWrap = null;
 	var _myBoardWrap = null;
 	var divMsg = null;
@@ -151,6 +151,7 @@ function _CtrlClass(){
 	var _cchessBoard = null;
 	var _bCreate = false;
 	var _moveList	= [];
+	var _nowTurn	= 0;
 	this.blrBoard0 = function(b,d){  
 		_on_off_div(b,xdBoard0);
 	};
@@ -158,6 +159,8 @@ function _CtrlClass(){
 	    if(!_bCreate){
 			_myMsgWrap = blo0.blMDiv(document.body,"id_div__myMsgWrap","_myMsgWrap:",10,30,400,200,"green");  
 			divMsg = blo0.blDiv(_myMsgWrap,_myMsgWrap.id+"divMsg","divMsg",blGrey[0]); 
+			var divSelList = blo0.blDiv(_myMsgWrap,_myMsgWrap.id+"divSelList","divSelList",blGrey[3]); 
+			_blSelect(divSelList,"id_select_MoveList","10","=== start ===");
 			divMoveList = blo0.blDiv(_myMsgWrap,_myMsgWrap.id+"divMoveList","divMoveList",blGrey[5]);
 			_myBoardWrap = blo0.blMDiv(document.body,"id_div___myBoardWrap","_myBoard:",250,-10,400,200,"brown"); 
 			var divBoard = blo0.blDiv(_myBoardWrap,_myBoardWrap.id+"_divBoard","",blGrey[0]);
@@ -167,6 +170,7 @@ function _CtrlClass(){
 			_cchessBoard.computer = 1;
 			_cchessBoard.clickSquare = _newClick;
 			_cchessBoard.onAddMove	= _onAddMove;
+			id_select_MoveList.onchange = _moveList_change;
 			_bCreate = true;
 		}
 		_on_off_div(b,_myBoardWrap);
@@ -180,6 +184,8 @@ function _CtrlClass(){
 		if(_myBoardWrap.style.display=="none"){
 			bl$("blrBoard").click();
 		}
+		id_select_MoveList.options.length = 1;
+		id_select_MoveList.selectedIndex = 0;
 		_cchessBoard.computer = 1;
 		_cchessBoard.restart(STARTUP_FEN[selHandicap.selectedIndex]);
 	};
@@ -190,6 +196,8 @@ function _CtrlClass(){
 		if(_myBoardWrap.style.display=="none"){
 			bl$("blrBoard").click();
 		}
+		id_select_MoveList.options.length = 1;
+		id_select_MoveList.selectedIndex = 0;
 		_cchessBoard.computer = 0;
 		_cchessBoard.restart(STARTUP_FEN[selHandicap.selectedIndex]);
 	};
@@ -202,6 +210,22 @@ function _CtrlClass(){
 		blo0.blShowObj2Div(dShowMe,this);
 		bl$("blrBoard0").click();
 	};
+	function _blSelect(oBoss,id,size,txt)					
+ 	{  	 			
+   		var s = "";							 
+	   	s += "<";						 
+	   	s += "select id=";						
+   		s += id;				 
+	   	s += " size=";						
+   		s += size;								
+	   	s += " >";							
+	   	s += " <option selected value='0'>";
+   		s += txt;			
+	   	s += " </option>";							 	  			
+	   	s += "</select>";								 
+	   	oBoss.innerHTML = s;						 
+	 }	
+
 	function _onAddMove() {
 	  var board = _cchessBoard;
 	  var counter = (board.pos.mvList.length >> 1);
@@ -209,9 +233,49 @@ function _CtrlClass(){
 	  counter = (counter > 9 ? "" : " ") + counter + ".";
 	  var text = (board.pos.sdPlayer == 0 ? space : counter) + move2Iccs(board.mvLast);
 	  var value = "" + board.mvLast;
-	  _moveList.push(text);
+	  if(_nowTurn==0){
+		_moveList.push(text);
+		_nowTurn = 1; 
+	  }
+	  else{
+		var s = _moveList.pop();
+		s += text;
+		_moveList.push(s);
+		_nowTurn = 0;
+	  }
 	  blo0.blShowObj2Div(divMoveList,_moveList);
+
+     try {
+		id_select_MoveList.add(createOption(text, value, false));
+	  } catch (e) {
+		id_select_MoveList.add(createOption(text, value, true));
+	  }
+	  id_select_MoveList.scrollTop = selMoveList.scrollHeight;
+
 	};
+	function _moveList_change() {
+	  var board = _cchessBoard;
+	  var selMoveList = id_select_MoveList;
+	  if (board.result == RESULT_UNKNOWN) {
+		selMoveList.selectedIndex = selMoveList.options.length - 1;
+		return;
+	  }
+	  var from = board.pos.mvList.length;
+	  var to = selMoveList.selectedIndex;
+	  if (from == to + 1) {
+		return;
+	  }
+	  if (from > to + 1) {
+		for (var i = to + 1; i < from; i ++) {
+		  board.pos.undoMakeMove();
+		}
+	  } else {
+		for (var i = from; i <= to; i ++) {
+		  board.pos.makeMove(parseInt(selMoveList.options[i].value));
+		}
+	  }
+	  board.flushBoard();
+	}
 	function _newClick(sq_) { 
 					function myA_I (c){ 
                 					if(c==3) return "a";
