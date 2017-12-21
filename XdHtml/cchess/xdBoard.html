@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb_2312-80" />
-    <title>xd cchess III</title>
+    <title>xdBoard</title>
     <script type="text/javascript" src="../blclass.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/book.js"></script>
     <script type="text/javascript" src="https://littleflute.github.io/cchess0/cchess/position.js"></script>
@@ -13,12 +13,13 @@
   </head>
  <body>
     <div id = "xdMainDiv" style="border:1px green solid;">
-	<a href="?xd=0">V0.0.22</a>
+	<a href="?xd=0">V0.0.46</a>
 	<a href="../index.html">[..]</a>
 	<a href="./index.html">[chess]</a>
 	<a target = "_blank" href="https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/xdBoard.html">github*</a>
 	</div>  
- 
+
+    <div id = "xdBoard0" style="border:1px brown solid;height='100%';">
       <span  style="float:left;margin-right:10px">
         <div id="container"style="border:1px blue solid;" ></div>
       </span>
@@ -54,7 +55,7 @@
         </select></div>
       </div>
 	  </span> 
-
+    </div>
     <script type="text/javascript"><!--
 "use strict";
 
@@ -141,7 +142,116 @@ function moveList_change() {
   }
   board.flushBoard();
 }
+function _CtrlClass(){
+	var v = "v0.0.34";
+	var _myMsgWrap = null;
+	var _myBoardWrap = null;
+	var divMsg = null;
+	var _cchessBoard = null;
+	var _bCreate = false;
+	this.blrBoard0 = function(b,d){  
+		_on_off_div(b,xdBoard0);
+	};
+	this.blrBoard = function(b,d){
+	    if(!_bCreate){
+			_myMsgWrap = blo0.blMDiv(document.body,"id_div__myMsgWrap","_myMsgWrap:",10,30,400,200,"green");  
+			divMsg = blo0.blDiv(_myMsgWrap,_myMsgWrap.id+"divMsg","divMsg",blGrey[0]);
+			_myBoardWrap = blo0.blMDiv(document.body,"id_div___myBoardWrap","_myBoard:",250,-10,400,200,"brown"); 
+			var divBoard = blo0.blDiv(_myBoardWrap,_myBoardWrap.id+"_divBoard","",blGrey[0]);
+			var imgPath = "https://littleflute.github.io/cchess0/cchess/images/";
+			var soundsPath = "https://littleflute.github.io/cchess0/cchess/sounds/";	
+			_cchessBoard = new Board(divBoard,imgPath , soundsPath); 
+			_cchessBoard.computer = 1;
+			_cchessBoard.clickSquare = _newClick;
+			_bCreate = true;
+		}
+		_on_off_div(b,_myBoardWrap);
+		_on_off_div(b,_myMsgWrap);
 
+	};
+	this.blrRestart_computer_1 = function(b,d){
+	    if(!_bCreate){
+			bl$("blrBoard").click();
+		}
+		if(_myBoardWrap.style.display=="none"){
+			bl$("blrBoard").click();
+		}
+		_cchessBoard.computer = 1;
+		_cchessBoard.restart(STARTUP_FEN[selHandicap.selectedIndex]);
+	};
+	this.blrRestart_computer_0 = function(b,d){
+	    if(!_bCreate){
+			bl$("blrBoard").click();
+		}
+		if(_myBoardWrap.style.display=="none"){
+			bl$("blrBoard").click();
+		}
+		_cchessBoard.computer = 0;
+		_cchessBoard.restart(STARTUP_FEN[selHandicap.selectedIndex]);
+	};
+	this.blhRun = function(){
+		var d = blo0.blMDiv(document.body,"id_div__CtrlClass","_CtrlClass:",850,50,400,200,"purple");  
+		var dShowMe = blo0.blDiv(d,d.id+"dShowMe","dShowMe",blGrey[0]);
+		blo0.blShowObj2Div(dShowMe,this);
+		bl$("blrBoard0").click();
+	};
+	function _newClick(sq_) { 
+					function myA_I (c){ 
+                					if(c==3) return "a";
+									if(c==4) return "b";
+									if(c==5) return "c";
+									if(c==6) return "d";
+									if(c==7) return "e";
+									if(c==8) return "f";
+									if(c==9) return "g";
+									if(c==10) return "h";
+									if(c==11) return "i";
+								  }
+					function my0_9 (c){ 
+                					if(c==3) return 9;
+									if(c==4) return 8;
+									if(c==5) return 7;
+									if(c==6) return 6;
+									if(c==7) return 5;
+									if(c==8) return 4;
+									if(c==9) return 3;
+									if(c==10) return 2;
+									if(c==11) return 1;
+									if(c==12) return 0;
+								  }
+  					var sq = this.flipped(sq_);
+					var s = "sq_:" + sq_;
+					s += "sq:" + sq;
+					s += "xy:" + myA_I(sq & 15);
+					s +=  my0_9(sq >> 4);
+    
+					divMsg.innerHTML = s;
+    
+    
+				  if (this.busy || this.result != RESULT_UNKNOWN) {
+					return;
+				  }
+				  var pc = this.pos.squares[sq];
+				  if ((pc & SIDE_TAG(this.pos.sdPlayer)) != 0) {
+					this.playSound("click");
+					if (this.mvLast != 0) {
+					  this.drawSquare(SRC(this.mvLast), false);
+					  this.drawSquare(DST(this.mvLast), false);
+					}
+					if (this.sqSelected) {
+					  this.drawSquare(this.sqSelected, false);
+					}
+					this.drawSquare(sq, true);
+					this.sqSelected = sq;
+				  } else if (this.sqSelected > 0) {
+					this.addMove(MOVE(this.sqSelected, sq), false);
+				  }
+				}
+}
+var oCtrl = new _CtrlClass;
+oCtrl.blhRun();
+
+	
     --></script> 
   </body>
 
