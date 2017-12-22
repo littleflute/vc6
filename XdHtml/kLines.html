@@ -1,5 +1,4 @@
-<HTML>
-<HEAD>
+<HTML><HEAD>
 <META NAME="GENERATOR" Content="Microsoft Developer Studio">
 <META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
 <TITLE>kLines.html</TITLE> 
@@ -15,41 +14,56 @@
  
 <script>   
 function _YearsClass(o){
-	var			ko	= o;
-	this.v				= "v0.0.3";
-	this.name			= "_YearsClass";	
+	var			ko		= o;
+	var			_ta		= null;
+	var		_divShow	= null;
+	var		_jg			= null; 
 	this.blrLoadData	= function(b,d){ 
-		ko.blhLoadYearData("klines/years.js");
+		if(_ta==null){
+			var ta = blo0.blTextarea(d,"id_ta_4_years_data","pu",blGrey[3]);
+			ta.style.width = "100%";
+			ta.style.height = "200px";
+			blo0.blScript("id_script_years_data","klines/years.js");
+		}
+		_on_off_div(b,d);
+	} 	
+	this.bll1				= "_YearsClass: v0.0.24";
+	this.blrShow	= function(b,d){ 
+		if(_divShow==null){
+			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
+			var div4jg	= blo0.blDiv(_divShow,_divShow.id+"divMsg","divMsg",blGrey[0]); 
+			_jg			= new jsGraphics(div4jg.id);
+			_jg.setColor("red"); 
+			_jg.fillRect(50,50,10,10);
+			_jg.paint();
+			 
+		}
+		_on_off_div(b,_divShow);
+	} 
+	this.blrDraw	= function(b,d){ 
+		if(_jg!=null){
+			_jg.clear();
+			_jg.setColor("gold"); 
+			_jg.fillRect(150,50,101,10);
+			_jg.drawString(new Date,100,100);
+			_jg.paint();			 
+		} 
 	} 
 }
 
 function _blKinesClass(){
-	var _divYears = null;
+	var _yearObj	= null; 
 	var _divMonths = null;
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.113";
-	this.blhLoadYearData	= function(f){
-		if(_jgY==null){
-			_jgY = new jsGraphics(_divYears.id);
-			var jg = _jgY;
-			jg.clear();
-			jg.drawString(f + ":" + new Date, 400,300); 
-			_jgKline1(jg,1,1330,1380,1280,1324);
-			_jgKline1(jg,2,1325,1370,1280,1304);
-			_jgKline1(jg,3,1310,1370,1290,1314);
-			_jgKline1(jg,4,1310,1355,1290,1311);
-		}
-	};
+	this.classV		= "v0.0.121"; 
 	
 	this.blrYear	= function(b,d){ 
-		if(_divYears==null){
-			_divYears = _initDrawing("id_years",430,10,800,400);  
-			var y = new _YearsClass(_me);
-			blo0.blShowObj2Div(d,y);
-		}
-		_on_off_div(b,_divYears);
+		if(_yearObj==null){ 
+			_yearObj = new _YearsClass(_me);
+			blo0.blShowObj2Div(d,_yearObj);
+		} 
 		_on_off_div(b,d);
 	}
 	this.bll1	= "_blKinesClass_1_";
