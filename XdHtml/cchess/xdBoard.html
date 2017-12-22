@@ -13,7 +13,7 @@
   </head>
  <body>
     <div id = "xdMainDiv" style="border:1px green solid;">
-	<a href="?xd=0">V0.0.113</a>
+	<a href="?xd=0">V0.0.114</a>
 	<a href="../index.html">[..]</a>
 	<a href="./index.html">[chess]</a>
 	<a target = "_blank" href="https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/xdBoard.html">github*</a>
@@ -143,7 +143,7 @@ function moveList_change() {
   board.flushBoard();
 }
 function _CtrlClass(){
-	var v = "v0.0.115";
+	var v = "v0.0.116";
 	var _myPuJSWrap = null;
 	var _myMsgWrap = null;
 	var _myBoardWrap = null;
@@ -221,12 +221,7 @@ function _CtrlClass(){
 			_myPuJSWrap = blo0.blMDiv(document.body,"id_div__myPuJSWrap","_myPuJSWrap:",810,330,400,200,"blue");  
 			var ld = blo0.blDiv(_myPuJSWrap,"id_div_pu_list","ld",blGrey[5]);
 			ld.board = _cchessBoard;
-			if(!this.blFunListPath){
-				blo0.blScript("id_script_pu_list","pu/puList.js");
-			}
-			else{
-				blo0.blScript("id_script_pu_list",this.blFunListPath + "pu/puList.js");
-			}
+			blo0.blScript("id_script_pu_list","pu/puList.js");
 		}
 		_on_off_div(b,_myPuJSWrap);
 	};
