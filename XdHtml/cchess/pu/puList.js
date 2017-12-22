@@ -10,7 +10,13 @@ var ls = [
 var ld = bl$("id_div_pu_list");
 
 if(ld){
-	ld.innerHTML = "v0.0.35 ";
+	var html = "";
+	html += "<a target='_blank' href='";
+	html += "https://github.com/littleflute/vc6/blob/master/XdHtml/cchess/pu/puList.js";
+	html += "'>";
+	html += "v0.0.37";
+	html += "</a>";
+	ld.innerHTML = html;
 	var lv = blo0.blDiv(ld,ld.id+"_lv_","lv",blGrey[5]);
 	var div4TA = blo0.blDiv(ld,ld.id+"div4TA","div4TA",blGrey[1]);
 	var divToolBar = blo0.blDiv(ld,ld.id+"divToolBar","divToolBar",blGrey[5]);
@@ -59,6 +65,7 @@ if(ld){
 					var a = t.charAt(4);
 					var l4 = a.toLowerCase();  
 					ld.board.blhGo(ld.board,l1,l2,l3,l4);
+					_btn.style.backgroundColor = "gold";
 				}
 			}(b);
 			
