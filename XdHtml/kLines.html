@@ -15,16 +15,40 @@
  
 <script>   
 function _blKinesClass(){
-	this.classV		= "v0.0.74";//xd_2do
+	var _divYears = null;
+	var _divMonths = null;
+	var _divDays = null;
+	this.classV		= "v0.0.90";
 	this.className	= "_blKinesClass";
+	
 	this.blrYear	= function(b,d){ 
-		_LoadData("id_years",430,10,800,400); 
+		if(_divYears==null){
+			_divYears = _LoadData("id_years",430,10,800,400);  
+		}
+		_on_off_div(b,_divYears);
 	}
 	this.blrMonth	= function(b,d){
-		_LoadData("id_Months",330,110,800,400); 
+		if(_divMonths==null){
+			_divMonths = _LoadData("id_Months",330,110,800,400); 
+		}
+		_on_off_div(b,_divMonths);
 	}
-	this.blrDay	= function(b,d){
-		_LoadData("id_Days",230,210,800,400); 
+	this.blrDay	= function(b,d){		
+		if(_divDays==null){
+			_divDays = _LoadData("id_Days",230,210,800,400);  
+		}
+		_on_off_div(b,_divDays);
+	}
+	this.blrAboutMe= function(b,d){		
+		var s = "";
+		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/kLines.html'"
+		s += " style='color:gold;'";
+		s +=">";
+		s += "upate";
+		s += "</a>";
+		d.innerHTML = s;
+
+		_on_off_div(b,d);
 	}
 	var v = document.getElementById("blPageV");
 	if(v) v.innerHTML = this.classV;
@@ -34,12 +58,13 @@ function _blKinesClass(){
  
 	
 	function _LoadData(id,x,y,w,h) {    
-		_initDrawing(id,x,y,w,h); 
+		var r = _initDrawing(id,x,y,w,h); 
 		var jg = new jsGraphics(id);
 		_jgKline1(jg,1,1330,1380,1280,1324);
 		_jgKline1(jg,2,1325,1370,1280,1304);
 		_jgKline1(jg,3,1310,1370,1290,1314);
 		_jgKline1(jg,4,1310,1355,1290,1311);
+		return r;
 	} 
 	function _getXY(){
 			
@@ -143,7 +168,9 @@ function _blKinesClass(){
 	}
 	function _initDrawing(id,x,y,w,h) {   
 		var _id = id;
-		var c = blkDiv(document.body,_id,"js",x,y,w,h,"skyblue","absolute");
+		var divReturn = blkDiv(document.body,_id,"js",x,y,w,h,"skyblue","absolute");
+		divReturn.style.display = "none";
+		var c = divReturn;
 		c.style.zIndex = 1;
 		c.onclick = function(){
 			var i	= parseInt(c.style.zIndex);
@@ -202,6 +229,8 @@ function _blKinesClass(){
 		
 		c.onmousemove = showCoords;
 		c.onmouseout = clearCoords; 
+
+		return divReturn;
 	}  
 	var		_Go		= function(){
 		var b1 = blo.blBtn(xddbg,"b1","b1","red");
