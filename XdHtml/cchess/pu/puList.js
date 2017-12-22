@@ -12,9 +12,9 @@ var ld = bl$("id_div_pu_list");
 if(ld){
 	var html = "";
 	html += "<a target='_blank' href='";
-	html += "https://github.com/littleflute/vc6/blob/master/XdHtml/cchess/pu/puList.js";
+	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/puList.js";
 	html += "'>";
-	html += "v0.0.37";
+	html += "v0.0.38";
 	html += "</a>";
 	ld.innerHTML = html;
 	var lv = blo0.blDiv(ld,ld.id+"_lv_","lv",blGrey[5]);
