@@ -14,19 +14,45 @@
 <script type="text/javascript" src="xd.js"></script> 
  
 <script>   
+function _YearsClass(o){
+	var			ko	= o;
+	this.v				= "v0.0.3";
+	this.name			= "_YearsClass";	
+	this.blrLoadData	= function(b,d){ 
+		ko.blhLoadYearData("klines/years.js");
+	} 
+}
+
 function _blKinesClass(){
 	var _divYears = null;
 	var _divMonths = null;
 	var _divDays = null;
-	this.classV		= "v0.0.90";
-	this.className	= "_blKinesClass";
+	var _jgY		= null;
+	var _me			= this;
+	this.classV		= "v0.0.113";
+	this.blhLoadYearData	= function(f){
+		if(_jgY==null){
+			_jgY = new jsGraphics(_divYears.id);
+			var jg = _jgY;
+			jg.clear();
+			jg.drawString(f + ":" + new Date, 400,300); 
+			_jgKline1(jg,1,1330,1380,1280,1324);
+			_jgKline1(jg,2,1325,1370,1280,1304);
+			_jgKline1(jg,3,1310,1370,1290,1314);
+			_jgKline1(jg,4,1310,1355,1290,1311);
+		}
+	};
 	
 	this.blrYear	= function(b,d){ 
 		if(_divYears==null){
-			_divYears = _LoadData("id_years",430,10,800,400);  
+			_divYears = _initDrawing("id_years",430,10,800,400);  
+			var y = new _YearsClass(_me);
+			blo0.blShowObj2Div(d,y);
 		}
 		_on_off_div(b,_divYears);
+		_on_off_div(b,d);
 	}
+	this.bll1	= "_blKinesClass_1_";
 	this.blrMonth	= function(b,d){
 		if(_divMonths==null){
 			_divMonths = _LoadData("id_Months",330,110,800,400); 
