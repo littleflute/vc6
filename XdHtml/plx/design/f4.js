@@ -1,6 +1,6 @@
 var f4 = function(b,d){
   //f4.js Timer
-  var _v = "v0.0.24";
+  var _v = "v0.0.37";
   var _myUI = function(b,d){ 
       var _myView	= blo0.blDiv(d,d.id + "_myView","_myView",blGrey[5]);
 	  if(!_myView.blFirst){
@@ -37,9 +37,8 @@ var f4 = function(b,d){
 
   }
   function _TimerClass(v){ 
-    var _view = v; 
+    var _view	= v; 
 	var ds		= [];
-
 		var seconds = 1000;
 		var minutes = 1000 * 60;
 		var hours = minutes * 60;
@@ -58,8 +57,25 @@ var f4 = function(b,d){
 		_view.innerHTML = s;
 	};
 
-	this.blrD1 = function(b,d){
-		_sec(1);
+	this.blrBPM_10 = function(b,d){
+		if(!d.nTimes)
+		{
+			d.nTimes = 1;
+			d.t0		= (new Date).getTime();
+			d.innerHTML = d.nTimes;
+		}
+		else if (d.nTimes==1){
+			d.nTimes++;
+			d.t1		= (new Date).getTime();
+			var dt		= d.t1 - d.t0;
+			var bpm		= 60 * 1000 * 10/dt;
+			d.innerHTML = "bpm= " + bpm;
+		}
+		else if (d.nTimes==2){
+			d.nTimes = 1;
+			d.t0		= (new Date).getTime();
+			d.innerHTML = d.nTimes;
+		}
 	};
 
 	this.blrD2 = function(b,d){
@@ -67,6 +83,12 @@ var f4 = function(b,d){
 	};
 	this.blrGetDate = function(b,d){
 		ds.push(new Date);
+		if(ds.length>1){
+			var t = ds[ds.length-1].getTime() - ds[0].getTime();
+			var beats = ds.length-1; 
+			var bmp = 60*1000 * beats/t;
+			_view.innerHTML = "bpm: " + bmp;
+		}
 		blo0.blShowObj2Div(d,ds);
 	};
   }
