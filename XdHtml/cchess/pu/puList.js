@@ -14,7 +14,7 @@ if(ld){
 	html += "<a target='_blank' href='";
 	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/puList.js";
 	html += "'>";
-	html += "v0.0.38";
+	html += "v0.0.44";
 	html += "</a>";
 	ld.innerHTML = html;
 	var lv = blo0.blDiv(ld,ld.id+"_lv_","lv",blGrey[5]);
@@ -41,6 +41,9 @@ if(ld){
 				}
 			}
 		}(i);
+		var url = "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/f";
+		url += i + ".js";
+		var l = blo0.blLink(ld,ld.id+"UpdateHref"+i,"u*",url,"Salmon");
 
 	}
 	
