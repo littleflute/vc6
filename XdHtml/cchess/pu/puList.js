@@ -14,7 +14,7 @@ if(ld){
 	html += "<a target='_blank' href='";
 	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/puList.js";
 	html += "'>";
-	html += "v0.0.46";
+	html += "v0.0.48";
 	html += "</a>";
 	html += "<a target='_blank' href='";
 	html += "pu/puList.js";
@@ -51,7 +51,9 @@ if(ld){
 		var l = blo0.blLink(ld,ld.id+"UpdateHref"+i,"u*",url,"Salmon");
 
 	}
-	
+	;
+		var l = blo0.blLink(ld,ld.id+"new","new+","https://github.com/littleflute/vc6/new/master/XdHtml/cchess/pu","Salmon");
+
 	var btnParsePu = blo0.blBtn(divToolBar,divToolBar.id+"btnParsePu","btnParsePu",blGrey[0]);
 	btnParsePu.onclick = function(n_){
 		var ta = bl$( "id_ta_4_puList");		
