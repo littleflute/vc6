@@ -1,11 +1,12 @@
 var ls = [
-	"f0.js",
-	"f1.js",
-	"f2.js",
-	"f3.js",
-	"f4.js",
-	"f5.js",
-	"f6.js",
+	"f0",
+	"f1",
+	"f2",
+	"f3",
+	"f4",
+	"f5",
+	"f6",
+	"xd1",
 ];
 var ld = bl$("id_div_pu_list");
 
@@ -14,7 +15,7 @@ if(ld){
 	html += "<a target='_blank' href='";
 	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/puList.js";
 	html += "'>";
-	html += "v0.0.48";
+	html += "v0.0.53";
 	html += "</a>";
 	html += "<a target='_blank' href='";
 	html += "pu/puList.js";
@@ -29,30 +30,29 @@ if(ld){
 	ta.style.width = "100%";
 	ta.style.height = "200px";
 	for(i in ls){
-		var b = blo0.blBtn(ld,ld.id+"_btn_"+i,"f"+i,blGrey[0]);
-		b.onclick = function(n_){
+		var b = blo0.blBtn(ld,ld.id+"_btn_"+i,ls[i],blGrey[0]);
+		b.onclick = function(_fileName){
 			return function(){
-				var idScript = "id_script_f" + n_; 
+				var idScript = "id_script_" + _fileName; 
 				if(bl$(idScript)){
 					var ta = bl$( "id_ta_4_puList" );
-					var s = "ta.value = ta.f" + n_;
+					var s = "ta.value = ta." + _fileName;
 					eval(s);
 				}
 				else{
-					s = "pu/f" + n_ + ".js";
+					s = "pu/" + _fileName + ".js";
 					lv.innerHTML = s;
 
 					blo0.blScript(idScript,s);
 				}
 			}
-		}(i);
-		var url = "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/f";
-		url += i + ".js";
+		}(ls[i]);
+		var url = "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/";
+		url += ls[i];
 		var l = blo0.blLink(ld,ld.id+"UpdateHref"+i,"u*",url,"Salmon");
 
-	}
-	;
-		var l = blo0.blLink(ld,ld.id+"new","new+","https://github.com/littleflute/vc6/new/master/XdHtml/cchess/pu","Salmon");
+	} 
+	var l = blo0.blLink(ld,ld.id+"new","new+","https://github.com/littleflute/vc6/new/master/XdHtml/cchess/pu","Salmon");
 
 	var btnParsePu = blo0.blBtn(divToolBar,divToolBar.id+"btnParsePu","btnParsePu",blGrey[0]);
 	btnParsePu.onclick = function(n_){
