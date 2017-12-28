@@ -8,6 +8,7 @@ var ls = [
 	"f6",
 	"xd1",
 	"xd2",
+	"xd3",
 ];
 var ld = bl$("id_div_pu_list");
 
@@ -16,7 +17,7 @@ if(ld){
 	html += "<a target='_blank' href='";
 	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/puList.js";
 	html += "'>";
-	html += "v0.0.54";
+	html += "v0.0.55";
 	html += "</a>";
 	html += "<a target='_blank' href='";
 	html += "pu/puList.js";
