@@ -12,7 +12,7 @@ if(ld){
 	html += "<a target='_blank' href='";
 	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/xdPuList.js";
 	html += "'>";
-	html += "v0.0.57";
+	html += "v0.0.58";
 	html += "</a>";
 	html += "<a target='_blank' href='";
 	html += "pu/xdPuList.js";
@@ -45,7 +45,7 @@ if(ld){
 			}
 		}(ls[i]);
 		var url = "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/";
-		url += ls[i];
+		url += ls[i] + ".js";
 		var l = blo0.blLink(ld,ld.id+"UpdateHref"+i,"u*",url,"Salmon");
 
 	} 
