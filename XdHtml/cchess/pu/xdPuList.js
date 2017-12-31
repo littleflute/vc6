@@ -4,6 +4,7 @@ var ls = [
 	"xd3",
 	"xd4",
 	"xd5",
+	"xd6",
 ];
 var ld = bl$("id_div_xd_pu_list");
 
@@ -12,7 +13,7 @@ if(ld){
 	html += "<a target='_blank' href='";
 	html += "https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/pu/xdPuList.js";
 	html += "'>";
-	html += "v0.0.58";
+	html += "v0.0.59";
 	html += "</a>";
 	html += "<a target='_blank' href='";
 	html += "pu/xdPuList.js";
