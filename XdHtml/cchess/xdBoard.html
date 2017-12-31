@@ -13,7 +13,7 @@
   </head>
  <body>
     <div id = "xdMainDiv" style="border:1px green solid;">
-	<a href="?xd=0">V0.0.126</a>
+	<a href="?xd=0">V0.0.130</a>
 	<a href="../index.html">[..]</a>
 	<a href="./index.html">[chess]</a>
 	<a target = "_blank" href="https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/xdBoard.html">github*</a>
@@ -143,7 +143,7 @@ function moveList_change() {
   board.flushBoard();
 }
 function _CtrlClass(){
-	var v = "v0.0.122";
+	var v = "v0.0.124";
 	var _myPuJSWrap = null;
 	var _xdPuJSWrap = null;
 	var _myMsgWrap = null;
@@ -164,7 +164,7 @@ function _CtrlClass(){
 			var divSelList = blo0.blDiv(_myMsgWrap,_myMsgWrap.id+"divSelList","divSelList",blGrey[3]); 
 			_blSelect(divSelList,"id_select_MoveList","10","=== start ===");
 			divMoveList = blo0.blDiv(_myMsgWrap,_myMsgWrap.id+"divMoveList","divMoveList",blGrey[5]);
-			_myBoardWrap = blo0.blMDiv(document.body,"id_div___myBoardWrap","_myBoard:",250,-10,400,200,"brown"); 
+			_myBoardWrap = blo0.blMDiv(document.body,"id_div___myBoardWrap","_myBoard:",150,-10,400,200,"brown"); 
 			var divBoard = blo0.blDiv(_myBoardWrap,_myBoardWrap.id+"_divBoard","",blGrey[0]);
 			var imgPath = "https://littleflute.github.io/cchess0/cchess/images/";
 			var soundsPath = "https://littleflute.github.io/cchess0/cchess/sounds/";	
@@ -236,7 +236,7 @@ function _CtrlClass(){
 	};
 	this.blrLoadPuJS = function(b,d){  
 		if(_myPuJSWrap==null){
-			_myPuJSWrap = blo0.blMDiv(document.body,"id_div__myPuJSWrap","_myPuJSWrap:",810,130,400,200,"blue");  
+			_myPuJSWrap = blo0.blMDiv(document.body,"id_div__myPuJSWrap","_myPuJSWrap:",810,10,400,200,"blue");  
 			var ld = blo0.blDiv(_myPuJSWrap,"id_div_pu_list","ld",blGrey[5]);
 			ld.board = _cchessBoard;
 			blo0.blScript("id_script_pu_list","pu/puList.js");
@@ -245,7 +245,7 @@ function _CtrlClass(){
 	};
 	this.blrLoadXdPu = function(b,d){  
 		if(_xdPuJSWrap==null){
-			_xdPuJSWrap = blo0.blMDiv(document.body,"id_div__XdPuWrap","_myPuJSWrap:",810,130,400,200,"green");  
+			_xdPuJSWrap = blo0.blMDiv(document.body,"id_div__XdPuWrap","_myPuJSWrap:",810,5,400,200,"green");  
 			var ld = blo0.blDiv(_xdPuJSWrap,"id_div_xd_pu_list","ld",blGrey[5]);
 			ld.board = _cchessBoard;
 			blo0.blScript("id_script_xd_pu_list","pu/xdPuList.js");
@@ -253,7 +253,7 @@ function _CtrlClass(){
 		_on_off_div(b,_xdPuJSWrap);
 	};
 	this.blhRun = function(){
-		var d = blo0.blMDiv(document.body,"id_div__CtrlClass","_CtrlClass:",850,50,400,200,"purple");  
+		var d = blo0.blMDiv(document.body,"id_div__CtrlClass","_CtrlClass:",680,50,400,200,"purple");  
 		var dShowMe = blo0.blDiv(d,d.id+"dShowMe","dShowMe",blGrey[0]);
 		blo0.blShowObj2Div(dShowMe,this);
 		bl$("blrBoard0").click();
