@@ -1,6 +1,6 @@
 var f0 = function(b,d){
   //f0.js * xau update data
-  var _v			= "v0.0.46";
+  var _v			= "v0.0.51";
   var url			= "http://api.baidao.com/api/hq/npdata.do?ids=201"; 
  
 
@@ -23,11 +23,20 @@ var f0 = function(b,d){
   }
   var _ui = new _UIClass;
   function _UIClass(){  
+    var _nTimes = 0;
+	var _html	= "";
     this.blrGetNewData	= function(b,d)
     { 
 	  _w.blhSetView(d);
 	  var s = url + "&t=" + new Date;
       blo0.blAjx(_w,s);
+	  if(_nTimes==0){
+		_html = b.innerHTML;
+	  }
+	  else{
+		b.innerHTML = _html + ":" + _nTimes;
+	  }
+	  _nTimes++;
     }
     this.blrAboutMe = function(b,d){
 	  var s = _v;
