@@ -1,8 +1,7 @@
-var f0 = function(b,d){
+function(b,d){
   //f0.js * xau update data
-  var _v			= "v0.0.38";
+  var _v			= "v0.0.39";
   var url			= "http://api.baidao.com/api/hq/npdata.do?ids=201"; 
- 
 
   var _w = new _ajxWorkerClass;
   function _ajxWorkerClass(){ 
@@ -23,8 +22,9 @@ var f0 = function(b,d){
   function _UIClass(){  
     this.blrGetNewData	= function(b,d)
     { 
-	  _w.blhSetView(d);
-      blo0.blAjx(_w,url);
+	  _w.blhSetView(d);  
+	  var s = url + "&" + new Date;
+      blo0.blAjx(_w,s);
     }
     this.blrAboutMe = function(b,d){
 	  var s = _v;
@@ -49,10 +49,4 @@ var f0 = function(b,d){
   };
   _myUI(b,d);
  
-};
-
-var ta = bl$( "id_ta_4_NewClass" );
-if( ta ){
-	ta.f0 = f0;
-	ta.value = ta.f0;
 }
