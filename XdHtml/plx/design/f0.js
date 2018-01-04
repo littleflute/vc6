@@ -1,6 +1,6 @@
 var f0 = function(b,d){
   //f0.js * xau update data
-  var _v			= "v0.0.43";
+  var _v			= "v0.0.46";
   var url			= "http://api.baidao.com/api/hq/npdata.do?ids=201"; 
  
 
@@ -12,7 +12,9 @@ var f0 = function(b,d){
 		_myView.innerHTML = txt;
 		var s = "var o = " + txt;
 		eval(s);
-		blo0.blShowObj2Div(_myView,o[0]);
+		_w.kline = o[0];
+		blo0.blShowObj2Div(_myView,_w.kline);
+		blrGetNewData.click();
     } 
     this.blhSetView	= function(d)
     {
