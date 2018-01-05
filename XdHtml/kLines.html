@@ -14,9 +14,10 @@
  
 <script>   
 function _showClass(ta){
-	var _v	= "_showClass_v0.0.55";
+	var _v	= "_showClass_v0.0.64";
 	var _ta = ta;
 	var _jg = null;
+	var _divMouse = null;
 	
 	function _parseKDatas(jg,txt) { 
 		eval(txt); 
@@ -89,6 +90,9 @@ function _showClass(ta){
 					var w = x3-x1;
 					var h = y3-y1;
 					this.clear();
+					this.setColor("blue"); 
+					this.fillRect(0,0,100,100); 
+
 					this.setColor("green");  
 					this.drawLine(x1,y1,x2,y2);
 					this.drawLine(x2,y2,x3,y3);
@@ -118,7 +122,54 @@ function _showClass(ta){
 				}
 			}(_jg);
  
+	function _blkDiv(oBoss,id,html,x,y,w,h,color,p){
+		var r = document.getElementById(id);
+		if(!r){
+			r = document.createElement("div");
+			r.id = id;
+			if(oBoss!=null) oBoss.appendChild(r);
+		}
+		var s = r.style;
+		s.border = "1px solid #3d3d3d";
+		s.position = p;//"absolute";
+		s.top	= y + "px";
+		s.left = x + "px";
+		s.width = w +"px";
+		s.height = h + "px";
+		s.backgroundColor = color;
+		s.display = "block";
 		
+		r.innerHTML = html;  
+		r.jg		= null;
+		return r;
+	}
+	function _showMouse(x,y) {  
+		if(_divMouse==null){
+			_divMouse = _blkDiv(document.body,"id_div_showMouse","",0,0,0,0,"blue","absolute");
+			_divMouse.jg = new jsGraphics(_divMouse.id);
+		}   
+		var jgLine = _divMouse.jg;
+		jgLine.clear();
+		jgLine.setColor("red");
+					var x1 = parseInt(_divShow.h1.style.left);
+					var y1 = parseInt(_divShow.h1.style.top);
+					var x3 = parseInt(_divShow.h3.style.left);
+		jgLine.drawString("x1:"+x1, x, y); 
+		var xa = parseInt(_divShow.style.left) + x1;
+		var xb = parseInt(_divShow.style.left) + x3; 
+		jgLine.drawLine(xa,y, xb, y); 
+		jgLine.paint();
+	}
+	div4jg.onmousemove = function(){ 
+		var c = _getXY();
+		var x = c.x - parseInt(_divShow.style.left);
+		var y = c.y - parseInt(_divShow.style.top); 
+
+		var kVal = hMax + (hMin-hMax)/(yMax-yMin)*(y-yMin); 
+		var coor =   "X: " + x + ", Y: " + y + ", kVal: " + kVal; 
+		_divShow.h2.innerHTML = coor;
+		_showMouse(c.x,c.y);
+	};	 
 	this.mainDiv   = _divShow;
 	this.blhUpdate = function(x1,y1,x2,y2){ 
 					
@@ -162,7 +213,7 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.134";
+	this.bll1				= "_YearsClass: v0.0.135";
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
 			_showDiv = new _showClass(_ta);
@@ -193,7 +244,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.145"; 
+	this.classV		= "v0.0.151"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
@@ -300,7 +351,7 @@ function _blKinesClass(){
 		var txt = id + "_" + c.style.top + "_" + c.style.zIndex; 
 		var jgLine = c.jg;
 		jgLine.clear();
-		jgLine.setColor("red");
+		jgLine.setColor("gold");
 		jgLine.drawString(txt, x, y); 
 		jgLine.drawLine(0,y, 400, y); 
 		jgLine.paint();
