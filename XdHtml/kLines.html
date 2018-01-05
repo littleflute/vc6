@@ -13,7 +13,7 @@
 <script type="text/javascript" src="xd.js"></script> 
  
 <script>   
-var g_v_file_kLines_html = "v0.1.1";
+var g_v_file_kLines_html = "v0.1.6";
 
 function _showClass(o){
 	var _v	= "_showClass_v0.0.74";
@@ -217,10 +217,19 @@ function _nowClass(o){
 		if(_ta==null){
 			_ta = blo0.blTextarea(d,"id_ta_4_now_data","",blGrey[3]);
 			_ta.style.width = "100%";
-			_ta.style.height = "100px"; 
+			_ta.style.height = "20px"; 
 			_ta.Ds = [];
+			_ta.taAll = blo0.blTextarea(d,"id_ta_4_all_datas","",blGrey[0]);
+			_ta.taAll.style.width = "100%";
+			_ta.taAll.style.height = "80px"; 
 			_ta.blhNewData = function(txt){
-				_ta.value = txt;
+				var s = "var o = " + txt;
+				eval(s);
+				var k = o[0];
+				_ta.value = k.pricetime + "," + k.now;
+				_ta.Ds.unshift(k.pricetime);
+
+				_ta.taAll.value = _ta.Ds;
 			};
 		}
 		_on_off_div(b,d);
@@ -247,7 +256,7 @@ function _nowClass(o){
 			var s = "var o = " + txt;
 			eval(s);
 			_w.kline = o[0];
-			blo0.blShowObj2Div(_myView,_w.kline);
+		//	blo0.blShowObj2Div(_myView,_w.kline);
 			_blhSet(110,10,400,300);
 			if(_ta!=null){
 				_ta.blhNewData(txt);
