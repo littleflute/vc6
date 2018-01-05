@@ -29,14 +29,20 @@ function _YearsClass(o){
 	} 	
 	this.blrUpdateData	= function(b,d){
 		var t = blo0.blTextarea(d, d.id + "ta" , "https://github.com/littleflute/vc6/edit/master/XdHtml/klines/years.js" , blGrey[2]);
-		t.style.width = "98%"; 
-		var d2 = blo0.blBtn(d,d.id+"_d2","makeLink","gray");
+		t.style.width = "98%";  
+		var d1 = blo0.blBtn(d,d.id+"_d1","UpdateLink","gray");
+		d1.onclick = function(){
+			t.value = "https://github.com/littleflute/vc6/edit/master/XdHtml/klines/years.js";
+			var l = blo0.blLink(d,d.id+"UpdateLink","UpdateLink",t.value,"Salmon");
+		};
+		var d2 = blo0.blBtn(d,d.id+"_d2","VisitLink","gray");
 		d2.onclick = function(){
-			var l = blo0.blLink(d,d.id+"_link","link",t.value,"Salmon");
+			t.value = "klines/years.js";
+			var l = blo0.blLink(d,d.id+"VisitLink","VisitLink",t.value,"gold");
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.81";
+	this.bll1				= "_YearsClass: v0.0.85";
 	this.blrShow	= function(b,d){ 
 		if(_divShow==null){
 			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
