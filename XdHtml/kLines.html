@@ -78,7 +78,7 @@ function _showClass(ta){
 	_divShow.h3 = blo0.blHandle(_divShow,"_divShow_h3",50,50,15,15,"gold");
 	_divShow.h4 = blo0.blHandle(_divShow,"_divShow_h4",50,50,15,15,"gold");
 	_jg			= new jsGraphics(div4jg.id);
-	_jg.update = function(){				
+	_jg.update = function(){	
 					var x1 = parseInt(_divShow.h1.style.left);
 					var y1 = parseInt(_divShow.h1.style.top);
 					var x2 = parseInt(_divShow.h2.style.left);
@@ -89,6 +89,9 @@ function _showClass(ta){
 					var y4 = parseInt(_divShow.h4.style.top);
 					var w = x3-x1;
 					var h = y3-y1;
+		yMin = y1;		
+		yMax = y3;
+		xMin = x3;
 					this.clear();
 					this.setColor("blue"); 
 					this.fillRect(0,0,100,100); 
@@ -213,7 +216,7 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.135";
+	this.bll1				= "_YearsClass: v0.0.141";
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
 			_showDiv = new _showClass(_ta);
@@ -244,7 +247,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.151"; 
+	this.classV		= "v0.0.152"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
