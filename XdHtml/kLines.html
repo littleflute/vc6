@@ -199,11 +199,26 @@ function _nowClass(o){
 	var _me = this;
 	var _data = null;
 	this.blID = "id_div_show_nowClass";
+	var _ta = null;
+
 	this.blhGetData	= function(){
 		var r = "";
 		if(_data!=null) r = _data;
 		return r;
 	}
+	function _blhSet(x1,y1,x2,y2){ 
+		if(_showDiv!=null){
+			_showDiv.blhUpdate(x1,y1,x2,y2);			 
+		} 
+	} 
+	this.blrShowData	= function(b,d){ 
+		if(_ta==null){
+			_ta = blo0.blTextarea(d,"id_ta_4_now_data","",blGrey[3]);
+			_ta.style.width = "100%";
+			_ta.style.height = "100px"; 
+		}
+		_on_off_div(b,d);
+	} 	
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
 			_showDiv = new _showClass(_me);
@@ -213,7 +228,7 @@ function _nowClass(o){
 	} 
 	this.blrNow1 = function(b,d)
 	{ 
-	  var _v			= "v0.0.51";
+	  var _v			= "v0.0.52";
 	  var url			= "http://api.baidao.com/api/hq/npdata.do?ids=201"; 
  
 
@@ -227,6 +242,11 @@ function _nowClass(o){
 			eval(s);
 			_w.kline = o[0];
 			blo0.blShowObj2Div(_myView,_w.kline);
+			_blhSet(110,10,400,300);
+			if(_ta!=null){
+				_ta.value = txt;
+			}
+
 			blrGetNewData.click();
 		} 
 		this.blhSetView	= function(d)
