@@ -14,7 +14,7 @@
  
 <script>   
 function _showClass(ta){
-	var _v	= "_showClass_v0.0.54";
+	var _v	= "_showClass_v0.0.55";
 	var _ta = ta;
 	var _jg = null;
 	
@@ -120,15 +120,16 @@ function _showClass(ta){
  
 		
 	this.mainDiv   = _divShow;
-	this.blhUpdate = function(){		
-			_divShow.h1.style.left = "10px";
-			_divShow.h1.style.top = "50px";
-			_divShow.h2.style.left = "410px";
-			_divShow.h2.style.top = "10px";
-			_divShow.h3.style.left = "410px";
-			_divShow.h3.style.top = "310px";
-			_divShow.h4.style.left = "10px";
-			_divShow.h4.style.top = "310px"; 
+	this.blhUpdate = function(x1,y1,x2,y2){ 
+					
+			_divShow.h1.style.left = x1 + "px";
+			_divShow.h1.style.top =  y1 + "px";
+			_divShow.h2.style.left = x2 + "px";
+			_divShow.h2.style.top =  y1 + "px";
+			_divShow.h3.style.left = x2 + "px";
+			_divShow.h3.style.top =  y2 + "px";
+			_divShow.h4.style.left = x1 + "px";
+			_divShow.h4.style.top = y2 + "px"; 
 			if(_jg!=null)			_jg.update();
 	};	
  
@@ -161,7 +162,7 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.131";
+	this.bll1				= "_YearsClass: v0.0.133";
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
 			_showDiv = new _showClass(_ta);
@@ -169,9 +170,14 @@ function _YearsClass(o){
 			
 		_on_off_div(b,_showDiv.mainDiv);
 	} 
-	this.blrDraw	= function(b,d){ 
+	this.blrSet1	= function(b,d){ 
 		if(_showDiv!=null){
-			_showDiv.blhUpdate();			 
+			_showDiv.blhUpdate(10,10,400,300);			 
+		} 
+	} 
+	this.blrSet2	= function(b,d){ 
+		if(_showDiv!=null){
+			_showDiv.blhUpdate(100,100,500,400);			 
 		} 
 	} 
 }
@@ -182,7 +188,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.141"; 
+	this.classV		= "v0.0.143"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
