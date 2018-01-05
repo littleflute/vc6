@@ -27,7 +27,16 @@ function _YearsClass(o){
 		}
 		_on_off_div(b,d);
 	} 	
-	this.bll1				= "_YearsClass: v0.0.74";
+	this.blrUpdateData	= function(b,d){
+		var t = blo0.blTextarea(d, d.id + "ta" , "https://github.com/littleflute/vc6/edit/master/XdHtml/klines/years.js" , blGrey[2]);
+		t.style.width = "98%"; 
+		var d2 = blo0.blBtn(d,d.id+"_d2","makeLink","gray");
+		d2.onclick = function(){
+			var l = blo0.blLink(d,d.id+"_link","link",t.value,"Salmon");
+		};
+		_on_off_div(b,d);
+	};
+	this.bll1				= "_YearsClass: v0.0.81";
 	this.blrShow	= function(b,d){ 
 		if(_divShow==null){
 			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
