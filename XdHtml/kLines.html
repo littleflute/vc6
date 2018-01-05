@@ -42,7 +42,7 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.95";
+	this.bll1				= "_YearsClass: v0.0.121";
 	this.blrShow	= function(b,d){ 
 		if(_divShow==null){
 			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
@@ -61,14 +61,21 @@ function _YearsClass(o){
 					var y3 = parseInt(_divShow.h3.style.top);
 					var x4 = parseInt(_divShow.h4.style.left);
 					var y4 = parseInt(_divShow.h4.style.top);
+					var w = x3-x1;
+					var h = y3-y1;
 					this.clear();
 					this.setColor("green");  
 					this.drawLine(x1,y1,x2,y2);
 					this.drawLine(x2,y2,x3,y3);
 					this.drawLine(x3,y3,x4,y4);
 					this.drawLine(x4,y4,x1,y1);
+					this.setColor("gray");  
+					this.fillRect(x1,y1,w,h);
 					this.setColor("blue");  
-					this.drawString(new Date,10,150);
+					this.drawString(new Date + "_" + (x4-x1),10,150);
+					if(_ta!=null){
+						this.drawString(ta.value,10,210);
+					}
 					this.paint();
 			};
 			_divShow.h1.onmouseup = 
@@ -98,7 +105,7 @@ function _YearsClass(o){
 	this.blrDraw	= function(b,d){ 
 		if(_jg!=null){
 			_divShow.h1.style.left = "10px";
-			_divShow.h1.style.top = "10px";
+			_divShow.h1.style.top = "50px";
 			_divShow.h2.style.left = "410px";
 			_divShow.h2.style.top = "10px";
 			_divShow.h3.style.left = "410px";
