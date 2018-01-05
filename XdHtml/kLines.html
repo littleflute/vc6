@@ -13,10 +13,129 @@
 <script type="text/javascript" src="xd.js"></script> 
  
 <script>   
-function _YearsClass(o){
-	var			ko		= o;
+function _showClass(ta){
+	var _v	= "_showClass_v0.0.54";
+	var _ta = ta;
+	var _jg = null;
+	
+	function _parseKDatas(jg,txt) { 
+		eval(txt); 
+		var j = 0;
+		for(i in ko.k){
+			j++;
+			var a = ko.k[i].split(","); 
+			var o = parseFloat(a[1]);
+			var h = parseFloat(a[2]);
+			var l = parseFloat(a[3]);
+			var c = parseFloat(a[4]);
+			_Kline1(jg,j,o,h,l,c);
+			
+		}
+	}
+    var xMin	= 400;
+    var xD		= 24;
+    var yMin	= 0;
+    var yMax	= 500;
+    var hMin	= 200;
+    var hMax	= 1930; 
+	function _Kline1(jgK,t,o,h,l,c) {     
+		
+		var kID 	= t;
+		var x 		= xMin - t*xD;
+		var yH		= yMin + (yMax-yMin)/(hMin-hMax)*(h-hMax); 
+		var yL		= yMin + (yMax-yMin)/(hMin-hMax)*(l-hMax); 
+		var yO		= yMin + (yMax-yMin)/(hMin-hMax)*(o-hMax); 
+		var yC		= yMin + (yMax-yMin)/(hMin-hMax)*(c-hMax); 
+		
+		jgK.setColor("red"); 
+		
+		var yOC 		= 0;
+		var HeighOC 	= 0;
+		var color	= "fff";
+		if(c>o) 
+		{
+			HeighOC 	= yO -yC;
+			yOC 		= yC; 
+			color		= "red";
+		}
+		else
+		{
+			HeighOC 	= yC -yO;
+			yOC 		= yO; 
+			color		= "green";
+		}
+		jgK.setColor(color); 
+		jgK.fillRect(x+2,yOC,xD-12,HeighOC);     
+		jgK.fillRect(x+7,yH,1,yL-yH); 
+		
+	}
+
+	var  _divShow	=  blo0.blMDiv(document.body,"id_div__divShow",_v,10,30,400,200,"brown"); 
+	var div4jg	= blo0.blDiv(_divShow,_divShow.id+"divMsg","divMsg",blGrey[0]); 
+	_divShow.h1 = blo0.blHandle(_divShow,"_divShow_h1",50,50,15,15,"gold");
+	_divShow.h2 = blo0.blHandle(_divShow,"_divShow_h2",50,50,15,15,"gold");
+	_divShow.h3 = blo0.blHandle(_divShow,"_divShow_h3",50,50,15,15,"gold");
+	_divShow.h4 = blo0.blHandle(_divShow,"_divShow_h4",50,50,15,15,"gold");
+	_jg			= new jsGraphics(div4jg.id);
+	_jg.update = function(){				
+					var x1 = parseInt(_divShow.h1.style.left);
+					var y1 = parseInt(_divShow.h1.style.top);
+					var x2 = parseInt(_divShow.h2.style.left);
+					var y2 = parseInt(_divShow.h2.style.top);
+					var x3 = parseInt(_divShow.h3.style.left);
+					var y3 = parseInt(_divShow.h3.style.top);
+					var x4 = parseInt(_divShow.h4.style.left);
+					var y4 = parseInt(_divShow.h4.style.top);
+					var w = x3-x1;
+					var h = y3-y1;
+					this.clear();
+					this.setColor("green");  
+					this.drawLine(x1,y1,x2,y2);
+					this.drawLine(x2,y2,x3,y3);
+					this.drawLine(x3,y3,x4,y4);
+					this.drawLine(x4,y4,x1,y1);
+					this.setColor("black");  
+					this.fillRect(x1,y1,w,h); 
+					if(_ta!=null){ 
+						_parseKDatas(this,_ta.value);
+					}
+					this.paint();
+			};
+			_divShow.h1.onmouseup = 
+			_divShow.h2.onmouseup = 
+			_divShow.h3.onmouseup =
+			_divShow.h4.onmouseup = function(jg){
+				return function(){ 
+					jg.update(); 
+				}
+			}(_jg);
+			_divShow.h1.onmousemove = 
+			_divShow.h2.onmousemove = 
+			_divShow.h3.onmousemove =
+			_divShow.h4.onmousemove = function(jg){
+				return function(){ 
+					jg.update(); 
+				}
+			}(_jg);
+ 
+		
+	this.mainDiv   = _divShow;
+	this.blhUpdate = function(){		
+			_divShow.h1.style.left = "10px";
+			_divShow.h1.style.top = "50px";
+			_divShow.h2.style.left = "410px";
+			_divShow.h2.style.top = "10px";
+			_divShow.h3.style.left = "410px";
+			_divShow.h3.style.top = "310px";
+			_divShow.h4.style.left = "10px";
+			_divShow.h4.style.top = "310px"; 
+			if(_jg!=null)			_jg.update();
+	};	
+ 
+}
+function _YearsClass(o){ 
 	var			_ta		= null;
-	var		_divShow	= null;
+	var		_showDiv	= null;
 	var		_jg			= null; 
 	this.blrLoadData	= function(b,d){ 
 		if(_ta==null){
@@ -42,77 +161,17 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.121";
+	this.bll1				= "_YearsClass: v0.0.125";
 	this.blrShow	= function(b,d){ 
-		if(_divShow==null){
-			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
-			var div4jg	= blo0.blDiv(_divShow,_divShow.id+"divMsg","divMsg",blGrey[0]); 
-			_divShow.h1 = blo0.blHandle(_divShow,"_divShow_h1",50,50,15,15,"gold");
-			_divShow.h2 = blo0.blHandle(_divShow,"_divShow_h2",50,50,15,15,"gold");
-			_divShow.h3 = blo0.blHandle(_divShow,"_divShow_h3",50,50,15,15,"gold");
-			_divShow.h4 = blo0.blHandle(_divShow,"_divShow_h4",50,50,15,15,"gold");
-			_jg			= new jsGraphics(div4jg.id);
-			_jg.update = function(){				
-					var x1 = parseInt(_divShow.h1.style.left);
-					var y1 = parseInt(_divShow.h1.style.top);
-					var x2 = parseInt(_divShow.h2.style.left);
-					var y2 = parseInt(_divShow.h2.style.top);
-					var x3 = parseInt(_divShow.h3.style.left);
-					var y3 = parseInt(_divShow.h3.style.top);
-					var x4 = parseInt(_divShow.h4.style.left);
-					var y4 = parseInt(_divShow.h4.style.top);
-					var w = x3-x1;
-					var h = y3-y1;
-					this.clear();
-					this.setColor("green");  
-					this.drawLine(x1,y1,x2,y2);
-					this.drawLine(x2,y2,x3,y3);
-					this.drawLine(x3,y3,x4,y4);
-					this.drawLine(x4,y4,x1,y1);
-					this.setColor("gray");  
-					this.fillRect(x1,y1,w,h);
-					this.setColor("blue");  
-					this.drawString(new Date + "_" + (x4-x1),10,150);
-					if(_ta!=null){
-						this.drawString(ta.value,10,210);
-					}
-					this.paint();
-			};
-			_divShow.h1.onmouseup = 
-			_divShow.h2.onmouseup = 
-			_divShow.h3.onmouseup =
-			_divShow.h4.onmouseup = function(jg){
-				return function(){ 
-					jg.update(); 
-				}
-			}(_jg);
-			_divShow.h1.onmousemove = 
-			_divShow.h2.onmousemove = 
-			_divShow.h3.onmousemove =
-			_divShow.h4.onmousemove = function(jg){
-				return function(){ 
-					jg.update(); 
-				}
-			}(_jg);
-
-			_jg.setColor("blue"); 
-			_jg.fillRect(50,50,10,10);
-			_jg.paint();
-			 
+		if(_showDiv==null){
+			_showDiv = new _showClass(_ta);
 		}
-		_on_off_div(b,_divShow);
+			
+		_on_off_div(b,_showDiv.mainDiv);
 	} 
 	this.blrDraw	= function(b,d){ 
-		if(_jg!=null){
-			_divShow.h1.style.left = "10px";
-			_divShow.h1.style.top = "50px";
-			_divShow.h2.style.left = "410px";
-			_divShow.h2.style.top = "10px";
-			_divShow.h3.style.left = "410px";
-			_divShow.h3.style.top = "310px";
-			_divShow.h4.style.left = "10px";
-			_divShow.h4.style.top = "310px"; 
-			_jg.update();			 
+		if(_showDiv!=null){
+			_showDiv.blhUpdate();			 
 		} 
 	} 
 }
