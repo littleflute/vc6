@@ -13,8 +13,7 @@
 <script type="text/javascript" src="xd.js"></script> 
  
 <script>   
-var g_v_file_kLines_html = "v0.1.6";
-
+var g_v_file_kLines_html = "v0.1.14"; 
 function _showClass(o){
 	var _v	= "_showClass_v0.0.74";
 	var _o = o;
@@ -222,18 +221,35 @@ function _nowClass(o){
 			_ta.taAll = blo0.blTextarea(d,"id_ta_4_all_datas","",blGrey[0]);
 			_ta.taAll.style.width = "100%";
 			_ta.taAll.style.height = "80px"; 
+			_ta.taRun = blo0.blTextarea(d,"id_ta_4_run","",blGrey[1]);
+			_ta.taRun.style.width = "100%";
+			_ta.taRun.style.height = "80px"; 
+
 			_ta.blhNewData = function(txt){
 				var s = "var o = " + txt;
 				eval(s);
 				var k = o[0];
 				_ta.value = k.pricetime + "," + k.now;
-				_ta.Ds.unshift(k.pricetime);
-
-				_ta.taAll.value = _ta.Ds;
-			};
+				_ta.Ds.unshift(k); 
+				_ta.blhParseDs();
+			}; 
+			_ta.blhParseDs = function(){
+				var a = _ta.Ds; 
+				var t = _ta.taAll;
+				t.value = "";
+				t.Ks = []; 
+				for(i in a){  
+					t.value = t.value + "a[" + i + "]: " + a[i].pricetime + "\n"; 
+				}
+			}; 
 		}
 		_on_off_div(b,d);
 	} 	
+	this.blrRun	= function(b,d){ 
+		if(_ta!=null){ 
+			eval(_ta.taRun.value);
+		} 
+	} 
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
 			_showDiv = new _showClass(_me);
