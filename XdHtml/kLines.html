@@ -162,7 +162,7 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.133";
+	this.bll1				= "_YearsClass: v0.0.134";
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
 			_showDiv = new _showClass(_ta);
@@ -180,6 +180,11 @@ function _YearsClass(o){
 			_showDiv.blhUpdate(100,100,500,400);			 
 		} 
 	} 
+	this.blrSet3	= function(b,d){ 
+		if(_showDiv!=null){
+			_showDiv.blhUpdate(11,11,1100,1000);			 
+		} 
+	} 
 }
 
 function _blKinesClass(){
@@ -188,7 +193,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.143"; 
+	this.classV		= "v0.0.145"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
