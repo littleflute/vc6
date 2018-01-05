@@ -20,20 +20,78 @@ function _YearsClass(o){
 	var		_jg			= null; 
 	this.blrLoadData	= function(b,d){ 
 		if(_ta==null){
-			var ta = blo0.blTextarea(d,"id_ta_4_years_data","pu",blGrey[3]);
-			ta.style.width = "100%";
-			ta.style.height = "200px";
+			_ta = blo0.blTextarea(d,"id_ta_4_years_data","pu",blGrey[3]);
+			_ta.style.width = "100%";
+			_ta.style.height = "200px";
 			blo0.blScript("id_script_years_data","klines/years.js");
 		}
 		_on_off_div(b,d);
 	} 	
-	this.bll1				= "_YearsClass: v0.0.24";
+	this.bll1				= "_YearsClass: v0.0.74";
 	this.blrShow	= function(b,d){ 
 		if(_divShow==null){
 			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
 			var div4jg	= blo0.blDiv(_divShow,_divShow.id+"divMsg","divMsg",blGrey[0]); 
+			_divShow.h1 = blo0.blHandle(_divShow,"_divShow_h1",50,50,15,15,"gold");
+			_divShow.h2 = blo0.blHandle(_divShow,"_divShow_h2",50,50,15,15,"gold");
+			_divShow.h3 = blo0.blHandle(_divShow,"_divShow_h3",50,50,15,15,"gold");
+			_divShow.h4 = blo0.blHandle(_divShow,"_divShow_h4",50,50,15,15,"gold");
 			_jg			= new jsGraphics(div4jg.id);
-			_jg.setColor("red"); 
+			_jg.update = function(){				
+					var x1 = parseInt(_divShow.h1.style.left);
+					var y1 = parseInt(_divShow.h1.style.top);
+					var x2 = parseInt(_divShow.h2.style.left);
+					var y2 = parseInt(_divShow.h2.style.top);
+					var x3 = parseInt(_divShow.h3.style.left);
+					var y3 = parseInt(_divShow.h3.style.top);
+					var x4 = parseInt(_divShow.h4.style.left);
+					var y4 = parseInt(_divShow.h4.style.top);
+					this.setColor("green");  
+					this.drawLine(x1,y1,x2,y2);
+					this.drawLine(x2,y2,x3,y3);
+					this.drawLine(x3,y3,x4,y4);
+					this.drawLine(x4,y4,x1,y1);
+			};
+			_divShow.h1.onmouseup = 
+			_divShow.h2.onmouseup = 
+			_divShow.h3.onmouseup =
+			_divShow.h4.onmouseup = function(jg){
+				return function(){
+					var c = _getXY(); 
+					var x = parseInt(this.style.left);
+					var y = parseInt(this.style.top);
+					var s = c.x + ":" + c.y + "_" + x + ":" + y;
+					jg.clear();
+					jg.setColor("gold"); 
+					jg.drawString(s,x,y);
+					jg.drawEllipse(x-50,y-50,100,100);
+					jg.drawLine(x,y,x+50,y);
+					jg.drawLine(x,y,x,y+50);
+					jg.update();
+					jg.paint(); 
+				}
+			}(_jg);
+			_divShow.h1.onmousemove = 
+			_divShow.h2.onmousemove = 
+			_divShow.h3.onmousemove =
+			_divShow.h4.onmousemove = function(jg){
+				return function(){
+					var c = _getXY(); 
+					var x = parseInt(this.style.left);
+					var y = parseInt(this.style.top);
+					var s = c.x + ":" + c.y + "_" + x + ":" + y;
+					jg.clear();
+					jg.setColor("gold"); 
+					jg.drawString(s,x,y);
+					jg.drawEllipse(x-50,y-50,100,100);
+					jg.drawLine(x,y,x+50,y);
+					jg.drawLine(x,y,x,y+50);
+					jg.update();
+					jg.paint(); 
+				}
+			}(_jg);
+
+			_jg.setColor("blue"); 
 			_jg.fillRect(50,50,10,10);
 			_jg.paint();
 			 
@@ -43,9 +101,15 @@ function _YearsClass(o){
 	this.blrDraw	= function(b,d){ 
 		if(_jg!=null){
 			_jg.clear();
+			_jg.setColor("gray"); 
+			_jg.fillRect(10,110,400,300);
+			var s = "xd";
+			if(_ta!=null){
+				 s = _ta.value;
+				 eval(s);
 			_jg.setColor("gold"); 
-			_jg.fillRect(150,50,101,10);
-			_jg.drawString(new Date,100,100);
+				_jg.drawString(ko.k.length,100,100);
+			}
 			_jg.paint();			 
 		} 
 	} 
@@ -57,7 +121,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.133"; 
+	this.classV		= "v0.0.134"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
