@@ -42,7 +42,7 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.85";
+	this.bll1				= "_YearsClass: v0.0.95";
 	this.blrShow	= function(b,d){ 
 		if(_divShow==null){
 			_divShow	=  blo0.blMDiv(document.body,"id_div__divShow","_divShow:",10,30,400,200,"brown"); 
@@ -61,48 +61,30 @@ function _YearsClass(o){
 					var y3 = parseInt(_divShow.h3.style.top);
 					var x4 = parseInt(_divShow.h4.style.left);
 					var y4 = parseInt(_divShow.h4.style.top);
+					this.clear();
 					this.setColor("green");  
 					this.drawLine(x1,y1,x2,y2);
 					this.drawLine(x2,y2,x3,y3);
 					this.drawLine(x3,y3,x4,y4);
 					this.drawLine(x4,y4,x1,y1);
+					this.setColor("blue");  
+					this.drawString(new Date,10,150);
+					this.paint();
 			};
 			_divShow.h1.onmouseup = 
 			_divShow.h2.onmouseup = 
 			_divShow.h3.onmouseup =
 			_divShow.h4.onmouseup = function(jg){
-				return function(){
-					var c = _getXY(); 
-					var x = parseInt(this.style.left);
-					var y = parseInt(this.style.top);
-					var s = c.x + ":" + c.y + "_" + x + ":" + y;
-					jg.clear();
-					jg.setColor("gold"); 
-					jg.drawString(s,x,y);
-					jg.drawEllipse(x-50,y-50,100,100);
-					jg.drawLine(x,y,x+50,y);
-					jg.drawLine(x,y,x,y+50);
-					jg.update();
-					jg.paint(); 
+				return function(){ 
+					jg.update(); 
 				}
 			}(_jg);
 			_divShow.h1.onmousemove = 
 			_divShow.h2.onmousemove = 
 			_divShow.h3.onmousemove =
 			_divShow.h4.onmousemove = function(jg){
-				return function(){
-					var c = _getXY(); 
-					var x = parseInt(this.style.left);
-					var y = parseInt(this.style.top);
-					var s = c.x + ":" + c.y + "_" + x + ":" + y;
-					jg.clear();
-					jg.setColor("gold"); 
-					jg.drawString(s,x,y);
-					jg.drawEllipse(x-50,y-50,100,100);
-					jg.drawLine(x,y,x+50,y);
-					jg.drawLine(x,y,x,y+50);
-					jg.update();
-					jg.paint(); 
+				return function(){ 
+					jg.update(); 
 				}
 			}(_jg);
 
@@ -115,17 +97,15 @@ function _YearsClass(o){
 	} 
 	this.blrDraw	= function(b,d){ 
 		if(_jg!=null){
-			_jg.clear();
-			_jg.setColor("gray"); 
-			_jg.fillRect(10,110,400,300);
-			var s = "xd";
-			if(_ta!=null){
-				 s = _ta.value;
-				 eval(s);
-			_jg.setColor("gold"); 
-				_jg.drawString(ko.k.length,100,100);
-			}
-			_jg.paint();			 
+			_divShow.h1.style.left = "10px";
+			_divShow.h1.style.top = "10px";
+			_divShow.h2.style.left = "410px";
+			_divShow.h2.style.top = "10px";
+			_divShow.h3.style.left = "410px";
+			_divShow.h3.style.top = "310px";
+			_divShow.h4.style.left = "10px";
+			_divShow.h4.style.top = "310px"; 
+			_jg.update();			 
 		} 
 	} 
 }
@@ -136,7 +116,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.134"; 
+	this.classV		= "v0.0.135"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
