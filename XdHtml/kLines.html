@@ -13,6 +13,8 @@
 <script type="text/javascript" src="xd.js"></script> 
  
 <script>   
+var g_v_file_kLines_html = "v0.1.1";
+
 function _showClass(o){
 	var _v	= "_showClass_v0.0.74";
 	var _o = o;
@@ -216,6 +218,10 @@ function _nowClass(o){
 			_ta = blo0.blTextarea(d,"id_ta_4_now_data","",blGrey[3]);
 			_ta.style.width = "100%";
 			_ta.style.height = "100px"; 
+			_ta.Ds = [];
+			_ta.blhNewData = function(txt){
+				_ta.value = txt;
+			};
 		}
 		_on_off_div(b,d);
 	} 	
@@ -244,7 +250,7 @@ function _nowClass(o){
 			blo0.blShowObj2Div(_myView,_w.kline);
 			_blhSet(110,10,400,300);
 			if(_ta!=null){
-				_ta.value = txt;
+				_ta.blhNewData(txt);
 			}
 
 			blrGetNewData.click();
@@ -271,17 +277,6 @@ function _nowClass(o){
 		  }
 		  _nTimes++;
 		}
-		this.blrAboutMe = function(b,d){
-		  var s = _v;
-		  s += "<br>xau update data<br>";
-		  s += url; 
-		  d.innerHTML = s;
-		  var LastSrcHref = "https://littleflute.github.io/vc6/XdHtml/plx/design/f0.js";
-		  var l = blo0.blLink(d,d.id+"LastSrcHref","LastSrcHref",LastSrcHref,"blue");
-		  var UpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/f0.js";
-		  var l = blo0.blLink(d,d.id+"UpdateHref","UpdateHref",UpdateHref,"Salmon");
-		  _on_off_div(b,d);
-		};
 	  }
    
 	  var _myUI = function(b,d){ 
@@ -363,7 +358,7 @@ function _blKinesClass(){
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.162"; 
+	this.classV		= "v0.0.163"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
@@ -416,7 +411,13 @@ function _blKinesClass(){
 		_on_off_div(b,d);
 	}
 	var v = document.getElementById("blPageV");
-	if(v) v.innerHTML = this.classV;
+	if(v) v.innerHTML = g_v_file_kLines_html;
+	var d2 = blo0.blBtn(v,v.id+"_d2","updateLink","gray");
+		d2.onclick = function(){
+			var href = "https://github.com/littleflute/vc6/edit/master/XdHtml/kLines.html";
+			var l = blo0.blLink(v,v.id+"updateLink","updateLink",href,"gold");
+		};
+
 	var		xddbg	= document.getElementById("xddbg");
 	var		blo		= new blClass;
 	var		_me		= this;
