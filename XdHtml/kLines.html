@@ -13,13 +13,14 @@
 <script type="text/javascript" src="xd.js"></script> 
  
 <script>   
-function _showClass(ta){
-	var _v	= "_showClass_v0.0.71";
-	var _ta = ta;
+function _showClass(o){
+	var _v	= "_showClass_v0.0.74";
+	var _o = o;
 	var _jg = null;
 	var _divMouse = null;
 	
 	function _parseKDatas(jg,txt) { 
+		if(txt=="") return;
 		eval(txt); 
 		var j = 0;
 		for(i in ko.k){
@@ -71,12 +72,12 @@ function _showClass(ta){
 		
 	}
 
-	var  _divShow	=  blo0.blMDiv(document.body,"id_div__divShow",_v,10,30,400,200,"brown"); 
+	var  _divShow	=  blo0.blMDiv(document.body,_o.blID,_v,10,30,400,200,"brown"); 
 	var div4jg	= blo0.blDiv(_divShow,_divShow.id+"divMsg","divMsg",blGrey[0]); 
-	_divShow.h1 = blo0.blHandle(_divShow,"_divShow_h1",50,50,15,15,"gold");
-	_divShow.h2 = blo0.blHandle(_divShow,"_divShow_h2",50,50,15,15,"gold");
-	_divShow.h3 = blo0.blHandle(_divShow,"_divShow_h3",50,50,15,15,"gold");
-	_divShow.h4 = blo0.blHandle(_divShow,"_divShow_h4",50,50,15,15,"gold");
+	_divShow.h1 = blo0.blHandle(_divShow,_divShow.id+"_divShow_h1",50,50,15,15,"gold");
+	_divShow.h2 = blo0.blHandle(_divShow,_divShow.id+"_divShow_h2",50,50,15,15,"gold");
+	_divShow.h3 = blo0.blHandle(_divShow,_divShow.id+"_divShow_h3",50,50,15,15,"gold");
+	_divShow.h4 = blo0.blHandle(_divShow,_divShow.id+"_divShow_h4",50,50,15,15,"gold");
 	_jg			= new jsGraphics(div4jg.id);
 	_jg.update = function(){	
 					var x1 = parseInt(_divShow.h1.style.left);
@@ -101,8 +102,9 @@ function _showClass(ta){
 					this.drawLine(x4,y4,x1,y1);
 					this.setColor("black");  
 					this.fillRect(x1,y1,w,h); 
-					if(_ta!=null){ 
-						_parseKDatas(this,_ta.value);
+					if(_o!=null){
+						var s = _o.blhGetData(); 
+						_parseKDatas(this,s);
 					}
 					this.paint();
 			};
@@ -192,10 +194,93 @@ function _showClass(ta){
 	};	
  
 }
+function _nowClass(o){
+    var _showDiv = null;
+	var _me = this;
+	var _data = null;
+	this.blID = "id_div_show_nowClass";
+	this.blhGetData	= function(){
+		var r = "";
+		if(_data!=null) r = _data;
+		return r;
+	}
+	this.blrShow	= function(b,d){ 
+		if(_showDiv==null){
+			_showDiv = new _showClass(_me);
+		}
+			
+		_on_off_div(b,_showDiv.mainDiv);
+	} 
+	this.blrNow1 = function(b,d)
+	{ 
+	  var _v			= "v0.0.51";
+	  var url			= "http://api.baidao.com/api/hq/npdata.do?ids=201"; 
+ 
+
+	  var _w = new _ajxWorkerClass;
+	  function _ajxWorkerClass(){ 
+		var _myView = null;
+		this._2do	= function(txt)
+		{
+			_myView.innerHTML = txt;
+			var s = "var o = " + txt;
+			eval(s);
+			_w.kline = o[0];
+			blo0.blShowObj2Div(_myView,_w.kline);
+			blrGetNewData.click();
+		} 
+		this.blhSetView	= function(d)
+		{
+			_myView = d;
+		} 
+	  }
+	  var _ui = new _UIClass;
+	  function _UIClass(){  
+		var _nTimes = 0;
+		var _html	= "";
+		this.blrGetNewData	= function(b,d)
+		{ 
+		  _w.blhSetView(d);
+		  var s = url + "&t=" + new Date;
+		  blo0.blAjx(_w,s);
+		  if(_nTimes==0){
+			_html = b.innerHTML;
+		  }
+		  else{
+			b.innerHTML = _html + ":" + _nTimes;
+		  }
+		  _nTimes++;
+		}
+		this.blrAboutMe = function(b,d){
+		  var s = _v;
+		  s += "<br>xau update data<br>";
+		  s += url; 
+		  d.innerHTML = s;
+		  var LastSrcHref = "https://littleflute.github.io/vc6/XdHtml/plx/design/f0.js";
+		  var l = blo0.blLink(d,d.id+"LastSrcHref","LastSrcHref",LastSrcHref,"blue");
+		  var UpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/f0.js";
+		  var l = blo0.blLink(d,d.id+"UpdateHref","UpdateHref",UpdateHref,"Salmon");
+		  _on_off_div(b,d);
+		};
+	  }
+   
+	  var _myUI = function(b,d){ 
+		  _myView	= blo0.blDiv(d,d.id + "_myView","_myView",blGrey[5]);
+		  if(!_myView.blFirst){
+			blo0.blShowObj2Div(_myView,_ui);
+			_myView.blFirst = true;
+		  }
+		  _on_off_div(b,d);
+	  };
+	  _myUI(b,d);
+ 
+	};
+};
 function _YearsClass(o){ 
 	var			_ta		= null;
 	var		_showDiv	= null;
 	var		_jg			= null; 
+	this.blID = "id_div_show__YearsClass";
 	this.blrLoadData	= function(b,d){ 
 		if(_ta==null){
 			_ta = blo0.blTextarea(d,"id_ta_4_years_data","pu",blGrey[3]);
@@ -220,10 +305,16 @@ function _YearsClass(o){
 		};
 		_on_off_div(b,d);
 	};
-	this.bll1				= "_YearsClass: v0.0.143";
+	this.bll1				= "_YearsClass: v0.0.151";
+	this.blhGetData	= function(){
+		var r = "";
+		if(_ta!=null) r = _ta.value;
+		return r;
+	}
+	var _me = this;
 	this.blrShow	= function(b,d){ 
 		if(_showDiv==null){
-			_showDiv = new _showClass(_ta);
+			_showDiv = new _showClass(_me);
 		}
 			
 		_on_off_div(b,_showDiv.mainDiv);
@@ -246,12 +337,13 @@ function _YearsClass(o){
 }
 
 function _blKinesClass(){
+	var _nowObj	= null; 
 	var _yearObj	= null; 
 	var _divMonths = null;
 	var _divDays = null;
 	var _jgY		= null;
 	var _me			= this;
-	this.classV		= "v0.0.154"; 
+	this.classV		= "v0.0.162"; 
 	
 	this.blrYear	= function(b,d){ 
 		if(_yearObj==null){ 
@@ -273,6 +365,14 @@ function _blKinesClass(){
 		}
 		_on_off_div(b,_divDays);
 	}
+	this.blrNow	= function(b,d){ 
+		if(_nowObj==null){ 
+			_nowObj = new _nowClass(_me);
+			blo0.blShowObj2Div(d,_nowObj);
+		} 
+		_on_off_div(b,d);
+	}
+
 	this.blrAboutMe= function(b,d){		
 		var s = "";
 		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/kLines.html'"
