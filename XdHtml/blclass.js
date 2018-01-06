@@ -83,9 +83,9 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.61";//blclassdbg
+    this.v = "xdvc6: 1.0.65";//blclassdbg
 
-    this.blrTest = function (b,d)
+    this.blrClose = function (b,d)
     {        
 		 d.parentElement.parentElement.style.display = "none";
 	}
@@ -94,6 +94,16 @@ function blClass ()
 		 d.parentElement.parentElement.style.left = 0+"px";
 		 d.parentElement.parentElement.style.top = 0+"px";
 		 d.parentElement.parentElement.style.width = "100%";
+	}
+	this.blrAboutMe= function(b,d){		
+		var s = "";
+		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/blclass.js'"
+		s += " style='color:gold;'";
+		s +=">";
+		s += "upate";
+		s += "</a>"; 
+		d.innerHTML = s;
+		_on_off_div(b,d);
 	}
 	this.blhInitUI		= function(divUI){	
 		var divMove		= blo0.blMDiv(document.body,_id,"divShowMe_divMove_blClass",550,150,500,200,blColor[8]);
@@ -380,10 +390,12 @@ function blClass ()
         }
         xmlhttp.onreadystatechange=function()
         {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
-            {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200){
                worker._2do(xmlhttp.responseText);
             }
+			else{
+              // worker._error("xmlhttp.status:" + xmlhttp.status);
+			}
         }
         xmlhttp.open("GET",href,true);
         xmlhttp.send();
