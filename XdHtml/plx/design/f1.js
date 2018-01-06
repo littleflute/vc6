@@ -1,21 +1,22 @@
 var f1 = function(b,d){
-	//f1.js v0.0.22
+	//f1.js   edit textarea 
+	var _v			= "v0.0.23"; 
 
 	d.innerHTML = "";
 	var d1 = blo0.blDiv(d,d.id + "_d1",":: ",blGrey[5]);
-	var b0 = blo0.blBtn(d,d.id + "_b0","光标位置",blGrey[0]);
-	b0.onclick = function(){d1.innerHTML = "光标位置:" + _getCursorPosition (ta); };
-	var b1 = blo0.blBtn(d,d.id + "_b1","设置光标到第3位置",blGrey[0]);
+	var b0 = blo0.blBtn(d,d.id + "_b0","cursor pos",blGrey[0]);
+	b0.onclick = function(){d1.innerHTML = "pos:" + _getCursorPosition (ta); };
+	var b1 = blo0.blBtn(d,d.id + "_b1","set: pos=3",blGrey[0]);
 	b1.onclick = function(){_sel (ta,3,3); };
-	var b2 = blo0.blBtn(d,d.id + "_b2","选中字符0-2的位置",blGrey[0]);
+	var b2 = blo0.blBtn(d,d.id + "_b2","select 0-2",blGrey[0]);
 	b2.onclick = function(){_sel (ta,0,2); };
-	var b3 = blo0.blBtn(d,d.id + "_b3","添加'你好'到光标后面",blGrey[0]);
-	b3.onclick = function(){_add (ta,'你好'); };
-	var b4 = blo0.blBtn(d,d.id + "_b4","删除光标前2个字符",blGrey[0]);
+	var b3 = blo0.blBtn(d,d.id + "_b3","add: 'Hello!'",blGrey[0]);
+	b3.onclick = function(){_add (ta,'Hello!'); };
+	var b4 = blo0.blBtn(d,d.id + "_b4","delete 2 chars before cursor",blGrey[0]);
 	b4.onclick = function(){_del (ta,2); };
-	var b5 = blo0.blBtn(d,d.id + "_b5","删除光标后2个字符",blGrey[0]);
+	var b5 = blo0.blBtn(d,d.id + "_b5","delete 2 chars after cursor",blGrey[0]);
 	b5.onclick = function(){_del (ta,-2); };
-	var b6 = blo0.blBtn(d,d.id + "_b6","选中字符'function'的位置",blGrey[0]);
+	var b6 = blo0.blBtn(d,d.id + "_b6"," select 'function' pos",blGrey[0]);
 	b6.onclick = function(){ _selString (ta,'function'); };
 	var btnUpdate = blo0.blBtn(d,d.id+"_Update","UpdateLink","brown");
 	btnUpdate.onclick = function(){
@@ -26,7 +27,7 @@ var f1 = function(b,d){
 	_on_off_div(b,d);
 
 	/*
-     * 获取光标位置
+     * »ñÈ¡¹â±êÎ»ÖÃ
      * @Method _getCursorPosition
      * @param t element
      * @return number
@@ -45,7 +46,7 @@ var f1 = function(b,d){
         } else return t.selectionStart
     }
 	/*
-     * 设置光标位置
+     * ÉèÖÃ¹â±êÎ»ÖÃ
      * @Method _setCursorPosition
      * @param t element
      * @param p number
@@ -56,7 +57,7 @@ var f1 = function(b,d){
     }
 
     /*
-     * 选中 s 到 z 位置的文字
+     * Ñ¡ÖÐ s µ½ z Î»ÖÃµÄÎÄ×Ö
      * @Method sel
      * @param t element
      * @param s number
@@ -77,12 +78,12 @@ var f1 = function(b,d){
     }
 
 	/*
-     * 删除光标 前面或者后面的 n 个字符
+     * É¾³ý¹â±ê Ç°Ãæ»òÕßºóÃæµÄ n ¸ö×Ö·û
      * @Method del
      * @param t element
-     * @param n number  n>0 后面 n<0 前面
+     * @param n number  n>0 ºóÃæ n<0 Ç°Ãæ
      * @return
-     * 重新设置 value 的时候 scrollTop 的值会被清0
+     * ÖØÐÂÉèÖÃ value µÄÊ±ºò scrollTop µÄÖµ»á±»Çå0
      */
     function _del (t, n){
         var p = _getCursorPosition(t);
@@ -96,7 +97,7 @@ var f1 = function(b,d){
         },10)
     }
 	/*
-     * 选中一个字符串
+     * Ñ¡ÖÐÒ»¸ö×Ö·û´®
      * @Method _selString
      * @param t element
      * @param s String
@@ -108,7 +109,7 @@ var f1 = function(b,d){
     }
 
     /*
-     * 插入到光标后面
+     * ²åÈëµ½¹â±êºóÃæ
      * @Method _add
      * @param t element
      * @param txt String
