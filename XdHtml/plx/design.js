@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.113"; 
+	var _v	= "v0.0.114"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -72,9 +72,8 @@ function _blDesignClass(){
 	};
 
 	this.bll6 = "-6--";
-	this.blr____________2Do	= function(b,d){
-		var d2Do = blo0.blDiv(d,d.id+"_2Do","2Do:",blGrey[0]);
-		if(!d2Do.n){d2Do.n=1;d2Do.innerHTML = "2Do:"+d2Do.n;
+	this.blr____________2Do	= function(b,d){ 
+		if(!d.n){d.n=1;d.innerHTML = "2Do:"+d.n;
 				bl$("id_btn_blDesignClass_show").click();
 				bl$("id_btn_blDesignClass_newFun").click();
 				bl$("id_btn_blDesignClass_newFun1").click();
