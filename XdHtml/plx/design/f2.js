@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.103";  
+  var _v			= "v0.0.106";  
 
   var _ui = new _UIClass;
   function _UIClass(){   
@@ -31,10 +31,12 @@ var f2 = function(b,d){
 			s += "<div>";
 			s += "<button id='id_btn_blrSet1_b3_btn1'>b1</button>";
 			s += "<button id='id_btn_blrSet1_b3_btn2'>b2</button>";
+			s += "<button id='id_btn_blrSet1_b3_btn3'>b3</button>";
 			s += "</div>";
 			var d = blo0.blMDiv(w,"id_div_blrSet1_d3",s,110,50,100,200,"green");  
 			bl$("id_btn_blrSet1_b3_btn1").onclick = function(){				d.main.style.backgroundColor="red";			}
 			bl$("id_btn_blrSet1_b3_btn2").onclick = function(){				d.handle.style.backgroundColor="purple";	}
+			bl$("id_btn_blrSet1_b3_btn3").onclick = function(){		_on_off_div(this,d.handle);_on_off_div(this,d.main);	}
 			_on_off_div(this,d);
 		}	
 	}  
