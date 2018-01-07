@@ -1,5 +1,4 @@
-// file: blclass.js
-// by littleflute 
+// file: blclass.js    by littleflute 
 
 function bl$(id){	return document.getElementById(id); }
 var QueryString = function () 
@@ -27,17 +26,8 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 			   "DimGray","Gray","LightSlateGray","SlateGray","DarkSlateGray","black"];
 
 	var _blMove = function(o,x,y){o.style.left = x;o.style.top = y;};
-	function _on_off_div(b,d){//v1037	 xdvc6	
-		if(d.style.display=="block"){
-			d.style.display="none"; 
-			b.style.backgroundColor="red"; 
-		}
-		else{
-			d.style.display="block";
-			b.style.backgroundColor="green"; 
-		}
-	};
-	function _on_off_bd_1(b,d){ //v1036	 xdvc6	
+	function _on_off_div(b,d){if(d.style.display=="block"){d.style.display="none"; b.style.backgroundColor="red"; }else{d.style.display="block"; b.style.backgroundColor="green"; }};
+	function _on_off_bd_1(b,d){ 
 		if(b.bOnOff){
 			b.bOnOff = false;
 			b.style.backgroundColor="green"; 
@@ -53,7 +43,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 			d.style.display="block";
 		}
 	}
-	function _on_off_bd(b,d){ //v1035	 xdvc6	
+	function _on_off_bd(b,d){  
 		if(b.innerHTML=="+"){
 			b.innerHTML = "-";
 			b.style.backgroundColor="green"; 
@@ -82,7 +72,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.71";
+    this.v = "xdvc6: 1.0.80";
 	function _blhMakeLink(txt,href,style,target){
 		var r = "";
 		r += "<a href='" + href + "' ";
@@ -92,11 +82,7 @@ function blClass ()
 		r += "</a>";   
 		return r;
 	}
-	this.blhMakeLink = function (txt,href,style,target) { return _blhMakeLink(txt,href,style,target); }
-    this.blrClose = function (b,d)
-    {        
-		 d.parentElement.parentElement.style.display = "none";
-	}
+	this.blhMakeLink = function (txt,href,style,target) { return _blhMakeLink(txt,href,style,target); } 
     this.blrMax = function (b,d)
     {        
 		 d.parentElement.parentElement.style.left = 0+"px";
@@ -112,15 +98,11 @@ function blClass ()
 	}
 	this.blhInitUI		= function(divUI){	
 		var divMove		= blo0.blMDiv(document.body,_id,"divShowMe_divMove_blClass",550,150,500,200,blColor[8]);
-		var divShowMe	= blo0.blDiv(divMove,divMove.id + "ShowMe","divShowMe",blColor[6]);
+		var dMe			= blo0.blDiv(divMove,divMove.id + "ShowMe","divShowMe",blColor[6]);
 		var dUI			= blo0.blDiv(divUI,divUI.id + "_initUI_blClass" + this.v,this.v,"green");
-		var b1			= blo0.blBtn(dUI,dUI.id + "b1","[blClass]",blColor[8]);
-		b1.onclick		= function(this_){
-			return function(){ 
-				blo0.blShowObj2Div(divShowMe,this_);
-				divMove.style.display = "block";
-			}
-		}(this);
+		var b1			= blo0.blBtn(dUI,"blhInitUI_btn1","[blClass]",blColor[8]);
+		b1.onclick		= function(this_){	return function(){ 	blo0.blShowObj2Div(dMe,this_);_on_off_div(this,divMove);}}(this);
+		
 	};
     this.blCreatePage = function (titleTxt,bodyHtml){
 		var r = "";
@@ -296,7 +278,7 @@ function blClass ()
 			  }
 		}		 
 	}
-    this.blShowObj2Div_all = function (oBoss,obj,l) //blclassdbg 1039
+    this.blShowObj2Div_all = function (oBoss,obj,l) 
     {	 
         _blShowObj2Div_all(oBoss,obj,l);	 
 	}
