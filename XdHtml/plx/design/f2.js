@@ -1,14 +1,28 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.49"; 
- 
+  var _v			= "v0.0.59";  
 
   var _ui = new _UIClass;
-  function _UIClass(){  
-    this.blrGetNewData	= function(b,d)
+  function _jgClass(id){
+	var _jg = new jsGraphics(id);
+	this.upate = function(){
+		_jg.clear();
+		_jg.setColor("red");
+		_jg.fillRect(0,0,100,100);
+		_jg.paint();
+	}   
+  }
+  function _UIClass(){   
+	var _myWrap		= null;
+    this.blrView	= function(b,d)
     { 
-	  _w.blhSetView(d);
-      blo0.blAjx(_w,url);
+		if(_myWrap==null){		
+			_myWrap = blo0.blMDiv(document.body,"id_div__myWrap","_myMsgWrap:" + _v,10,50,400,200,"brown");  
+			_myWrap.divView = blo0.blDiv(_myWrap,_myWrap.id+"divView","divView",blGrey[0]);
+			_myWrap.jg		= new _jgClass(_myWrap.divView.id);
+			_myWrap.jg.upate();
+		}
+	  _on_off_div(b,_myWrap);
     }
     this.blrAboutMe = function(b,d){
 	  var s = _v;
