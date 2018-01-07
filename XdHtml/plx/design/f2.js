@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.132";  
+  var _v			= "v0.0.135";  
 
   var _ui = new _UIClass;
   function _UIClass(){   
@@ -13,12 +13,20 @@ var f2 = function(b,d){
 			s += "<button id='id_btn_blrView_b3_btn2'>b2</button>";
 			s += "<button id='id_btn_blrView_b3_btn3'>b3</button>";
 			s += "<button id='id_btn_blrView_b3_btn4'>b4</button>";
+			s += "<button id='id_btn_blrView_b3_btn5'>+</button>";
+			s += "</div>";	
+			s += "<div id='id_div_blrView_d2'>";
+			s += "<button id='id_btn_blrView_d2_btn1'>b1</button>";
+			s += "<button id='id_btn_blrView_d2_btn2'>b2</button>";
+			s += "<button id='id_btn_blrView_d2_btn3'>b3</button>";
+			s += "<button id='id_btn_blrView_d2_btn4'>b4</button>";
 			s += "</div>";	
 			w = blo0.blMDiv(document.body,"id_div__myWrap",s,10,50,400,200,"brown"); w.style.zIndex = -99; 
 			bl$("id_btn_blrView_b3_btn1").onclick = function(){		w.jg.set(0,40,400,300);			} 
 			bl$("id_btn_blrView_b3_btn2").onclick = function(){		w.jg.set(0,50,600,400);			}
 			bl$("id_btn_blrView_b3_btn3").onclick = function(){		w.jg.set(0,50,800,600);			}    
 			bl$("id_btn_blrView_b3_btn4").onclick = function(){	_on_off_div(this,w.handle);_on_off_div(this,w.main); } 
+			bl$("id_btn_blrView_b3_btn5").onclick = function(){	_on_off_div(this,bl$("id_div_blrView_d2")); } 
 			w.page = blo0.blDiv(w,w.id+"divView","",blGrey[0]);
 			w.jg		= new _jgClass(w.page.id);
 			w.jg.upate(); 
