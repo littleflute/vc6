@@ -1,12 +1,33 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.145";  
+  var _v			= "v0.0.223";  
 
   var _ui = new _UIClass;
   function _lineClass(o){
 	var i = o.lines.length + 1;
-	var x = 0, y = i*110, w=100, h=100;
-			var d = blo0.blMDiv(o,"id_div__lineClass_"+i,"Line# " + i,x,y,w,h,"blue");  
+	var x = 0, y = i*110, w=300, h=100;	
+	var s = "";
+			s += "<div>";
+			s += "<button id='id_btn__lineClass_btn";
+			s += i;
+			s += 1;
+			s += "'>b1</button>"; 
+			s += "<button style='color:red;' id='id_btn__lineClass_btn";
+			s += i;
+			s += 2;
+			s += "'>b2</button>"; 
+			s += "<div style='background-color:red;' id='id_div_line_Msg";
+			s += i;
+			s += "'></div>";
+
+			s += "Line# " + i;
+	var d = blo0.blMDiv(o,"id_div__lineClass_"+i,s,x,y,w,h,"blue");   
+	bl$("id_btn__lineClass_btn"+i+1).onclick = function(_i,_idMsg){
+		return function(){bl$(_idMsg).innerHTML = this.id + ":" + _i;}
+	}(i,"id_div_line_Msg"+i);
+	bl$("id_btn__lineClass_btn"+i+2).onclick = function(_i,_idMsg){
+		return function(){bl$(_idMsg).innerHTML = this.id + ":" + _i;}
+	}(i,"id_div_line_Msg"+i);
   }
   function _UIClass(){   
 	var w		= null;
