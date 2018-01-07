@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.48"; 
+  var _v			= "v0.0.49"; 
  
 
   var _ui = new _UIClass;
@@ -13,21 +13,13 @@ var f2 = function(b,d){
     this.blrAboutMe = function(b,d){
 	  var s = _v;
 	  var LastSrcHref = "https://littleflute.github.io/vc6/XdHtml/plx/design/f2.js";
-	  s += "<br>music staff<br>";
-	  s += "<a href='";
-	  s += LastSrcHref;
-	  s += "' ";
-	  s += " style='color:gold;' ";
-	  s += " target='_blank' ";
-	  s +=">LastsrcHref"; 
-	  s += "</a>";
-	  var href = "https://littleflute.github.io/vc6/XdHtml/plx/design/f2.js";
+	  var UpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/f2.js";
+	  s += "<br>music staff<br>"; 
 	  var style = "color:lightblue;";
 	  var target = "_blank";
-	  s += blo0.blhMakeLink(" f2.js ",href,style,target);
-      d.innerHTML = s; 
-	  var UpdateHref = "https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/f2.js";
-	  var l = blo0.blLink(d,d.id+"UpdateHref","UpdateHref",UpdateHref,"Salmon");
+	  s += blo0.blhMakeLink(" f2.js ",LastSrcHref,style,target);
+	  s += blo0.blhMakeLink(" f2.js* ",UpdateHref,style,target);
+      d.innerHTML = s;  
 	  _on_off_div(b,d);
     };
   }
