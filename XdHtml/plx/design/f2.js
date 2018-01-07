@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.66";  
+  var _v			= "v0.0.69";  
 
   var _ui = new _UIClass;
   function _jgClass(id){
@@ -27,8 +27,9 @@ var f2 = function(b,d){
 		}
 	  _on_off_div(b,_myWrap);
     }
-    this.blrSet1	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(20,20,400,300);	}   }
-    this.blrSet2	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(20,30,600,400);	}   }
+    this.blrSet1	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(0,20,400,300);	}   }
+    this.blrSet2	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(0,30,600,400);	}   }
+    this.blrSet3	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(0,40,800,600);	}   }
     this.blrAboutMe = function(b,d){
 	  var s = _v;
 	  var LastSrcHref = "https://littleflute.github.io/vc6/XdHtml/plx/design/f2.js";
