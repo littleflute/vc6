@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.116"; 
+	var _v	= "v0.0.123"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -14,7 +14,7 @@ function _blDesignClass(){
 	}
 	this.blrNewClass	= function(b,d){
 		_loadFunList(d);
-		var t = blo0.blTextarea(d, "id_ta_4_NewClass" , "alert(1);" , blGrey[2]);
+		var t = blo0.blTextarea(d, "id_ta_4_NewClass" , "alert(1);" , blGrey[3]);
 		t.style.width = "98%";
 		t.style.height = "200px";
 		var _btnShow = blo0.blBtn(d,"id_btn_blDesignClass_show","show","gray");
@@ -151,12 +151,13 @@ function _blDesignClass(){
 	{
 		if(_view == null)
 		{
-			_view = blo0.blMDiv(document.body,"id_div_plx__blDesignClass","_blDesignClass:" + _v,150,50,400,200,blColor[4]);
+			_view = blo0.blMDiv(document.body,"id_div_plx__blDesignClass","_blDesignClass:" + _v,150,50,400,200,blColor[5]);
 			var d = blo0.blDiv(_view,_view.id+"_showMyObj","showMyObj",blGrey[0]);
 			blo0.blShowObj2Div(d,this);
 			bl$("blrAboutMe").click();
 			bl$("blr2DoList").click();
 			bl$("blrNewClass").click();
+			_view.style.zIndex = -100;
 		}
 	}
 }
