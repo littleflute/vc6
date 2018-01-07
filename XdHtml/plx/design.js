@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.114"; 
+	var _v	= "v0.0.115"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -73,7 +73,7 @@ function _blDesignClass(){
 
 	this.bll6 = "-6--";
 	this.blr____________2Do	= function(b,d){ 
-		if(!d.n){d.n=1;d.innerHTML = "2Do:"+d.n;
+		if(!d.n){d.n=1;d.innerHTML = "2Do: id_div_function_2 "+d.n;
 				bl$("id_btn_blDesignClass_show").click();
 				bl$("id_btn_blDesignClass_newFun").click();
 				bl$("id_btn_blDesignClass_newFun1").click();
