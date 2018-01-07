@@ -1,10 +1,12 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.141";  
+  var _v			= "v0.0.145";  
 
   var _ui = new _UIClass;
   function _lineClass(o){
-			var d = blo0.blMDiv(o,"id_div__lineClass_"+o.lines.length,"2:",50,50,100,200,"blue");  
+	var i = o.lines.length + 1;
+	var x = 0, y = i*110, w=100, h=100;
+			var d = blo0.blMDiv(o,"id_div__lineClass_"+i,"Line# " + i,x,y,w,h,"blue");  
   }
   function _UIClass(){   
 	var w		= null;
