@@ -1,16 +1,19 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.59";  
+  var _v			= "v0.0.66";  
 
   var _ui = new _UIClass;
   function _jgClass(id){
 	var _jg = new jsGraphics(id);
-	this.upate = function(){
+	var x=0,y=0,w=600,h=400;
+	function _drawAll(){
 		_jg.clear();
 		_jg.setColor("red");
-		_jg.fillRect(0,0,100,100);
+		_jg.fillRect(x,y,w,h);
 		_jg.paint();
 	}   
+	this.upate	= function()			{ _drawAll(); }   
+	this.set	= function(x1,y1,w1,h1) { x=x1;y=y1;w=w1;h=h1; _drawAll(); }   
   }
   function _UIClass(){   
 	var _myWrap		= null;
@@ -24,6 +27,8 @@ var f2 = function(b,d){
 		}
 	  _on_off_div(b,_myWrap);
     }
+    this.blrSet1	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(20,20,400,300);	}   }
+    this.blrSet2	= function(b,d)    { 	if(_myWrap!=null) {		_myWrap.jg.set(20,30,600,400);	}   }
     this.blrAboutMe = function(b,d){
 	  var s = _v;
 	  var LastSrcHref = "https://littleflute.github.io/vc6/XdHtml/plx/design/f2.js";
