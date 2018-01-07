@@ -6,13 +6,14 @@ var ls = [
 	"f4.js",
 	"f5.js",
 	"f6.js",
+	"f7.js",
 ];
 var ld = bl$("id_div_function_list");
 if(ld){
-	ld.innerHTML = "v0.0.21 ";
+	ld.innerHTML = "v0.0.23 ";
 	var lv = blo0.blDiv(ld,ld.id+"_lv_","lv",blGrey[5]);
 	for(i in ls){
-		var b = blo0.blBtn(ld,ld.id+"_btn_"+i,"f"+i,blGrey[0]);
+		var b = blo0.blBtn(ld,"id_div_function_"+i,"f"+i,blGrey[0]);
 		b.onclick = function(n_){
 			return function(){
 				var idScript = "id_script_f" + n_; 
