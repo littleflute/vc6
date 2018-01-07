@@ -1,8 +1,11 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.135";  
+  var _v			= "v0.0.141";  
 
   var _ui = new _UIClass;
+  function _lineClass(o){
+			var d = blo0.blMDiv(o,"id_div__lineClass_"+o.lines.length,"2:",50,50,100,200,"blue");  
+  }
   function _UIClass(){   
 	var w		= null;
     this.blrView	= function(b,d)
@@ -16,10 +19,7 @@ var f2 = function(b,d){
 			s += "<button id='id_btn_blrView_b3_btn5'>+</button>";
 			s += "</div>";	
 			s += "<div id='id_div_blrView_d2'>";
-			s += "<button id='id_btn_blrView_d2_btn1'>b1</button>";
-			s += "<button id='id_btn_blrView_d2_btn2'>b2</button>";
-			s += "<button id='id_btn_blrView_d2_btn3'>b3</button>";
-			s += "<button id='id_btn_blrView_d2_btn4'>b4</button>";
+			s += "<button id='id_btn_blrView_d2_add_line'>[+line]</button>"; 
 			s += "</div>";	
 			w = blo0.blMDiv(document.body,"id_div__myWrap",s,10,50,400,200,"brown"); w.style.zIndex = -99; 
 			bl$("id_btn_blrView_b3_btn1").onclick = function(){		w.jg.set(0,40,400,300);			} 
@@ -27,6 +27,11 @@ var f2 = function(b,d){
 			bl$("id_btn_blrView_b3_btn3").onclick = function(){		w.jg.set(0,50,800,600);			}    
 			bl$("id_btn_blrView_b3_btn4").onclick = function(){	_on_off_div(this,w.handle);_on_off_div(this,w.main); } 
 			bl$("id_btn_blrView_b3_btn5").onclick = function(){	_on_off_div(this,bl$("id_div_blrView_d2")); } 
+			bl$("id_btn_blrView_d2_add_line").onclick = function(){
+				if(!w.lines) w.lines=[];
+				var l = new _lineClass(w);
+				w.lines.push(l);
+			} 
 			w.page = blo0.blDiv(w,w.id+"divView","",blGrey[0]);
 			w.jg		= new _jgClass(w.page.id);
 			w.jg.upate(); 
