@@ -1,6 +1,5 @@
 // file: blclass.js
-// by littleflute
-// 2017/11/3 23:55am bjt
+// by littleflute 
 
 function bl$(id){	return document.getElementById(id); }
 var QueryString = function () 
@@ -83,7 +82,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.70";
+    this.v = "xdvc6: 1.0.71";
 	function _blhMakeLink(txt,href,style,target){
 		var r = "";
 		r += "<a href='" + href + "' ";
@@ -105,13 +104,9 @@ function blClass ()
 		 d.parentElement.parentElement.style.width = "100%";
 	}
 	this.blrAboutMe= function(b,d){		
-		var s = "";
-		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/blclass.js'"
-		s += " style='color:gold;'";
-		s +=">";
-		s += "upate";
-		s += "</a>"; 
-		s += _blhMakeLink('blclass.js','https://github.com/littleflute/vc6/edit/master/XdHtml/blclass.js','color:skyblue;','_blank');
+		var s = ""; 
+		s += _blhMakeLink('blclass.js ','https://littleflute.github.io/vc6/XdHtml/blclass.js','color:skyblue;','_blank');
+		s += _blhMakeLink(' blclass.js*','https://github.com/littleflute/vc6/edit/master/XdHtml/blclass.js','color:skyblue;','_blank');
 		d.innerHTML = s;
 		_on_off_div(b,d);
 	}
