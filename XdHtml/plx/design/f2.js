@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.93";  
+  var _v			= "v0.0.94";  
 
   var _ui = new _UIClass;
   function _UIClass(){   
@@ -33,7 +33,7 @@ var f2 = function(b,d){
     this.blrView	= function(b,d)
     { 
 		if(w==null){		
-			w = blo0.blMDiv(document.body,"id_div__myWrap","_myMsgWrap:" + _v,10,50,400,200,"brown");  
+			w = blo0.blMDiv(document.body,"id_div__myWrap","_myMsgWrap:" + _v,10,50,400,200,"brown"); w.style.zIndex = -99; 
 			w.divView = blo0.blDiv(w,w.id+"divView","divView",blGrey[0]);
 			w.jg		= new _jgClass(w.divView.id);
 			w.jg.upate();
