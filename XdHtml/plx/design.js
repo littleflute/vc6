@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.100"; 
+	var _v	= "v0.0.112"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -17,11 +17,10 @@ function _blDesignClass(){
 		var t = blo0.blTextarea(d, "id_ta_4_NewClass" , "alert(1);" , blGrey[2]);
 		t.style.width = "98%";
 		t.style.height = "200px";
-		var _btnShow = blo0.blBtn(d,d.id+"_btnShow","show","gray");
+		var _btnShow = blo0.blBtn(d,"id_btn_blDesignClass_show","show","gray");
 		_btnShow.onclick = function(_div){
 			var myView = null;
-			var oNew   = {};
-			oNew.v = "v0.0.3";
+			var oNew   = {}; 
 			return function()
 			{
 				if(myView == null)
@@ -29,13 +28,13 @@ function _blDesignClass(){
 					var btn = [];
 					var btnSel = null;
 					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,750,50,400,200,"skyblue");//blColor[4]);
-					var _btnSet = blo0.blBtn(_div,_div.id+"_btnSet","SetFun",blGrey[2]);
+					var _btnSet = blo0.blBtn(_div,"id_btn_blDesignClass_SetFun","SetFun",blGrey[2]);
 					_btnSet.onclick = function(){
 						if(btnSel==null) return;
 						var s = "oNew.blrFun" + btnSel.n + "=" + t.value;
 						eval(s);	 		
 					}
-					var _btnNewFun = blo0.blBtn(_div,_div.id+"_btnNewFun","newFun","gray");
+					var _btnNewFun = blo0.blBtn(_div,"id_btn_blDesignClass_newFun","newFun","gray");
 					_btnNewFun.onclick = function(){
 						var sf	= "";
 						var n	= 0;
@@ -46,7 +45,7 @@ function _blDesignClass(){
 							n++;
 							sf = "oNew.blrFun" + n + " = " + f;
 							eval (sf);
-							var b = blo0.blBtn(_div,_div.id+"_btn"+n,"f"+n,"gray");
+							var b = blo0.blBtn(_div,"id_btn_blDesignClass_newFun"+n,"f"+n,"gray");
 							b.n = n;
 							btn.push(b);
 							b.onclick = function(btn_,n_){
@@ -73,6 +72,16 @@ function _blDesignClass(){
 	};
 
 	this.bll6 = "-6--";
+	this.blr____________2Do	= function(b,d){
+		var d2Do = blo0.blDiv(d,d.id+"_2Do","2Do:",blGrey[0]);
+		if(!d2Do.n){d2Do.n=1;d2Do.innerHTML = "2Do:"+d2Do.n;
+				bl$("id_btn_blDesignClass_show").click();
+				bl$("id_btn_blDesignClass_newFun").click();
+				bl$("id_btn_blDesignClass_newFun1").click();
+				bl$("id_div_function_2").click();
+				bl$("id_btn_blDesignClass_SetFun").click();
+		}
+	};
 	this.blrRef3	= function(b,d){
 		var t = blo0.blTextarea(d, d.id + "ta" , "https://littleflute.github.io/blog/docs/2017/04/27/" , blGrey[2]);
 		t.style.width = "98%"; 
@@ -150,6 +159,7 @@ function _blDesignClass(){
 			blo0.blShowObj2Div(d,this);
 			bl$("blrAboutMe").click();
 			bl$("blr2DoList").click();
+			bl$("blrNewClass").click();
 		}
 	}
 }
