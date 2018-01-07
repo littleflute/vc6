@@ -83,8 +83,17 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.65";//blclassdbg
-
+    this.v = "xdvc6: 1.0.70";
+	function _blhMakeLink(txt,href,style,target){
+		var r = "";
+		r += "<a href='" + href + "' ";
+		r += " style=" + style;
+		r += " target=" + target;
+		r +=">" + txt; 
+		r += "</a>";   
+		return r;
+	}
+	this.blhMakeLink = function (txt,href,style,target) { return _blhMakeLink(txt,href,style,target); }
     this.blrClose = function (b,d)
     {        
 		 d.parentElement.parentElement.style.display = "none";
@@ -102,6 +111,7 @@ function blClass ()
 		s +=">";
 		s += "upate";
 		s += "</a>"; 
+		s += _blhMakeLink('blclass.js','https://github.com/littleflute/vc6/edit/master/XdHtml/blclass.js','color:skyblue;','_blank');
 		d.innerHTML = s;
 		_on_off_div(b,d);
 	}
