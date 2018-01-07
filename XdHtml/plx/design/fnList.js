@@ -10,10 +10,10 @@ var ls = [
 ];
 var ld = bl$("id_div_function_list");
 if(ld){
-	ld.innerHTML = "v0.0.23 ";
+	ld.innerHTML = "v0.0.24 ";
 	var lv = blo0.blDiv(ld,ld.id+"_lv_","lv",blGrey[5]);
 	for(i in ls){
-		var b = blo0.blBtn(ld,"id_div_function_"+i,"f"+i,blGrey[0]);
+		var b = blo0.blBtn(ld,"id_div_function_"+i,"f"+i,blColor[i]);
 		b.onclick = function(n_){
 			return function(){
 				var idScript = "id_script_f" + n_; 
