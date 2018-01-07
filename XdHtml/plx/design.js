@@ -1,6 +1,6 @@
  
 function _blDesignClass(){
-	var _v	= "v0.0.115"; 
+	var _v	= "v0.0.116"; 
 	var _view		= null; 
 
 	var _loadFunList = function(d){
@@ -27,7 +27,7 @@ function _blDesignClass(){
 				{
 					var btn = [];
 					var btnSel = null;
-					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,750,50,400,200,"skyblue");//blColor[4]);
+					myView = blo0.blMDiv(document.body,"id_div_New_Obj","NewObj:" + _v,850,50,400,200,"skyblue");//blColor[4]);
 					var _btnSet = blo0.blBtn(_div,"id_btn_blDesignClass_SetFun","SetFun",blGrey[2]);
 					_btnSet.onclick = function(){
 						if(btnSel==null) return;
