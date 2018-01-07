@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.94";  
+  var _v			= "v0.0.103";  
 
   var _ui = new _UIClass;
   function _UIClass(){   
@@ -16,7 +16,7 @@ var f2 = function(b,d){
 	}  
     this.blrSet1	= function(b,d)    {		
 		var tb = blo0.blDiv(d,"id_div_toolbar_function_f2_blrSet1","",blGrey[5]);
-		b.style.background = "gray";
+		b.style.background = "gray"; 
 		var _id = "id_btn_f2_toolbar_blrSet1_b";
 
 		var b1 = blo0.blBtn(tb,_id+1,"b1",blGrey[0]);b1.onclick = function(){
@@ -27,13 +27,21 @@ var f2 = function(b,d){
 			var d = blo0.blMDiv(w,"id_div_blrSet1_d2","2:",50,50,100,200,"blue");  
 			_on_off_div(this,d);}	
 		var b3 = blo0.blBtn(tb,_id+3,"b3",blGrey[0]);b3.onclick = function(){ 
-			var d = blo0.blMDiv(w,"id_div_blrSet1_d3","3:",110,50,100,200,"green");  
-			_on_off_div(this,d);}	
+			var s = "";
+			s += "<div>";
+			s += "<button id='id_btn_blrSet1_b3_btn1'>b1</button>";
+			s += "<button id='id_btn_blrSet1_b3_btn2'>b2</button>";
+			s += "</div>";
+			var d = blo0.blMDiv(w,"id_div_blrSet1_d3",s,110,50,100,200,"green");  
+			bl$("id_btn_blrSet1_b3_btn1").onclick = function(){				d.main.style.backgroundColor="red";			}
+			bl$("id_btn_blrSet1_b3_btn2").onclick = function(){				d.handle.style.backgroundColor="purple";	}
+			_on_off_div(this,d);
+		}	
 	}  
     this.blrView	= function(b,d)
     { 
 		if(w==null){		
-			w = blo0.blMDiv(document.body,"id_div__myWrap","_myMsgWrap:" + _v,10,50,400,200,"brown"); w.style.zIndex = -99; 
+			w = blo0.blMDiv(document.body,"id_div__myWrap","_f2:" + _v,10,50,400,200,"brown"); w.style.zIndex = -99; 
 			w.divView = blo0.blDiv(w,w.id+"divView","divView",blGrey[0]);
 			w.jg		= new _jgClass(w.divView.id);
 			w.jg.upate();
