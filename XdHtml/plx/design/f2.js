@@ -1,16 +1,27 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.83";  
+  var _v			= "v0.0.87";  
 
   var _ui = new _UIClass;
   function _UIClass(){   
 	var w		= null;
     this.blrSet0	= function(b,d)    {		
-		var tb = blo0.blDiv(d,"id_div_toolbar_function_f2","",blGrey[5]);
+		var tb = blo0.blDiv(d,"id_div_toolbar_function_f2_blrSet0","",blGrey[5]);
 		b.style.background = "gray";
-		var b1 = blo0.blBtn(tb,"id_btn_f2_toolbar_b1","b1",blGrey[0]);b1.onclick = function(){ if(w!=null) {w.jg.set(0,40,400,300);	} }	
-		var b2 = blo0.blBtn(tb,"id_btn_f2_toolbar_b2","b2",blGrey[0]);b2.onclick = function(){ if(w!=null) {w.jg.set(0,40,600,400);	} }	
-		var b3 = blo0.blBtn(tb,"id_btn_f2_toolbar_b3","b3",blGrey[0]);b3.onclick = function(){ if(w!=null) {w.jg.set(0,40,800,600);	} }	
+		var _id = "id_btn_f2_toolbar_blrSet0_b";
+
+		var b1 = blo0.blBtn(tb,_id+1,"b1",blGrey[0]);b1.onclick = function(){ if(w!=null) {w.jg.set(0,40,400,300);	} }	
+		var b2 = blo0.blBtn(tb,_id+2,"b2",blGrey[0]);b2.onclick = function(){ if(w!=null) {w.jg.set(0,40,600,400);	} }	
+		var b3 = blo0.blBtn(tb,_id+3,"b3",blGrey[0]);b3.onclick = function(){ if(w!=null) {w.jg.set(0,40,800,600);	} }	
+	}  
+    this.blrSet1	= function(b,d)    {		
+		var tb = blo0.blDiv(d,"id_div_toolbar_function_f2_blrSet1","",blGrey[5]);
+		b.style.background = "gray";
+		var _id = "id_btn_f2_toolbar_blrSet1_b";
+
+		var b1 = blo0.blBtn(tb,_id+1,"b1",blGrey[0]);b1.onclick = function(){ if(w!=null) {w.jg.set(0,40,400,300);	} }	
+		var b2 = blo0.blBtn(tb,_id+2,"b2",blGrey[0]);b2.onclick = function(){ if(w!=null) {w.jg.set(0,40,600,400);	} }	
+		var b3 = blo0.blBtn(tb,_id+3,"b3",blGrey[0]);b3.onclick = function(){ if(w!=null) {w.jg.set(0,40,800,600);	} }	
 	}  
     this.blrView	= function(b,d)
     { 
@@ -51,6 +62,7 @@ var f2 = function(b,d){
 		_myView.blFirst = true;
 		blr_AboutMe.click();
 		blrSet0.click();
+		blrSet1.click();
 	  }
 	  _on_off_div(b,d);
   };
