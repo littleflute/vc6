@@ -35,7 +35,7 @@ a:hover {color:#C60;text-decoration: underline;}
 <body>     
 <div class="menu">
   <ul id=treemenu1> 
-    <li><a href="?v=">v0.0.85</a>
+    <li><a href="?v=">v0.0.88</a>
     </li>
     
     <li><a>projects</a>
@@ -134,6 +134,7 @@ a:hover {color:#C60;text-decoration: underline;}
 		<li><a>plx</a>
 			<ul>
 			<li><a href="#" id="id_plx_design">design</a></li>
+			<li><a href="#" id="id_plx_blclass">blclass</a></li>
 			</ul>
 		</li>
 		<li><a>github-></a>
@@ -168,6 +169,10 @@ function _blLoad()
 		blo0.blScript("id_script_plx_design","plx/design.js");
 		var c = bl$("id_div_plx__blDesignClass");
 		if(c) c.style.display = "block";
+	};
+	bl$("id_plx_blclass").onclick = function(){
+		var d = blo0.blMDiv(document.body,"id_div_plx_blclass","id_div_plx_blclass",150,150,500,200,blColor[1]);
+		_on_off_div(this,d);
 	};
 	bl$("id_plx_design").click();
 }
