@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.114";  
+  var _v			= "v0.0.132";  
 
   var _ui = new _UIClass;
   function _UIClass(){   
@@ -12,14 +12,18 @@ var f2 = function(b,d){
 			s += "<button id='id_btn_blrView_b3_btn1'>b1</button>";
 			s += "<button id='id_btn_blrView_b3_btn2'>b2</button>";
 			s += "<button id='id_btn_blrView_b3_btn3'>b3</button>";
+			s += "<button id='id_btn_blrView_b3_btn4'>b4</button>";
 			s += "</div>";	
 			w = blo0.blMDiv(document.body,"id_div__myWrap",s,10,50,400,200,"brown"); w.style.zIndex = -99; 
-			bl$("id_btn_blrView_b3_btn1").onclick = function(){				w.main.style.backgroundColor="red";			} 
-			bl$("id_btn_blrView_b3_btn2").onclick = function(){				w.handle.style.backgroundColor="red";			} 
-			bl$("id_btn_blrView_b3_btn3").onclick = function(){			_on_off_div(this,w.handle);_on_off_div(this,w.main); } 
-			w.page = blo0.blDiv(w,w.id+"divView","divView",blGrey[0]);
+			bl$("id_btn_blrView_b3_btn1").onclick = function(){		w.jg.set(0,40,400,300);			} 
+			bl$("id_btn_blrView_b3_btn2").onclick = function(){		w.jg.set(0,50,600,400);			}
+			bl$("id_btn_blrView_b3_btn3").onclick = function(){		w.jg.set(0,50,800,600);			}    
+			bl$("id_btn_blrView_b3_btn4").onclick = function(){	_on_off_div(this,w.handle);_on_off_div(this,w.main); } 
+			w.page = blo0.blDiv(w,w.id+"divView","",blGrey[0]);
 			w.jg		= new _jgClass(w.page.id);
-			w.jg.upate();
+			w.jg.upate(); 
+			bl$("id_btn_blrView_b3_btn3").click();
+			bl$("id_btn_blrView_b3_btn4").click();
 		}
 	  _on_off_div(b,w);
     }
@@ -27,10 +31,7 @@ var f2 = function(b,d){
 		var tb = blo0.blDiv(d,"id_div_toolbar_function_f2_blrSet0","",blGrey[5]);
 		b.style.background = "gray";
 		var _id = "id_btn_f2_toolbar_blrSet0_b";
-
-		var b1 = blo0.blBtn(tb,_id+1,"b1",blGrey[0]);b1.onclick = function(){ if(w!=null) {w.jg.set(0,40,400,300);	} }	
-		var b2 = blo0.blBtn(tb,_id+2,"b2",blGrey[0]);b2.onclick = function(){ if(w!=null) {w.jg.set(0,50,600,400);	} }	
-		var b3 = blo0.blBtn(tb,_id+3,"b3",blGrey[0]);b3.onclick = function(){ if(w!=null) {w.jg.set(0,60,800,600);	} }	
+  
 	}  
     this.blrSet1	= function(b,d)    {		
 		var tb = blo0.blDiv(d,"id_div_toolbar_function_f2_blrSet1","",blGrey[5]);
