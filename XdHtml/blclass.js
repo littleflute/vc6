@@ -1,5 +1,14 @@
 // file: blclass.js    by littleflute 
 
+function _move_div(oDiv,dx,dy){
+			var l = oDiv.style.left;
+			l = parseInt(l);
+			oDiv.style.left = l + dx + "px";
+
+			var t = oDiv.style.top;
+			t = parseInt(t);
+			oDiv.style.top = t + dy + "px";
+		}
 function bl$(id){	return document.getElementById(id); }
 var QueryString = function () 
 {
@@ -72,7 +81,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.81";
+    this.v = "xdvc6: 1.0.114";
 	function _blhMakeLink(txt,href,style,target){
 		var r = "";
 		r += "<a href='" + href + "' ";
@@ -146,16 +155,8 @@ function blClass ()
 		};
 		divMoveHandle.onmousemove = function(){
 			var c = _getXY(); 
-			if(x1==0 &&y1==0) return false;
-
-			var l = dm.style.left;
-			l = parseInt(l);
-			dm.style.left = l + c.x -x1 + "px";
-
-			var t = dm.style.top;
-			t = parseInt(t);
-			dm.style.top = t + c.y -y1 + "px";
-			
+			if(x1==0 &&y1==0) return false; 
+			_move_div(dm,c.x-x1,c.y-y1);
 			x1 = c.x;
 			y1 = c.y;
 			return false;
@@ -204,14 +205,7 @@ function blClass ()
 			var c = _getXY();
 			main.innerHTML = "move:" + c.x + "," + c.y; 
 			if(x1==0 &&y1==0) return false;
-
-			var l = dm.style.left;
-			l = parseInt(l);
-			dm.style.left = l + c.x -x1 + "px";
-
-			var t = dm.style.top;
-			t = parseInt(t);
-			dm.style.top = t + c.y -y1 + "px";
+			_move_div(dm,c.x-x1,c.y-y1); 
 			
 			x1 = c.x;
 			y1 = c.y;
