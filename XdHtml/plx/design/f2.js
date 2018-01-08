@@ -1,8 +1,38 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.223";  
+  var _v			= "v0.0.233";  
 
   var _ui = new _UIClass;
+  function _barClass(o){
+	var i = o.bars.length + 1;
+	var x = i*200, y = 100, w=300, h=100;	
+	var s = "";
+			s += "<div>";
+			s += "<button id='id_btn___barClass_btn";
+			s += i;
+			s += 1;
+			s += "'>[+beat]</button>"; 
+			s += "<button style='color:red;' id='id_btn___barClass_btn";
+			s += i;
+			s += 2;
+			s += "'>b2</button>"; 
+			s += "<div style='background-color:red;' id='id_div_bar_Msg";
+			s += i;
+			s += "'></div>";
+
+			s += "Line# " + i;
+	var d = blo0.blMDiv(o,"id_div__barClass_"+i,s,x,y,w,h,"gold");   
+	d.barNum = i;
+	d.divMsg = bl$("id_div_bar_Msg"+i);
+	bl$("id_btn___barClass_btn"+i+1).onclick = function(_d){
+		return function(){ 
+			_d.divMsg.innerHTML = this.id + ":" + d.barNum;
+		}
+	}(d);
+	bl$("id_btn___barClass_btn"+i+2).onclick = function(_i,_idMsg){
+		return function(){bl$(_idMsg).innerHTML = this.id + ":" + _i;}
+	}(i,"id_div_bar_Msg"+i);
+  }
   function _lineClass(o){
 	var i = o.lines.length + 1;
 	var x = 0, y = i*110, w=300, h=100;	
@@ -11,7 +41,7 @@ var f2 = function(b,d){
 			s += "<button id='id_btn__lineClass_btn";
 			s += i;
 			s += 1;
-			s += "'>b1</button>"; 
+			s += "'>[+bar]</button>"; 
 			s += "<button style='color:red;' id='id_btn__lineClass_btn";
 			s += i;
 			s += 2;
@@ -22,9 +52,14 @@ var f2 = function(b,d){
 
 			s += "Line# " + i;
 	var d = blo0.blMDiv(o,"id_div__lineClass_"+i,s,x,y,w,h,"blue");   
-	bl$("id_btn__lineClass_btn"+i+1).onclick = function(_i,_idMsg){
-		return function(){bl$(_idMsg).innerHTML = this.id + ":" + _i;}
-	}(i,"id_div_line_Msg"+i);
+	d.lineNum = i;
+	bl$("id_btn__lineClass_btn"+i+1).onclick = function(_d){
+		return function(){ 
+			if(!_d.bars) _d.bars=[];
+				var bar = new _barClass(_d);
+				_d.bars.push(bar);
+		}
+	}(d);
 	bl$("id_btn__lineClass_btn"+i+2).onclick = function(_i,_idMsg){
 		return function(){bl$(_idMsg).innerHTML = this.id + ":" + _i;}
 	}(i,"id_div_line_Msg"+i);
