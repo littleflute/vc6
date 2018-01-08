@@ -1,15 +1,43 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.515";  
+  var _v			= "v0.0.523";  
 
   var _ui = new _UIClass;
+  function _barClass(o){
+	var i = o.bars.length + 1;
+	var x = i*200, y = 33, w=111, h=100;	 
+	 
+	var divMsgID = "id_div_bar_Msg_"+o.lineNum + "_"+"bar_"+i;
+			s += "<div style='background-color:white;' id='";
+			s += divMsgID;
+			s += "'>mmm</div>";
+	var divID = o.id + "_div_bar" + i; 
+	var s0 = "<div id='" + divID + "_t" + "'></div>";
+	var divBar = blo0.blMDiv(o,divID,s0,x,y,w,h,"gold");   
+	divBar.tbWrap = bl$(divID + "_t"); 
+	divBar.tbWrap.b1 = blo0.blBtn(divBar.tbWrap,divBar.tbWrap.id+"b1","tb",blGrey[1]); 
+	divBar.tb = blo0.blDiv(divBar.tbWrap,divBar.tbWrap.id+"tb","",blGrey[0]); 
+	divBar.tbWrap.b1.onclick  = function(_d){return function(){_on_off_div(this,_d)}}(divBar.tb); 
+	divBar.barNum = i;
+	divBar.notes=[];
+	divBar.tb.b1 = blo0.blBtn(divBar.tb,divBar.tb.id+"b1","[+nt]",blGrey[0]); 
+	divBar.tb.b2 = blo0.blBtn(divBar.tb,divBar.tb.id+"b2","hm",blGrey[0]);
+	divBar.tb.b3 = blo0.blBtn(divBar.tb,divBar.tb.id+"b3","s1",blGrey[0]);
+	divBar.tb.b4 = blo0.blBtn(divBar.tb,divBar.tb.id+"b4","s2",blGrey[0]);
+	 
+	divBar.tb.b1.onclick = function(_d){return function(){var note = new _noteClass(_d);	_d.notes.push(note);}}(divBar); 
+	divBar.tb.b2.onclick = function(_d){return function(){_on_off_div(this,_d.handle);_on_off_div(this,_d.main);}	}(divBar); 
+	divBar.tb.b3.onclick = function(_o,_d){return function(){_d.style.width="20px";_d.style.h="20px";}}(o,divBar); 
+	divBar.tb.b4.onclick = function(_o,_d){return function(){_d.style.width="110px";_d.style.h="20px";}}(o,divBar); 
+	divBar.tbWrap.b1.click();
+	divBar.tb.b3.click();
+  }
   function _noteClass(o){
 	var i = o.notes.length + 1;
 	var x = i*33, y = 11, w=22, h=15,c=6,d="8",t="1",xn=50,yn=-50;	
 
 	var divID = o.id + "_div_beat" + i;     
 	var s0 = "<div id='" + divID + "_t" + "'></div>";
-
 	var divNote = blo0.blMDiv(o,divID,s0,x,y,w,h,"gray");   divNote.handle.style.display="none";divNote.main.style.display="none";
 	divNote.tbWrap = bl$(divID + "_t"); 
 	divNote.tbWrap.b1 = blo0.blBtn(divNote.tbWrap,divNote.tbWrap.id+"b1","b1",blGrey[1]);  
@@ -181,59 +209,6 @@ var f2 = function(b,d){
 	_drawAll();
   }
    
-  function _barClass(o){
-	var i = o.bars.length + 1;
-	var x = i*200, y = 33, w=111, h=100;	
-	var btnID = o.id + "_bar"+i+1;
-	var s = "";
-			s += "<div>";
-			s += "<button id='";
-			s += btnID; 
-			s += "'>";
-			s += "[+note]";
-			s += "</button>"; 
-			s += "<button style='color:blue;' id='";
-			btnID = o.id + "_bar"+i+2;
-			s += btnID; 
-			s += "'>";
-			s += "mm";
-			s += "</button>"; 
-			s += "<button style='color:blue;' id='";
-			btnID = o.id + "_bar"+i+3;
-			s += btnID; 
-			s += "'>";
-			s += "ha";
-			s += "</button>"; 
-			s += "<button style='color:blue;' id='";
-			btnID = o.id + "_bar"+i+4;
-			s += btnID; 
-			s += "'>";
-			s += "s1";
-			s += "</button>"; 
-			s += "<button style='color:blue;' id='";
-			btnID = o.id + "_bar"+i+5;
-			s += btnID; 
-			s += "'>";
-			s += "s2";
-			s += "</button>"; 
-	var divMsgID = "id_div_bar_Msg_"+o.lineNum + "_"+"bar_"+i;
-			s += "<div style='background-color:white;' id='";
-			s += divMsgID;
-			s += "'>mmm</div>";
-	var divID = o.id + "_div_bar" + i;
-
-			s += "bar# " + divID;
-	var divBar = blo0.blMDiv(o,divID,s,x,y,w,h,"gold");   
-	divBar.barNum = i;
-	divBar.notes=[];
-	divBar.divMsg = bl$(divMsgID);
-	 
-	bl$(o.id + "_bar"+i+1).onclick = function(_d){return function(){var note = new _noteClass(_d);	_d.notes.push(note);}}(divBar);
-	bl$(o.id + "_bar"+i+2).onclick = function(){	return function(){_on_off_div(this,bl$(divMsgID));}	}(); 
-	bl$(o.id + "_bar"+i+3).onclick = function(_d){return function(){_on_off_div(this,_d.handle);_on_off_div(this,_d.main);}	}(divBar); 
-	bl$(o.id + "_bar"+i+4).onclick = function(_o,_d){return function(){_d.style.width="20px";_d.style.h="20px";}}(o,divBar); 
-	bl$(o.id + "_bar"+i+5).onclick = function(_o,_d){return function(){_d.style.width="110px";_d.style.h="20px";}}(o,divBar); 
-  }
   function _lineClass(o){
 	var i = o.lines.length + 1;
 	var x = 0, y = i*150, w=33, h=100;	
