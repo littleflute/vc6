@@ -1,8 +1,80 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.454";  
+  var _v			= "v0.0.511";  
 
   var _ui = new _UIClass;
+  function _noteClass(o){
+	var i = o.notes.length + 1;
+	var x = i*33, y = 100, w=22, h=100,c=6,d="8",t="1",xn=90,yn=60;	
+
+	var divID = o.id + "_div_beat" + i;     
+	var s0 = "<div id='" + divID + "_t" + "'>f</div>";
+
+	var divNote = blo0.blMDiv(o,divID,s0,x,y,w,h,"gray");   
+	divNote.tbWrap = bl$(divID + "_t"); divNote.tbWrap.innerHTML = "tbWrap";  
+	divNote.tbWrap.b1 = blo0.blBtn(divNote.tbWrap,divNote.tbWrap.id+"b1","b1",blGrey[1]);  
+	divNote.tb = blo0.blDiv(divNote.tbWrap,divNote.tbWrap.id+"tb","tb",blGrey[0]); 
+	divNote.tbWrap.b1.onclick  = function(_d){return function(){_on_off_div(this,_d)}}(divNote.tb);
+
+	divNote.followDiv = blo0.blMDiv(o,divID+"_follow","",x,y+122,1,h,"red"); 
+	divNote.jgo		= new _jgClass(divNote.followDiv,0,55,1,22,blGrey[3]);  
+
+	divNote.Num = i; 
+	divNote.followDiv.blhShowMe = function(jg){ 
+		jg.setColor(blColor[4]); 
+		jg.fillRect(20,55,33,22);
+		jg.setColor(blColor[5]);  
+		this._draw_note_as_music(xn,yn);
+	}
+	divNote.followDiv._draw_note_as_music = function (x0,y0){
+		var v = "v25";
+		var x = x0;
+		var y = y0; 
+		var r = divNote.jgo.draw_music_c(c,x,y);
+		x = r.x;
+		y = r.y; 
+		var r = divNote.jgo.draw_music_d(d,x,y);
+		x = r.x;
+		y = r.y; 
+		divNote.jgo.draw_music_t(t,d,x0,y0,x,y); 
+	}
+	 
+	divNote.tb.xn1 = blo0.blBtn(divNote.tb,divNote.tb.id+"xn1","xn+",blGrey[0]);
+	divNote.tb.xn2 = blo0.blBtn(divNote.tb,divNote.tb.id+"xn2","xn-",blGrey[0]);
+	divNote.tb.b1 = blo0.blBtn(divNote.tb,divNote.tb.id+"b1","b1",blGrey[0]);
+	divNote.tb.b2 = blo0.blBtn(divNote.tb,divNote.tb.id+"b2","b2",blGrey[0]);
+	divNote.tb.b3 = blo0.blBtn(divNote.tb,divNote.tb.id+"b3","c+",blGrey[0]);
+	divNote.tb.b4 = blo0.blBtn(divNote.tb,divNote.tb.id+"b4","c-",blGrey[0]);
+	divNote.tb.b5 = blo0.blBtn(divNote.tb,divNote.tb.id+"b5","t=1",blGrey[0]);
+	divNote.tb.b6 = blo0.blBtn(divNote.tb,divNote.tb.id+"b6","t=-1",blGrey[0]);
+	divNote.tb.b7 = blo0.blBtn(divNote.tb,divNote.tb.id+"b7","16b",blGrey[0]);
+	divNote.tb.b8 = blo0.blBtn(divNote.tb,divNote.tb.id+"b8","16e",blGrey[0]);
+	divNote.tb.b9 = blo0.blBtn(divNote.tb,divNote.tb.id+"b9","16=",blGrey[0]);
+	divNote.tb.b10 = blo0.blBtn(divNote.tb,divNote.tb.id+"b10","16-",blGrey[0]);
+	divNote.tb.b11 = blo0.blBtn(divNote.tb,divNote.tb.id+"b11","16",blGrey[0]);
+	divNote.tb.b12 = blo0.blBtn(divNote.tb,divNote.tb.id+"b12","8b",blGrey[0]);
+	divNote.tb.b13 = blo0.blBtn(divNote.tb,divNote.tb.id+"b13","8e",blGrey[0]);
+	divNote.tb.b14 = blo0.blBtn(divNote.tb,divNote.tb.id+"b14","8",blGrey[0]);
+	divNote.tb.xn1.onclick = function(_d){	return function(){ xn++;_d.jgo.update();}}(divNote); 
+	divNote.tb.xn2.onclick = function(_d){	return function(){ xn--;_d.jgo.update();}}(divNote); 
+	divNote.tb.b1.onclick = function(_d){	return function(){ _on_off_div(this,_d.handle);_on_off_div(this,_d.main);}}(divNote.followDiv);
+	divNote.tb.b2.onclick = function(_d){	return function(){ _d.jgo.set(0,50,30,20);}}(divNote); 
+	divNote.tb.b3.onclick = function(_d){	return function(){ c++;_d.jgo.update();}}(divNote);  
+	divNote.tb.b4.onclick = function(_d){	return function(){ c--;_d.jgo.update();}}(divNote);  
+	divNote.tb.b5.onclick = function(_d){	return function(){ t="1";;_d.jgo.update();}}(divNote);  
+	divNote.tb.b6.onclick = function(_d){	return function(){ t="-1";_d.jgo.update();}}(divNote);  
+	divNote.tb.b7.onclick = function(_d){	return function(){ d="16b";_d.jgo.update();}}(divNote);  
+	divNote.tb.b8.onclick = function(_d){	return function(){ d="16e";_d.jgo.update();}}(divNote); 
+	divNote.tb.b9.onclick = function(_d){	return function(){ d="16=";_d.jgo.update();}}(divNote);  
+	divNote.tb.b10.onclick = function(_d){	return function(){ d="16-";_d.jgo.update();}}(divNote); 
+	divNote.tb.b11.onclick = function(_d){	return function(){ d="16";_d.jgo.update();}}(divNote); 
+	divNote.tb.b12.onclick = function(_d){	return function(){ d="8b";_d.jgo.update();}}(divNote); 
+	divNote.tb.b13.onclick = function(_d){	return function(){ d="8e";_d.jgo.update();}}(divNote); 
+	divNote.tb.b14.onclick = function(_d){	return function(){ d="8";_d.jgo.update();}}(divNote); 
+	divNote.jgo.update();
+	divNote.tb.b1.onclick();		divNote.tb.b1.onclick();
+	divNote.tbWrap.b1.onclick();	divNote.tbWrap.b1.onclick();
+  }
   function _jgClass(oDiv,x1,y1,w1,h1,c1){
   	var _view = blo0.blDiv(oDiv,oDiv.id+"divView","",blGrey[0]);
 	var _jg = new jsGraphics(_view.id);
@@ -113,69 +185,6 @@ var f2 = function(b,d){
 	_drawAll();
   }
    
-  function _noteClass(o){
-	var i = o.notes.length + 1;
-	var x = i*33, y = 100, w=111, h=100,c=6,d="8",t="1";	
-
-	var divID = o.id + "_div_beat" + i;     
-	var s0 = "<div id='" + divID + "_t" + "'>f</div>";
-
-	var divNote = blo0.blMDiv(o,divID,s0,x,y,w,h,"gray");     
-	divNote.tb = bl$(divID + "_t"); divNote.tb.innerHTML = "f_v0.0.12"; 
-
-	divNote.followDiv = blo0.blMDiv(o,divID+"_follow","",x,y+88,w,h,"red"); 
-	divNote.jgo		= new _jgClass(divNote.followDiv,0,55,33,22,blGrey[3]);  
-
-	divNote.Num = i; 
-	divNote.followDiv.blhShowMe = function(jg){ 
-		jg.setColor(blColor[4]); 
-		jg.fillRect(20,55,111,22);
-		jg.setColor(blColor[5]);  
-		this._draw_note_as_music(90,60);
-	}
-	divNote.followDiv._draw_note_as_music = function (x0,y0){
-		var v = "v25";
-		var x = x0;
-		var y = y0; 
-		var r = divNote.jgo.draw_music_c(c,x,y);
-		x = r.x;
-		y = r.y; 
-		var r = divNote.jgo.draw_music_d(d,x,y);
-		x = r.x;
-		y = r.y; 
-		divNote.jgo.draw_music_t(t,d,x0,y0,x,y); 
-	}
-	 
-	divNote.tb.b1 = blo0.blBtn(divNote.tb,divNote.tb.id+"b1","b1",blGrey[0]);
-	divNote.tb.b2 = blo0.blBtn(divNote.tb,divNote.tb.id+"b2","b2",blGrey[0]);
-	divNote.tb.b3 = blo0.blBtn(divNote.tb,divNote.tb.id+"b3","c+",blGrey[0]);
-	divNote.tb.b4 = blo0.blBtn(divNote.tb,divNote.tb.id+"b4","c-",blGrey[0]);
-	divNote.tb.b5 = blo0.blBtn(divNote.tb,divNote.tb.id+"b5","t=1",blGrey[0]);
-	divNote.tb.b6 = blo0.blBtn(divNote.tb,divNote.tb.id+"b6","t=-1",blGrey[0]);
-	divNote.tb.b7 = blo0.blBtn(divNote.tb,divNote.tb.id+"b7","16b",blGrey[0]);
-	divNote.tb.b8 = blo0.blBtn(divNote.tb,divNote.tb.id+"b8","16e",blGrey[0]);
-	divNote.tb.b9 = blo0.blBtn(divNote.tb,divNote.tb.id+"b9","16=",blGrey[0]);
-	divNote.tb.b10 = blo0.blBtn(divNote.tb,divNote.tb.id+"b10","16-",blGrey[0]);
-	divNote.tb.b11 = blo0.blBtn(divNote.tb,divNote.tb.id+"b11","16",blGrey[0]);
-	divNote.tb.b12 = blo0.blBtn(divNote.tb,divNote.tb.id+"b12","8b",blGrey[0]);
-	divNote.tb.b13 = blo0.blBtn(divNote.tb,divNote.tb.id+"b13","8e",blGrey[0]);
-	divNote.tb.b14 = blo0.blBtn(divNote.tb,divNote.tb.id+"b14","8",blGrey[0]);
-	divNote.tb.b1.onclick = function(_d){	return function(){ _on_off_div(this,_d.handle);_on_off_div(this,_d.main);}}(divNote.followDiv);
-	divNote.tb.b2.onclick = function(_d){	return function(){ _d.jgo.set(0,50,30,20);}}(divNote); 
-	divNote.tb.b3.onclick = function(_d){	return function(){ c++;_d.jgo.update();}}(divNote);  
-	divNote.tb.b4.onclick = function(_d){	return function(){ c--;_d.jgo.update();}}(divNote);  
-	divNote.tb.b5.onclick = function(_d){	return function(){ t="1";;_d.jgo.update();}}(divNote);  
-	divNote.tb.b6.onclick = function(_d){	return function(){ t="-1";_d.jgo.update();}}(divNote);  
-	divNote.tb.b7.onclick = function(_d){	return function(){ d="16b";_d.jgo.update();}}(divNote);  
-	divNote.tb.b8.onclick = function(_d){	return function(){ d="16e";_d.jgo.update();}}(divNote); 
-	divNote.tb.b9.onclick = function(_d){	return function(){ d="16=";_d.jgo.update();}}(divNote);  
-	divNote.tb.b10.onclick = function(_d){	return function(){ d="16-";_d.jgo.update();}}(divNote); 
-	divNote.tb.b11.onclick = function(_d){	return function(){ d="16";_d.jgo.update();}}(divNote); 
-	divNote.tb.b12.onclick = function(_d){	return function(){ d="8b";_d.jgo.update();}}(divNote); 
-	divNote.tb.b13.onclick = function(_d){	return function(){ d="8e";_d.jgo.update();}}(divNote); 
-	divNote.tb.b14.onclick = function(_d){	return function(){ d="8";_d.jgo.update();}}(divNote); 
-	divNote.jgo.update();
-  }
   function _barClass(o){
 	var i = o.bars.length + 1;
 	var x = i*200, y = 33, w=111, h=100;	
