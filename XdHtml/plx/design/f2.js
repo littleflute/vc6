@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.451";  
+  var _v			= "v0.0.453";  
 
   var _ui = new _UIClass;
   function _jgClass(oDiv,x1,y1,w1,h1,c1){
@@ -26,7 +26,7 @@ var f2 = function(b,d){
 	this.draw_music_d	= function (d,x0,y0){
 		var jg = _jg;
 		var x = x0;
-		var y = y0;
+		var y = y0; 
 		if(d){
 			var dx = 10;
 			var dy = 2;
@@ -84,13 +84,38 @@ var f2 = function(b,d){
 		r.y = y;
 		return r;
 	}
-	this.draw_music_t	= function (t,x0,y0){ _jg.drawString(t,x0,y0); 	}
+	this.draw_music_t	= function (t,d,x0,y0,x,y){
+		var jg = _jg;
+		var x_ = x;
+		var y_ = y;  
+		if(t){ 
+			switch(t)
+			{
+			case "-1":
+				if(d=="8"||d=="8b"||d=="8e")			y_ += 3;
+				else if(d=="16"||d=="16b"||d=="16e")	y_ += 2*3; 
+
+				x_ = x0 + 3;
+				jg.fillEllipse(x_,y_,2,2); 
+				break;
+			case "1": 
+				y_ = y0 - 3;
+				x_ = x0 + 3;
+				jg.fillEllipse(x_,y_,2,2); 
+				break;
+			} 
+		}  
+		var r = {};
+		r.x = x_;
+		r.y = y_;
+		return r;
+	}
 	_drawAll();
   }
    
   function _noteClass(o){
 	var i = o.notes.length + 1;
-	var x = i*33, y = 100, w=111, h=100,c=6,d="8",t=0;	
+	var x = i*33, y = 100, w=111, h=100,c=6,d="8",t="1";	
 
 	var divID = o.id + "_div_beat" + i;     
 	var s0 = "<div id='" + divID + "_t" + "'>f</div>";
@@ -98,17 +123,14 @@ var f2 = function(b,d){
 	var divNote = blo0.blMDiv(o,divID,s0,x,y,w,h,"gray");     
 	divNote.tb = bl$(divID + "_t"); divNote.tb.innerHTML = "f_v0.0.12"; 
 
-	divNote.followDiv = blo0.blMDiv(o,divID+"_follow","",x+131,y,w,h,"red"); 
+	divNote.followDiv = blo0.blMDiv(o,divID+"_follow","",x,y+88,w,h,"red"); 
 	divNote.jgo		= new _jgClass(divNote.followDiv,0,55,33,22,blGrey[3]);  
 
 	divNote.Num = i; 
 	divNote.followDiv.blhShowMe = function(jg){ 
 		jg.setColor(blColor[4]); 
 		jg.fillRect(20,55,111,22);
-		jg.setColor(blColor[5]); 
-		divNote.jgo.draw_music_c(c,30,60);
-		divNote.jgo.draw_music_d(d,50,60);
-		divNote.jgo.draw_music_t(t,70,60); 
+		jg.setColor(blColor[5]);  
 		this._draw_note_as_music(90,60);
 	}
 	divNote.followDiv._draw_note_as_music = function (x0,y0){
@@ -121,6 +143,7 @@ var f2 = function(b,d){
 		var r = divNote.jgo.draw_music_d(d,x,y);
 		x = r.x;
 		y = r.y; 
+		divNote.jgo.draw_music_t(t,d,x0,y0,x,y); 
 	}
 	 
 	divNote.tb.b1 = blo0.blBtn(divNote.tb,divNote.tb.id+"b1","b1",blGrey[0]);
@@ -129,21 +152,21 @@ var f2 = function(b,d){
 	divNote.tb.b4 = blo0.blBtn(divNote.tb,divNote.tb.id+"b4","c-",blGrey[0]);
 	divNote.tb.b5 = blo0.blBtn(divNote.tb,divNote.tb.id+"b5","16b",blGrey[0]);
 	divNote.tb.b6 = blo0.blBtn(divNote.tb,divNote.tb.id+"b6","8b",blGrey[0]);
-	divNote.tb.b7 = blo0.blBtn(divNote.tb,divNote.tb.id+"b7","t+",blGrey[0]);
-	divNote.tb.b8 = blo0.blBtn(divNote.tb,divNote.tb.id+"b8","t-",blGrey[0]);
+	divNote.tb.b7 = blo0.blBtn(divNote.tb,divNote.tb.id+"b7","t=1",blGrey[0]);
+	divNote.tb.b8 = blo0.blBtn(divNote.tb,divNote.tb.id+"b8","t=-1",blGrey[0]);
 	divNote.tb.b1.onclick = function(_d){	return function(){ _on_off_div(this,_d.handle);_on_off_div(this,_d.main);}}(divNote.followDiv);
 	divNote.tb.b2.onclick = function(_d){	return function(){ _d.jgo.set(0,50,30,20);}}(divNote); 
 	divNote.tb.b3.onclick = function(_d){	return function(){ c++;_d.jgo.update();}}(divNote);  
 	divNote.tb.b4.onclick = function(_d){	return function(){ c--;_d.jgo.update();}}(divNote);  
 	divNote.tb.b5.onclick = function(_d){	return function(){ d="16b";_d.jgo.update();}}(divNote);  
 	divNote.tb.b6.onclick = function(_d){	return function(){ d="8b";_d.jgo.update();}}(divNote);  
-	divNote.tb.b7.onclick = function(_d){	return function(){ t++;_d.jgo.update();}}(divNote);  
-	divNote.tb.b8.onclick = function(_d){	return function(){ t--;_d.jgo.update();}}(divNote); 
+	divNote.tb.b7.onclick = function(_d){	return function(){ t="1";_d.jgo.update();}}(divNote);  
+	divNote.tb.b8.onclick = function(_d){	return function(){ t="-1";_d.jgo.update();}}(divNote); 
 	divNote.jgo.update();
   }
   function _barClass(o){
 	var i = o.bars.length + 1;
-	var x = i*200, y = 100, w=155, h=100;	
+	var x = i*200, y = 33, w=111, h=100;	
 	var btnID = o.id + "_bar"+i+1;
 	var s = "";
 			s += "<div>";
@@ -196,7 +219,7 @@ var f2 = function(b,d){
   }
   function _lineClass(o){
 	var i = o.lines.length + 1;
-	var x = 0, y = i*110, w=300, h=100;	
+	var x = 0, y = i*150, w=300, h=100;	
 	var s = "";
 			s += "<div>";
 			s += "<button id='id_btn__lineClass_btn";
