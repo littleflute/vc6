@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.365";  
+  var _v			= "v0.0.411";  
 
   var _ui = new _UIClass;
   function _jgClass(oDiv,x1,y1,w1,h1,c1){
@@ -49,18 +49,12 @@ var f2 = function(b,d){
 	divBeat.blhShowMe = function(jg){
 		bl$(divMsgID).innerHTML = "*************";
 		jg.setColor(blColor[4]);
-		jg.fillRect(0,0,33,22);
+		jg.fillRect(0,55,33,22);
 	}
-	divBeat.jg		= new _jgClass(divBeat,0,55,33,22,blGrey[3]); 
+	divBeat.jgo		= new _jgClass(divBeat,0,55,33,22,blGrey[3]); 
 	 
-	bl$(o.id + "_note"+i+1).onclick = function(_d){
-		return function(){ 
-			_d.divMsg.innerHTML = this.id + ":" + _d.Num;
-		}
-	}(divBeat);
-	bl$(o.id + "_note"+i+2).onclick = function(_i,_idMsg){
-		return function(){bl$(divMsgID).innerHTML = this.id + ":" + _i;}
-	}(i,"id_div_bar_Msg"+i); 
+	bl$(o.id + "_note"+i+1).onclick = function(_d){		return function(){  divBeat.jgo.set(0,80,30,20);}}(divBeat);
+	bl$(o.id + "_note"+i+2).onclick = function(_i,_idMsg){	return function(){ divBeat.jgo.set(0,50,30,20);}}(i,"id_div_bar_Msg"+i); 
   }
   function _barClass(o){
 	var i = o.bars.length + 1;
