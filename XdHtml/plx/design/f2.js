@@ -1,8 +1,45 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.315";  
+  var _v			= "v0.0.331";  
 
   var _ui = new _UIClass;
+  function _noteClass(o){
+	var i = o.notes.length + 1;
+	var x = i*33, y = 100, w=41, h=100;	
+	var btnID = o.id + "_note"+i+1;
+	var s = "";
+			s += "<div>";
+			s += "<button id='";
+			s += btnID; 
+			s += "'>";
+			s += "b1";
+			s += "</button>"; 
+			s += "<button style='color:red;' id='";
+			btnID = o.id + "_note"+i+2;
+			s += btnID; 
+			s += "'>";
+			s += "b2";
+			s += "</button>"; 
+	var divMsgID = o.id + "_"+"beat_"+i;
+			s += "<div style='background-color:red;' id='";
+			s += divMsgID;
+			s += "'></div>";
+	var divID = o.id + "_div_beat" + i;
+
+			s += "beat# " + divID;
+	var divBeat = blo0.blMDiv(o,divID,s,x,y,w,h,"gray");   
+	divBeat.Num = i;
+	divBeat.divMsg = bl$(divMsgID);
+	 
+	bl$(o.id + "_note"+i+1).onclick = function(_d){
+		return function(){ 
+			_d.divMsg.innerHTML = this.id + ":" + _d.Num;
+		}
+	}(divBeat);
+	bl$(o.id + "_note"+i+2).onclick = function(_i,_idMsg){
+		return function(){bl$(divMsgID).innerHTML = this.id + ":" + _i;}
+	}(i,"id_div_bar_Msg"+i); 
+  }
   function _barClass(o){
 	var i = o.bars.length + 1;
 	var x = i*200, y = 100, w=155, h=100;	
@@ -12,7 +49,7 @@ var f2 = function(b,d){
 			s += "<button id='";
 			s += btnID; 
 			s += "'>";
-			s += "b1";
+			s += "[+beat]";
 			s += "</button>"; 
 			s += "<button style='color:red;' id='";
 			btnID = o.id + "_bar"+i+2;
@@ -26,14 +63,16 @@ var f2 = function(b,d){
 			s += "'></div>";
 	var divID = o.id + "_div_bar" + i;
 
-			s += "bar# " + divID;
+			s += "beat# " + divID;
 	var divBar = blo0.blMDiv(o,divID,s,x,y,w,h,"gold");   
 	divBar.barNum = i;
+	divBar.notes=[];
 	divBar.divMsg = bl$(divMsgID);
 	 
 	bl$(o.id + "_bar"+i+1).onclick = function(_d){
 		return function(){ 
-			_d.divMsg.innerHTML = this.id + ":" + _d.barNum;
+				var note = new _noteClass(_d);
+				_d.notes.push(note);
 		}
 	}(divBar);
 	bl$(o.id + "_bar"+i+2).onclick = function(_i,_idMsg){
