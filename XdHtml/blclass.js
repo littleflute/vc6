@@ -81,7 +81,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.114";
+    this.v = "xdvc6: 1.0.115";
 	function _blhMakeLink(txt,href,style,target){
 		var r = "";
 		r += "<a href='" + href + "' ";
@@ -206,6 +206,7 @@ function blClass ()
 			main.innerHTML = "move:" + c.x + "," + c.y; 
 			if(x1==0 &&y1==0) return false;
 			_move_div(dm,c.x-x1,c.y-y1); 
+			if(dm.followDiv){_move_div(dm.followDiv,c.x-x1,c.y-y1);}
 			
 			x1 = c.x;
 			y1 = c.y;
