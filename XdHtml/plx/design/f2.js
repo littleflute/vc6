@@ -1,11 +1,11 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.513";  
+  var _v			= "v0.0.515";  
 
   var _ui = new _UIClass;
   function _noteClass(o){
 	var i = o.notes.length + 1;
-	var x = i*33, y = 100, w=22, h=15,c=6,d="8",t="1",xn=90,yn=60;	
+	var x = i*33, y = 11, w=22, h=15,c=6,d="8",t="1",xn=50,yn=-50;	
 
 	var divID = o.id + "_div_beat" + i;     
 	var s0 = "<div id='" + divID + "_t" + "'></div>";
@@ -20,9 +20,7 @@ var f2 = function(b,d){
 	divNote.jgo		= new _jgClass(divNote.followDiv,0,55,0,22,blGrey[3]);  
 
 	divNote.Num = i; 
-	divNote.followDiv.blhShowMe = function(jg){ 
-		jg.setColor(blColor[4]); 
-	//	jg.fillRect(20,55,33,22);
+	divNote.followDiv.blhShowMe = function(jg){  
 		jg.setColor(blColor[5]);  
 		this._draw_note_as_music(xn,yn);
 	}
@@ -238,7 +236,7 @@ var f2 = function(b,d){
   }
   function _lineClass(o){
 	var i = o.lines.length + 1;
-	var x = 0, y = i*150, w=300, h=100;	
+	var x = 0, y = i*150, w=33, h=100;	
 	var s = "";
 			s += "<div>";
 			s += "<button id='id_btn__lineClass_btn";
