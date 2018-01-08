@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.411";  
+  var _v			= "v0.0.415";  
 
   var _ui = new _UIClass;
   function _jgClass(oDiv,x1,y1,w1,h1,c1){
@@ -14,14 +14,14 @@ var f2 = function(b,d){
 		if(o.blhShowMe){o.blhShowMe(_jg);}
 		_jg.paint();
 	}   
-	this.upate	= function()			{ _drawAll(); }   
+	this.update	= function()			{ _drawAll(); }   
 	this.set	= function(x1,y1,w1,h1) { x=x1;y=y1;w=w1;h=h1; _drawAll(); }   
 	_drawAll();
   }
    
   function _noteClass(o){
 	var i = o.notes.length + 1;
-	var x = i*33, y = 100, w=41, h=100;	
+	var x = i*33, y = 100, w=41, h=100,c='6';	
 	var btnID = o.id + "_note"+i+1;
 	var s = "";
 			s += "<div>";
@@ -36,6 +36,12 @@ var f2 = function(b,d){
 			s += "'>";
 			s += "b2";
 			s += "</button>"; 
+			s += "<button style='color:blue;' id='";
+			btnID = o.id + "_note"+i+3;
+			s += btnID; 
+			s += "'>";
+			s += "c+";
+			s += "</button>"; 
 	var divMsgID = o.id + "_"+"beat_"+i;
 			s += "<div style='background-color:red;' id='";
 			s += divMsgID;
@@ -43,18 +49,21 @@ var f2 = function(b,d){
 	var divID = o.id + "_div_beat" + i;
 
 			s += "note# " + divID;
-	var divBeat = blo0.blMDiv(o,divID,s,x,y,w,h,"gray");   
-	divBeat.Num = i;
-	divBeat.divMsg = bl$(divMsgID); 
-	divBeat.blhShowMe = function(jg){
-		bl$(divMsgID).innerHTML = "*************";
-		jg.setColor(blColor[4]);
-		jg.fillRect(0,55,33,22);
+	var divNote = blo0.blMDiv(o,divID,s,x,y,w,h,"gray");   
+	divNote.followDiv = blo0.blMDiv(o,divID+"_follow",s,x+31,y,w,h,"red");   
+	divNote.Num = i;
+	divNote.divMsg = bl$(divMsgID); 
+	divNote.blhShowMe = function(jg){ 
+		jg.setColor(blColor[4]); 
+		jg.fillRect(20,55,33,22);
+		jg.setColor(blColor[5]);
+		jg.drawString(c,30,60);
 	}
-	divBeat.jgo		= new _jgClass(divBeat,0,55,33,22,blGrey[3]); 
+	divNote.jgo		= new _jgClass(divNote,0,55,33,22,blGrey[3]); 
 	 
-	bl$(o.id + "_note"+i+1).onclick = function(_d){		return function(){  divBeat.jgo.set(0,80,30,20);}}(divBeat);
-	bl$(o.id + "_note"+i+2).onclick = function(_i,_idMsg){	return function(){ divBeat.jgo.set(0,50,30,20);}}(i,"id_div_bar_Msg"+i); 
+	bl$(o.id + "_note"+i+1).onclick = function(_d){	return function(){ _d.jgo.set(0,80,30,20);}}(divNote);
+	bl$(o.id + "_note"+i+2).onclick = function(_d){	return function(){ _d.jgo.set(0,50,30,20);}}(divNote); 
+	bl$(o.id + "_note"+i+3).onclick = function(_d){	return function(){ c++;_d.jgo.update();}}(divNote); 
   }
   function _barClass(o){
 	var i = o.bars.length + 1;
@@ -65,7 +74,7 @@ var f2 = function(b,d){
 			s += "<button id='";
 			s += btnID; 
 			s += "'>";
-			s += "[+beat]";
+			s += "[+note]";
 			s += "</button>"; 
 			s += "<button style='color:blue;' id='";
 			btnID = o.id + "_bar"+i+2;
