@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.331";  
+  var _v			= "v0.0.352";  
 
   var _ui = new _UIClass;
   function _noteClass(o){
@@ -14,7 +14,7 @@ var f2 = function(b,d){
 			s += "'>";
 			s += "b1";
 			s += "</button>"; 
-			s += "<button style='color:red;' id='";
+			s += "<button style='color:blue;' id='";
 			btnID = o.id + "_note"+i+2;
 			s += btnID; 
 			s += "'>";
@@ -51,16 +51,34 @@ var f2 = function(b,d){
 			s += "'>";
 			s += "[+beat]";
 			s += "</button>"; 
-			s += "<button style='color:red;' id='";
+			s += "<button style='color:blue;' id='";
 			btnID = o.id + "_bar"+i+2;
 			s += btnID; 
 			s += "'>";
-			s += "b2";
+			s += "mm";
+			s += "</button>"; 
+			s += "<button style='color:blue;' id='";
+			btnID = o.id + "_bar"+i+3;
+			s += btnID; 
+			s += "'>";
+			s += "ha";
+			s += "</button>"; 
+			s += "<button style='color:blue;' id='";
+			btnID = o.id + "_bar"+i+4;
+			s += btnID; 
+			s += "'>";
+			s += "s1";
+			s += "</button>"; 
+			s += "<button style='color:blue;' id='";
+			btnID = o.id + "_bar"+i+5;
+			s += btnID; 
+			s += "'>";
+			s += "s2";
 			s += "</button>"; 
 	var divMsgID = "id_div_bar_Msg_"+o.lineNum + "_"+"bar_"+i;
-			s += "<div style='background-color:red;' id='";
+			s += "<div style='background-color:white;' id='";
 			s += divMsgID;
-			s += "'></div>";
+			s += "'>mmm</div>";
 	var divID = o.id + "_div_bar" + i;
 
 			s += "beat# " + divID;
@@ -69,15 +87,11 @@ var f2 = function(b,d){
 	divBar.notes=[];
 	divBar.divMsg = bl$(divMsgID);
 	 
-	bl$(o.id + "_bar"+i+1).onclick = function(_d){
-		return function(){ 
-				var note = new _noteClass(_d);
-				_d.notes.push(note);
-		}
-	}(divBar);
-	bl$(o.id + "_bar"+i+2).onclick = function(_i,_idMsg){
-		return function(){bl$(divMsgID).innerHTML = this.id + ":" + _i;}
-	}(i,"id_div_bar_Msg"+i); 
+	bl$(o.id + "_bar"+i+1).onclick = function(_d){return function(){var note = new _noteClass(_d);	_d.notes.push(note);}}(divBar);
+	bl$(o.id + "_bar"+i+2).onclick = function(){	return function(){_on_off_div(this,bl$(divMsgID));}	}(); 
+	bl$(o.id + "_bar"+i+3).onclick = function(_d){return function(){_on_off_div(this,_d.handle);_on_off_div(this,_d.main);}	}(divBar); 
+	bl$(o.id + "_bar"+i+4).onclick = function(_o,_d){return function(){_d.style.width="20px";_d.style.h="20px";}}(o,divBar); 
+	bl$(o.id + "_bar"+i+5).onclick = function(_o,_d){return function(){_d.style.width="110px";_d.style.h="20px";}}(o,divBar); 
   }
   function _lineClass(o){
 	var i = o.lines.length + 1;
