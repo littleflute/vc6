@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.415";  
+  var _v			= "v0.0.422";  
 
   var _ui = new _UIClass;
   function _jgClass(oDiv,x1,y1,w1,h1,c1){
@@ -50,7 +50,14 @@ var f2 = function(b,d){
 
 			s += "note# " + divID;
 	var divNote = blo0.blMDiv(o,divID,s,x,y,w,h,"gray");   
-	divNote.followDiv = blo0.blMDiv(o,divID+"_follow",s,x+31,y,w,h,"red");   
+	var s1 = "<div id='" + divID + "_follow_t" + "'>f</div>";
+	divNote.followDiv = blo0.blMDiv(o,divID+"_follow",s1,x+31,y,w,h,"red");  
+	var dt = bl$(divID + "_follow_t"); dt.innerHTML = "f_v0.0.4"; 
+	var btn1 = blo0.blBtn(dt,dt.id+"btn1","btn1",blGrey[0]);
+	btn1.onclick = function(_d){
+		return function(){_on_off_div(this,_d);};
+	}(divNote);
+
 	divNote.Num = i;
 	divNote.divMsg = bl$(divMsgID); 
 	divNote.blhShowMe = function(jg){ 
