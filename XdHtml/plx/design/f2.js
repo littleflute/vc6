@@ -1,6 +1,6 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.431";  
+  var _v			= "v0.0.444";  
 
   var _ui = new _UIClass;
   function _jgClass(oDiv,x1,y1,w1,h1,c1){
@@ -21,37 +21,43 @@ var f2 = function(b,d){
    
   function _noteClass(o){
 	var i = o.notes.length + 1;
-	var x = i*33, y = 100, w=41, h=100,c='6';	
+	var x = i*33, y = 100, w=111, h=100,c=6,d=0,t=0;	
 
 	var divID = o.id + "_div_beat" + i;     
 	var s0 = "<div id='" + divID + "_t" + "'>f</div>";
 
 	var divNote = blo0.blMDiv(o,divID,s0,x,y,w,h,"gray");     
 	divNote.tb = bl$(divID + "_t"); divNote.tb.innerHTML = "f_v0.0.12"; 
-	divNote.tb.b1 = blo0.blBtn(divNote.tb,divNote.tb.id+"b1","b1",blGrey[0]);
-	divNote.tb.b2 = blo0.blBtn(divNote.tb,divNote.tb.id+"b2","b2",blGrey[0]);
-	divNote.tb.b3 = blo0.blBtn(divNote.tb,divNote.tb.id+"b3","b3",blGrey[0]);
 
-	var s1 = "<div id='" + divID + "_follow_t" + "'>f</div>";
-	divNote.followDiv = blo0.blMDiv(o,divID+"_follow",s1,x+31,y,w,h,"red");  
-	var dt = bl$(divID + "_follow_t"); dt.innerHTML = "f_v0.0.4"; 
-	var btn1 = blo0.blBtn(dt,dt.id+"btn1","btn1",blGrey[0]);
-	btn1.onclick = function(_d){
-		return function(){_on_off_div(this,_d);};
-	}(divNote);
+	divNote.followDiv = blo0.blMDiv(o,divID+"_follow","",x+131,y,w,h,"red");  
 
 	divNote.Num = i; 
-	divNote.blhShowMe = function(jg){ 
+	divNote.followDiv.blhShowMe = function(jg){ 
 		jg.setColor(blColor[4]); 
-		jg.fillRect(20,55,33,22);
+		jg.fillRect(20,55,111,22);
 		jg.setColor(blColor[5]);
 		jg.drawString(c,30,60);
+		jg.drawString(d,50,60);
+		jg.drawString(t,70,60);
 	}
-	divNote.jgo		= new _jgClass(divNote,0,55,33,22,blGrey[3]); 
+	divNote.jgo		= new _jgClass(divNote.followDiv,0,55,33,22,blGrey[3]); 
 	 
-	divNote.tb.b1.onclick = function(_d){	return function(){ _d.jgo.set(0,80,30,20);}}(divNote);
+	divNote.tb.b1 = blo0.blBtn(divNote.tb,divNote.tb.id+"b1","b1",blGrey[0]);
+	divNote.tb.b2 = blo0.blBtn(divNote.tb,divNote.tb.id+"b2","b2",blGrey[0]);
+	divNote.tb.b3 = blo0.blBtn(divNote.tb,divNote.tb.id+"b3","c+",blGrey[0]);
+	divNote.tb.b4 = blo0.blBtn(divNote.tb,divNote.tb.id+"b4","c-",blGrey[0]);
+	divNote.tb.b5 = blo0.blBtn(divNote.tb,divNote.tb.id+"b5","d+",blGrey[0]);
+	divNote.tb.b6 = blo0.blBtn(divNote.tb,divNote.tb.id+"b6","d-",blGrey[0]);
+	divNote.tb.b7 = blo0.blBtn(divNote.tb,divNote.tb.id+"b7","t+",blGrey[0]);
+	divNote.tb.b8 = blo0.blBtn(divNote.tb,divNote.tb.id+"b8","t-",blGrey[0]);
+	divNote.tb.b1.onclick = function(_d){	return function(){ _on_off_div(this,_d.handle);_on_off_div(this,_d.main);}}(divNote.followDiv);
 	divNote.tb.b2.onclick = function(_d){	return function(){ _d.jgo.set(0,50,30,20);}}(divNote); 
-	divNote.tb.b3.onclick = function(_d){	return function(){ c++;_d.jgo.update();}}(divNote); 
+	divNote.tb.b3.onclick = function(_d){	return function(){ c++;_d.jgo.update();}}(divNote);  
+	divNote.tb.b4.onclick = function(_d){	return function(){ c--;_d.jgo.update();}}(divNote);  
+	divNote.tb.b5.onclick = function(_d){	return function(){ d++;_d.jgo.update();}}(divNote);  
+	divNote.tb.b6.onclick = function(_d){	return function(){ d--;_d.jgo.update();}}(divNote);  
+	divNote.tb.b7.onclick = function(_d){	return function(){ t++;_d.jgo.update();}}(divNote);  
+	divNote.tb.b8.onclick = function(_d){	return function(){ t++;_d.jgo.update();}}(divNote); 
   }
   function _barClass(o){
 	var i = o.bars.length + 1;
