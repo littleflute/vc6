@@ -1,8 +1,24 @@
 var f2 = function(b,d){
 	//f2.js music staff
-  var _v			= "v0.0.352";  
+  var _v			= "v0.0.365";  
 
   var _ui = new _UIClass;
+  function _jgClass(oDiv,x1,y1,w1,h1,c1){
+  	var _view = blo0.blDiv(oDiv,oDiv.id+"divView","",blGrey[0]);
+	var _jg = new jsGraphics(_view.id);
+	var x=x1,y=y1,w=w1,h=h1,c=c1,o=oDiv;
+	function _drawAll(){
+		_jg.clear();
+		_jg.setColor(c);
+		_jg.fillRect(x,y,w,h); 
+		if(o.blhShowMe){o.blhShowMe(_jg);}
+		_jg.paint();
+	}   
+	this.upate	= function()			{ _drawAll(); }   
+	this.set	= function(x1,y1,w1,h1) { x=x1;y=y1;w=w1;h=h1; _drawAll(); }   
+	_drawAll();
+  }
+   
   function _noteClass(o){
 	var i = o.notes.length + 1;
 	var x = i*33, y = 100, w=41, h=100;	
@@ -26,10 +42,16 @@ var f2 = function(b,d){
 			s += "'></div>";
 	var divID = o.id + "_div_beat" + i;
 
-			s += "beat# " + divID;
+			s += "note# " + divID;
 	var divBeat = blo0.blMDiv(o,divID,s,x,y,w,h,"gray");   
 	divBeat.Num = i;
-	divBeat.divMsg = bl$(divMsgID);
+	divBeat.divMsg = bl$(divMsgID); 
+	divBeat.blhShowMe = function(jg){
+		bl$(divMsgID).innerHTML = "*************";
+		jg.setColor(blColor[4]);
+		jg.fillRect(0,0,33,22);
+	}
+	divBeat.jg		= new _jgClass(divBeat,0,55,33,22,blGrey[3]); 
 	 
 	bl$(o.id + "_note"+i+1).onclick = function(_d){
 		return function(){ 
@@ -81,7 +103,7 @@ var f2 = function(b,d){
 			s += "'>mmm</div>";
 	var divID = o.id + "_div_bar" + i;
 
-			s += "beat# " + divID;
+			s += "bar# " + divID;
 	var divBar = blo0.blMDiv(o,divID,s,x,y,w,h,"gold");   
 	divBar.barNum = i;
 	divBar.notes=[];
@@ -149,11 +171,8 @@ var f2 = function(b,d){
 				if(!w.lines) w.lines=[];
 				var l = new _lineClass(w);
 				w.lines.push(l);
-			} 
-			w.page = blo0.blDiv(w,w.id+"divView","",blGrey[0]);
-			w.jg		= new _jgClass(w.page.id);
-			w.jg.upate(); 
-			bl$("id_btn_blrView_b3_btn3").click();
+			}  
+			w.jg		= new _jgClass(w,0,55,300,200,blColor[3]); 
 			bl$("id_btn_blrView_b3_btn4").click();
 		}
 	  _on_off_div(b,w);
@@ -199,19 +218,6 @@ var f2 = function(b,d){
 	  _on_off_div(b,d);
     };
   }
-  function _jgClass(id){
-	var _jg = new jsGraphics(id);
-	var x=0,y=0,w=600,h=400;
-	function _drawAll(){
-		_jg.clear();
-		_jg.setColor("gray");
-		_jg.fillRect(x,y,w,h);
-		_jg.paint();
-	}   
-	this.upate	= function()			{ _drawAll(); }   
-	this.set	= function(x1,y1,w1,h1) { x=x1;y=y1;w=w1;h=h1; _drawAll(); }   
-  }
-   
   var _myUI = function(b,d){ 
       _myView	= blo0.blDiv(d,d.id + "_myView","_myView",blGrey[5]);
 	  if(!_myView.blFirst){
