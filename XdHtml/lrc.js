@@ -232,7 +232,7 @@ function blLrcClass(tt,xt,f)
 		var d1 = o.blDiv(oBoss,oBoss.id+"_div_song_right_now",QueryString.f,blColor[2]); 
 		var url = QueryString.l;
 		var d2 = o.blDiv(oBoss,oBoss.id+"_div_lrc_right_now",url,blColor[4]); 
-		var lrcLink = blo0.blLink(oBoss,oBoss.id+"lrcLink","lrc_src",url,blColor[5]);
+		var lrcLink = blo0.blLink(oBoss,oBoss.id+"lrcLink","lrc_src",url,blColor[3]);
 		var url = QueryString.j;
 		var d3 = o.blDiv(oBoss,oBoss.id+"_div_list_right_now",url,blColor[6]); 
 		var listLink = blo0.blLink(oBoss,oBoss.id+"listLink","list_src",url,blColor[8]);
