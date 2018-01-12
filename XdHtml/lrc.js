@@ -99,9 +99,24 @@ function loadLyricOK(){
 
 function blLrcClass(tt,xt,f)
 {	
-	var xdVer	= "v1.1.17";
+	var xdVer	= "v1.1.21";
 	var _currentTime = 0;
 
+	this.blrAboutMe = function(b,d){		
+		var s = "";
+		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/lrc.js'"
+		s += " style='color:lightblue;'";
+		s +=">";
+		s += " lrc.js*  ";
+		s += "</a>"; 
+		s += "<a target='_blank' href='https://littleflute.github.io/vc6/XdHtml/lrc.js'"
+		s += " style='color:yellow;'";
+		s +=">";
+		s += " lrc.js ";
+		s += "</a>"; 
+		d.innerHTML = s;
+		_on_off_div(b,d);
+	}
 
 	this.blrMakeStamp = function(b,d){ 
 		d.innerHTML = xdVer;
@@ -116,7 +131,7 @@ function blLrcClass(tt,xt,f)
 				n++;
 				var l = document.getElementById("lrcdata");
 				if(1){
-					v_.innerHTML = n + "£∫" + _currentTime + "";
+					v_.innerHTML = n + "¬£¬∫" + _currentTime + "";
 					ta.value = l.innerHTML;
 				}
 			}
@@ -225,7 +240,7 @@ function blLrcClass(tt,xt,f)
 		var d2BodyContend = o.blDiv(oBoss,"d2BodyContend","d2BodyContend: V x.x.x",blColor[12]); 
 
 		var s = "";
-		s += '<div id="lrcollbox" style="overflow:hidden; height:260; width:460; background-color:#59a;">'; 
+		s += '<div id="lrcollbox" style="overflow:hidden; height:260; width:660; background-color:#59a;">'; 
 		s += '<table border="1" cellspacing="0" cellpadding="0" width="100%" id="lrcoll"';
 		s += ' style="position:relative; top: -20px;" oncontextmenu="return false;">';
 		s += '<tr><td nowrap height="20" align="center" id="lrcwt1"></td></tr>';
@@ -246,8 +261,8 @@ function blLrcClass(tt,xt,f)
 		s += '<tr style="color:#BDB76B;">';
 			s += '<td nowrap height="20">';
 					s += '<div id="xdwrap">';
-					s += '<div id="lrcbox" style="overflow:hidden;position:relative; width:100%; color:#800000; height:20">∏Ë¥ º”‘ÿ÷– ...</div>';
-					s += '<div id="idMovingLyr" style="overflow:hidden;position:relative;top: -20px; width:0; color:#FFFF33; height:20">∏Ë¥ º”‘ÿ÷– ...</div>';
+					s += '<div id="lrcbox" style="overflow:hidden;position:relative; width:100%; color:#800000; height:20">¬∏√®¬¥√ä¬º√ì√î√ò√ñ√ê ...</div>';
+					s += '<div id="idMovingLyr" style="overflow:hidden;position:relative;top: -20px; width:0; color:#FFFF33; height:20">¬∏√®¬¥√ä¬º√ì√î√ò√ñ√ê ...</div>';
 					s += '</div>';
 				s += '</td></tr>'; 
  
@@ -422,7 +437,7 @@ function blLrcClass(tt,xt,f)
     idMovingLyr.innerText	= txt;
   }
   
-  this.blSetTxt("œµÕ≥‘›√ª”–œ‡πÿ∏Ë¥ ...");
+  this.blSetTxt("√è¬µ√ç¬≥√î√ù√É¬ª√ì√ê√è√†¬π√ò¬∏√®¬¥√ä...");
   lrcwt1.innerText = "111111111111111111";
   lrcwt2.innerText = "";
   lrcwt3.innerText = "";
