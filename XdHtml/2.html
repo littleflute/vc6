@@ -1,25 +1,28 @@
 <HTML><HEAD><META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
 <TITLE>2.html</TITLE></HEAD>
-<BODY> <div id="pageLevel" style="display:none">0</div>
-<script src="blclass.js"></script>
-<div id="Nav">v0.0.54<br>
-<div id="xddbg"></div> 
-<script type="text/javascript" src="xd.js"></script>  
+<BODY> 
+<script src="blclass.js"></script> 
 
 <script>  
 function CXdMainFrame()
 {
-	this.v	= "v0.0.14";
-	var _blrhCreateWindow	= function(oOwner,title,color){
-		var divRet	= blo0.blDiv(_divUI,"id_div_CXdMainFrame_createWindow_" + title,title,color);
-		if(oOwner.blhInitUI) oOwner.blhInitUI(divRet);
-		return divRet;
-	};
- 
-	var _divUI = null;
-	_divUI = blo0.blDiv(document.body,"id_div_CXdMainFrame_ui","CXdMainFrame " + this.v,"green");
-	_divUI.style.width = 550 + "px";
-	_blrhCreateWindow(blo0,"blClass_UI","gold");	   
+	this.v		= "v0.0.122 ";  
+	var s = this.v;
+		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/2.html'"
+		s += " style='color:lightblue;'";
+		s +=">";
+		s += " 2.html*  ";
+		s += "</a>"; 
+		s += "<a href='2.html'";
+		s += " style='color:yellow;'";
+		s +=">";
+		s += " 2.html ";
+		s += "</a>"; 
+	var d 	= blo0.blMDiv(document.body,"id_div_CXdMainFrame_ui",s,0,0,300,100,blColor[1]);
+	d.d1	= blo0.blDiv(d,d.id+"d1","d1",blColor[0]);	blo0.blhInitUI(d.d1); 	   
+	d.d2	= blo0.blDiv(d,d.id+"d2","d2",blColor[1]);	
+
+
 }
 function CXdAPP()
 {
