@@ -7,7 +7,7 @@
 
 function CXdMainFrame()
 {
-	this.v		= "v0.0.144 ";  
+	this.v		= "v0.0.151 ";  
 	var s = this.v;
 		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/2.html'"
 		s += " style='color:lightblue;'";
@@ -26,9 +26,10 @@ function CXdMainFrame()
 		s += "</a>"; 
 	var d 	= blo0.blMDiv(document.body,"id_div_CXdMainFrame_ui",s,0,0,800,100,blColor[1]);
 	d.d1	= blo0.blDiv(d,d.id+"d1","d1",blColor[0]);	blo0.blhInitUI(d.d1); 	   
-	d.d2	= blo0.blDiv(d,d.id+"d2","d2",blColor[1]);	
+	d.d2	= blo0.blDiv(d,d.id+"d2","plxs:",blColor[1]);	
 
 	_load_plx_btn(blo0,d.d2,"_xdPlxSpiter","https://littleflute.github.io/xd/js/plx/xdPlxSpiter.js","lightblue"); 
+	_load_plx_btn(blo0,d.d2,"_xdPlxSet","https://littleflute.github.io/xd/js/plx/xdPlxSet.js","lightblue"); 
 //	_load_plx_btn(blo0,d.d2,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js","brown"); 
 
 }
