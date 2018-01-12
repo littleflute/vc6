@@ -1,5 +1,24 @@
 // file: blclass.js    by littleflute 
+var _load_plx_btn = function(blo,oBoss,plxName,src, color ){
+			var idBtn	= oBoss.id + plxName + "btn";
+			var b		=  blo.blBtn(oBoss,idBtn,plxName,color);
+			b.onclick = function(btn_){
+				var v = null;
+				var n = 0; 
+				return function(){
+					n++; 
+					var idWrap	= oBoss.id + plxName + "wrap";
+					v = blo.blDiv(oBoss,idWrap,"","green");  
+					var srcHTML = "<a target='_blank' href=" + src + " style='color:white;'>" + plxName + "-source</a>";
+					var ds	= blo.blDiv(v,oBoss.id + plxName + "src",srcHTML,"gray");
 
+					var id		= "id_div_" + plxName;
+					var dPlx = blo.blDiv(v,id,plxName + ":" + n,"gray"); 
+					blo0.blScript("id_script_" + plxName,src);
+					_on_off_div(btn_,v);
+				}
+			}(b);
+		};
 function _move_div(oDiv,dx,dy){
 			var l = oDiv.style.left;
 			l = parseInt(l);
@@ -81,7 +100,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.115";
+    this.v = "xdvc6: 1.0.121";
 	function _blhMakeLink(txt,href,style,target){
 		var r = "";
 		r += "<a href='" + href + "' ";
