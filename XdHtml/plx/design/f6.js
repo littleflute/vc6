@@ -1,6 +1,6 @@
 var f6 = function(b,d){
 	//f6.js		klines  
-	var _v			= "v0.0.141";  
+	var _v			= "v0.0.155";  
 	if(!d.v){
 		b.innerHTML = "blklines" + _v;
 		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
@@ -10,6 +10,38 @@ var f6 = function(b,d){
 	}
 	_on_off_div(b,d);
 	function _uiClass(){ 
+		this.blr_NowAll	= function(b,d){
+			if(!d.v){ 
+				var url = "http://api.baidao.com/api/hq/npdata.do?ids=";
+				var n = 1;
+
+				d.v = blo0.blDiv(d,d.id+"v","","brown");
+				d.v.ta = blo0.blTextarea(d.v,d.v.id + "_ta_4_data","",blGrey[3]);
+
+				var _w = new _ajxWorkerClass(0,0);
+				_w._2do	= function(txt)
+				{ 
+					var s = "var o = " + txt;
+					eval(s);
+					if(o.length>0){
+						var k = o[0];
+						d.v.ta.value += n + ":" + k.name + "," + k.now + "\n";
+					}
+					else{
+						d.v.ta.value += n + ":" + "\n";
+					}
+					n++;
+					if(n<1111){
+						var sURL = url + n + "&t=" + new Date;
+						blo0.blAjx(_w,sURL); 
+					}
+				} 			 
+				var sURL = url + n + "&t=" + new Date;
+				blo0.blAjx(_w,sURL); 
+			} 
+			_on_off_div(b,d);
+		}
+		this.bll2="--3--";
 		this.blr_NowXau	= function(b,d){ _initNow(b,d,"http://api.baidao.com/api/hq/npdata.do?ids=201");}
 		this.bll2="--2--";
 		this.blr_Now202	= function(b,d){ _initNow(b,d,"http://api.baidao.com/api/hq/npdata.do?ids=202");}
