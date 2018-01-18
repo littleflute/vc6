@@ -1,6 +1,6 @@
-var f6 = function(b,d){
-	//f6.js		xxx  
-	var _v			= "v0.0.115";  
+var f7 = function(b,d){
+	//f7.js		xxx  
+	var _v			= "v0.0.121";  
 	if(!d.v){
 		b.innerHTML = "blPlayer" + _v;
 		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
@@ -24,6 +24,6 @@ var f6 = function(b,d){
 
 var ta = bl$( "id_ta_4_NewClass" );
 if( ta ){
-	ta.f6 = f6;
-	ta.value = ta.f6;
+	ta.f7 = f7;
+	ta.value = ta.f7;
 }
