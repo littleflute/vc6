@@ -1,6 +1,6 @@
 var f6 = function(b,d){
 	//f6.js		klines  
-	var _v			= "v0.0.155";  
+	var _v			= "v0.0.211";  
 	if(!d.v){
 		b.innerHTML = "blklines" + _v;
 		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
@@ -27,9 +27,7 @@ var f6 = function(b,d){
 						var k = o[0];
 						d.v.ta.value += n + ":" + k.name + "," + k.now + "\n";
 					}
-					else{
-						d.v.ta.value += n + ":" + "\n";
-					}
+					b.innerHTML = n + "/1111";
 					n++;
 					if(n<1111){
 						var sURL = url + n + "&t=" + new Date;
