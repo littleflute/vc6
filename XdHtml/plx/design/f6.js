@@ -1,6 +1,25 @@
 var f6 = function(b,d){
-	//f6.js v0.0.2
-	d.innerHTML = "f6.js: ->" + b.id + ":" + d.id;
+	//f6.js		klines  
+	var _v			= "v0.0.114";  
+	if(!d.v){
+		b.innerHTML = "blPlayer" + _v;
+		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
+		d.oUI = new _uiClass;
+		blo0.blShowObj2Div(d.v,d.oUI);
+		bl$("blr_AboutMe").click();
+	}
+	_on_off_div(b,d);
+	function _uiClass(){
+		this.v = "v0.0.25";
+		this.blr_AboutMe = function(b,d){
+		  var s = _v; 
+		  s += "<br>music staff<br>";  
+		  s += blo0.blhMakeLink(" f6.js ","https://littleflute.github.io/vc6/XdHtml/plx/design/f6.js","color:lightblue;","_blank");
+		  s += blo0.blhMakeLink(" f6.js* ","https://github.com/littleflute/vc6/edit/master/XdHtml/plx/design/f6.js","color:lightblue;","_blank");
+		  d.innerHTML = s;  
+		  _on_off_div(b,d);
+		};
+	}
 };
 
 var ta = bl$( "id_ta_4_NewClass" );
