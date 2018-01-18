@@ -1,7 +1,6 @@
-
 var f6 = function(b,d){
-	//f6.js		klines  
-	var _v			= "v0.0.114";  
+	//f6.js		xxx  
+	var _v			= "v0.0.115";  
 	if(!d.v){
 		b.innerHTML = "blPlayer" + _v;
 		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
