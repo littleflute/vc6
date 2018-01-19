@@ -1,6 +1,6 @@
 var f6 = function(b,d){
 	//f6.js		klines  
-	var _v			= "v0.0.212";  
+	var _v			= "v0.0.222";  
 	if(!d.v){
 		b.innerHTML = "blklines" + _v;
 		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
@@ -17,7 +17,7 @@ var f6 = function(b,d){
 
 				d.v = blo0.blDiv(d,d.id+"v","","brown");
 				d.v.ta = blo0.blTextarea(d.v,d.v.id + "_ta_4_data","",blGrey[3]);
-
+				
 				var _w = new _ajxWorkerClass(0,0);
 				_w._2do	= function(txt)
 				{ 
@@ -62,26 +62,54 @@ var f6 = function(b,d){
 	}
 	function _nowClass(_v,ids){
 		var url1 = "http://api.baidao.com/api/hq/npdata.do?ids=";
+		var url2 = "http://api.baidao.com/api/hq/mtdata.do?quotationType=1&id=";
 		var v	= _v
 		v.tb = blo0.blDiv(v,v.id+"tb","tb:","gray");
-		v.v = blo0.blDiv(v,v.id+"v","v.v:","gray");
-		v.tb.getData = blo0.blBtn(v.tb,v.tb.id+"getData","getData",blGrey[0]);
-		v.tb.getData.n = 0;
-		v.tb.getData.txt = "getData ";
-		var _w = new _ajxWorkerClass(v.v,v.tb.getData);
-		v.tb.getData.onclick = function(){	
-			this.n++;
-			this.innerHTML = this.txt + this.n;			
-			var url = url1 + ids; 	 
-			var s = url + "&t=" + new Date;
-			blo0.blAjx(_w,s); 
-		}
+		v.v = blo0.blDiv(v,v.id+"v","v.v:","brown");
+		v.v.ta1 = blo0.blTextarea(v.v,v.v.id + "_ta_4_url1_data","",blGrey[3]);
+		v.v.ta1.style.width = "100%";v.v.ta1.style.height = "200px";
+		var b1 = blo0.blBtn(v.tb,v.tb.id+"getData","getData",blGrey[0]);
+		b1.n = 0;
+		b1.txt = "getData "; 
+		b1.onclick = function(_w){
+			return function(){
+				this.n++;
+				this.innerHTML = this.txt + this.n;			
+				var url = url1 + ids; 	 
+				var s = url + "&t=" + new Date;
+				blo0.blAjx(_w,s); 
+			}	
+		}(new _ajxWorkerClass(v.v,b1));
+		
+		var b2 = blo0.blBtn(v.tb,v.tb.id+"mtdata","mtdata",blGrey[0]);
+		b2.n = 0;
+		b2.txt = "getData "; 
+		b2.onclick = function(_w){
+			return function(){
+				this.n++;
+				this.innerHTML = this.txt + this.n;			
+				var url = url2 + ids; 	 
+				var s = url + "&t=" + new Date;
+				blo0.blAjx(_w,s); 
+			}	
+		}(new _mtdataAjxWorkerClass(v.v,b2));
 	} 
 	function _ajxWorkerClass(_v,_btn){
 		var v = _v;
 		this._2do	= function(txt)
 		{
-			v.innerHTML = txt; 
+			v.ta1.innerHTML = txt; 
+			_btn.click();
+		} 
+	}
+	function _mtdataAjxWorkerClass(_v,_btn){
+		var v = _v;
+		v.ta2 = blo0.blTextarea(v,v.id + "_ta_4_url2_data","",blGrey[3]);
+		v.ta2.style.width = "100%";
+		v.ta2.style.height = "200px";
+		this._2do	= function(txt)
+		{
+			v.ta2.innerHTML = txt; 
 			_btn.click();
 		} 
 	}
