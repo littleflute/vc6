@@ -1,6 +1,6 @@
 var f6 = function(b,d){
 	//f6.js		klines  
-	var _v			= "v0.0.211";  
+	var _v			= "v0.0.212";  
 	if(!d.v){
 		b.innerHTML = "blklines" + _v;
 		d.v = blo0.blDiv(d,d.id+"v","v:","blue");
@@ -39,10 +39,10 @@ var f6 = function(b,d){
 			} 
 			_on_off_div(b,d);
 		}
-		this.bll2="--3--";
-		this.blr_NowXau	= function(b,d){ _initNow(b,d,"http://api.baidao.com/api/hq/npdata.do?ids=201");}
+		this.bll3="--3--";
+		this.blr_NowXau	= function(b,d){ _initNow(b,d,201);}
 		this.bll2="--2--";
-		this.blr_Now202	= function(b,d){ _initNow(b,d,"http://api.baidao.com/api/hq/npdata.do?ids=202");}
+		this.blr_Now202	= function(b,d){ _initNow(b,d,202);}
 		this.bll1="--1--";
 		this.blr_AboutMe = function(b,d){
 		  var s = _v; 
@@ -52,16 +52,16 @@ var f6 = function(b,d){
 		  d.innerHTML = s;  
 		  _on_off_div(b,d);
 		};
-		function _initNow(b,d,url){ 
+		function _initNow(b,d,ids){ 
 			if(!d.v){ 
 				d.v = blo0.blDiv(d,d.id+"v","","brown");
-				d.o = new _nowClass(d.v,url); 
+				d.o = new _nowClass(d.v,ids); 
 			} 
 			_on_off_div(b,d);			
 		}
 	}
-	function _nowClass(_v,_url){
-		var url = _url; 
+	function _nowClass(_v,ids){
+		var url1 = "http://api.baidao.com/api/hq/npdata.do?ids=";
 		var v	= _v
 		v.tb = blo0.blDiv(v,v.id+"tb","tb:","gray");
 		v.v = blo0.blDiv(v,v.id+"v","v.v:","gray");
@@ -71,7 +71,8 @@ var f6 = function(b,d){
 		var _w = new _ajxWorkerClass(v.v,v.tb.getData);
 		v.tb.getData.onclick = function(){	
 			this.n++;
-			this.innerHTML = this.txt + this.n;				 
+			this.innerHTML = this.txt + this.n;			
+			var url = url1 + ids; 	 
 			var s = url + "&t=" + new Date;
 			blo0.blAjx(_w,s); 
 		}
