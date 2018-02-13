@@ -100,7 +100,7 @@ var blGrey	= ["Gainsboro","LightGray","Silver","DarkGray",
 function blClass ()
 { 
 	var _id = "id_div_4_blClass";
-    this.v = "xdvc6: 1.0.121";
+    this.v = "xdvc6: 1.0.122";
 	function _blhMakeLink(txt,href,style,target){
 		var r = "";
 		r += "<a href='" + href + "' ";
@@ -143,6 +143,15 @@ function blClass ()
 
 		return r;
 	};
+    this.blPageCoor = function (element){
+  	var c= { X : 0, Y : 0 }; 
+ 	 while (element){
+    		c.X += element.offsetLeft;
+    		c.Y += element.offsetTop;
+    		element = element.offsetParent;
+  	}
+ 	return c;
+    }
     this.blHandle = function (oBoss,id,x,y,w,h,bkClr){
 		var x1 = 0;
 		var y1 = 0; 
