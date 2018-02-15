@@ -7,6 +7,7 @@ function _blPicViewerClass ()
 {
 	var srcBase = "https://raw.githubusercontent.com/littleflute/pro-javascript-design-patterns/master/cnbook/";
 	var pageID = 0;
+	var bookType = 0;
 
 	var _curFileUrl = "";
 	var _viewer = null;
@@ -28,6 +29,16 @@ function _blPicViewerClass ()
 	this.blrF_minor_1 = function(b,d){
 		if(_viewer){
 			myFunction(-1);
+		} 
+	} 
+	this.blrF_Add_2 = function(b,d){
+		if(_viewer){
+			myFunction(2);
+		} 
+	}
+	this.blrF_minor_2 = function(b,d){
+		if(_viewer){
+			myFunction(-2);
 		} 
 	} 
 	this.blrF_Add_10 = function(b,d){
@@ -79,12 +90,29 @@ function _blPicViewerClass ()
 		_on_off_div(b,d.v);
 	}	 
 
-	function _update(_bookPath,_n0) {
+	function _update(_bookPath,_n0, _type) {
 		srcBase = _bookPath;
 		pageID = _n0;
+		bookType = _type;
 		myFunction(1);
 	}
 
+	function xdNum2Str_type_1(n){
+		var s = "";
+		if(n>=0 && n<=9)
+		{
+    		s = "00" + n.toString() + ".jpg";
+		}
+		else if(n>=10 && n<=99)
+		{
+    		s = "0" + n.toString() + ".jpg";
+		}
+		else 
+		{
+    		s = n.toString() + ".JPG";
+		}
+		return s;
+	}
 	function xdNum2Str(n) {
 		var s = "";
 		if(n>=0 && n<=9)
@@ -111,12 +139,21 @@ function _blPicViewerClass ()
 		if(i)
 		{
 			pageID += nAdd;
-    		var src = srcBase + xdNum2Str(pageID);
+    		var src = "";
+			switch(bookType)
+			{
+			case 0:
+				src = srcBase + xdNum2Str(pageID);
+				break;
+			case 1:
+				src = srcBase + xdNum2Str_type_1(pageID);
+				break;
+			}
         
 			var d = document.getElementById("dbg");
 			d.innerHTML = src;
     		i.src = src;
-		i.style.width = "100%";
+			i.style.width = "100%";
 		}
 		else
 		{
@@ -126,7 +163,7 @@ function _blPicViewerClass ()
 
 }
 var d = bl$( "id_div_4__blPicViewerClass" );
-var s = "blPicViewer_v0.0.33 - ";
+var s = "blPicViewer_v0.0.41 - ";
 s += "<a target = '_blank' href='https://littleflute.github.io/vc6/XdHtml/plx/picViewer.js'>picViewer.js</a> - ";
 s += "<a target = '_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/picViewer.js'>picViewer.js*</a>";
 
