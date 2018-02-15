@@ -7,7 +7,7 @@ function _blEBooksClass ()
 {
 	var _wrap = bl$( "id_div_4_blEBooksClass" );
 
-	this.v = "_blEBooksClass v0.0.12";
+	this.v = "_blEBooksClass v0.0.13";
 	this.blrBook1 = function(b,d){
 		_wrap.update("https://raw.githubusercontent.com/littleflute/pro-javascript-design-patterns/master/cnbook/",0,0);
 	}
@@ -16,6 +16,9 @@ function _blEBooksClass ()
 	}
 	this.blrBook3 = function(b,d){
 		_wrap.update("https://littleflute.github.io/beautifullover114/pics/",0,1);
+	}
+	this.blrBook4 = function(b,d){
+		_wrap.update("https://raw.githubusercontent.com/littleflute/web/master/website%20Createion/DSC_",6203,0);
 	}
 
 }
