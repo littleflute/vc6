@@ -7,17 +7,20 @@ function _blEBooksClass ()
 {
 	var _wrap = bl$( "id_div_4_blEBooksClass" );
 
-	this.v = "_blEBooksClass v0.0.11";
+	this.v = "_blEBooksClass v0.0.12";
 	this.blrBook1 = function(b,d){
-		_wrap.update("https://raw.githubusercontent.com/littleflute/pro-javascript-design-patterns/master/cnbook/",0);
+		_wrap.update("https://raw.githubusercontent.com/littleflute/pro-javascript-design-patterns/master/cnbook/",0,0);
 	}
 	this.blrBook2 = function(b,d){
-		_wrap.update("https://littleflute.github.io/beg-ajax-w-php/pics/DSC_",7883);
+		_wrap.update("https://littleflute.github.io/beg-ajax-w-php/pics/DSC_",7883,0);
+	}
+	this.blrBook3 = function(b,d){
+		_wrap.update("https://littleflute.github.io/beautifullover114/pics/",0,1);
 	}
 
 }
 var d = bl$( "id_div_4_blEBooksClass" );
-var s = "blEBooks_v0.0.23 - ";
+var s = "blEBooks_v0.0.25 - ";
 s += "<a target = '_blank' href='https://littleflute.github.io/vc6/XdHtml/plx/blEBooks.js'>blEBooks.js</a> - ";
 s += "<a target = '_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/blEBooks.js'>blEBooks.js*</a>";
 
