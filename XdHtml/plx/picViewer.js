@@ -1,4 +1,7 @@
-//picViewer.js
+// picViewer.js
+// picViewer.js*:	https://github.com/littleflute/vc6/edit/master/XdHtml/plx/picViewer.js
+// picViewer.js:	https://littleflute.github.io/vc6/XdHtml/plx/picViewer.js
+
 
 function _blPicViewerClass ()
 {
@@ -36,8 +39,21 @@ function _blPicViewerClass ()
 		if(_viewer){
 			_viewer.style.width = "500px";
 		} 
+	}
+	this.blrLoad_blEBooks = function(b,d){
+		if(!d.v){
+			d.v = blo0.blDiv(d, "id_div_4_blEBooksClass" ,"blEBooks",blGrey[5]);
+			blo0.blScript("id_script_blEBooks","plx/blEBooks.js");
+			d.v.update = _update;
+		} 
+		_on_off_div(b,d.v);
 	}	 
 
+	function _update(_bookPath) {
+		srcBase = _bookPath;
+		pageID = 0;
+		myFunction(1);
+	}
 
 	function xdNum2Str(n) {
 		var s = "";
@@ -76,7 +92,10 @@ function _blPicViewerClass ()
 
 }
 var d = bl$( "id_div_4__blPicViewerClass" );
-var s = "blPicViewer_v0.0.11";
+var s = "blPicViewer_v0.0.23 - ";
+s += "<a target = '_blank' href='https://littleflute.github.io/vc6/XdHtml/plx/picViewer.js'>picViewer.js</a> - ";
+s += "<a target = '_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/picViewer.js'>picViewer.js*</a>";
+
 d.v = blo0.blMDiv(d,d.id+"mdiv",s,110,110,500,400, blGrey[3]); 
 d.v.d = blo0.blDiv(d.v,d.v.id+"d","d",blGrey[1]); 
 blo0.blShowObj2Div(d.v.d,new _blPicViewerClass);
