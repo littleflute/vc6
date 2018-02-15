@@ -49,9 +49,9 @@ function _blPicViewerClass ()
 		_on_off_div(b,d.v);
 	}	 
 
-	function _update(_bookPath) {
+	function _update(_bookPath,_n0) {
 		srcBase = _bookPath;
-		pageID = 0;
+		pageID = _n0;
 		myFunction(1);
 	}
 
@@ -68,6 +68,10 @@ function _blPicViewerClass ()
 		else if(n>=100 && n<=999)
 		{
     		s = "0" + n.toString() + ".jpg";
+		}
+		else 
+		{
+    		s = n.toString() + ".JPG";
 		}
 		return s;
 	}
@@ -86,13 +90,13 @@ function _blPicViewerClass ()
 		}
 		else
 		{
-    		alert(i);
+    		alert("xdImg = " + i);
 		}
 	}
 
 }
 var d = bl$( "id_div_4__blPicViewerClass" );
-var s = "blPicViewer_v0.0.23 - ";
+var s = "blPicViewer_v0.0.31 - ";
 s += "<a target = '_blank' href='https://littleflute.github.io/vc6/XdHtml/plx/picViewer.js'>picViewer.js</a> - ";
 s += "<a target = '_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/picViewer.js'>picViewer.js*</a>";
 
