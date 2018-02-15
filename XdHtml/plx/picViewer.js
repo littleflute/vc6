@@ -29,6 +29,36 @@ function _blPicViewerClass ()
 		if(_viewer){
 			myFunction(-1);
 		} 
+	} 
+	this.blrF_Add_10 = function(b,d){
+		if(_viewer){
+			myFunction(10);
+		} 
+	}
+	this.blrF_minor_10 = function(b,d){
+		if(_viewer){
+			myFunction(-10);
+		} 
+	} 
+	this.blrF_Add_100 = function(b,d){
+		if(_viewer){
+			myFunction(100);
+		} 
+	}
+	this.blrF_minor_100 = function(b,d){
+		if(_viewer){
+			myFunction(-100);
+		} 
+	} 
+	this.blrF_w_1200 = function(b,d){
+		if(_viewer){
+			_viewer.style.width = "1200px";
+		} 
+	}	 
+	this.blrF_w_1000 = function(b,d){
+		if(_viewer){
+			_viewer.style.width = "1000px";
+		} 
 	}	 
 	this.blrF_w_800 = function(b,d){
 		if(_viewer){
@@ -96,7 +126,7 @@ function _blPicViewerClass ()
 
 }
 var d = bl$( "id_div_4__blPicViewerClass" );
-var s = "blPicViewer_v0.0.31 - ";
+var s = "blPicViewer_v0.0.33 - ";
 s += "<a target = '_blank' href='https://littleflute.github.io/vc6/XdHtml/plx/picViewer.js'>picViewer.js</a> - ";
 s += "<a target = '_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/picViewer.js'>picViewer.js*</a>";
 
