@@ -1,16 +1,164 @@
 <HTML><HEAD><META HTTP-EQUIV="Content-Type" content="text/html; charset=gb_2312-80">
 <TITLE>2.html</TITLE></HEAD>
-<BODY> 
+<BODY>  
+<textarea id = "ta" width = "100%">
+{									
+    "title":"",							
+    "artist":"", 							
+    "url": "https://littleflute.github.io/BobMarley/B Is for Bob/",				
+       "pic1":"AlbumArtSmall.jpg",					
+       "pic2":"AlbumArt_{7666695E-5B42-46D5-9567-CA01B5E97B32}_Large.jpg",					
+       "pic3":"AlbumArt_{7666695E-5B42-46D5-9567-CA01B5E97B32}_Small.jpg",					
+       "pic4":"Folder.jpg",					
+    "audioList":[							
+        "01 Three Little Birds.mp3",						
+        "02 Redemption Song.mp3",						
+        "03 Wake Up and Live, Pt. 1.mp3",						
+        "04 Bend Down Low.mp3",						
+        "05 Lively Up Yourself.mp3",						
+        "06 Jamming.mp3",						
+        "07 Small Axe.mp3",						
+        "08 One Love-People Get Ready.mp3",						ca	
+        "09 Satisfy My Soul.mp3",						
+        "10 Could You Be Loved.mp3",						
+        "11 Stir It Up.mp3",						
+        "12 High Tide or Low Tide.mp3",						
+    ],      							
+    "lrcList":[							
+        "Bob Marley - Bend Down Low.lrc",						
+        "Bob Marley - Could You Be Loved.lrc",						
+        "Bob Marley - High Tide or Low Tide.lrc",						
+        "Bob Marley - Jamming.lrc",						
+        "Bob Marley - Lively Up Yourself.lrc",						
+        "Bob Marley - One Love_People Get Ready.lrc",						
+        "Bob Marley - Redemption Song.lrc",						
+        "Bob Marley - Satisfy My Soul.lrc",						
+        "Bob Marley - Small Axe.lrc",						
+        "Bob Marley - Stir It Up.lrc",						
+        "Bob Marley - Three Little Birds.lrc",						
+        "Bob Marley - Wake Up and Live, Pt. 1.lrc",						
+    ]      							
+}									
+
+</textarea>
+
 <script src="blclass.js"></script> 
 
 <script>  
 
+
+function _blJobClass(p)
+{ 
+	this.v = "v0.0.131";   
+	var _this = this; 
+
+	this.blrShowPics = function(b,d){
+		if(!d.v){
+			d.v = blo0.blDiv(d,"id_div_4__blPicViewerClass","picViewWrap",blGrey[0]);
+			blo0.blScript("id_script_blPicViewer","plx/picViewer.js");
+		}
+		_on_off_div(b,d);
+	}
+	this.bll1 = "--1--";
+
+	this.blhGetTxt = function(){
+		var r = "";
+		var _ta = bl$("ta");
+		r = _ta.value;
+		return r;
+	}
+	this.blhCreateAPlayerList = function(txt){
+		var r = '[aplayer autoplay="true"]\n';
+
+		var se = "var o = " + txt;
+		eval(se);
+ 
+		var _nl = o.audioList;
+		var _al = o.audioList;
+		var _ll = o.lrcList;
+		var _path = o.url;
+		var _pic = o.pic;
+		var _title = o.title;
+		var _artist = o.artist;
+
+		for(var i = 0; i < _al.length ; i++){ 
+			r += '\n[mp3 ';
+
+			r += '\n title = "'; 
+			r += _nl[i];
+			r += '"';
+
+			r += '\n artist = "'; 
+			r += _artist;
+			r += '"';
+			 
+			r += '\n url = "';
+			r += _path;
+			r += _al[i];
+			r += '"';
+
+			r += '\n lrc = "';
+			r += _path;
+			r += _ll[i];
+			r += '"';
+
+			r += '\n pic = "';
+			r += _path;
+			r += _pic;
+			r += '"';
+ 
+
+			r += '\n]\n [/mp3]\n';
+		}
+
+		r += '\n[/aplayer]'; 
+		return r;
+	}
+
+
+	this.blrAplayerList = function(b,d){
+		if(!d.v){
+			d.v = blo0.blDiv(d,d.id+"v","","green");
+			d.v.ta = blo0.blTextarea(d.v,d.v.id+"ta","ta","grey");
+			d.v.ta.style.width = "100%";
+			d.v.ta.style.height = "300px";
+ 
+			var txt= _this.blhGetTxt(); 
+			d.v.ta.value = _this.blhCreateAPlayerList(txt); 
+		}
+		_on_off_div(b,d);
+	}
+
+
+	p.d	= blo0.blDiv(p,p.id+"d","d:",blGrey[1]);	
+    
+	blo0.blShowObj2Div(p.d,this);
+	
+	this.blhInit = function(){
+		bl$("ta").style.width = "100%";
+		bl$("ta").style.height = "300px";
+	}
+}
+
+
 function CXdMainFrame()
 {
-	this.v		= "v0.0.151 ";  
+
+	function _on_off_div(b,d){
+		if(d.style.display=="block"){
+			d.style.display="none"; 
+			b.style.backgroundColor = blGrey[0]; 
+		}
+		else{
+			d.style.display="block"; 
+			b.style.backgroundColor = blGrey[5]; 
+		}
+	};
+
+	this.v		= "v0.0.222 ";  
 	var s = this.v;
 		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/2.html'"
-		s += " style='color:lightblue;'";
+		s += " style='color:blue;'";
 		s +=">";
 		s += " 2.html*  ";
 		s += "</a>"; 
@@ -24,14 +172,26 @@ function CXdMainFrame()
 		s +=">";
 		s += " index.html ";
 		s += "</a>"; 
-	var d 	= blo0.blMDiv(document.body,"id_div_CXdMainFrame_ui",s,0,0,800,100,blColor[1]);
-	d.d1	= blo0.blDiv(d,d.id+"d1","d1",blColor[0]);	blo0.blhInitUI(d.d1); 	   
-	d.d2	= blo0.blDiv(d,d.id+"d2","plxs:",blColor[1]);	
-
-	_load_plx_btn(blo0,d.d2,"_xdPlxSpiter","https://littleflute.github.io/xd/js/plx/xdPlxSpiter.js","lightblue"); 
-	_load_plx_btn(blo0,d.d2,"_xdPlxSet","https://littleflute.github.io/xd/js/plx/xdPlxSet.js","lightblue"); 
-//	_load_plx_btn(blo0,d.d2,"_xdPlxSpiter","file:///C:/Users/13699/xd/js/plx/xdPlxSpiter.js","brown"); 
-
+		s += "<a href='https://littleflute.github.io/vc6/XdHtml/2.html'";
+		s += " style='color:lightblue;'";
+		s +=">";
+		s += " release ";
+		s += "</a>"; 
+	var d 	= blo0.blMDiv(document.body,"id_div_CXdMainFrame_ui",s,0,0,800,100,blGrey[2]); 
+	 
+	
+	d.d2	= blo0.blDiv(d,d.id+"d2","d2:",blGrey[1]);	
+	d.d2.b1 = blo0.blBtn(d.d2,d.d2.id+"b1","blJob",blGrey[0]);	
+	d.d2.b1.onclick = function(_v){ 
+		return function(){  
+			if(!_v.ui) {
+				_v.ui= blo0.blMDiv(_v, _v.id + "_ui","blJob",1,111,800,100,blGrey[1]);
+				var _blj = new _blJobClass(_v.ui);
+				_blj.blhInit();
+			}
+			_on_off_div(this,_v.ui);
+		}
+	}(d.d2)
 }
 function CXdAPP()
 {
