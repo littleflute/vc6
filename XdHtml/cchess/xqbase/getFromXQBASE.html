@@ -1,8 +1,9 @@
+
 <HTML><HEAD><TITLE>getFromXQBASE</TITLE> 
 <script src="../../blclass.js"  type="text/javascript" ></script> 
 </HEAD><BODY>
 <div id="pageLevel" style="display:none">2</div>
-<div id = "idDivBlV" style="display:none;"><a href="?" >v0.1.52</a>
+<div id = "idDivBlV" style="display:none;"><a href="?" >v0.1.124</a>
 <a href="https://github.com/littleflute/vc6/edit/master/XdHtml/cchess/xqbase/getFromXQBASE.html" target="_blank" >github*</a>
 </div>
 <div id="blPageV"></div><div id="xddbg"></div>
@@ -42,29 +43,43 @@ function _create_page_2_save(title,bodyHTML){
 
 function _ajaxWorkClass()
 {
-	var _getGameId = function(oBoss,txt){
+	var _getGameId = function(oBoss,txt , _color){
 		var r = "";
 		var a = txt.split("gameid%3D");
 		var b = a[1].split("&am");
-		var r = b[0];
-		var href = "getFromXQBASE.html";
-		blo0.blLink(oBoss,"getFromXQBASE","getFromXQBASE.html",href,"skyblue");  
+		var r = b[0]; 
 
-		var d = blo0.blDiv(oBoss,oBoss.id+"_getGameId","_getGameId","gray"); 
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getGameId","_getGameId", _color); 
 		d.innerHTML = r;
 		
 
 		return r;
 	};
-	var _getChinesPu = function(oBoss,txt){
+	var _getChinesPu = function(oBoss,txt,_color){
 		var r = "";
 		var a = txt.split("<pre>");
 		var b = a[1].split("</pre>");
 		var r = b[0];
-		var d = blo0.blDiv(oBoss,oBoss.id+"_getChinesPu","d1","skyblue");
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getChinesPu","d1",_color);
 		d.innerHTML = r;
 	};
-	var _getBoard = function(oBoss,txt){
+	var _getECCO = function(oBoss,txt,_color){
+		var r = "";
+		var a = txt.split("ecco");
+		var b = a[1].split("<b>");
+		var c = b[1].split("</b>");
+		var r = c[0];
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getECCO","d1_getECCO",_color);
+		d.innerHTML = r;
+	};
+	var _getGetSrc = function(oBoss,_color){ 
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getGetSrc","_getGetSrc",_color); 
+		d.b1 = blo0.blBtn(d,d.id + "b1","getSrc",blGrey[0]);
+		d.b1.onclick = function(){
+			alert("_getGetSrc");
+		}
+	};
+	var _getBoard = function(oBoss,txt,_color){
 		var r = "";
 		var a = txt.split('<td background="/images/headerbg.gif">');
 		var b = a[1].split("<br><br>");
@@ -73,14 +88,16 @@ function _ajaxWorkClass()
 		var t3 = "https://littleflute.github.io/cchess/ref/http/www.xqbase.com/pub/flashxq.swf";
 		var r = b[0].replace(t1,t3); 
 
-		var d = blo0.blDiv(oBoss,oBoss.id+"_getBoard","d1","lightblue");
+		var d = blo0.blDiv(oBoss,oBoss.id+"_getBoard","d1", _color);
 		d.innerHTML = r;
 	};
 	var _myJob = function(txt){
-		var id = _getGameId(divChess,txt);
-		_getBoard(divChess,txt);
-		_getChinesPu(divChess,txt);
-		_create_page_2_save("game"+id,divChess.innerHTML);
+		var id = _getGameId(divChess,txt,blGrey[0]);
+		_getECCO(divChess,txt,blGrey[3]);
+		_getBoard(divChess,txt,blGrey[5]);
+		_getChinesPu(divChess,txt,blGrey[7]);
+		_getGetSrc(divChess,blGrey[8]);
+		_create_page_2_save("game"+id,divChess.parentElement.innerHTML);
 	};
 	this._2do = function(txt)
 	{
@@ -88,8 +105,8 @@ function _ajaxWorkClass()
 		btn2_Save.click();
 	}
 }
-var pageMax	= 5;
-var pageIdx = 1;
+var pageMax	= 8711;
+var pageIdx = 8710;
 var w = new _ajaxWorkClass;
 var href = "http://www.xqbase.com/xqbase/?gameid=";
 var toolBar = blo0.blDiv(document.body,"id_toolBar","toolBar","BlueViolet");
@@ -100,7 +117,8 @@ var v = blo0.blDiv(document.body,"id_v","v","yellowgreen");
 _createMyNav(v);
 var l = blo0.blLink(v,"id_l","save","?xd=save","red"); l.style.display = "none";
 var divMsg = blo0.blDiv(v,"divMsg","divMsg","gray");
-var divChess = blo0.blDiv(v,"divChess","divChess","skyblue");
+var _targetWrapDiv = blo0.blDiv(v,"_targetWrapDiv","_targetWrapDiv","brown");
+var divChess = blo0.blDiv(_targetWrapDiv,_targetWrapDiv.id + "","divChess","skyblue");
 btn1_Ajx.onclick = function(){
 	var ajxHref = href + pageIdx;
 	blo0.blAjx(w,ajxHref);
