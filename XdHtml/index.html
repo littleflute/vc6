@@ -33,7 +33,7 @@
 <body>
 
 <div class="topnav" id="myTopnav">
-  <a href="?v=" class="active">v0.0.76</a> 
+  <a href="?v=" class="active">v0.0.111</a> 
   <a href="index2.html">index2</a>
   <a href="index1.html">index1</a>
   <a target = "_blank" href="https://github.com/littleflute/vc6/edit/master/XdHtml/index.html">edit in github</a>
@@ -55,18 +55,25 @@ function myFunction() {
     }
 }
 function _myClass() {
-    this.v = "_myClass: v0.0.7";
+    this.v = "_myClass: v0.0.11";
+	this.blrShowPics = function(b,d){
+		if(!d.v){
+			d.v = blo0.blDiv(d,"id_div_4__blPicViewerClass","picViewWrap",blGrey[0]);
+			blo0.blScript("id_script_blPicViewer","plx/picViewer.js");
+		}
+		_on_off_div(b,d);
+	}
 	this.blrAboutMe = function(b,d){		
 		var s = "";
 		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/index.html'"
 		s += " style='color:lightblue;'";
 		s +=">";
-		s += " upate  ";
+		s += " index.html*  ";
 		s += "</a>"; 
 		s += "<a target='_blank' href='https://littleflute.github.io/vc6/XdHtml/'"
 		s += " style='color:yellow;'";
 		s +=">";
-		s += " view ";
+		s += " index.html ";
 		s += "</a>"; 
 		d.innerHTML = s;
 		_on_off_div(b,d);
