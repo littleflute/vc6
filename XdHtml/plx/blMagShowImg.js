@@ -31,7 +31,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.2",
+ blV: "v0.0.12",
  m : null,
 
  blrAboutMe : function(b,d){		
@@ -39,7 +39,7 @@ var magnifier = {
 		s += "<a target='_blank' href='https://littleflute.github.io/vc6/XdHtml/plx/blMagShowImg.js'"
 		s += " style='color:lightblue;'";
 		s +=">";
-		s += " blMagShowImg.html  ";
+		s += " blMagShowImg.js  ";
 		s += "</a>"; 
 		s += "<a target='_blank' href='https://github.com/littleflute/vc6/edit/master/XdHtml/plx/blMagShowImg.js'"
 		s += " style='color:yellow;'";
