@@ -77,7 +77,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.112",
+ blV: "v0.0.113",
  m : null,
 
  blrAboutMe : function(b,d){		
