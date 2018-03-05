@@ -31,7 +31,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.24",
+ blV: "v0.0.25",
  m : null,
 
  blrAboutMe : function(b,d){		
@@ -72,7 +72,7 @@ var magnifier = {
    'top' : 0 + 'px'
    })
  
-  var borderWid = _d.offsetWidth - m.cont.getElementsByTagName('div')[0].clientWidth;  //获取border的宽
+  var borderWid = _d.offsetWidth - _d.clientWidth;  //获取border的宽
  
   css(_d,{   //_d 为浏览框
    'display' : 'none',        //开始设置为不可见
