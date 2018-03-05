@@ -31,7 +31,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.31",
+ blV: "v0.0.42",
  m : null,
 
  blrAboutMe : function(b,d){		
@@ -104,6 +104,7 @@ var magnifier = {
   _d.style.display = '';
  
   css(_d ,{
+   'background': blColor[2],
    'top' : Math.min(Math.max(pos.y - this.offsetTop - parseInt(_d.style.height) / 2,0),this.clientHeight - _d.offsetHeight) + 'px',
    'left' : Math.min(Math.max(pos.x - this.offsetLeft - parseInt(_d.style.width) / 2,0),this.clientWidth - _d.offsetWidth) + 'px'   //left=鼠标x - this.offsetLeft - 浏览框宽/2,Math.max和Math.min让浏览框不会超出图像
    })
@@ -147,8 +148,8 @@ var magnifier = {
 var d1 = blo0.blMDiv(document.body,"id_md1","md1",0,33,500,400,"green");
 var s = '<img id="img" src="https://raw.githubusercontent.com/littleflute/blog/master/pics/DSC_1655.JPG"  />';
 s += '<div id="Browser">        </div>';
-d1.v0 = blo0.blDiv(d1,"v0","v0","red");
-d1.v1 = blo0.blDiv(d1.v0,"magnifier",s,"red");
+d1.v0 = blo0.blDiv(d1,"v0","v0","grey");
+d1.v1 = blo0.blDiv(d1.v0,"magnifier",s,"green");
 d1.v1.style.width = "342px";
 d1.v1.style.height = "420px";
 
