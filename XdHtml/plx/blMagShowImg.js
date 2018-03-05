@@ -31,7 +31,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.12",
+ blV: "v0.0.13",
  m : null,
 
  blrAboutMe : function(b,d){		
@@ -100,19 +100,19 @@ var magnifier = {
 
  move:function(e){
   var pos = getPointerPosition(e);  //事件标准化
- 
-  this.getElementsByTagName('div')[0].style.display = '';
+  var _d = this.getElementsByTagName('div')[0]; 
+  _d.style.display = '';
  
   css(this.getElementsByTagName('div')[0],{
-   'top' : Math.min(Math.max(pos.y - this.offsetTop - parseInt(this.getElementsByTagName('div')[0].style.height) / 2,0),this.clientHeight - this.getElementsByTagName('div')[0].offsetHeight) + 'px',
-   'left' : Math.min(Math.max(pos.x - this.offsetLeft - parseInt(this.getElementsByTagName('div')[0].style.width) / 2,0),this.clientWidth - this.getElementsByTagName('div')[0].offsetWidth) + 'px'   //left=鼠标x - this.offsetLeft - 浏览框宽/2,Math.max和Math.min让浏览框不会超出图像
+   'top' : Math.min(Math.max(pos.y - this.offsetTop - parseInt(_d.style.height) / 2,0),this.clientHeight - _d.offsetHeight) + 'px',
+   'left' : Math.min(Math.max(pos.x - this.offsetLeft - parseInt(_d.style.width) / 2,0),this.clientWidth - _d.offsetWidth) + 'px'   //left=鼠标x - this.offsetLeft - 浏览框宽/2,Math.max和Math.min让浏览框不会超出图像
    })
  
   magnifier.m.mag.style.display = '';
  
   css(magnifier.m.img,{
-   'top' : - (parseInt(this.getElementsByTagName('div')[0].style.top) * magnifier.m.scale) + 'px',
-   'left' : - (parseInt(this.getElementsByTagName('div')[0].style.left) * magnifier.m.scale) + 'px'
+   'top' : - (parseInt(_d.style.top) * magnifier.m.scale) + 'px',
+   'left' : - (parseInt(_d.style.left) * magnifier.m.scale) + 'px'
    })
  
  },
