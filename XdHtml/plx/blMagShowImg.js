@@ -31,7 +31,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.13",
+ blV: "v0.0.23",
  m : null,
 
  blrAboutMe : function(b,d){		
@@ -56,7 +56,7 @@ var magnifier = {
    mag : null, //放大框
    scale : 15 //比例值,设置的值越大放大越大,但是这里有个问题就是如果不可以整除时,会产生些很小的白边,目前不知道如何解决
   }
- 
+  var _d = m.cont.getElementsByTagName('div')[0];
   css(m.img,{
    'position' : 'absolute',
    'width' : (m.cont.clientWidth * m.scale) + 'px',    //原始图像的宽*比例值
@@ -72,9 +72,9 @@ var magnifier = {
    'top' : 0 + 'px'
    })
  
-  var borderWid = m.cont.getElementsByTagName('div')[0].offsetWidth - m.cont.getElementsByTagName('div')[0].clientWidth;  //获取border的宽
+  var borderWid = _d.offsetWidth - m.cont.getElementsByTagName('div')[0].clientWidth;  //获取border的宽
  
-  css(m.cont.getElementsByTagName('div')[0],{   //m.cont.getElementsByTagName('div')[0]为浏览框
+  css(_d,{   //_d 为浏览框
    'display' : 'none',        //开始设置为不可见
    'width' : m.cont.clientWidth / m.scale - borderWid + 'px',   //原始图片的宽/比例值 - border的宽度
    'height' : m.cont.clientHeight / m.scale - borderWid + 'px',//原始图片的高/比例值 - border的宽度
@@ -103,7 +103,7 @@ var magnifier = {
   var _d = this.getElementsByTagName('div')[0]; 
   _d.style.display = '';
  
-  css(this.getElementsByTagName('div')[0],{
+  css(_d ,{
    'top' : Math.min(Math.max(pos.y - this.offsetTop - parseInt(_d.style.height) / 2,0),this.clientHeight - _d.offsetHeight) + 'px',
    'left' : Math.min(Math.max(pos.x - this.offsetLeft - parseInt(_d.style.width) / 2,0),this.clientWidth - _d.offsetWidth) + 'px'   //left=鼠标x - this.offsetLeft - 浏览框宽/2,Math.max和Math.min让浏览框不会超出图像
    })
