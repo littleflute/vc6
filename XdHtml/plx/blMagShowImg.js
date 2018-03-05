@@ -2,6 +2,52 @@
 // blMagShowImg.js*:	https://github.com/littleflute/vc6/edit/master/XdHtml/plx/blMagShowImg.js
 // blMagShowImg.js:		https://littleflute.github.io/vc6/XdHtml/plx/blMagShowImg.js
 
+//---------------------------------------------------【让Firefox支持offsetX、offsetY】
+//计算光标相对于第一个定位的父元素的坐标
+function blCoor(e){
+  var o = window.event || e,
+      coord,
+      coord_X,
+      coord_Y;
+
+  coord_X = (o.offsetX === undefined) ? getOffset(o).X : o.offsetX;
+  coord_Y = (o.offsetY === undefined) ? getOffset(o).Y : o.offsetY;
+  coord = { "x" : coord_X , "y" : coord_Y };
+  return coord;
+}
+function getOffset(e){
+  var target = e.target, // 当前触发的目标对象
+      eventCoord,
+      pageCoord,
+      offsetCoord;
+
+  // 计算当前触发元素到文档的距离
+  pageCoord = getPageCoord(target);
+
+  // 计算光标到文档的距离
+  eventCoord = {
+    X : window.pageXOffset + e.clientX,
+    Y : window.pageYOffset + e.clientY
+  };
+
+  // 相减获取光标到第一个定位的父元素的坐标
+  offsetCoord = {
+    X : eventCoord.X - pageCoord.X,
+    Y : eventCoord.Y - pageCoord.Y
+  };
+  return offsetCoord;
+}
+function getPageCoord(element){
+  var coord = { X : 0, Y : 0 };
+  // 计算从当前触发元素到根节点为止，
+  // 各级 offsetParent 元素的 offsetLeft 或 offsetTop 值之和
+  while (element){
+    coord.X += element.offsetLeft;
+    coord.Y += element.offsetTop;
+    element = element.offsetParent;
+  }
+  return coord;
+}
 
 function getEventObject(W3CEvent) {//事件标准化函数
  return W3CEvent || window.event;
@@ -11,7 +57,7 @@ function getPointerPosition(e) {//兼容浏览器的鼠标x,y获得函数
  var x = e.pageX || (e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
  var y = e.pageY || (e.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
 
- return { 'x':x,'y':y };
+ return { 'x':x,'y':y ,"X":e.clientX, "Y":e.clientY};
 }
 function setOpacity(elem,level) {//兼容浏览器设置透明值
  if(elem.filters) {
@@ -31,7 +77,7 @@ function css(elem,prop) { //css设置函数,可以方便设置css值,并且兼�
  return elem;
 }
 var magnifier = {
- blV: "v0.0.42",
+ blV: "v0.0.112",
  m : null,
 
  blrAboutMe : function(b,d){		
@@ -99,14 +145,18 @@ var magnifier = {
  },
 
  move:function(e){
+  var xy = blCoor(e);
   var pos = getPointerPosition(e);  //事件标准化
   var _d = this.getElementsByTagName('div')[0]; 
-  _d.style.display = '';
- 
+  _d.style.display = 'block';
+  var _y = xy.y + 'px';
+  var _x = xy.x + 'px';
+   //left=鼠标x - this.offsetLeft - 浏览框宽/2,Math.max和Math.min让浏览框不会超出图像
+  bl$("blrAboutMe").innerHTML = _x + ":" + _y + "__" + xy.y + ":" + xy.y ;
   css(_d ,{
    'background': blColor[2],
-   'top' : Math.min(Math.max(pos.y - this.offsetTop - parseInt(_d.style.height) / 2,0),this.clientHeight - _d.offsetHeight) + 'px',
-   'left' : Math.min(Math.max(pos.x - this.offsetLeft - parseInt(_d.style.width) / 2,0),this.clientWidth - _d.offsetWidth) + 'px'   //left=鼠标x - this.offsetLeft - 浏览框宽/2,Math.max和Math.min让浏览框不会超出图像
+   'top' : _y,
+   'left' : _x  
    })
  
   magnifier.m.mag.style.display = '';
@@ -145,7 +195,7 @@ var magnifier = {
 
 
 //--------------
-var d1 = blo0.blMDiv(document.body,"id_md1","md1",0,33,500,400,"green");
+var d1 = blo0.blMDiv(document.body,"id_md1","md1",0,33,500,400,"red");
 var s = '<img id="img" src="https://raw.githubusercontent.com/littleflute/blog/master/pics/DSC_1655.JPG"  />';
 s += '<div id="Browser">        </div>';
 d1.v0 = blo0.blDiv(d1,"v0","v0","grey");
