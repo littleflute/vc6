@@ -1,4 +1,4 @@
-### [v0.0.11](https://github.com/littleflute/vc6/edit/master/README.md)
+### [v0.0.12](https://github.com/littleflute/vc6/edit/master/README.md)
 ### [XdHtml](XdHtml)
 ### [code](code)
 ###[blc](blc)
@@ -19,4 +19,8 @@
 
 
 
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<script src="https://littleflute.github.io/JavaScript/blclass.js" ></script>
+<script src="https://littleflute.github.io/JavaScript/blApp.js"></script>
+<script src="blAppPlx.js"></script>
 
