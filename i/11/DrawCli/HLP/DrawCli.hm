@@ -1,0 +1,39 @@
+ 
+// Commands (ID_* and IDM_*) 
+HID_POPUP_MENU                          0x10085
+HID_CANCEL_EDIT_CNTR                    0x18000
+HID_VIEW_PAPERCOLOR                     0x18003
+HID_VIEW_GRID                           0x18004
+HID_DRAW_LINE                           0x18005
+HID_DRAW_SELECT                         0x18006
+HID_DRAW_RECT                           0x18007
+HID_DRAW_ROUNDRECT                      0x18008
+HID_DRAW_ELLIPSE                        0x18009
+HID_DRAW_CIRCLE                         0x1800A
+HID_OBJECT_LINECOLOR                    0x1800D
+HID_OBJECT_FILLCOLOR                    0x1800E
+HID_EDIT_PROPERTIES                     0x1800F
+HID_OBJECT_TEXTCOLOR                    0x18010
+HID_VIEW_SHOWOBJECTS                    0x18010
+HID_OBJECT_MOVETOFRONT                  0x18011
+HID_OBJECT_MOVETOBACK                   0x18012
+HID_OBJECT_MOVEFORWARD                  0x18013
+HID_OBJECT_MOVEBACK                     0x18014
+HID_VIEW_DRAWTOOLBAR                    0x18030
+ 
+// Prompts (IDP_*) 
+HIDP_OLE_INIT_FAILED                    0x30064
+HIDP_FAILED_TO_CREATE                   0x30066
+HIDP_SOCKETS_INIT_FAILED                0x30068
+ 
+// Resources (IDR_*) 
+HIDR_DRAWCLTYPE_CNTR_IP                 0x20006
+HIDR_MAINFRAME                          0x20080
+HIDR_DRAWCLTYPE                         0x20081
+HIDR_DRAW_TOOLBAR                       0x20082
+ 
+// Dialogs (IDD_*) 
+HIDD_ABOUTBOX                           0x20064
+HIDD_PROP_RECT                          0x20065
+ 
+// Frame Controls (IDW_*) 
