@@ -58,6 +58,4 @@ AFX_HIDP_FAILED_TO_UPDATE         = AFX_HIDP_default
 AFX_HIDP_FAILED_TO_REGISTER       = AFX_HIDP_default
 AFX_HIDP_FAILED_TO_AUTO_REGISTER  = AFX_HIDP_default
 
-[MAP]
-#include <D:\Program Files\Microsoft Visual Studio\VC98\MFC\include\afxhelp.hm>
-#include <D:\DrawCli\hlp\DrawCli.hm>
+[MAP]  

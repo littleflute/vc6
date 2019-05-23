@@ -2,5 +2,18 @@ Microsoft (R) Help Compiler
 HCRTF 4.03.0002
 Copyright (c) Microsoft Corp 1990 - 1995. All rights reserved.
 drawcli.hpj
-    HC5011: Error: drawcli.hpj : 
-	Cannot open the file "D:\DrawCli\hlp\DrawCli.hm."
+    HC1002: Note: 
+	Using existing phrase table: DrawCli.ph.
+    HC3025: Warning: topic #1 of C:\xd\github\vc6\i\11\DrawCli\hlp\.\afxcore.rtf : 
+	Jump to undefined Topic ID: "menu_record".
+81	Topics
+50	Jumps
+18	Keywords
+21	Bitmaps
+
+
+Created C:\xd\github\vc6\i\11\DrawCli\hlp\DrawCli.HLP, 42,807 bytes
+Bitmaps: 8,428 bytes
+Phrase+Zeck compression decreased help file by 12,212 bytes.
+Compile time: 0 minutes, 0 seconds
+1 note, 1 warning
