@@ -4,7 +4,7 @@ Copyright (c) Microsoft Corp 1990 - 1995. All rights reserved.
 drawcli.hpj
     HC1002: Note: 
 	Using existing phrase table: DrawCli.ph.
-    HC3025: Warning: topic #1 of C:\xd\github\vc6\i\11\DrawCli\hlp\.\afxcore.rtf : 
+    HC3025: Warning: topic #1 of C:\Users\13699\xd\github\vc6\i\11\DrawCli\hlp\.\afxcore.rtf : 
 	Jump to undefined Topic ID: "menu_record".
 81	Topics
 50	Jumps
@@ -12,8 +12,8 @@ drawcli.hpj
 21	Bitmaps
 
 
-Created C:\xd\github\vc6\i\11\DrawCli\hlp\DrawCli.HLP, 42,807 bytes
+Created C:\Users\13699\xd\github\vc6\i\11\DrawCli\hlp\DrawCli.HLP, 42,807 bytes
 Bitmaps: 8,428 bytes
 Phrase+Zeck compression decreased help file by 12,212 bytes.
-Compile time: 0 minutes, 0 seconds
+Compile time: 0 minutes, 1 second
 1 note, 1 warning
