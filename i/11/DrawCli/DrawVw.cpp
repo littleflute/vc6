@@ -568,6 +568,8 @@ void CDrawView::DrawGrid(CDC* pDC)
 	penDash.CreatePen(PS_DASH, 1, m_gridColor);
 	CPen* pOldPen = pDC->SelectObject(&penDash);
 
+	pDC->TextOut(410,280,"xdtest: v0.0.1");
+
 	pDC->MoveTo(0, rect.top);
 	pDC->LineTo(0, rect.bottom);
 	pDC->MoveTo(rect.left, 0);

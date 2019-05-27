@@ -453,7 +453,7 @@ SOURCE=.\hlp\Scmin.bmp
 # End Group
 # Begin Source File
 
-SOURCE=.\ReadMe.txt
+SOURCE=.\readme.md
 # End Source File
 # End Target
 # End Project
