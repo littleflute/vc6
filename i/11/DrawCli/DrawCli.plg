@@ -6,6 +6,35 @@
 --------------------Configuration: DrawCli - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE4.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/DrawCli.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\xd\github\vc6\i\11\DrawCli\DrawObj.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE4.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE5.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/DrawCli.pdb" /debug /machine:I386 /out:"Debug/DrawCli.exe" /pdbtype:sept 
+.\Debug\CntrItem.obj
+.\Debug\DrawCli.obj
+.\Debug\DrawDoc.obj
+.\Debug\DrawObj.obj
+.\Debug\DrawTool.obj
+.\Debug\DrawVw.obj
+.\Debug\MainFrm.obj
+.\Debug\RectDlg.obj
+.\Debug\SplitFrm.obj
+.\Debug\StdAfx.obj
+.\Debug\DrawCli.res
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE5.tmp"
+<h3>Output Window</h3>
+Compiling...
+DrawObj.cpp
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/DrawCli.bsc"  .\Debug\StdAfx.sbr .\Debug\CntrItem.sbr .\Debug\DrawCli.sbr .\Debug\DrawDoc.sbr .\Debug\DrawObj.sbr .\Debug\DrawTool.sbr .\Debug\DrawVw.sbr .\Debug\MainFrm.sbr .\Debug\RectDlg.sbr .\Debug\SplitFrm.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 

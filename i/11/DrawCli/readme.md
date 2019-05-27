@@ -1,4 +1,4 @@
-## [v0.0.15](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
+## [v0.0.21](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
 ## [log.html](log.html)
 ## [https://littleflute.github.io/vc6/](https://littleflute.github.io/vc6/)
  
@@ -12,7 +12,8 @@
 
 
 --xd2--
-¡¾1¡¿: pDC->TextOut(rect.left,rect.right,"xdtest2:");
+¡¾1¡¿: pDC->TextOut(rect.left,rect.right,"xdtest2:"); pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
+¡¾2¡¿: CRect					m_XDRecPosition;
 
 --xd1--
 3) * 	XDS_line, XDDS_line

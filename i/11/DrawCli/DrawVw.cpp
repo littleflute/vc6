@@ -391,7 +391,7 @@ void CDrawView::OnContextMenu(CWnd*, CPoint point)
 
 void CDrawView::InvalObj(CDrawObj *pObj)
 {
-	CRect rect = pObj->m_position;
+	CRect rect = pObj->m_XDRecPosition;
 	DocToClient(rect);
 	if (m_bActive && IsSelected(pObj))
 	{
@@ -568,7 +568,7 @@ void CDrawView::DrawGrid(CDC* pDC)
 	penDash.CreatePen(PS_DASH, 1, m_gridColor);
 	CPen* pOldPen = pDC->SelectObject(&penDash);
 
-	pDC->TextOut(410,280,"xdtest: v0.0.1");
+	pDC->TextOut(410,280,"xdtest1: v0.0.2");
 
 	pDC->MoveTo(0, rect.top);
 	pDC->LineTo(0, rect.bottom);

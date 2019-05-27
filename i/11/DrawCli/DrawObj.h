@@ -24,7 +24,7 @@ public:
 	CDrawObj(const CRect& position);
 
 // Attributes
-	CRect m_position;
+	CRect					m_XDRecPosition;
 	CDrawDoc* m_pDocument;
 
 	virtual int GetHandleCount();

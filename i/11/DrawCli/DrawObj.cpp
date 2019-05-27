@@ -34,7 +34,7 @@ CDrawObj::~CDrawObj()
 
 CDrawObj::CDrawObj(const CRect& position)
 {
-	m_position = position;
+	m_XDRecPosition = position;
 	m_pDocument = NULL;
 
 	m_bPen = TRUE;
@@ -54,7 +54,7 @@ void CDrawObj::Serialize(CArchive& ar)
 	CObject::Serialize(ar);
 	if (ar.IsStoring())
 	{
-		ar << m_position;
+		ar << m_XDRecPosition;
 		ar << (WORD)m_bPen;
 		ar.Write(&m_logpen, sizeof(LOGPEN));
 		ar << (WORD)m_bBrush;
@@ -68,7 +68,7 @@ void CDrawObj::Serialize(CArchive& ar)
 		ASSERT_KINDOF(CDrawDoc, m_pDocument);
 
 		WORD wTemp;
-		ar >> m_position;
+		ar >> m_XDRecPosition;
 		ar >> wTemp; m_bPen = (BOOL)wTemp;
 		ar.Read(&m_logpen,sizeof(LOGPEN));
 		ar >> wTemp; m_bBrush = (BOOL)wTemp;
@@ -112,6 +112,7 @@ void CDrawObj::DrawTracker(CDC* pDC, TrackerState state)
 void CDrawObj::MoveTo(const CRect& position, CDrawView* pView)
 {
 	ASSERT_VALID(this);
+	CRect & m_position = this->m_XDRecPosition;
  
 	if (position == m_position)
 		return;
@@ -140,6 +141,7 @@ int CDrawObj::HitTest(CPoint point, CDrawView* pView, BOOL bSelected)
 {
 	ASSERT_VALID(this);
 	ASSERT(pView != NULL);
+	CRect &m_position= m_XDRecPosition;
 
 	if (bSelected)
 	{
@@ -166,6 +168,7 @@ int CDrawObj::HitTest(CPoint point, CDrawView* pView, BOOL bSelected)
 BOOL CDrawObj::Intersects(const CRect& rect)
 {
 	ASSERT_VALID(this);
+	CRect &m_position= m_XDRecPosition;
 
 	CRect fixed = m_position;
 	fixed.NormalizeRect();
@@ -185,6 +188,8 @@ CPoint CDrawObj::GetHandle(int nHandle)
 {
 	ASSERT_VALID(this);
 	int x, y, xCenter, yCenter;
+
+	CRect &m_position= m_XDRecPosition;
 
 	// this gets the center regardless of left/right and top/bottom ordering
 	xCenter = m_position.left + m_position.Width() / 2;
@@ -296,7 +301,7 @@ void CDrawObj::MoveHandleTo(int nHandle, CPoint point, CDrawView* pView)
 {
 	ASSERT_VALID(this);
 
-	CRect position = m_position;
+	CRect position = this->m_XDRecPosition;
 	switch (nHandle)
 	{
 	default:
@@ -352,7 +357,7 @@ CDrawObj* CDrawObj::Clone(CDrawDoc* pDoc)
 {
 	ASSERT_VALID(this);
  
-	CDrawObj* pClone = new CDrawObj(m_position);
+	CDrawObj* pClone = new CDrawObj(this->m_XDRecPosition);
 
 	pClone->m_bPen = m_bPen;
 	pClone->m_logpen = m_logpen;
@@ -425,8 +430,8 @@ void CDrawObj::SetFillColor(COLORREF color)
 #ifdef _DEBUG
 void CDrawObj::AssertValid()
 {
-	ASSERT(m_position.left <= m_position.right);
-	ASSERT(m_position.bottom <= m_position.top);
+	ASSERT(m_XDRecPosition.left <= m_XDRecPosition.right);
+	ASSERT(m_XDRecPosition.bottom <= m_XDRecPosition.top);
 }
 #endif
 
@@ -526,7 +531,7 @@ void CDrawRect::Draw(CDC* pDC)
 	else
 		pOldPen = (CPen*)pDC->SelectStockObject(NULL_PEN);
 
-	CRect rect = m_position;
+	CRect rect = m_XDRecPosition;
 	switch (m_nShape)
 	{
 	case rectangle:
@@ -571,7 +576,10 @@ void CDrawRect::Draw(CDC* pDC)
 
 		pDC->MoveTo(rect.TopLeft());
 		pDC->LineTo(rect.BottomRight());
-		pDC->TextOut(rect.left,rect.right,"xdtest2:");
+
+		pDC->TextOut(rect.left,rect.top,"test2: left,top");
+		pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
+
 		break;
 	}
 
@@ -597,7 +605,7 @@ CPoint CDrawRect::GetHandle(int nHandle)
 		nHandle = 5;
 	else if (m_nShape == roundRectangle && nHandle == 9)
 	{
-		CRect rect = m_position;
+		CRect rect = m_XDRecPosition;
 		rect.NormalizeRect();
 		CPoint point = rect.BottomRight();
 		point.x -= m_roundness.x / 2;
@@ -628,7 +636,7 @@ void CDrawRect::MoveHandleTo(int nHandle, CPoint point, CDrawView* pView)
 		nHandle = 5;
 	else if (m_nShape == roundRectangle && nHandle == 9)
 	{
-		CRect rect = m_position;
+		CRect rect = m_XDRecPosition;
 		rect.NormalizeRect();
 		if (point.x > rect.right - 1)
 			point.x = rect.right - 1;
@@ -659,7 +667,7 @@ BOOL CDrawRect::Intersects(const CRect& rect)
 	CRect rectT = rect;
 	rectT.NormalizeRect();
 
-	CRect fixed = m_position;
+	CRect fixed = m_XDRecPosition;
 	fixed.NormalizeRect();
 	if ((rectT & fixed).IsRectEmpty())
 		return FALSE;
@@ -736,7 +744,7 @@ CDrawObj* CDrawRect::Clone(CDrawDoc* pDoc)
 {
 	ASSERT_VALID(this);
 
-	CDrawRect* pClone = new CDrawRect(m_position);
+	CDrawRect* pClone = new CDrawRect(m_XDRecPosition);
 
 	pClone->m_bPen = m_bPen;
 	pClone->m_logpen = m_logpen;
@@ -821,7 +829,7 @@ CDrawObj* CDrawOleObj::Clone(CDrawDoc* pDoc)
 	{
 		// perform a "deep copy" -- need to copy CDrawOleObj and the CDrawItem
 		//  that it points to.
-		CDrawOleObj* pClone = new CDrawOleObj(m_position);
+		CDrawOleObj* pClone = new CDrawOleObj(m_XDRecPosition);
 		CDrawItem* pItem = new CDrawItem(m_pDocument, pClone);
 		if (!pItem->CreateCloneFrom(m_pClientItem))
 			AfxThrowMemoryException();
@@ -860,14 +868,14 @@ void CDrawOleObj::Draw(CDC* pDC)
 	if (pItem != NULL)
 	{
 		// draw the OLE item itself
-		pItem->Draw(pDC, m_position);
+		pItem->Draw(pDC, m_XDRecPosition);
 
 		// don't draw tracker in print preview or on printer
 		if (!pDC->IsPrinting())
 		{
 			// use a CRectTracker to draw the standard effects
 			CRectTracker tracker;
-			tracker.m_rect = m_position;
+			tracker.m_rect = m_XDRecPosition;
 			pDC->LPtoDP(tracker.m_rect);
 
 			if (c_bShowItems)
@@ -916,7 +924,7 @@ void CDrawOleObj::MoveTo(const CRect& position, CDrawView* pView)
 {
 	ASSERT_VALID(this);
 
-	if (position == m_position)
+	if (position == m_XDRecPosition)
 		return;
 
 	// call base class to update position

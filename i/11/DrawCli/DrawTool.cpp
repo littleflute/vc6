@@ -277,7 +277,7 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags, const CPoint& point
 	while (pos != NULL)
 	{
 		CDrawObj* pObj = pView->m_selection.GetNext(pos);
-		CRect position = pObj->m_position;
+		CRect position = pObj->m_XDRecPosition;
 
 		if (selectMode == move)
 		{

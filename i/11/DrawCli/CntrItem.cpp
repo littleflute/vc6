@@ -162,18 +162,18 @@ BOOL CDrawItem::UpdateExtent()
 	// if new object (i.e. m_extent is empty) setup position
 	if (m_pDrawObj->m_extent == CSize(0, 0))
 	{
-		m_pDrawObj->m_position.right =
-			m_pDrawObj->m_position.left + MulDiv(size.cx, 10, 254);
-		m_pDrawObj->m_position.bottom =
-			m_pDrawObj->m_position.top - MulDiv(size.cy, 10, 254);
+		m_pDrawObj->m_XDRecPosition.right =
+			m_pDrawObj->m_XDRecPosition.left + MulDiv(size.cx, 10, 254);
+		m_pDrawObj->m_XDRecPosition.bottom =
+			m_pDrawObj->m_XDRecPosition.top - MulDiv(size.cy, 10, 254);
 	}
 	// else data changed so scale up rect as well
 	else if (!IsInPlaceActive() && size != m_pDrawObj->m_extent)
 	{
-		m_pDrawObj->m_position.right = m_pDrawObj->m_position.left +
-			MulDiv(m_pDrawObj->m_position.Width(), size.cx, m_pDrawObj->m_extent.cx);
-		m_pDrawObj->m_position.bottom = m_pDrawObj->m_position.top +
-			MulDiv(m_pDrawObj->m_position.Height(), size.cy, m_pDrawObj->m_extent.cy);
+		m_pDrawObj->m_XDRecPosition.right = m_pDrawObj->m_XDRecPosition.left +
+			MulDiv(m_pDrawObj->m_XDRecPosition.Width(), size.cx, m_pDrawObj->m_extent.cx);
+		m_pDrawObj->m_XDRecPosition.bottom = m_pDrawObj->m_XDRecPosition.top +
+			MulDiv(m_pDrawObj->m_XDRecPosition.Height(), size.cy, m_pDrawObj->m_extent.cy);
 	}
 
 	m_pDrawObj->m_extent = size;
