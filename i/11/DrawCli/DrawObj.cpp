@@ -539,7 +539,13 @@ void CDrawRect::Draw(CDC* pDC)
 	switch (m_nShape)
 	{
 	case rectangle:
-		pDC->Rectangle(rect);
+		{
+			pDC->Rectangle(rect);
+			CString s;
+			s.Format("test4: SN: %d",m_XDSN);
+			pDC->TextOut(rect.CenterPoint().x,rect.CenterPoint().y, s);
+			pDC->TextOut(rect.right,rect.bottom," r,b");
+		}
 		break;
 
 	case roundRectangle:
