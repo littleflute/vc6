@@ -546,7 +546,7 @@ void CDrawRect::Draw(CDC* pDC)
 		//pDC->Circle(rect);
 		break;
 
-	case line:
+	case XDS_line:
 		if (rect.top > rect.bottom)
 		{
 			rect.top -= m_logpen.lopnWidth.y / 2;
@@ -583,7 +583,7 @@ int CDrawRect::GetHandleCount()
 {
 	ASSERT_VALID(this);
 
-	return m_nShape == line ? 2 :
+	return m_nShape == XDS_line ? 2 :
 		CDrawObj::GetHandleCount() + (m_nShape == roundRectangle);
 }
 
@@ -592,7 +592,7 @@ CPoint CDrawRect::GetHandle(int nHandle)
 {
 	ASSERT_VALID(this);
 
-	if (m_nShape == line && nHandle == 2)
+	if (m_nShape == XDS_line && nHandle == 2)
 		nHandle = 5;
 	else if (m_nShape == roundRectangle && nHandle == 9)
 	{
@@ -611,7 +611,7 @@ HCURSOR CDrawRect::GetHandleCursor(int nHandle)
 {
 	ASSERT_VALID(this);
 
-	if (m_nShape == line && nHandle == 2)
+	if (m_nShape == XDS_line && nHandle == 2)
 		nHandle = 5;
 	else if (m_nShape == roundRectangle && nHandle == 9)
 		return AfxGetApp()->LoadStandardCursor(IDC_SIZEALL);
@@ -623,7 +623,7 @@ void CDrawRect::MoveHandleTo(int nHandle, CPoint point, CDrawView* pView)
 {
 	ASSERT_VALID(this);
 
-	if (m_nShape == line && nHandle == 2)
+	if (m_nShape == XDS_line && nHandle == 2)
 		nHandle = 5;
 	else if (m_nShape == roundRectangle && nHandle == 9)
 	{
@@ -678,7 +678,7 @@ BOOL CDrawRect::Intersects(const CRect& rect)
 		rgn.CreateEllipticRgnIndirect(fixed);
 		break;
 
-	case line:
+	case XDS_line:
 		{
 			int x = (m_logpen.lopnWidth.x + 5) / 2;
 			int y = (m_logpen.lopnWidth.y + 5) / 2;

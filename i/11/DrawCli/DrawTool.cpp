@@ -27,7 +27,7 @@ static char THIS_FILE[]=__FILE__;
 CPtrList CDrawTool::c_tools;
 
 static CSelectTool selectTool;
-static CRectTool lineTool(line);
+static CRectTool lineTool(XDDS_line);
 static CRectTool rectTool(rect);
 static CRectTool roundRectTool(roundRect);
 static CRectTool ellipseTool(ellipse);
@@ -339,8 +339,8 @@ void CRectTool::OnLButtonDown(CDrawView* pView, UINT nFlags, const CPoint& point
 		pObj->m_nShape = CDrawRect::ellipse;
 		break;
 
-	case line:
-		pObj->m_nShape = CDrawRect::line;
+	case XDDS_line:
+		pObj->m_nShape = CDrawRect::XDS_line;
 		break;
 	case circle:
 		pObj->m_nShape = CDrawRect::circle;

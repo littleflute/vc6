@@ -681,7 +681,7 @@ void CDrawView::OnDrawEllipse()
 
 void CDrawView::OnDrawLine() 
 {
-	CDrawTool::c_drawShape = line;
+	CDrawTool::c_drawShape = XDDS_line;
 	
 }
 

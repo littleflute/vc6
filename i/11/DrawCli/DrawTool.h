@@ -13,16 +13,7 @@
 #include "drawobj.h"
 class CDrawView;
 
-enum DrawShape
-{
-	selection,
-	line,
-	rect,
-	roundRect,
-	ellipse,
-    circle,
-	poly
-};
+enum DrawShape {	selection, 	XDDS_line, 	rect,	roundRect,	ellipse,    circle,	poly};
 
 class CDrawTool  
 {

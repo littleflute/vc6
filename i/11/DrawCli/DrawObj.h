@@ -93,7 +93,7 @@ public:
 	virtual CDrawObj* Clone(CDrawDoc* pDoc);
 
 protected:
-	enum Shape { rectangle, roundRectangle, ellipse, line, circle };
+	enum Shape { rectangle, roundRectangle, ellipse, XDS_line, circle };
 	Shape m_nShape;
 	CPoint m_roundness; // for roundRect corners
 
