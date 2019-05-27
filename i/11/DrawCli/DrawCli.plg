@@ -6,13 +6,13 @@
 --------------------Configuration: DrawCli - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE4.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPFF.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/DrawCli.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\xd\github\vc6\i\11\DrawCli\DrawObj.cpp"
+"C:\xd\github\vc6\i\11\DrawCli\DrawVw.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE4.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE5.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPFF.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP100.tmp" with contents
 [
 /nologo /subsystem:windows /incremental:yes /pdb:"Debug/DrawCli.pdb" /debug /machine:I386 /out:"Debug/DrawCli.exe" /pdbtype:sept 
 .\Debug\CntrItem.obj
@@ -27,10 +27,10 @@ Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE5.tmp" with cont
 .\Debug\StdAfx.obj
 .\Debug\DrawCli.res
 ]
-Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE5.tmp"
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP100.tmp"
 <h3>Output Window</h3>
 Compiling...
-DrawObj.cpp
+DrawVw.cpp
 Linking...
 Creating command line "bscmake.exe /nologo /o"Debug/DrawCli.bsc"  .\Debug\StdAfx.sbr .\Debug\CntrItem.sbr .\Debug\DrawCli.sbr .\Debug\DrawDoc.sbr .\Debug\DrawObj.sbr .\Debug\DrawTool.sbr .\Debug\DrawVw.sbr .\Debug\MainFrm.sbr .\Debug\RectDlg.sbr .\Debug\SplitFrm.sbr"
 Creating browse info file...

@@ -13,11 +13,11 @@
 
 --xd2--
 ¡¾1¡¿: pDC->TextOut(rect.left,rect.right,"xdtest2:"); pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
-¡¾2¡¿: CRect					m_XDRecPosition;
+¡¾2¡¿: CRect					m_XDRecPosition; int						m_XDSN;
 
 --xd1--
 3) * 	XDS_line, XDDS_line
-2) + 	pDC->TextOut(410,280,"xdtest: v0.0.1");
+2) + 	pDC->TextOut(410,280,"xdtest1: v0.0.1");
 
 1) test git. 
 https://github.com/littleflute/vc6.git

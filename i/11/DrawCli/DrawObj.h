@@ -24,6 +24,7 @@ public:
 	CDrawObj(const CRect& position);
 
 // Attributes
+	int						m_XDSN;
 	CRect					m_XDRecPosition;
 	CDrawDoc* m_pDocument;
 
