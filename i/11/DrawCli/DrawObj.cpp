@@ -571,6 +571,7 @@ void CDrawRect::Draw(CDC* pDC)
 
 		pDC->MoveTo(rect.TopLeft());
 		pDC->LineTo(rect.BottomRight());
+		pDC->TextOut(rect.left,rect.right,"xdtest2:");
 		break;
 	}
 
