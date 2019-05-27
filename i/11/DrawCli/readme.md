@@ -1,4 +1,5 @@
-## [v0.0.12](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
+## [v0.0.13](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
+## [log.html](log.html)
 ## [https://littleflute.github.io/vc6/](https://littleflute.github.io/vc6/)
 
 --xd1--
