@@ -453,6 +453,10 @@ SOURCE=.\hlp\Scmin.bmp
 # End Group
 # Begin Source File
 
+SOURCE=.\blMoveDiv.js
+# End Source File
+# Begin Source File
+
 SOURCE=.\log.html
 # End Source File
 # Begin Source File

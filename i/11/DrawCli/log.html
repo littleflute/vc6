@@ -24,6 +24,50 @@
     <![endif]-->
   </head>
   <body>
+  <script src="blMoveDiv.js"></script>
+
+  <script>
+  
+var run = function()
+{
+	var main = myMoveDiv.blDiv(document.body,"moveDivBody","");
+	var win = myMoveDiv.blDiv(document.body,"win","myMoveDiv");
+    
+	var av = myMoveDiv.blLink (win,"av","v0.0.7","https://github.com/littleflute/blog/edit/master/js/blDraggableDIV.js","#fb3"); 
+	var at = myMoveDiv.blLink(win,"at","test","https://littleflute.github.io/blog/html/tools/blDraggableDIV.html","green");
+	var ai = myMoveDiv.blLink(win,"ai","issue","https://github.com/littleflute/blog/issues/686","#1fa");
+	var a1 = myMoveDiv.blLink (win,"a1","dev1","http://www.w3school.com.cn/tiy/t.asp?f=ajax_get","#abc");
+	var a2 = myMoveDiv.blLink (win,"a2","dev2","http://www.w3school.com.cn/tiy/t.asp?f=ajax_get","#fab");
+
+	myMoveDiv.showObj2Div(win,myMoveDiv);
+
+	var style ="position: absolute;";
+	style += "z-index: 9;";
+	style += "background-color: #f1f1f1;";
+	style += "text-align: center;";
+	style += "border: 1px solid #d3d3d3;";
+	style += "left: 400px";
+	style += "top: 140px";
+	main.style =style;
+	var title = myMoveDiv.blDiv(main,"moveDivHeader","header");
+	style ="padding: 10px;";
+	style += "z-index: 10;";
+	style += "cursor: move;";
+	style += "text-align: center;";
+	style += "border: 1px solid #fff;";
+	style += "background-color: #2196F3;";
+	title.style =style;
+	var d1 = myMoveDiv.blDiv(main,"d1","d1");
+	var d2 = myMoveDiv.blDiv(main,"d2","d2");
+	var btn1 = myMoveDiv.blBtn(d2,"btn1","about");
+	btn1.onclick = function(){ 
+    	myMoveDiv.inf();
+	}
+    myMoveDiv.dragElement(main);
+} 
+run();
+</script>
+
     <div class="wrapper">
       <header>
         <h1><a href="https://littleflute.github.io/vc6/">vc6</a></h1>                 
