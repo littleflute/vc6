@@ -25,6 +25,7 @@ public:
 
 // Attributes
 	int						m_XDSN;
+	char					m_XDChar;
 	CRect					m_XDRecPosition;
 	CDrawDoc* m_pDocument;
 

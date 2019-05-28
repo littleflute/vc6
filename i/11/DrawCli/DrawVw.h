@@ -27,10 +27,10 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	BOOL m_bActive;
-	COLORREF m_gridColor;
-	BOOL m_bGrid;
-	CDrawObjList m_selection;
+	BOOL			m_bActive;
+	COLORREF		m_gridColor;
+	BOOL			m_bGrid;
+	CDrawObjList	m_selection;
 
 	CDrawDoc* GetDocument();
 	// m_pSelection holds the selection to the current CDrawItem.
@@ -137,6 +137,7 @@ protected:
 	afx_msg void OnUpdateEditCut(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateEditPaste(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateEditSelectAll(CCmdUI* pCmdUI);
+	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

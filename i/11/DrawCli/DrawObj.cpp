@@ -35,6 +35,7 @@ CDrawObj::~CDrawObj()
 CDrawObj::CDrawObj(const CRect& position)
 {
 	static int nXDNO = 0;
+	m_XDChar = '*';
 	nXDNO ++;
 	m_XDSN = nXDNO;
 
@@ -542,7 +543,7 @@ void CDrawRect::Draw(CDC* pDC)
 		{
 			pDC->Rectangle(rect);
 			CString s;
-			s.Format("test4: SN: %d",m_XDSN);
+			s.Format("test4: SN: %d %c",m_XDSN, m_XDChar);
 			pDC->TextOut(rect.CenterPoint().x,rect.CenterPoint().y, s);
 			pDC->TextOut(rect.right,rect.bottom," r,b");
 		}
@@ -588,7 +589,7 @@ void CDrawRect::Draw(CDC* pDC)
 		pDC->LineTo(rect.BottomRight());
 
 		CString s;
-		s.Format("test2: SN: %d",m_XDSN);
+		s.Format("test2: SN: %d, %c",m_XDSN , m_XDChar);
 		pDC->TextOut(rect.left,rect.top, s);
 		pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
 

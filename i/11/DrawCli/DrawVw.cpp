@@ -83,6 +83,7 @@ BEGIN_MESSAGE_MAP(CDrawView, CScrollView)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_CUT, OnUpdateEditCut)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_PASTE, OnUpdateEditPaste)
 	ON_UPDATE_COMMAND_UI(ID_EDIT_SELECT_ALL, OnUpdateEditSelectAll)
+	ON_WM_CHAR()
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CScrollView::OnFilePrint)
@@ -1118,4 +1119,18 @@ void CDrawView::OnUpdate(CView* , LPARAM lHint, CObject* pHint)
 		break;
 	}
 
+}
+
+void CDrawView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) 
+{
+	// TODO: Add your message handler code here and/or call default
+	if ( m_selection.GetCount() == 1)
+	{
+		
+		CDrawObj* pObj =  m_selection.GetHead();
+		pObj->m_XDChar = nChar;
+		this->InvalObj(pObj);
+
+	}
+	CScrollView::OnChar(nChar, nRepCnt, nFlags);
 }

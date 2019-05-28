@@ -1,4 +1,4 @@
-## [v0.0.24](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
+## [v0.0.25](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
 ## [log.html](log.html) [cal.html](cal.html) 
 ## [https://littleflute.github.io/vc6/](https://littleflute.github.io/vc6/)
  
@@ -10,10 +10,12 @@
 <script src="https://littleflute.github.io/JavaScript/blclass.js" ></script>
 <script src="https://littleflute.github.io/JavaScript/blApp.js"></script>
 
+--xd3--
+1: void CDrawView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) ; m_XDChar
 
 --xd2--
-¡¾1¡¿: pDC->TextOut(rect.left,rect.right,"xdtest2:"); pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
-¡¾2¡¿: CRect					m_XDRecPosition; int						m_XDSN;
+1: pDC->TextOut(rect.left,rect.right,"xdtest2:"); pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
+2: CRect					m_XDRecPosition; int						m_XDSN;
 test4
 
 --xd1--

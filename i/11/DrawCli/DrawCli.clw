@@ -15,12 +15,12 @@ Class3=CDrawView
 Class4=CMainFrame
 
 ResourceCount=7
-Resource1=ID_POPUP_MENU
-Resource2=IDR_MAINFRAME
+Resource1=IDR_DRAWCLTYPE
+Resource2=ID_POPUP_MENU
 Resource3=IDR_DRAW_TOOLBAR
-Resource4=IDD_ABOUTBOX
-Resource5=IDR_DRAWCLTYPE_CNTR_IP
-Resource6=IDR_DRAWCLTYPE
+Resource4=IDR_MAINFRAME
+Resource5=IDD_ABOUTBOX
+Resource6=IDR_DRAWCLTYPE_CNTR_IP
 Class5=CSplitFrame
 Class6=CAboutDlg
 Class7=CRectDlg
