@@ -25,7 +25,7 @@ public:
 
 // Attributes
 	int						m_XDSN;
-	char					m_XDChar;
+	CString					m_XDString;
 	CRect					m_XDRecPosition;
 	CDrawDoc* m_pDocument;
 
@@ -40,7 +40,7 @@ public:
 	virtual void Draw(CDC* pDC);
 	enum TrackerState { normal, selected, active };
 	virtual void DrawTracker(CDC* pDC, TrackerState state);
-	virtual void MoveTo(const CRect& positon, CDrawView* pView = NULL);
+	virtual void XdMoveTo(const CRect& positon, CDrawView* pView = NULL);
 	virtual int HitTest(CPoint point, CDrawView* pView, BOOL bSelected);
 	virtual BOOL Intersects(const CRect& rect);
 	virtual void MoveHandleTo(int nHandle, CPoint point, CDrawView* pView = NULL);
@@ -52,6 +52,7 @@ public:
 
 // Implementation
 public:
+	void _xdGetChar(UINT &c);
 	virtual ~CDrawObj();
 	virtual void Serialize(CArchive& ar);
 #ifdef _DEBUG
@@ -64,6 +65,8 @@ protected:
 	LOGPEN m_logpen;
 	BOOL m_bBrush;
 	LOGBRUSH m_logbrush;
+
+	char		ct,C,T,D;
 };
 
 // special 'list' class for this application (requires afxtempl.h)
@@ -96,8 +99,8 @@ public:
 
 protected:
 	enum Shape { rectangle, roundRectangle, ellipse, XDS_line, circle };
-	Shape m_nShape;
-	CPoint m_roundness; // for roundRect corners
+	Shape		m_nShape;
+	CPoint		m_roundness; // for roundRect corners
 
 	friend class CRectTool;
 };
@@ -118,7 +121,7 @@ public:
 	virtual void Draw(CDC* pDC);
 	virtual CDrawObj* Clone(CDrawDoc* pDoc);
 	virtual void OnOpen(CDrawView* pView);
-	virtual void MoveTo(const CRect& positon, CDrawView* pView = NULL);
+	virtual void XdMoveTo(const CRect& positon, CDrawView* pView = NULL);
 	virtual void OnEditProperties();
 	virtual void Remove();
 	virtual ~CDrawOleObj();

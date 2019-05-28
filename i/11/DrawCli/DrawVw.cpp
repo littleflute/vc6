@@ -569,7 +569,7 @@ void CDrawView::DrawGrid(CDC* pDC)
 	penDash.CreatePen(PS_DASH, 1, m_gridColor);
 	CPen* pOldPen = pDC->SelectObject(&penDash);
 
-	pDC->TextOut(410,280,"xdtest1: v0.0.3");
+	pDC->TextOut(410,280,"xdtest1: v0.0.4");
 
 	pDC->MoveTo(0, rect.top);
 	pDC->LineTo(0, rect.bottom);
@@ -1008,7 +1008,7 @@ void CDrawView::PasteEmbedded(COleDataObject& dataObject, CPoint point)
 		GetDocument()->Add(pObj);
 		m_selection.AddTail(pObj);
 		ClientToDoc( point );
-		pObj->MoveTo( CRect( point, pObj->m_extent ), this );
+		pObj->XdMoveTo( CRect( point, pObj->m_extent ), this );
 
 		// try to get initial presentation data
 		pItem->UpdateLink();
@@ -1127,8 +1127,8 @@ void CDrawView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if ( m_selection.GetCount() == 1)
 	{
 		
-		CDrawObj* pObj =  m_selection.GetHead();
-		pObj->m_XDChar = nChar;
+		CDrawObj* pObj =  m_selection.GetHead();		
+		pObj->_xdGetChar(nChar);
 		this->InvalObj(pObj);
 
 	}

@@ -282,7 +282,7 @@ void CSelectTool::OnMouseMove(CDrawView* pView, UINT nFlags, const CPoint& point
 		if (selectMode == move)
 		{
 			position += delta;
-			pObj->MoveTo(position, pView);
+			pObj->XdMoveTo(position, pView);
 		}
 		else if (nDragHandle != 0)
 		{

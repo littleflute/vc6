@@ -32,12 +32,12 @@ public:
 // Attributes
 	DrawShape m_drawShape;
 
-	static CDrawTool* FindTool(DrawShape drawShape);
-	static CPtrList c_tools;
-	static CPoint c_down;
-	static UINT c_nDownFlags;
-	static CPoint c_last;
-	static DrawShape c_drawShape;
+	static CDrawTool*	FindTool(DrawShape drawShape);
+	static CPtrList		c_tools;
+	static CPoint		c_down;
+	static UINT			c_nDownFlags;
+	static CPoint		c_last;
+	static DrawShape	c_drawShape;
 
 };
 

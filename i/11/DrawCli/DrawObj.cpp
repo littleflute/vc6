@@ -26,6 +26,8 @@ IMPLEMENT_SERIAL(CDrawObj, CObject, 0)
 
 CDrawObj::CDrawObj()
 {
+	ct = '0';
+	C = T = D = '0';
 }
 
 CDrawObj::~CDrawObj()
@@ -35,7 +37,10 @@ CDrawObj::~CDrawObj()
 CDrawObj::CDrawObj(const CRect& position)
 {
 	static int nXDNO = 0;
-	m_XDChar = '*';
+	ct = '0';
+	C = T = D = '0';
+	m_XDString.Format("%c,%c,%c", C, T, D);
+
 	nXDNO ++;
 	m_XDSN = nXDNO;
 
@@ -114,7 +119,7 @@ void CDrawObj::DrawTracker(CDC* pDC, TrackerState state)
 }
 
 // position is in logical
-void CDrawObj::MoveTo(const CRect& position, CDrawView* pView)
+void CDrawObj::XdMoveTo(const CRect& position, CDrawView* pView)
 {
 	ASSERT_VALID(this);
 	CRect & m_position = this->m_XDRecPosition;
@@ -349,7 +354,7 @@ void CDrawObj::MoveHandleTo(int nHandle, CPoint point, CDrawView* pView)
 		break;
 	}
 
-	MoveTo(position, pView);
+	XdMoveTo(position, pView);
 }
 
 void CDrawObj::Invalidate()
@@ -368,6 +373,12 @@ CDrawObj* CDrawObj::Clone(CDrawDoc* pDoc)
 	pClone->m_logpen = m_logpen;
 	pClone->m_bBrush = m_bBrush;
 	pClone->m_logbrush = m_logbrush;
+	
+	pClone->C = C;
+	pClone->D = D;
+	pClone->T = T;
+	pClone->m_XDString = m_XDString;
+
 	ASSERT_VALID(pClone);
 
 	if (pDoc != NULL)
@@ -542,9 +553,8 @@ void CDrawRect::Draw(CDC* pDC)
 	case rectangle:
 		{
 			pDC->Rectangle(rect);
-			CString s;
-			s.Format("test4: SN: %d %c",m_XDSN, m_XDChar);
-			pDC->TextOut(rect.CenterPoint().x,rect.CenterPoint().y, s);
+			 
+			pDC->TextOut(rect.CenterPoint().x,rect.CenterPoint().y, m_XDString);
 			pDC->TextOut(rect.right,rect.bottom," r,b");
 		}
 		break;
@@ -591,10 +601,8 @@ void CDrawRect::Draw(CDC* pDC)
 
 		pDC->MoveTo(rect.TopLeft());
 		pDC->LineTo(rect.BottomRight());
-
-		CString s;
-		s.Format("test2: SN: %d, %c",m_XDSN , m_XDChar);
-		pDC->TextOut(rect.left,rect.top, s);
+ 
+		pDC->TextOut(rect.left,rect.top, m_XDString);
 		pDC->TextOut(rect.right,rect.bottom,"test3: r,b");
 
 		break;
@@ -768,7 +776,9 @@ CDrawObj* CDrawRect::Clone(CDrawDoc* pDoc)
 	pClone->m_bBrush = m_bBrush;
 	pClone->m_logbrush = m_logbrush;
 	pClone->m_nShape = m_nShape;
-	pClone->m_roundness = m_roundness;
+	pClone->m_roundness = m_roundness; 
+
+
 	ASSERT_VALID(pClone);
 
 	if (pDoc != NULL)
@@ -937,7 +947,7 @@ void CDrawOleObj::OnEditProperties()
 }
 
 // position is in logical
-void CDrawOleObj::MoveTo(const CRect& position, CDrawView* pView)
+void CDrawOleObj::XdMoveTo(const CRect& position, CDrawView* pView)
 {
 	ASSERT_VALID(this);
 
@@ -945,7 +955,7 @@ void CDrawOleObj::MoveTo(const CRect& position, CDrawView* pView)
 		return;
 
 	// call base class to update position
-	CDrawObj::MoveTo(position, pView);
+	CDrawObj::XdMoveTo(position, pView);
 
 	// update position of in-place editing session on position change
 	if (m_pClientItem->IsInPlaceActive())
@@ -953,3 +963,27 @@ void CDrawOleObj::MoveTo(const CRect& position, CDrawView* pView)
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+void CDrawObj::_xdGetChar(UINT &c)
+{
+	switch(c)
+	{
+		case 'c':
+			ct = 'c';
+			break;
+		case 't':
+			ct = 't';
+			break;
+		case 'd':
+			ct = 'd';
+			break;
+		default:
+			{
+				if('c'==ct) C = c;
+				if('t'==ct) T = c;
+				if('d'==ct) D = c; 
+			}
+			break;
+	}
+	m_XDString.Format("%c,%c,%c", C, T, D);
+}
