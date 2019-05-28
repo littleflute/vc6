@@ -18,6 +18,17 @@
 
 class CDrawItem;
 //class CDrawObj;
+class CBlMusic{
+public:
+	CBlMusic(int C, int T, int D){c=C;t=T;d=T;}
+	void CBlMusic::plDraw(CDC *pDC, int x, int y){
+		CString s;
+		s.Format("%d,%d,%d",c,t,d);
+		pDC->TextOut(x,y,s);
+	}
+private:
+	int c,t,d;
+};
 
 class CDrawView : public CScrollView
 {

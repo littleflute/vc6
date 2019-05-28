@@ -554,7 +554,11 @@ void CDrawRect::Draw(CDC* pDC)
 		break;
 
 	case ellipse:
-		pDC->Ellipse(rect);
+		{
+			pDC->Ellipse(rect);
+			CBlMusic m(1,2,3);
+			m.plDraw(pDC,rect.CenterPoint().x,rect.CenterPoint().y);
+		}
 		break;
 
 	case circle:

@@ -1,4 +1,4 @@
-## [v0.0.25](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
+## [v0.0.31](https://github.com/littleflute/vc6/edit/master/i/11/DrawCli/readme.md) [..](..)
 ## [log.html](log.html) [cal.html](cal.html) 
 ## [https://littleflute.github.io/vc6/](https://littleflute.github.io/vc6/)
  
@@ -9,6 +9,9 @@
 <script src="https://littleflute.github.io/JavaScript/w3.js"></script>
 <script src="https://littleflute.github.io/JavaScript/blclass.js" ></script>
 <script src="https://littleflute.github.io/JavaScript/blApp.js"></script>
+
+--xd4--
+1. CBlMusic m(1,2,3);
 
 --xd3--
 1: void CDrawView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) ; m_XDChar
