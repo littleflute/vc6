@@ -1,7 +1,7 @@
 
 --2019/5/31 15:02--osu--
 1. + git 
-2. * MyDrawString(gc, "xd_v: 0.0.2", Font(L"Arial",12), SolidBrush(Color::Blue), Point(20, 240));
+2. * MyDrawString(gc, "xd_v: 0.0.3", Font(L"Arial",12), SolidBrush(Color::Blue), Point(20, 240));
 
 
 ========================================================================

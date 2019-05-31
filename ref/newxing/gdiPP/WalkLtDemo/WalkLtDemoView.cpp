@@ -79,7 +79,7 @@ void CWalkLtDemoView::OnDraw(CDC* pDC)
 	Pen pen(Color::Red, 2);
 	gc.DrawArc(&pen, 10, 10, 300, 200, 0, 360);
 	
-	MyDrawString(gc, "xd_v: 0.0.2", Font(L"Arial",12), SolidBrush(Color::Blue), Point(20, 240));
+	MyDrawString(gc, "xd_v: 0.0.3", Font(L"Arial",12), SolidBrush(Color::Blue), Point(20, 240));
 
 	//支持 WalkLtDemo设计实例.cpp 中的函数调用
 	//----------- 调用 DoGdiplusDemo ---------
