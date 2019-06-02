@@ -1,5 +1,6 @@
-# [v0.0.23](https://github.com/littleflute/vc6/edit/master/README.md)
-## [https://github.com/jeremyjia](https://github.com/jeremyjia) 
+# [v0.0.24](https://github.com/littleflute/vc6/edit/master/README.md)
+## [【ls】](https://littleflute.github.io/ls/)
+## [【jeremyjia】](https://github.com/jeremyjia) 
 ## [i](i)
 
 ## [https://www.learncpp.com](https://www.learncpp.com)
